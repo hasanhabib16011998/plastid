@@ -11,7 +11,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           
           {/* Nested routes are injected into the <Outlet /> inside Layout */}
-          <Route index element={<Home />} />
+          {/* <Route index element={<Home />} /> */}
           
           {/* Example of how you will add future pages: */}
           {/* <Route path="about" element={<About />} /> */}

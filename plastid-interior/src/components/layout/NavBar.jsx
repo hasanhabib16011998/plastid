@@ -1,34 +1,48 @@
+import { useState } from 'react';
+import logo from "@images/resources/logo.png";
+import './NavBar.css';
+
 export default function Navbar() {
+  // 1. Add state to track if the mobile menu is open or closed
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div className="header-upper-style1">
       <div className="container">
         <div className="row">
           <div className="col-xl-12">
             <div className="inner-container clearfix">
+              
+              {/* Logo Section */}
               <div className="logo-box-style1 float-left">
                 <a href="/">
                   <img
-                    src="images/resources/logo.png"
+                    src={logo}
                     style={{ height: '80px', width: 'auto' }}
                     alt="PIA logo"
                   />
                 </a>
               </div>
+              
               <div className="main-menu-box float-right">
                 <nav className="main-menu clearfix">
+                  
+                  {/* Mobile Menu Button */}
                   <div className="navbar-header clearfix">
                     <button
                       type="button"
-                      className="navbar-toggle"
-                      data-toggle="collapse"
-                      data-target=".navbar-collapse"
+                      className="navbar-toggle block md:hidden p-2 mt-4 border border-gray-300 rounded" 
+                      onClick={() => setIsMenuOpen(!isMenuOpen)} // 2. Toggle state on click
                     >
-                      <span className="icon-bar"></span>
-                      <span className="icon-bar"></span>
-                      <span className="icon-bar"></span>
+                      <span className="icon-bar block w-6 h-0.5 bg-gray-600 mb-1"></span>
+                      <span className="icon-bar block w-6 h-0.5 bg-gray-600 mb-1"></span>
+                      <span className="icon-bar block w-6 h-0.5 bg-gray-600"></span>
                     </button>
                   </div>
-                  <div className="navbar-collapse collapse clearfix">
+                  
+                  {/* Navigation Links */}
+                  {/* 3. Removed 'collapse' and added Tailwind classes to show/hide based on state */}
+                  <div className={`navbar-collapse clearfix ${isMenuOpen ? 'block' : 'hidden md:block'}`}>
                     <ul className="navigation clearfix">
                       <li className="dropdown current">
                         <a href="/">Home</a>
@@ -69,6 +83,7 @@ export default function Navbar() {
                       </li>
                     </ul>
                   </div>
+
                 </nav>
               </div>
             </div>

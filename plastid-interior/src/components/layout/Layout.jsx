@@ -11,7 +11,7 @@ export default function Layout() {
       {/* --- HEADER --- */}
       <header className="main-header header-style1">
         <Navbar />
-        <HeaderContactInfo />
+        {/* <HeaderContactInfo /> */}
       </header>
 
       {/* --- MAIN PAGE CONTENT --- */}
@@ -21,7 +21,7 @@ export default function Layout() {
       </main>
 
       {/* --- FOOTER --- */}
-      <Footer />
+      {/* <Footer /> */}
       
     </div>
   );
