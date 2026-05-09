@@ -1,5 +1,7 @@
 .main-header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 999;
 }
 
 .header-upper {
@@ -13,89 +15,145 @@
   position: relative;
   padding: 0 40px;
   margin-top: 0px;
-  background: #ffffffed;
-  -webkit-box-shadow: 0px 4px 11px -1px #ECECEC;
+  background: #ffffff;
   box-shadow: 0px 4px 11px -1px #ECECEC;
-  z-index: 9999999999;
+  z-index: 10;
 }
 
-
 .logo-box img {
-  height: 80px;
+  height: 100px;
   width: auto;
+  padding: 10px 0;
 }
 
 .main-menu-box {
   margin-left: 50px;
+  flex: 1;
 }
 
+/* --- Beautified Header Lower --- */
 .header-lower {
-  padding: 20px 0;
-  background: #f6f6f6;
+  background: #f9f9f9; /* Softer, cleaner background */
+  border-bottom: 1px solid #eeeeee; /* Subtle bottom edge */
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px 15px;
+  border-right: 1px solid #e5e5e5;
+  border-left: 1px solid #e5e5e5;
 }
 
 .header-contact-info {
   display: flex;
+  align-items: center;
   list-style: none;
-  gap: 40px;
+  margin: 0;
+  padding: 0;
   flex: 1;
+  border-right: 1px solid #e5e5e5;
+}
+
+.header-contact-info li {
+  padding: 0 30px;
+  border-right: 1px solid #e5e5e5; /* Cleaner dividers */
+}
+
+/* Remove padding/border from the outer edges */
+.header-contact-info li:first-child {
+  padding-left: 0;
+}
+.header-contact-info li:last-child {
+  border-right: none;
 }
 
 .contact-item {
   display: flex;
+  align-items: center; /* Center icon with text */
   gap: 15px;
+  cursor: default;
 }
 
+/* Icon starts gray and turns red on hover for an interactive feel */
 .contact-item .icon {
-  font-size: 24px;
-  color: var(--primary-color);
+  font-size: 40px; 
+  color: #b7b7b7; 
+  transition: color 300ms ease;
+}
+
+.contact-item:hover .icon {
+  color: #e9212e; /* Beautiful red pop */
+  transition: all 500ms ease-in-out; 
 }
 
 .contact-item h3 {
   margin: 0;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
+  color: #27282c;
+  font-family: 'Rubik', sans-serif;
 }
 
 .contact-item p {
-  margin: 5px 0 0 0;
-  font-size: 12px;
-  color: var(--text-light);
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: #828282;
 }
 
+/* --- Interactive Social Links --- */
 .header-social-links {
   display: flex;
   list-style: none;
   gap: 12px;
+  margin: 0;
+  padding: 0;
 }
 
 .header-social-links a {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  background: var(--primary-color);
-  color: white;
+  background: #ffffff; /* Start white */
+  color: #7c7e84; /* Gray icon */
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Soft shadow to make them pop */
+  
+  /* The secret to the smooth 360 spin */
+  transition: all 500ms ease-in-out; 
 }
 
+/* The Hover Effect */
 .header-social-links a:hover {
-  background: #a01630;
+  background: #e9212e; /* Red background */
+  color: #ffffff; /* White icon */
+  transform: rotate(360deg) scale(1.05); /* Full rotation + slight pop out */
+  box-shadow: 0 4px 10px rgba(233, 33, 46, 0.3); /* Red glowing shadow */
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 991px) {
+  .header-contact-info {
+    flex-wrap: wrap;
+    gap: 20px 0;
+  }
+  .header-contact-info li {
+    width: 50%;
+    border-right: none;
+    padding: 0 10px;
+  }
 }
 
 @media (max-width: 768px) {
   .header-inner {
     flex-direction: column;
-    gap: 20px;
+    padding: 15px 20px;
+    gap: 10px;
   }
 
   .main-menu-box {
@@ -104,21 +162,26 @@
   }
 
   .header-lower {
-    padding: 15px 0;
-    background: #f6f6f6;
+    padding: 20px 0;
   }
 
   .header-content {
     flex-direction: column;
-    gap: 15px;
+    gap: 25px;
   }
 
   .header-contact-info {
     flex-direction: column;
-    gap: 15px;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .header-contact-info li {
+    width: 100%;
+    padding: 0;
   }
 
   .header-social-links {
-    align-self: flex-start;
+    align-self: center;
   }
 }
