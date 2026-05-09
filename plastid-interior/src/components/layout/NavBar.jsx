@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 
-
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -49,36 +48,59 @@ const NavBar = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const handleDropdownToggle = (label) => {
+    setActiveDropdown(activeDropdown === label ? null : label);
+  };
+
   return (
     <nav className="navbar">
+      {/* Mobile Toggle Button */}
       <button className="navbar-toggle" onClick={toggleMobileMenu}>
         <span className="icon-bar"></span>
         <span className="icon-bar"></span>
         <span className="icon-bar"></span>
       </button>
 
+      {/* Navigation List */}
       <ul className={`navigation ${mobileMenuOpen ? 'active' : ''}`}>
         {navItems.map((item) => (
           <li
             key={item.label}
-            className={`dropdown ${item.submenu ? 'has-submenu' : ''}`}
+            className={`nav-item ${item.submenu ? 'dropdown' : ''}`}
             onMouseEnter={() => item.submenu && setActiveDropdown(item.label)}
             onMouseLeave={() => item.submenu && setActiveDropdown(null)}
+            onClick={() => item.submenu && handleDropdownToggle(item.label)}
           >
-            <Link 
-              to={item.path} 
-              className="nav-link"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.label}
-            </Link>
+            <div className="nav-link-wrapper">
+              <Link 
+                to={item.path} 
+                className="nav-link"
+                onClick={(e) => {
+                  if (item.submenu && window.innerWidth < 768) {
+                    e.preventDefault();
+                  } else {
+                    setMobileMenuOpen(false);
+                  }
+                }}
+              >
+                {item.label}
+              </Link>
+              
+              {item.submenu && (
+                <span className="mobile-dropdown-icon">
+                  {activeDropdown === item.label ? '▲' : '▼'}
+                </span>
+              )}
+            </div>
 
+            {/* Submenu */}
             {item.submenu && (
               <ul className={`submenu ${activeDropdown === item.label ? 'active' : ''}`}>
                 {item.submenu.map((subitem) => (
                   <li key={subitem.label}>
                     <Link 
                       to={subitem.path}
+                      className="submenu-link"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {subitem.label}

@@ -1,101 +1,157 @@
+/* --- Base Navbar Layout --- */
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: flex-end; /* Aligns links to the right */
   width: 100%;
-}
-
-.navbar-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  flex-direction: column;
-  gap: 5px;
-  padding: 10px;
-}
-
-.icon-bar {
-  width: 25px;
-  height: 3px;
-  background-color: var(--text-color);
-  display: block;
-  border-radius: 2px;
-  transition: 0.3s;
 }
 
 .navigation {
   display: flex;
   list-style: none;
-  gap: 30px;
   margin: 0;
   padding: 0;
-  width: 100%;
+  gap: 35px; /* Spacing between top-level links */
 }
 
-.dropdown {
+.nav-item {
   position: relative;
 }
 
+/* --- The Exact Top-Level Link Styles You Requested --- */
 .nav-link {
-  text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
+  position: relative;
+  display: block;
+  color: #27282c;
   font-size: 14px;
-  transition: color 0.3s;
-  display: inline-block;
-  padding: 5px 0;
+  line-height: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  opacity: 1;
+  padding: 39px 0px 37px;
+  transition: all 300ms ease;
+  font-family: 'Rubik', sans-serif;
+  text-decoration: none;
 }
 
 .nav-link:hover {
-  color: var(--primary-color);
+  color: #e9212e; /* Original red hover color */
 }
 
+/* --- Dropdown / Submenu Styles --- */
 .submenu {
   position: absolute;
-  top: 100%;
+  top: 130%;
   left: 0;
-  background: white;
+  background: #ffffff;
   list-style: none;
-  padding: 15px 0;
-  min-width: 220px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  min-width: 270px;
+  padding: 10px 0px 0;
+  margin: 0;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.175);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
-  margin-top: 0;
+  transition: all 500ms ease;
+  z-index: 100;
 }
 
+/* Show submenu on hover (controlled by React state 'active' class) */
 .submenu.active {
+  top: 100%;
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
 }
 
 .submenu li {
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .submenu li:last-child {
   border-bottom: none;
 }
 
-.submenu a {
+.submenu-link {
+  position: relative; /* Added this so the absolute arrow positions correctly */
+  display: block;
+  color: #828282;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding: 16px 30px 15px;
   text-decoration: none;
-  color: var(--text-color);
-  font-size: 13px;
-  transition: color 0.3s;
+  transition: all 500ms ease;
+  font-family: 'Rubik', sans-serif;
 }
 
-.submenu a:hover {
-  color: var(--primary-color);
+/* The Arrow Icon Injection */
+.submenu-link::after {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  bottom: 0;
+  content: "";
+  /* Adjust this path if your CSS file is located somewhere else relative to the image! */
+  background: url('../../assets/images/icon/dropdown-menu-arrow.png') no-repeat center;
+  background-size: contain;
+  width: 26px;
+  height: 11px;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 500ms ease;
+  margin: 20px 0;
 }
 
-/* Mobile Responsive */
+/* The Hover State */
+.submenu-link:hover {
+  color: #e9212e;
+  padding-left: 70px; /* Shifts the text right to make room for the arrow */
+}
+
+/* Scale and show the arrow on hover */
+.submenu-link:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Mobile Menu Styles --- */
+.navbar-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.icon-bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #27282c;
+  margin-bottom: 5px;
+  transition: 0.3s;
+}
+
+.mobile-dropdown-icon {
+  display: none;
+}
+
+/* Media Query for Tablets and Mobile */
 @media (max-width: 768px) {
   .navbar-toggle {
+    display: block; /* Show hamburger button */
+  }
+
+  .mobile-dropdown-icon {
+    display: block;
+    color: #828282;
+    padding-right: 15px;
+  }
+
+  .nav-link-wrapper {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .navigation {
@@ -103,39 +159,38 @@
     top: 100%;
     left: 0;
     right: 0;
+    background: #ffffff;
     flex-direction: column;
-    background: white;
     gap: 0;
+    padding: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
+    transition: max-height 0.3s ease-in-out;
+    box-shadow: 0px 4px 11px -1px #ECECEC;
+    z-index: 99;
   }
 
   .navigation.active {
-    max-height: 600px;
-  }
-
-  .dropdown {
-    border-bottom: 1px solid var(--border-color);
+    max-height: 600px; /* Open mobile menu */
+    overflow-y: auto;
   }
 
   .nav-link {
-    display: block;
-    padding: 15px 20px;
+    padding: 15px 20px; /* Adjust padding for mobile so it isn't huge */
+  }
+
+  .nav-item {
+    border-bottom: 1px solid #e2e8f0;
   }
 
   .submenu {
     position: static;
     opacity: 0;
     visibility: hidden;
-    box-shadow: none;
-    padding: 0;
-    background: var(--light-color);
-    transform: none;
     max-height: 0;
-    overflow: hidden;
+    box-shadow: none;
+    background: #f9f9f9;
+    padding: 0;
     transition: all 0.3s ease;
   }
 
@@ -143,9 +198,5 @@
     opacity: 1;
     visibility: visible;
     max-height: 500px;
-  }
-
-  .submenu li {
-    padding: 12px 40px;
   }
 }

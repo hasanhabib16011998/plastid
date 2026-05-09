@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import './Header.css';
-import logo from '../../assets/images/resources/logo.png';
+import logo from '@images/resources/logo.png'
 
 const Header = () => {
   return (

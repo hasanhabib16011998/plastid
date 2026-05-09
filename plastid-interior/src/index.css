@@ -10,9 +10,10 @@
 }
 
 body {
-  font-family: var(--font-secondary);
-  color: var(--text-color);
-  background: white;
+    color: #828282;
+    line-height: 25px;
+    font-weight: 400;
+    font-family: 'Rubik', sans-serif;
 }
 
 .app {
@@ -26,9 +27,17 @@ body {
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
 }
 
 .row {
