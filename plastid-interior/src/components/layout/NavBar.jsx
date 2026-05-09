@@ -1,95 +1,97 @@
-import { useState } from 'react';
-import logo from "@images/resources/logo.png";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './NavBar.css';
 
-export default function Navbar() {
-  // 1. Add state to track if the mobile menu is open or closed
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+const NavBar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  const navItems = [
+    { label: 'Home', path: '/' },
+    {
+      label: 'About Us',
+      path: '/about',
+      submenu: [
+        { label: 'About Company', path: '/about' },
+        { label: "FAQ's", path: '/faq' },
+      ],
+    },
+    {
+      label: 'Services',
+      path: '/services',
+      submenu: [
+        { label: 'View All Services', path: '/services' },
+        { label: 'Concept Designs', path: '/services/concept-designs' },
+        { label: 'Project Designs', path: '/services/project-designs' },
+        { label: 'Make Overs', path: '/services/make-overs' },
+        { label: 'Consulting', path: '/services/consulting' },
+        { label: 'Glass & Wrought', path: '/services/glass-wrought' },
+        { label: 'Space Planning', path: '/services/space-planning' },
+      ],
+    },
+    {
+      label: 'Projects',
+      path: '/projects',
+      submenu: [
+        { label: 'Classic View 01', path: '/projects/classic-1' },
+        { label: 'Classic View 02', path: '/projects/classic-2' },
+        { label: 'Modern View 01', path: '/projects/modern-1' },
+        { label: 'Modern View 02', path: '/projects/modern-2' },
+        { label: 'Fullwidth 01', path: '/projects/fullwidth-1' },
+        { label: 'Fullwidth 02', path: '/projects/fullwidth-2' },
+      ],
+    },
+    { label: 'Contact', path: '/contact' },
+  ];
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
 
   return (
-    <div className="header-upper-style1">
-      <div className="container">
-        <div className="row">
-          <div className="col-xl-12">
-            <div className="inner-container clearfix">
-              
-              {/* Logo Section */}
-              <div className="logo-box-style1 float-left">
-                <a href="/">
-                  <img
-                    src={logo}
-                    style={{ height: '80px', width: 'auto' }}
-                    alt="PIA logo"
-                  />
-                </a>
-              </div>
-              
-              <div className="main-menu-box float-right">
-                <nav className="main-menu clearfix">
-                  
-                  {/* Mobile Menu Button */}
-                  <div className="navbar-header clearfix">
-                    <button
-                      type="button"
-                      className="navbar-toggle block md:hidden p-2 mt-4 border border-gray-300 rounded" 
-                      onClick={() => setIsMenuOpen(!isMenuOpen)} // 2. Toggle state on click
-                    >
-                      <span className="icon-bar block w-6 h-0.5 bg-gray-600 mb-1"></span>
-                      <span className="icon-bar block w-6 h-0.5 bg-gray-600 mb-1"></span>
-                      <span className="icon-bar block w-6 h-0.5 bg-gray-600"></span>
-                    </button>
-                  </div>
-                  
-                  {/* Navigation Links */}
-                  {/* 3. Removed 'collapse' and added Tailwind classes to show/hide based on state */}
-                  <div className={`navbar-collapse clearfix ${isMenuOpen ? 'block' : 'hidden md:block'}`}>
-                    <ul className="navigation clearfix">
-                      <li className="dropdown current">
-                        <a href="/">Home</a>
-                      </li>
-                      <li className="dropdown">
-                        <a href="/about">About Us</a>
-                        <ul>
-                          <li><a href="/about">About Company</a></li>
-                          <li><a href="/faq">FAQ’s</a></li>
-                        </ul>
-                      </li>
-                      <li className="dropdown">
-                        <a href="/services">Services</a>
-                        <ul>
-                          <li><a href="/services">View All Services</a></li>
-                          <li><a href="/ser-concept-designs">Concept Designs</a></li>
-                          <li><a href="/ser-project-designs">Project Designs</a></li>
-                          <li><a href="/ser-make-overs">Make Overs</a></li>
-                          <li><a href="/ser-consulting">Consulting</a></li>
-                          <li><a href="/ser-glass-wrought">Glass & Wrought</a></li>
-                          <li><a href="/ser-space-planning">Space Planning</a></li>
-                        </ul>
-                      </li>
-                      <li className="dropdown">
-                        <a href="/project">Projects</a>
-                        <ul>
-                          <li><a href="/project">Classic View 01</a></li>
-                          <li><a href="/project-v2">Classic View 02</a></li>
-                          <li><a href="/project-v3">Modern View 01</a></li>
-                          <li><a href="/project-v4">Modern View 02</a></li>
-                          <li><a href="/project-v5">Fullwidth 01</a></li>
-                          <li><a href="/project-v6">Fulldwidth 02</a></li>
-                          <li><a href="/project-single">Projects Single</a></li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="/contact">Contact</a>
-                      </li>
-                    </ul>
-                  </div>
+    <nav className="navbar">
+      <button className="navbar-toggle" onClick={toggleMobileMenu}>
+        <span className="icon-bar"></span>
+        <span className="icon-bar"></span>
+        <span className="icon-bar"></span>
+      </button>
 
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <ul className={`navigation ${mobileMenuOpen ? 'active' : ''}`}>
+        {navItems.map((item) => (
+          <li
+            key={item.label}
+            className={`dropdown ${item.submenu ? 'has-submenu' : ''}`}
+            onMouseEnter={() => item.submenu && setActiveDropdown(item.label)}
+            onMouseLeave={() => item.submenu && setActiveDropdown(null)}
+          >
+            <Link 
+              to={item.path} 
+              className="nav-link"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+
+            {item.submenu && (
+              <ul className={`submenu ${activeDropdown === item.label ? 'active' : ''}`}>
+                {item.submenu.map((subitem) => (
+                  <li key={subitem.label}>
+                    <Link 
+                      to={subitem.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {subitem.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
-}
+};
+
+export default NavBar;

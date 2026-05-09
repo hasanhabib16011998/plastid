@@ -1,106 +1,108 @@
-export default function Footer() {
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Footer.css';
+
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="footer-area">
-      <div className="footer-shape-bg wow slideInRight" data-wow-delay="300ms" data-wow-duration="2500ms"></div>
-      <div className="container">
-        <div className="row">
-          {/* Start single footer widget */}
-          <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-            <div className="single-footer-widget marbtm50">
-              <div className="contact-info-box">
-                <div className="footer-logo">
-                  <a href="/">
-                    <img 
-                      src="images/resources/logo.png" 
-                      alt="PIA Logo" 
-                      style={{ width: 'auto', height: '100px' }} 
-                    />
+    <footer className="site-footer">
+      <div className="footer-content">
+        <div className="container">
+          <div className="row">
+            {/* About Section */}
+            <div className="footer-widget">
+              <div className="footer-logo">
+                <Link to="/">
+                  <img src="/images/resources/logo.png" alt="Plastid Logo" />
+                </Link>
+              </div>
+              <div className="footer-text">
+                <p>Plastid Interior and Architecture is a visionary design firm dedicated to creating captivating spaces.</p>
+              </div>
+              <ul className="footer-social-links">
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=61555749343330" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-facebook"></i>
                   </a>
-                </div>
-                <ul>
-                  <li>
-                    <h6>Address</h6>
-                    <p>House-11 (2nd Floor), Block-E, Sector-1,<br />Aftab Nagar Main Rd, Dhaka 1212</p>
-                  </li>
-                  <li>
-                    <h6>Phone</h6>
-                    <p>+880 1768834417<br /> <span>Saturday - Thursday:</span> 9.00am to 6.00pm</p>
-                  </li>
-                  <li>
-                    <h6>Email</h6>
-                    <p>info@pcd-bd.com<br /> plastidarchitecture@gmail.com</p>
-                  </li>
-                </ul>
-              </div>
+                </li>
+                <li>
+                  <a href="#" title="Skype">
+                    <i className="fab fa-skype"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title="LinkedIn">
+                    <i className="fab fa-linkedin"></i>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </div>
-          {/* End single footer widget */}
 
-          {/* Start single footer widget */}
-          <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-            <div className="single-footer-widget marbtm50">
-              <div className="title">
-                <h3>Services</h3>
-              </div>
-              <div className="services-links">
-                <ul>
-                  <li><a href="#">Interior Design</a></li>
-                  <li><a href="#">Exterior Design</a></li>
-                  <li><a href="#">Home Renovation</a></li>
-                  <li><a href="#">Consulting</a></li>
-                  <li><a href="#">Landscaping</a></li>
-                  <li><a href="#">3D Design</a></li>
-                </ul>
-              </div>
+            {/* Quick Links */}
+            <div className="footer-widget">
+              <h4 className="footer-title">Quick Links</h4>
+              <ul className="footer-menu-list">
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/about">About Us</Link></li>
+                <li><Link to="/services">Services</Link></li>
+                <li><Link to="/projects">Projects</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
+              </ul>
             </div>
-          </div>
-          {/* End single footer widget */}
 
-          {/* Start single footer widget */}
-          <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-            <div className="single-footer-widget">
-              <div className="brochures-carousel-box owl-carousel owl-theme">
-                {/* Start Single Item */}
-                <div className="single-item">
-                  <div className="img-holder">
-                    <img src="images/footer/brochures-1.jpg" alt="Awesome Image" />
-                  </div>
-                  <div className="title-holder">
-                    <h3>Our Interior Design<br /> Brochure</h3>
-                    <a className="btn-two" href="#">Download Now<span className="flaticon-next"></span></a>
-                  </div>
+            {/* Services */}
+            <div className="footer-widget">
+              <h4 className="footer-title">Our Services</h4>
+              <ul className="footer-menu-list">
+                <li><Link to="/services/concept-designs">Concept Designs</Link></li>
+                <li><Link to="/services/project-designs">Project Designs</Link></li>
+                <li><Link to="/services/make-overs">Make Overs</Link></li>
+                <li><Link to="/services/consulting">Consulting</Link></li>
+                <li><Link to="/services/space-planning">Space Planning</Link></li>
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div className="footer-widget">
+              <h4 className="footer-title">Contact Us</h4>
+              <div className="footer-contact-info">
+                <div className="contact-item">
+                  <p><strong>Address:</strong><br />
+                     House-11 (2nd Floor), Block-E, Sector-1,<br />
+                     Aftab Nagar Main Rd, Dhaka 1212</p>
                 </div>
-                {/* End Single Item */}
-                
-                {/* Start Single Item */}
-                <div className="single-item">
-                  <div className="img-holder">
-                    <img src="images/footer/brochures-1.jpg" alt="Awesome Image" />
-                  </div>
-                  <div className="title-holder">
-                    <h3>Our Interior Design<br /> Brochure</h3>
-                    <a className="btn-two" href="#">Download Now<span className="flaticon-next"></span></a>
-                  </div>
+                <div className="contact-item">
+                  <p><strong>Phone:</strong><br />
+                     <a href="tel:+8801768834417">+880 1768834417</a></p>
                 </div>
-                {/* End Single Item */}
-                
-                {/* Start Single Item */}
-                <div className="single-item">
-                  <div className="img-holder">
-                    <img src="images/footer/brochures-1.jpg" alt="Awesome Image" />
-                  </div>
-                  <div className="title-holder">
-                    <h3>Our Interior Design<br /> Brochure</h3>
-                    <a className="btn-two" href="#">Download Now<span className="flaticon-next"></span></a>
-                  </div>
+                <div className="contact-item">
+                  <p><strong>Email:</strong><br />
+                     <a href="mailto:info@pcd-bd.com">info@pcd-bd.com</a></p>
                 </div>
-                {/* End Single Item */}
               </div>
             </div>
           </div>
-          {/* End single footer widget */}
+        </div>
+      </div>
+
+      {/* Footer Bottom */}
+      <div className="footer-bottom">
+        <div className="container">
+          <div className="footer-bottom-inner">
+            <p className="copyright">
+              &copy; {currentYear} Plastid Interior and Architecture. All rights reserved.
+            </p>
+            <ul className="footer-bottom-links">
+              <li><Link to="#">Privacy Policy</Link></li>
+              <li><Link to="#">Terms & Conditions</Link></li>
+              <li><Link to="#">Sitemap</Link></li>
+            </ul>
+          </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

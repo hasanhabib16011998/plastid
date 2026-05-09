@@ -1,0 +1,150 @@
+.site-footer {
+  background: var(--dark-color);
+  color: #ccc;
+  margin-top: auto;
+}
+
+.footer-content {
+  padding: 60px 0 30px;
+}
+
+.footer-widget {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-logo img {
+  height: 60px;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+.footer-text {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 25px;
+}
+
+.footer-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-menu-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-menu-list a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.footer-menu-list a:hover {
+  color: var(--primary-color);
+}
+
+.footer-social-links {
+  display: flex;
+  list-style: none;
+  gap: 12px;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.footer-social-links a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.footer-social-links a:hover {
+  background: #a01630;
+}
+
+.footer-contact-info {
+  font-size: 14px;
+}
+
+.contact-item {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.contact-item a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 0;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright {
+  margin: 0;
+  font-size: 13px;
+}
+
+.footer-bottom-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-bottom-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.3s;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .footer-content .row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
+    gap: 20px;
+  }
+}

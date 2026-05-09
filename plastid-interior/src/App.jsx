@@ -1,24 +1,31 @@
-// src/App.jsx
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/layout/Layout';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 import Home from './pages/Home';
+// import About from './pages/About';
+// import Services from './pages/Services';
+// import Projects from './pages/Projects';
+// import Contact from './pages/Contact';
+import './index.css';
 
-export default function App() {
+function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* The parent route uses the Layout component */}
-        <Route path="/" element={<Layout />}>
-          
-          {/* Nested routes are injected into the <Outlet /> inside Layout */}
-          {/* <Route index element={<Home />} /> */}
-          
-          {/* Example of how you will add future pages: */}
-          {/* <Route path="about" element={<About />} /> */}
-          {/* <Route path="services" element={<Services />} /> */}
-          
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Router>
+      <div className="app">
+        <Header />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {/* <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} /> */}
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
+
+export default App;
