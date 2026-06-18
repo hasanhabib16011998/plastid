@@ -1,0 +1,8 @@
+/* Global resets and base styles for the React app wrapper */
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+}
