@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { gsap } from 'gsap'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Preloader from '../../components/Preloader/Preloader'
@@ -156,46 +157,79 @@ const missions = [
 // ─── Hero Slider Component ─────────────────────────────────
 function HeroSlider() {
   const [current, setCurrent] = useState(0)
-  const [animating, setAnimating] = useState(true)
+  const slideRef = useRef(null)
+  const backgroundRefs = useRef([])
   const timerRef = useRef(null)
 
   const goTo = (idx) => {
-    setAnimating(false)
-    setTimeout(() => {
-      setCurrent(idx)
-      setAnimating(true)
-    }, 50)
+    setCurrent(idx)
   }
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      setCurrent((prev) => {
-        const next = (prev + 1) % slides.length
-        setAnimating(false)
-        setTimeout(() => setAnimating(true), 50)
-        return next
-      })
+      setCurrent((prev) => (prev + 1) % slides.length)
     }, 5000)
     return () => clearInterval(timerRef.current)
   }, [])
+
+  useEffect(() => {
+    // Background fade transition
+    slides.forEach((_, i) => {
+      const bg = backgroundRefs.current[i]
+      if (bg) {
+        gsap.to(bg, {
+          opacity: i === current ? 1 : 0,
+          duration: 1,
+          ease: 'power2.out',
+        })
+      }
+    })
+
+    // Content animations
+    if (slideRef.current) {
+      const title = slideRef.current.querySelector('.big-title')
+      const text = slideRef.current.querySelector('.text')
+      const button = slideRef.current.querySelector('.btn-box')
+
+      if (title && text && button) {
+        gsap.killTweensOf([title, text, button])
+        
+        const tl = gsap.timeline()
+        tl.fromTo(title,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
+        )
+        .fromTo(text,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' },
+          '-=0.3'
+        )
+        .fromTo(button,
+          { opacity: 0, scale: 0.8 },
+          { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' },
+          '-=0.2'
+        )
+      }
+    }
+  }, [current])
 
   const slide = slides[current]
 
   return (
     <section className="main-slider">
       <div className="rev_slider_wrapper fullwidthbanner-container" style={{ position: 'relative', overflow: 'hidden', minHeight: '600px' }}>
-        {/* Background */}
+        {/* Backgrounds */}
         {slides.map((s, i) => (
           <div
             key={i}
+            ref={(el) => (backgroundRefs.current[i] = el)}
             style={{
               position: 'absolute',
               top: 0, left: 0, right: 0, bottom: 0,
               backgroundImage: `url(${s.img})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              transition: 'opacity 0.8s ease',
-              opacity: i === current ? 1 : 0,
+              opacity: i === 0 ? 1 : 0,
               zIndex: i === current ? 1 : 0,
             }}
           />
@@ -214,14 +248,12 @@ function HeroSlider() {
           padding: '0 60px',
         }}>
           <div
+            ref={slideRef}
             className="slide-content left-slide"
             style={{
               maxWidth: '700px',
               textAlign: slide.align === 'right' ? 'right' : 'left',
               marginLeft: slide.align === 'right' ? 'auto' : '0',
-              opacity: animating ? 1 : 0,
-              transform: animating ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.6s ease, transform 0.6s ease',
             }}
           >
             <div className="big-title" style={{ fontSize: '52px', fontWeight: '700', color: '#fff', marginBottom: '20px', lineHeight: 1.2 }}>

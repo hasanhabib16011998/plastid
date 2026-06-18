@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* Global resets and base styles for the React app wrapper */
 * {
   box-sizing: border-box;
@@ -5,4 +7,17 @@
 
 #root {
   min-height: 100vh;
+}
+
+/* Fix Tailwind CSS v4 .collapse utility class conflict with Bootstrap/theme navigation menu */
+.main-menu .navbar-collapse.collapse {
+  visibility: visible !important;
+}
+@media only screen and (max-width: 991px) {
+  .main-menu .navbar-collapse.collapse {
+    visibility: hidden !important;
+  }
+  .main-menu .navbar-collapse.in {
+    visibility: visible !important;
+  }
 }

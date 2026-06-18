@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { gsap } from 'gsap'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -80,6 +81,18 @@ function HistoryCarousel() {
 }
 
 export default function About() {
+  const teamRef = useRef(null)
+
+  useEffect(() => {
+    if (teamRef.current) {
+      const cards = teamRef.current.querySelectorAll('.single-team-member')
+      gsap.fromTo(cards,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' }
+      )
+    }
+  }, [])
+
   return (
     <div className="boxed_wrapper">
       <Preloader />
@@ -118,7 +131,7 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="team-area">
+      <section className="team-area" ref={teamRef}>
         <div className="container">
           <div className="row">
             <div className="col-xl-12">
@@ -131,7 +144,7 @@ export default function About() {
           <div className="row">
             {teamMembers.map((m, i) => (
               <div key={i} className="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                <div className="single-team-member">
+                <div className="single-team-member" style={{ opacity: 0 }}>
                   <div className="img-holder">
                     <img src={m.img} alt={m.name} />
                   </div>
