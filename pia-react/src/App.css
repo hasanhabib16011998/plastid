@@ -1,3 +1,22 @@
+/* Deep Forest Velvet Color Palette */
+:root {
+  --color-deep-forest:  #1F2E23;
+  --color-aged-brass:   #C49B5D;
+  --color-olive:        #4B6047;
+  --color-smoked-ochre: #9F814D;
+  --color-alabaster:    #F5F3ED;
+  --color-taupe-linen:  #AF9F8A;
+
+  /* Semantic aliases */
+  --accent:             #C49B5D;
+  --accent-bg:          rgba(196, 155, 93, 0.12);
+  --accent-border:      #9F814D;
+  --border:             rgba(175, 159, 138, 0.35);
+  --shadow:             0 4px 20px rgba(31, 46, 35, 0.15);
+  --text-h:             #1F2E23;
+  --social-bg:          rgba(245, 243, 237, 0.85);
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

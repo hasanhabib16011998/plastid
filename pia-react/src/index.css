@@ -7,6 +7,7 @@
 
 #root {
   min-height: 100vh;
+  background-color: #F5F3ED; /* Alabaster White */
 }
 
 /* Fix Tailwind CSS v4 .collapse utility class conflict with Bootstrap/theme navigation menu */

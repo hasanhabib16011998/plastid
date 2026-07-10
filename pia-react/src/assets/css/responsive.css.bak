@@ -845,7 +845,7 @@ li .single-footer-contact-info .text p br{
 =============================================
 ***/      
 .appointment-area {
-    background: #1F2E23;
+    background: #27282c;
     background-position: unset;
     background-attachment: scroll;
     background-size: cover;
@@ -1713,7 +1713,7 @@ li .single-footer-contact-info .inner {
 =============================================
 ***/      
 .appointment-area {
-    background: #1F2E23;
+    background: #27282c;
     background-position: unset;
     background-attachment: scroll;
     background-size: cover;
@@ -2975,7 +2975,7 @@ li .single-footer-contact-info .inner {
 .main-menu .navbar-collapse .navigation li,
 .main-menu .navbar-collapse .navigation li ul li,
 .main-menu .navbar-collapse .navigation li ul li ul li{
-    background: #1F2E23;
+    background: #27282c;
     border-top: 1px solid #151618;
     opacity:1 !important;
     top:0px !important;
@@ -3030,7 +3030,7 @@ li .single-footer-contact-info .inner {
 .main-menu .navbar-collapse > .navigation > li > ul > li > ul > li:hover > a,
 .main-menu .navbar-collapse > .navigation > li.current > a{
     color: #ffffff !important;
-    background: #C49B5D;
+    background: #d5a832;
 }        
 .main-menu .navbar-collapse > .navigation li.dropdown .dropdown-btn{
     display:block;
