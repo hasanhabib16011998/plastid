@@ -4,7 +4,7 @@ import { gsap } from 'gsap'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
-import Preloader from '../../components/Preloader/Preloader'
+import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 
 const teamMembers = [
@@ -95,7 +95,7 @@ export default function About() {
 
   return (
     <div className="boxed_wrapper">
-      <Preloader />
+      <PIALoader />
       <Header />
 
       <Breadcrumb

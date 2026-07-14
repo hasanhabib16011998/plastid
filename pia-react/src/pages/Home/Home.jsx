@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
-import Preloader from '../../components/Preloader/Preloader'
+import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
 
@@ -537,7 +537,7 @@ function AppointmentForm() {
 export default function Home() {
   return (
     <div className="boxed_wrapper">
-      <Preloader />
+      <PIALoader />
       <Header />
 
       {/* Hero — Scroll-Driven Apartment Transformation */}

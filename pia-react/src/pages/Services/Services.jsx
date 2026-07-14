@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
-import Preloader from '../../components/Preloader/Preloader'
+import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 
 const services = [
@@ -53,7 +53,7 @@ const services = [
 export default function Services() {
   return (
     <div className="boxed_wrapper">
-      <Preloader />
+      <PIALoader />
       <Header />
 
       <Breadcrumb
