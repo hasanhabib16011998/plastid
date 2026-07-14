@@ -5,6 +5,7 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Preloader from '../../components/Preloader/Preloader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
 
 // ─── Hero Slider Data ─────────────────────────────────────
 const slides = [
@@ -539,8 +540,8 @@ export default function Home() {
       <Preloader />
       <Header />
 
-      {/* Hero Slider */}
-      <HeroSlider />
+      {/* Hero — Scroll-Driven Apartment Transformation */}
+      <ApartmentStory />
 
       {/* Highlights */}
       <section className="highlights-area">
