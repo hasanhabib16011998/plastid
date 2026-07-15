@@ -361,8 +361,17 @@
   transform: translateY(-2px);
 }
 
-/* ── SHOW HAMBURGER ON MOBILE / TABLET ────────── */
+/* ── DESKTOP: ensure the header itself is NOT fixed (inner container handles it) ── */
+@media only screen and (min-width: 992px) {
+  .main-header.header-style1 {
+    position: relative !important;
+  }
+}
+
+/* ── MOBILE HEADER REDESIGN (≤ 991px) ────────────── */
 @media only screen and (max-width: 991px) {
+
+  /* ── Show hamburger, overlay, drawer ── */
   .pia-hamburger {
     display: flex;
   }
@@ -373,13 +382,43 @@
     display: flex;
   }
 
-  /* Keep the inner container correctly sized */
-  .header-upper-style1 .inner-container {
-    position: relative;
-    min-height: 74px;
+  /* ── Hide the original desktop nav ── */
+  .main-menu-box {
+    display: none !important;
   }
 
-  /* Keep logo vertically centred */
+  /* ── Make the whole header position:fixed so it sticks on scroll ── */
+  .main-header.header-style1 {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9000;
+  }
+
+  /* ── Hide the lower contact bar on mobile ── */
+  .header-lower-style1 {
+    display: none !important;
+  }
+
+  /* ── The upper nav bar: transparent by default ── */
+  .header-upper-style1 {
+    background: transparent !important;
+    transition: background 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  /* ── Inner container: slim, no shadow, no background ── */
+  .header-upper-style1 .inner-container {
+    position: relative;
+    padding: 0 16px !important;
+    min-height: 66px;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── Logo: vertically centred, inverted to white ── */
   .logo-box-style1 {
     position: absolute;
     top: 50%;
@@ -389,9 +428,55 @@
     z-index: 33;
   }
 
-  /* Hide the original bootstrap-style toggle & collapse */
-  .main-menu-box {
-    display: none !important;
+  /* Invert logo to white so it reads on the dark hero */
+  .logo-box-style1 img {
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+    transition: filter 0.35s ease, opacity 0.35s ease;
+  }
+
+  /* ── Hamburger bars: white on transparent background ── */
+  .pia-hamburger-box span {
+    background: #ffffff;
+  }
+
+  /* ── STICKY / SCROLLED STATE ──
+     The .fixed-header class is toggled by the React scroll listener.
+     On mobile we re-use it to apply the solid dark header. ── */
+  .main-header.header-style1.fixed-header .header-upper-style1 {
+    background: rgba(31, 46, 35, 0.97) !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Keep inner container transparent — the parent provides the bg */
+  .main-header.header-style1.fixed-header .header-upper-style1 .inner-container {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Logo stays white (it's already inverted) */
+  .main-header.header-style1.fixed-header .logo-box-style1 img {
+    opacity: 1;
+  }
+
+  /* ── Add top padding to the page body so content
+     doesn't hide behind the fixed header ── */
+  .main-header.header-style1 ~ * {
+    /* The header is 66px tall on mobile */
+  }
+}
+
+/* ── Compensate for the fixed mobile header ─────── */
+@media only screen and (max-width: 991px) {
+  /* Push page content down by the header height so hero starts below it.
+     This targets the first sibling after the header (the main content wrapper). */
+  body > #root > div > main,
+  body > #root > .page-wrapper,
+  body > #root > div > .page-wrapper,
+  body > #root > div > .wrapper {
+    padding-top: 66px;
   }
 }
 
@@ -399,3 +484,4 @@
 body.pia-drawer-open {
   overflow: hidden;
 }
+
