@@ -1,0 +1,401 @@
+/* ================================================
+   PIA React - Mobile Navbar Enhancement
+   Design Language: Deep Forest Velvet
+   Colors: #1F2E23 (forest), #C49B5D (brass), #F5F3ED (alabaster)
+   ================================================ */
+
+/* ── HAMBURGER BUTTON ─────────────────────────── */
+.pia-hamburger {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: background 0.25s ease;
+}
+
+.pia-hamburger:hover {
+  background: rgba(196, 155, 93, 0.12);
+}
+
+.pia-hamburger:focus-visible {
+  outline: 2px solid #C49B5D;
+  outline-offset: 2px;
+}
+
+.pia-hamburger-box {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pia-hamburger-box span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #1F2E23;
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity   0.2s ease,
+              width     0.3s ease;
+}
+
+/* ── Animated to X when open ── */
+.pia-hamburger.is-open .pia-hamburger-box span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.pia-hamburger.is-open .pia-hamburger-box span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.pia-hamburger.is-open .pia-hamburger-box span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ── MOBILE DRAWER OVERLAY ────────────────────── */
+.pia-mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 46, 35, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pia-mobile-overlay.visible {
+  opacity: 1;
+}
+
+/* ── MOBILE DRAWER PANEL ──────────────────────── */
+.pia-mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(340px, 90vw);
+  height: 100dvh;
+  background: #1F2E23;
+  z-index: 9999;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.35);
+  flex-direction: column;
+}
+
+.pia-mobile-drawer.slide-in {
+  transform: translateX(0);
+}
+
+/* ── DRAWER HEADER ────────────────────────────── */
+.pia-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(196, 155, 93, 0.2);
+  flex-shrink: 0;
+  background: #1F2E23;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.pia-drawer-logo img {
+  height: 56px;
+  width: auto;
+  /* apply a brightness filter so the dark logo is visible on dark bg */
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+
+.pia-drawer-close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(196, 155, 93, 0.12);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C49B5D;
+  font-size: 18px;
+  transition: background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.pia-drawer-close:hover {
+  background: #C49B5D;
+  color: #1F2E23;
+}
+
+/* ── DRAWER NAV LIST ──────────────────────────── */
+.pia-drawer-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+
+.pia-drawer-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pia-drawer-nav ul li {
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pia-drawer-nav ul li:last-child {
+  border-bottom: none;
+}
+
+/* Top-level links */
+.pia-drawer-nav ul > li > a,
+.pia-drawer-nav ul > li > .pia-drawer-item-link,
+.pia-drawer-nav ul > li > .pia-drawer-item-row > .pia-drawer-item-link {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 14px 24px;
+  color: #F5F3ED !important;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+/* Row wrapper for items with a dropdown chevron */
+.pia-drawer-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 16px;
+}
+
+.pia-drawer-nav ul > li > a:hover,
+.pia-drawer-nav ul > li > .pia-drawer-item-link:hover,
+.pia-drawer-nav ul > li > .pia-drawer-item-row > .pia-drawer-item-link:hover,
+.pia-drawer-nav ul > li.current > a,
+.pia-drawer-nav ul > li.current > .pia-drawer-item-link,
+.pia-drawer-nav ul > li.current > .pia-drawer-item-row > .pia-drawer-item-link {
+  color: #C49B5D !important;
+}
+
+.pia-drawer-nav ul > li.current > a,
+.pia-drawer-nav ul > li.current > .pia-drawer-item-row .pia-drawer-item-link {
+  padding-left: 28px;
+}
+
+.pia-drawer-nav ul > li.current > a::before,
+.pia-drawer-nav ul > li.current > .pia-drawer-item-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #C49B5D;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Dropdown toggle chevron */
+.pia-drawer-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: rgba(196, 155, 93, 0.1);
+  color: #C49B5D;
+  font-size: 11px;
+  transition: transform 0.25s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.pia-drawer-nav ul > li.dropdown-open > a .pia-drawer-chevron {
+  transform: rotate(180deg);
+  background: rgba(196, 155, 93, 0.2);
+}
+
+/* Sub-menu */
+.pia-drawer-submenu {
+  display: none;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px 0;
+}
+
+.pia-drawer-submenu.open {
+  display: block;
+}
+
+.pia-drawer-submenu li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+.pia-drawer-submenu li a {
+  display: flex;
+  align-items: center;
+  padding: 11px 24px 11px 36px !important;
+  color: rgba(245, 243, 237, 0.75) !important;
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  text-transform: capitalize !important;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  gap: 8px;
+}
+
+.pia-drawer-submenu li a::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #C49B5D;
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.pia-drawer-submenu li a:hover {
+  color: #C49B5D !important;
+  padding-left: 40px !important;
+}
+
+.pia-drawer-submenu li a:hover::before {
+  opacity: 1;
+}
+
+/* ── DRAWER CONTACT FOOTER ────────────────────── */
+.pia-drawer-footer {
+  flex-shrink: 0;
+  padding: 20px 24px 32px;
+  border-top: 1px solid rgba(196, 155, 93, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pia-drawer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(245, 243, 237, 0.7);
+  font-size: 13px;
+  font-family: 'Rubik', sans-serif;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.pia-drawer-contact-item:hover {
+  color: #C49B5D;
+}
+
+.pia-drawer-contact-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(196, 155, 93, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C49B5D;
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.pia-drawer-contact-item:hover .pia-drawer-contact-icon {
+  background: rgba(196, 155, 93, 0.2);
+}
+
+.pia-drawer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.pia-drawer-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(196, 155, 93, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C49B5D;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.pia-drawer-social a:hover {
+  background: #C49B5D;
+  color: #1F2E23;
+  transform: translateY(-2px);
+}
+
+/* ── SHOW HAMBURGER ON MOBILE / TABLET ────────── */
+@media only screen and (max-width: 991px) {
+  .pia-hamburger {
+    display: flex;
+  }
+  .pia-mobile-overlay {
+    display: block;
+  }
+  .pia-mobile-drawer {
+    display: flex;
+  }
+
+  /* Keep the inner container correctly sized */
+  .header-upper-style1 .inner-container {
+    position: relative;
+    min-height: 74px;
+  }
+
+  /* Keep logo vertically centred */
+  .logo-box-style1 {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    float: none !important;
+    z-index: 33;
+  }
+
+  /* Hide the original bootstrap-style toggle & collapse */
+  .main-menu-box {
+    display: none !important;
+  }
+}
+
+/* ── PREVENT BODY SCROLL WHEN DRAWER OPEN ─────── */
+body.pia-drawer-open {
+  overflow: hidden;
+}

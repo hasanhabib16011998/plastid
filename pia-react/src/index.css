@@ -11,14 +11,10 @@
 }
 
 /* Fix Tailwind CSS v4 .collapse utility class conflict with Bootstrap/theme navigation menu */
-.main-menu .navbar-collapse.collapse {
+/* The desktop nav (.main-menu-box) always stays visible on ≥ 992px.
+   On mobile (< 992px) the entire .main-menu-box is hidden via Header.css
+   and replaced by the slide-in drawer. */
+.main-menu .navbar-collapse {
   visibility: visible !important;
-}
-@media only screen and (max-width: 991px) {
-  .main-menu .navbar-collapse.collapse {
-    visibility: hidden !important;
-  }
-  .main-menu .navbar-collapse.in {
-    visibility: visible !important;
-  }
+  display: block !important;
 }
