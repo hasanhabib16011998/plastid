@@ -8,12 +8,12 @@
 .pia-hamburger {
   display: none;
   position: absolute;
-  top: 50%;
-  right: 16px;
   transform: translateY(-50%);
   width: 44px;
   height: 44px;
   cursor: pointer;
+  top: 70%;
+  right: 2%;
   background: transparent;
   border: none;
   padding: 0;
@@ -50,18 +50,20 @@
   border-radius: 2px;
   transform-origin: center;
   transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-              opacity   0.2s ease,
-              width     0.3s ease;
+    opacity 0.2s ease,
+    width 0.3s ease;
 }
 
 /* ── Animated to X when open ── */
 .pia-hamburger.is-open .pia-hamburger-box span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
+
 .pia-hamburger.is-open .pia-hamburger-box span:nth-child(2) {
   opacity: 0;
   width: 0;
 }
+
 .pia-hamburger.is-open .pia-hamburger-box span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
@@ -126,27 +128,6 @@
   opacity: 0.92;
 }
 
-.pia-drawer-close {
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: rgba(196, 155, 93, 0.12);
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #C49B5D;
-  font-size: 18px;
-  transition: background 0.2s ease, color 0.2s ease;
-  flex-shrink: 0;
-}
-
-.pia-drawer-close:hover {
-  background: #C49B5D;
-  color: #1F2E23;
-}
-
 /* ── DRAWER NAV LIST ──────────────────────────── */
 .pia-drawer-nav {
   flex: 1;
@@ -170,9 +151,9 @@
 }
 
 /* Top-level links */
-.pia-drawer-nav ul > li > a,
-.pia-drawer-nav ul > li > .pia-drawer-item-link,
-.pia-drawer-nav ul > li > .pia-drawer-item-row > .pia-drawer-item-link {
+.pia-drawer-nav ul>li>a,
+.pia-drawer-nav ul>li>.pia-drawer-item-link,
+.pia-drawer-nav ul>li>.pia-drawer-item-row>.pia-drawer-item-link {
   display: flex;
   align-items: center;
   flex: 1;
@@ -195,22 +176,22 @@
   padding-right: 16px;
 }
 
-.pia-drawer-nav ul > li > a:hover,
-.pia-drawer-nav ul > li > .pia-drawer-item-link:hover,
-.pia-drawer-nav ul > li > .pia-drawer-item-row > .pia-drawer-item-link:hover,
-.pia-drawer-nav ul > li.current > a,
-.pia-drawer-nav ul > li.current > .pia-drawer-item-link,
-.pia-drawer-nav ul > li.current > .pia-drawer-item-row > .pia-drawer-item-link {
+.pia-drawer-nav ul>li>a:hover,
+.pia-drawer-nav ul>li>.pia-drawer-item-link:hover,
+.pia-drawer-nav ul>li>.pia-drawer-item-row>.pia-drawer-item-link:hover,
+.pia-drawer-nav ul>li.current>a,
+.pia-drawer-nav ul>li.current>.pia-drawer-item-link,
+.pia-drawer-nav ul>li.current>.pia-drawer-item-row>.pia-drawer-item-link {
   color: #C49B5D !important;
 }
 
-.pia-drawer-nav ul > li.current > a,
-.pia-drawer-nav ul > li.current > .pia-drawer-item-row .pia-drawer-item-link {
+.pia-drawer-nav ul>li.current>a,
+.pia-drawer-nav ul>li.current>.pia-drawer-item-row .pia-drawer-item-link {
   padding-left: 28px;
 }
 
-.pia-drawer-nav ul > li.current > a::before,
-.pia-drawer-nav ul > li.current > .pia-drawer-item-row::before {
+.pia-drawer-nav ul>li.current>a::before,
+.pia-drawer-nav ul>li.current>.pia-drawer-item-row::before {
   content: '';
   position: absolute;
   left: 0;
@@ -237,7 +218,7 @@
   cursor: pointer;
 }
 
-.pia-drawer-nav ul > li.dropdown-open > a .pia-drawer-chevron {
+.pia-drawer-nav ul>li.dropdown-open>a .pia-drawer-chevron {
   transform: rotate(180deg);
   background: rgba(196, 155, 93, 0.2);
 }
@@ -375,9 +356,11 @@
   .pia-hamburger {
     display: flex;
   }
+
   .pia-mobile-overlay {
     display: block;
   }
+
   .pia-mobile-drawer {
     display: flex;
   }
@@ -463,19 +446,20 @@
 
   /* ── Add top padding to the page body so content
      doesn't hide behind the fixed header ── */
-  .main-header.header-style1 ~ * {
+  .main-header.header-style1~* {
     /* The header is 66px tall on mobile */
   }
 }
 
 /* ── Compensate for the fixed mobile header ─────── */
 @media only screen and (max-width: 991px) {
+
   /* Push page content down by the header height so hero starts below it.
      This targets the first sibling after the header (the main content wrapper). */
-  body > #root > div > main,
-  body > #root > .page-wrapper,
-  body > #root > div > .page-wrapper,
-  body > #root > div > .wrapper {
+  body>#root>div>main,
+  body>#root>.page-wrapper,
+  body>#root>div>.page-wrapper,
+  body>#root>div>.wrapper {
     padding-top: 66px;
   }
 }
@@ -484,4 +468,3 @@
 body.pia-drawer-open {
   overflow: hidden;
 }
-

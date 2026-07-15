@@ -253,13 +253,6 @@ export default function Header() {
               <img src="/images/resources/logo.png" alt="PIA logo" />
             </Link>
           </div>
-          <button
-            className="pia-drawer-close"
-            onClick={closeDrawer}
-            aria-label="Close navigation menu"
-          >
-            <i className="fa fa-times" aria-hidden="true" />
-          </button>
         </div>
 
         {/* Nav items */}
