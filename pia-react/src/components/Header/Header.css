@@ -431,6 +431,7 @@
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    height: 22vw;
   }
 
   /* Keep inner container transparent — the parent provides the bg */
