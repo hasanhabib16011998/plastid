@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { gsap } from 'gsap'
 import './Header.css'
 
 const navItems = [
@@ -46,16 +47,100 @@ const navItems = [
 export default function Header() {
   const location = useLocation()
   const [sticky, setSticky] = useState(false)
+  const [glassActive, setGlassActive] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [openDropdowns, setOpenDropdowns] = useState({})
   const drawerRef = useRef(null)
+  const headerUpperRef = useRef(null)
+  const glassAnimRef = useRef(null) // tracks whether glass is currently revealed
 
-  /* ── Sticky header on scroll ── */
-  useEffect(() => {
-    const handleScroll = () => setSticky(window.scrollY > 100)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+  /* ── Glass-reveal GSAP animation ── */
+  const revealGlass = useCallback(() => {
+    if (glassAnimRef.current === true) return // already revealed
+    glassAnimRef.current = true
+    const el = headerUpperRef.current
+    if (!el) return
+
+    // Add the class first so backdrop-filter + background are defined by CSS
+    el.classList.add('glass-active')
+
+    // Build the wave-wipe timeline
+    const tl = gsap.timeline()
+
+    // Step 1: clip-path wave-wipe reveal (polygon morphing from bottom-wave to full rect)
+    tl.fromTo(el,
+      {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 75% 0%, 50% 0%, 25% 0%, 0% 0%)',
+        rotationX: -18,
+        transformPerspective: 600,
+        transformOrigin: 'top center',
+        opacity: 0,
+      },
+      {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%, 50% 100%, 0% 100%, 0% 100%)',
+        rotationX: 0,
+        opacity: 1,
+        duration: 0.55,
+        ease: 'power3.out',
+      }
+    )
+    // Step 2: subtle wave shimmer (skewX oscillation)
+    .to(el, {
+      skewX: 1.5,
+      duration: 0.15,
+      ease: 'sine.inOut',
+    }, '-=0.1')
+    .to(el, {
+      skewX: -1,
+      duration: 0.15,
+      ease: 'sine.inOut',
+    })
+    .to(el, {
+      skewX: 0,
+      clipPath: 'none',
+      duration: 0.18,
+      ease: 'power2.out',
+    })
   }, [])
+
+  const hideGlass = useCallback(() => {
+    if (glassAnimRef.current === false) return
+    glassAnimRef.current = false
+    const el = headerUpperRef.current
+    if (!el) return
+
+    gsap.to(el, {
+      opacity: 0,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: () => {
+        el.classList.remove('glass-active')
+        gsap.set(el, { opacity: 1, clipPath: 'none', rotationX: 0, skewX: 0 })
+      },
+    })
+  }, [])
+
+  /* ── Scroll handler: sticky + glass threshold ── */
+  useEffect(() => {
+    // ApartmentStory is 100vh tall — trigger glass when user scrolls past it
+    const GLASS_THRESHOLD = () => window.innerHeight * 0.85
+
+    const handleScroll = () => {
+      const y = window.scrollY
+      setSticky(y > 100)
+
+      if (y > GLASS_THRESHOLD() && !glassAnimRef.current) {
+        setGlassActive(true)
+        revealGlass()
+      } else if (y <= GLASS_THRESHOLD() && glassAnimRef.current) {
+        setGlassActive(false)
+        hideGlass()
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [revealGlass, hideGlass])
 
   /* ── Close drawer on route change ── */
   useEffect(() => {
@@ -98,7 +183,7 @@ export default function Header() {
     <header className={`main-header header-style1${sticky ? ' fixed-header' : ''}`}>
 
       {/* ── Upper header: nav bar ── */}
-      <div className="header-upper-style1">
+      <div className="header-upper-style1" ref={headerUpperRef}>
         <div className="container">
           <div className="row">
             <div className="col-xl-12">
@@ -142,26 +227,28 @@ export default function Header() {
                   </nav>
                 </div>
 
-                {/* Mobile hamburger button */}
-                <button
-                  className={`pia-hamburger${drawerOpen ? ' is-open' : ''}`}
-                  onClick={openDrawer}
-                  aria-label="Open navigation menu"
-                  aria-expanded={drawerOpen}
-                  aria-controls="pia-mobile-drawer"
-                >
-                  <span className="pia-hamburger-box">
-                    <span />
-                    <span />
-                    <span />
-                  </span>
-                </button>
 
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Mobile hamburger — lives OUTSIDE header-upper-style1 so GSAP
+          clip-path animations never block its pointer events */}
+      <button
+        className={`pia-hamburger${drawerOpen ? ' is-open' : ''}`}
+        onClick={drawerOpen ? closeDrawer : openDrawer}
+        aria-label={drawerOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-expanded={drawerOpen}
+        aria-controls="pia-mobile-drawer"
+      >
+        <span className="pia-hamburger-box">
+          <span />
+          <span />
+          <span />
+        </span>
+      </button>
 
       {/* ── Lower header: contact info ── */}
       <div className="header-lower-style1">

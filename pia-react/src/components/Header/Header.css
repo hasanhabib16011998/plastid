@@ -7,17 +7,19 @@
 /* ── HAMBURGER BUTTON ─────────────────────────── */
 .pia-hamburger {
   display: none;
-  position: absolute;
-  transform: translateY(-50%);
+  /* Fixed to the viewport — completely independent of any parent
+     clip-path or stacking context (GSAP safe) */
+  position: fixed;
+  top: 22px;
+  right: 16px;
   width: 44px;
   height: 44px;
   cursor: pointer;
-  top: 70%;
-  right: 2%;
   background: transparent;
   border: none;
   padding: 0;
-  z-index: 10000;
+  /* Must be above everything */
+  z-index: 10000000001;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
@@ -384,24 +386,30 @@
     display: none !important;
   }
 
-  /* ── The upper nav bar: transparent by default ── */
+  /* ── The upper nav bar: fully transparent initially ── */
   .header-upper-style1 {
     background: transparent !important;
-    transition: background 0.35s ease, box-shadow 0.35s ease;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 1px solid transparent;
+    opacity: 1;
+    /* No clip-path here — GSAP fromTo sets the start state */
+    transition: none;
   }
 
-  /* ── Inner container: slim, no shadow, no background ── */
+  /* ── Inner container: transparent — parent provides all bg ── */
   .header-upper-style1 .inner-container {
     position: relative;
     padding: 0 16px !important;
     min-height: 66px;
     background: transparent !important;
     box-shadow: none !important;
+    z-index: 1 !important;
     display: flex;
     align-items: center;
   }
 
-  /* ── Logo: vertically centred, inverted to white ── */
+  /* Logo: centred vertically, sits inside header-upper-style1 */
   .logo-box-style1 {
     position: absolute;
     top: 50%;
@@ -411,45 +419,49 @@
     z-index: 33;
   }
 
-  /* Invert logo to white so it reads on the dark hero */
+  /* Logo inverted to white — always readable on dark hero */
   .logo-box-style1 img {
     filter: brightness(0) invert(1);
     opacity: 0.95;
-    transition: filter 0.35s ease, opacity 0.35s ease;
+    transition: opacity 0.35s ease;
   }
 
-  /* ── Hamburger bars: white on transparent background ── */
+  /* Hamburger bars: white */
   .pia-hamburger-box span {
     background: #ffffff;
   }
 
-  /* ── STICKY / SCROLLED STATE ──
-     The .fixed-header class is toggled by the React scroll listener.
-     On mobile we re-use it to apply the solid dark header. ── */
-  .main-header.header-style1.fixed-header .header-upper-style1 {
-    background: rgba(31, 46, 35, 0.97) !important;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    height: 22vw;
+  /* ── GLASS-ACTIVE STATE (applied by GSAP scroll trigger) ── */
+  .header-upper-style1.glass-active {
+    background: rgba(31, 46, 35, 0.42) !important;
+    backdrop-filter: blur(18px) saturate(1.5);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    border-bottom: 1px solid rgba(196, 155, 93, 0.22);
+    /* clip-path reset is animated by GSAP, not CSS */
   }
 
-  /* Keep inner container transparent — the parent provides the bg */
+  /* Deeper glass when sticky/scrolled further */
+  .main-header.header-style1.fixed-header .header-upper-style1.glass-active {
+    background: rgba(31, 46, 35, 0.78) !important;
+    backdrop-filter: blur(22px) saturate(1.7);
+    -webkit-backdrop-filter: blur(22px) saturate(1.7);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28) !important;
+    border-bottom: 1px solid rgba(196, 155, 93, 0.3);
+    height: 90px;
+  }
+
+  /* Inner container in fixed state stays transparent */
   .main-header.header-style1.fixed-header .header-upper-style1 .inner-container {
     background: transparent !important;
     box-shadow: none !important;
+    z-index: 1 !important;
   }
 
-  /* Logo stays white (it's already inverted) */
+  /* Logo stays white */
   .main-header.header-style1.fixed-header .logo-box-style1 img {
     opacity: 1;
   }
 
-  /* ── Add top padding to the page body so content
-     doesn't hide behind the fixed header ── */
-  .main-header.header-style1~* {
-    /* The header is 66px tall on mobile */
-  }
 }
 
 /* ── Compensate for the fixed mobile header ─────── */
