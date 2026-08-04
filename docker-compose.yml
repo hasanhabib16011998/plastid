@@ -1,0 +1,102 @@
+services:
+  # ── PostgreSQL ──────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: plastid-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"   # host 5433 → container 5432 (avoids conflict with local PG)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── MinIO (S3-compatible object storage) ────────────────────────────────────
+  minio:
+    image: minio/minio:latest
+    container_name: plastid-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"   # S3 API endpoint
+      - "9001:9001"   # MinIO web console
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # ── MinIO bucket setup (runs once, then exits) ──────────────────────────────
+  minio-setup:
+    image: minio/mc:latest
+    container_name: plastid-minio-setup
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+        mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
+        mc mb --ignore-existing myminio/${S3_BUCKET};
+        mc anonymous set download myminio/${S3_BUCKET};
+        echo 'Bucket ${S3_BUCKET} ready.';
+        exit 0;
+      "
+
+  # ── Payload CMS (Next.js) ───────────────────────────────────────────────────
+  payload:
+    build:
+      context: ./plastid-cms
+      dockerfile: Dockerfile
+    container_name: plastid-cms
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      # Database
+      DATABASE_URI: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      # Payload
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
+      # MinIO / S3
+      S3_ENDPOINT: http://minio:9000
+      S3_ACCESS_KEY: ${MINIO_ROOT_USER}
+      S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      S3_BUCKET: ${S3_BUCKET}
+      S3_REGION: us-east-1
+      # Frontend origins (CORS)
+      PLASTID_INTERIOR_URL: ${PLASTID_INTERIOR_URL}
+      SUN_REAL_ESTATE_URL: ${SUN_REAL_ESTATE_URL}
+      PLASTID_DIGITAL_URL: ${PLASTID_DIGITAL_URL}
+      PLASTID_CONSTRUCTION_URL: ${PLASTID_CONSTRUCTION_URL}
+      # Seed
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD}
+      # Node
+      NODE_ENV: development
+    ports:
+      - "3001:3000"   # Access admin at http://localhost:3001/admin
+    volumes:
+      - ./plastid-cms:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes:
+  postgres_data:
+    driver: local
+  minio_data:
+    driver: local
