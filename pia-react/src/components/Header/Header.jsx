@@ -54,7 +54,7 @@ export default function Header() {
   const headerUpperRef = useRef(null)
   const glassAnimRef = useRef(null) // tracks whether glass is currently revealed
 
-  /* ── Glass-reveal GSAP animation ── */
+  /* ── Glass-reveal GSAP animation (Jelly Ripple 3D) ── */
   const revealGlass = useCallback(() => {
     if (glassAnimRef.current === true) return // already revealed
     glassAnimRef.current = true
@@ -64,42 +64,49 @@ export default function Header() {
     // Add the class first so backdrop-filter + background are defined by CSS
     el.classList.add('glass-active')
 
-    // Build the wave-wipe timeline
+    // Build the jelly ripple timeline
     const tl = gsap.timeline()
 
-    // Step 1: clip-path wave-wipe reveal (polygon morphing from bottom-wave to full rect)
     tl.fromTo(el,
       {
-        clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 75% 0%, 50% 0%, 25% 0%, 0% 0%)',
-        rotationX: -18,
-        transformPerspective: 600,
+        rotationX: -45,
+        rotationY: 10,
+        scaleY: 0.8,
+        scaleX: 1.05,
+        transformPerspective: 800,
         transformOrigin: 'top center',
         opacity: 0,
+        y: -50,
       },
       {
-        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%, 50% 100%, 0% 100%, 0% 100%)',
         rotationX: 0,
+        rotationY: 0,
+        scaleY: 1.1,
+        scaleX: 0.95,
         opacity: 1,
-        duration: 0.55,
-        ease: 'power3.out',
+        y: 0,
+        duration: 0.4,
+        ease: 'power2.out',
       }
     )
-    // Step 2: subtle wave shimmer (skewX oscillation)
     .to(el, {
-      skewX: 1.5,
-      duration: 0.15,
-      ease: 'sine.inOut',
-    }, '-=0.1')
-    .to(el, {
-      skewX: -1,
-      duration: 0.15,
-      ease: 'sine.inOut',
+      scaleY: 0.95,
+      scaleX: 1.02,
+      duration: 0.2,
+      ease: 'power1.inOut',
     })
     .to(el, {
-      skewX: 0,
-      clipPath: 'none',
-      duration: 0.18,
-      ease: 'power2.out',
+      scaleY: 1.02,
+      scaleX: 0.98,
+      duration: 0.2,
+      ease: 'power1.inOut',
+    })
+    .to(el, {
+      scaleY: 1,
+      scaleX: 1,
+      duration: 0.2,
+      ease: 'power1.inOut',
+      clearProps: 'all' // Clean up inline styles after animation
     })
   }, [])
 
@@ -111,28 +118,26 @@ export default function Header() {
 
     gsap.to(el, {
       opacity: 0,
+      y: -20,
       duration: 0.3,
       ease: 'power2.in',
       onComplete: () => {
         el.classList.remove('glass-active')
-        gsap.set(el, { opacity: 1, clipPath: 'none', rotationX: 0, skewX: 0 })
+        gsap.set(el, { clearProps: 'all' })
       },
     })
   }, [])
 
   /* ── Scroll handler: sticky + glass threshold ── */
   useEffect(() => {
-    // ApartmentStory is 100vh tall — trigger glass when user scrolls past it
-    const GLASS_THRESHOLD = () => window.innerHeight * 0.85
-
     const handleScroll = () => {
       const y = window.scrollY
       setSticky(y > 100)
 
-      if (y > GLASS_THRESHOLD() && !glassAnimRef.current) {
+      if (y > 150 && !glassAnimRef.current) {
         setGlassActive(true)
         revealGlass()
-      } else if (y <= GLASS_THRESHOLD() && glassAnimRef.current) {
+      } else if (y <= 150 && glassAnimRef.current) {
         setGlassActive(false)
         hideGlass()
       }

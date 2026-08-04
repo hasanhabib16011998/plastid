@@ -344,10 +344,50 @@
   transform: translateY(-2px);
 }
 
-/* ── DESKTOP: ensure the header itself is NOT fixed (inner container handles it) ── */
+/* ── DESKTOP STICKY NAVBAR & GLASSMORPHISM ── */
 @media only screen and (min-width: 992px) {
+
+  /* Default relative header */
   .main-header.header-style1 {
     position: relative !important;
+  }
+
+  /* When the glass-active class is applied, make the upper header sticky & glass */
+  .header-upper-style1.glass-active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: rgba(31, 46, 35, 0.42) !important;
+    backdrop-filter: blur(18px) saturate(1.5);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    border-bottom: 1px solid rgba(196, 155, 93, 0.22);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+  }
+
+  /* Make inner container transparent to reveal glass background */
+  .header-upper-style1.glass-active .inner-container {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Invert logo so it's readable on dark glass */
+  .header-upper-style1.glass-active .logo-box-style1 img {
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* Update navigation links color to be readable on dark glass */
+  .header-upper-style1.glass-active .main-menu .navigation>li>a {
+    color: #F5F3ED;
+    transition: color 0.3s ease;
+  }
+
+  .header-upper-style1.glass-active .main-menu .navigation>li:hover>a,
+  .header-upper-style1.glass-active .main-menu .navigation>li.current>a {
+    color: #C49B5D;
   }
 }
 
