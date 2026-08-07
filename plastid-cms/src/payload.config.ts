@@ -9,8 +9,8 @@ import { Users } from '@/collections/shared/Users'
 
 // Plastid Interior
 import {
-  PIMedia, PIPages, PIProjects, PIServices,
-  PITeam, PITestimonials, PIBlog, PISettings,
+  PIAMedia, PIAPages, PIAProjects, PIAServices,
+  PIATeam, PIATestimonials, PIABlog, PIASettings,
 } from '@/collections/plastid-interior'
 
 // Sun Real Estate
@@ -27,8 +27,8 @@ import {
 
 // Plastid Construction
 import {
-  PCMedia, PCPages, PCProjects, PCServices,
-  PCTeam, PCTestimonials, PCBlog, PCSettings,
+  PCDMedia, PCDPages, PCDProjects, PCDServices,
+  PCDTeam, PCDTestimonials, PCDBlog, PCDSettings,
 } from '@/collections/plastid-construction'
 
 export default buildConfig({
@@ -47,8 +47,8 @@ export default buildConfig({
     Users,
 
     // Plastid Interior
-    PIMedia, PIPages, PIProjects, PIServices,
-    PITeam, PITestimonials, PIBlog, PISettings,
+    PIAMedia, PIAPages, PIAProjects, PIAServices,
+    PIATeam, PIATestimonials, PIABlog, PIASettings,
 
     // Sun Real Estate
     SREMedia, SREPages, SREProjects, SREServices,
@@ -59,8 +59,8 @@ export default buildConfig({
     PDTeam, PDTestimonials, PDBlog, PDSettings,
 
     // Plastid Construction
-    PCMedia, PCPages, PCProjects, PCServices,
-    PCTeam, PCTestimonials, PCBlog, PCSettings,
+    PCDMedia, PCDPages, PCDProjects, PCDServices,
+    PCDTeam, PCDTestimonials, PCDBlog, PCDSettings,
   ],
 
   // ── Rich text editor ──────────────────────────────────────────────────────
@@ -78,10 +78,10 @@ export default buildConfig({
     s3Storage({
       // Register all 4 media collections with S3
       collections: {
-        'pi-media':  { prefix: 'plastid-interior' },
+        'pia-media': { prefix: 'plastid-interior' },
         'sre-media': { prefix: 'sun-real-estate' },
         'pd-media':  { prefix: 'plastid-digital' },
-        'pc-media':  { prefix: 'plastid-construction' },
+        'pcd-media': { prefix: 'plastid-construction' },
       },
       bucket: process.env.S3_BUCKET || 'plastid-media',
       config: {

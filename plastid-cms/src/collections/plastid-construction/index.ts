@@ -1,7 +1,7 @@
 /**
  * Plastid Construction and Development — all 8 common collections
  * Admin group: "Plastid Construction"
- * Slug prefix:  pc-
+ * Slug prefix:  pcd-
  * MinIO prefix: plastid-construction/
  */
 import type { CollectionSlug } from 'payload'
@@ -17,14 +17,14 @@ import {
 } from '@/collections/collectionFactory'
 
 const GROUP = 'Plastid Construction'
-const MEDIA = 'pc-media' as CollectionSlug
-const TEAM  = 'pc-team'  as CollectionSlug
+const MEDIA = 'pcd-media' as CollectionSlug
+const TEAM  = 'pcd-team'  as CollectionSlug
 
-export const PCMedia        = createMediaCollection('pc-media', GROUP)
-export const PCPages        = createPagesCollection('pc-pages', GROUP, MEDIA)
-export const PCProjects     = createProjectsCollection('pc-projects', GROUP, MEDIA)
-export const PCServices     = createServicesCollection('pc-services', GROUP, MEDIA)
-export const PCTeam         = createTeamCollection('pc-team', GROUP, MEDIA)
-export const PCTestimonials = createTestimonialsCollection('pc-testimonials', GROUP, MEDIA)
-export const PCBlog         = createBlogCollection('pc-blog', GROUP, TEAM, MEDIA)
-export const PCSettings     = createSettingsCollection('pc-settings', GROUP, MEDIA)
+export const PCDMedia        = createMediaCollection('pcd-media', GROUP)
+export const PCDPages        = createPagesCollection('pcd-pages', GROUP, MEDIA)
+export const PCDProjects     = createProjectsCollection('pcd-projects', GROUP, MEDIA)
+export const PCDServices     = createServicesCollection('pcd-services', GROUP, MEDIA)
+export const PCDTeam         = createTeamCollection('pcd-team', GROUP, MEDIA)
+export const PCDTestimonials = createTestimonialsCollection('pcd-testimonials', GROUP, MEDIA)
+export const PCDBlog         = createBlogCollection('pcd-blog', GROUP, TEAM, MEDIA)
+export const PCDSettings     = createSettingsCollection('pcd-settings', GROUP, MEDIA)

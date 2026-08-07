@@ -11,9 +11,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5433:5432"   # host 5433 → container 5432 (avoids conflict with local PG)
+      - "5433:5432" # host 5433 → container 5432 (avoids conflict with local PG)
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -30,10 +30,10 @@ services:
     volumes:
       - minio_data:/data
     ports:
-      - "9000:9000"   # S3 API endpoint
-      - "9001:9001"   # MinIO web console
+      - "9000:9000" # S3 API endpoint
+      - "9001:9001" # MinIO web console
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
       interval: 30s
       timeout: 20s
       retries: 3
@@ -53,47 +53,6 @@ services:
         echo 'Bucket ${S3_BUCKET} ready.';
         exit 0;
       "
-
-  # ── Payload CMS (Next.js) ───────────────────────────────────────────────────
-  payload:
-    build:
-      context: ./plastid-cms
-      dockerfile: Dockerfile
-    container_name: plastid-cms
-    restart: unless-stopped
-    depends_on:
-      postgres:
-        condition: service_healthy
-      minio:
-        condition: service_healthy
-    environment:
-      # Database
-      DATABASE_URI: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      # Payload
-      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
-      # MinIO / S3
-      S3_ENDPOINT: http://minio:9000
-      S3_ACCESS_KEY: ${MINIO_ROOT_USER}
-      S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
-      S3_BUCKET: ${S3_BUCKET}
-      S3_REGION: us-east-1
-      # Frontend origins (CORS)
-      PLASTID_INTERIOR_URL: ${PLASTID_INTERIOR_URL}
-      SUN_REAL_ESTATE_URL: ${SUN_REAL_ESTATE_URL}
-      PLASTID_DIGITAL_URL: ${PLASTID_DIGITAL_URL}
-      PLASTID_CONSTRUCTION_URL: ${PLASTID_CONSTRUCTION_URL}
-      # Seed
-      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL}
-      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD}
-      # Node
-      NODE_ENV: development
-    ports:
-      - "3001:3000"   # Access admin at http://localhost:3001/admin
-    volumes:
-      - ./plastid-cms:/app
-      - /app/node_modules
-      - /app/.next
 
 volumes:
   postgres_data:
