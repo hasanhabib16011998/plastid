@@ -1,5 +1,7 @@
 /* ══════════════════════════════════════════════════
-   APARTMENT STORY — Scroll-Driven Hero Section
+   APARTMENT STORY — Scroll-Scrubbed Video Experience
+   Awwwards-level: video scrub + film grain + letterbox
+   + glitch flash + split-char titles + film-strip nav
    ══════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
@@ -10,33 +12,47 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: #0a0a0a;
+  background: #050505;
 }
 
-/* ── Image Layers ────────────────────────────────── */
-.apt-story__stage {
+/* ── Letterbox bars ──────────────────────────────── */
+.apt-story__letterbox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: #050505;
+  pointer-events: none;
+}
+
+.apt-story__letterbox--top {
+  top: 0;
+  height: 8vh;
+  transform-origin: top;
+}
+
+.apt-story__letterbox--bot {
+  bottom: 0;
+  height: 8vh;
+  transform-origin: bottom;
+}
+
+/* ── Video ───────────────────────────────────────── */
+.apt-story__video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  will-change: opacity;
-  /* slight Ken-Burns base — GSAP will override on scrub */
-  transform: scale(1.06);
-  transition: none;
+  z-index: 1;
+  /* Video is scrubbed via currentTime — never plays on its own */
 }
 
-.apt-story__stage--active {
-  opacity: 1;
-}
-
-/* ── Gradient Overlays ───────────────────────────── */
+/* ── Gradient overlay ────────────────────────────── */
 .apt-story__overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
-  /* strong left gradient for text readability */
   background:
     linear-gradient(
       105deg,
@@ -44,39 +60,38 @@
       rgba(5, 5, 5, 0.55) 45%,
       rgba(5, 5, 5, 0.08) 100%
     ),
-    linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.6) 0%,
-      transparent 40%
-    );
+    linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 40%);
   pointer-events: none;
-  transition: opacity 0.6s ease;
 }
 
-/* ── Dust Particles (CSS only) ───────────────────── */
-.apt-story__dust {
+/* ── Film Grain ──────────────────────────────────── */
+/*   Pure CSS SVG noise — no external assets needed  */
+.apt-story__grain {
   position: absolute;
-  inset: 0;
+  inset: -20%;
   z-index: 3;
   pointer-events: none;
-  overflow: hidden;
+  width: 140%;
+  height: 140%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.045;
+  animation: grain-shift 0.12s steps(1) infinite;
+  mix-blend-mode: overlay;
 }
 
-.apt-story__dust-particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  animation: dustFloat linear infinite;
-  opacity: 0;
-}
-
-@keyframes dustFloat {
-  0%   { transform: translateY(100vh) translateX(0px); opacity: 0; }
-  10%  { opacity: 1; }
-  80%  { opacity: 0.6; }
-  100% { transform: translateY(-10vh) translateX(var(--drift)); opacity: 0; }
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-3%, -5%); }
+  20%  { transform: translate(5%, 2%); }
+  30%  { transform: translate(-2%, 7%); }
+  40%  { transform: translate(4%, -3%); }
+  50%  { transform: translate(-5%, 5%); }
+  60%  { transform: translate(3%, -7%); }
+  70%  { transform: translate(-4%, 2%); }
+  80%  { transform: translate(5%, -4%); }
+  90%  { transform: translate(-3%, 6%); }
+  100% { transform: translate(0, 0); }
 }
 
 /* ── Cinematic Vignette ──────────────────────────── */
@@ -87,9 +102,77 @@
   pointer-events: none;
   background: radial-gradient(
     ellipse at center,
-    transparent 50%,
-    rgba(0, 0, 0, 0.5) 100%
+    transparent 48%,
+    rgba(0, 0, 0, 0.55) 100%
   );
+}
+
+/* ── Glitch Layer ────────────────────────────────── */
+.apt-story__glitch {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: hard-light;
+}
+
+.apt-story__glitch.is-glitching {
+  animation: glitch-burst 0.28s steps(1) forwards;
+}
+
+@keyframes glitch-burst {
+  0%   {
+    opacity: 0;
+  }
+  8%   {
+    opacity: 1;
+    background: rgba(255,0,60,0.08);
+    transform: translate(4px, 0) skewX(1deg);
+    clip-path: inset(20% 0 60% 0);
+  }
+  16%  {
+    background: rgba(0,200,255,0.08);
+    transform: translate(-4px, 0) skewX(-1deg);
+    clip-path: inset(55% 0 20% 0);
+  }
+  24%  {
+    background: rgba(255,255,0,0.05);
+    transform: translate(2px, -2px) skewX(0.5deg);
+    clip-path: inset(5% 0 80% 0);
+  }
+  32%  {
+    background: rgba(255,0,60,0.06);
+    transform: translate(-2px, 1px);
+    clip-path: inset(75% 0 10% 0);
+  }
+  40%  {
+    opacity: 0.6;
+    background: rgba(255,255,255,0.04);
+    transform: translate(0, 0);
+    clip-path: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+}
+
+/* ── Stage Number (large bg) ─────────────────────── */
+.apt-story__stage-num {
+  position: absolute;
+  right: 7vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(120px, 20vw, 220px);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.035);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -8px;
 }
 
 /* ── Content Panel ───────────────────────────────── */
@@ -101,15 +184,15 @@
   flex-direction: column;
   justify-content: center;
   padding: 0 7vw;
-  max-width: 700px;
+  max-width: 720px;
 }
 
-/* ── Stage Labels (chapter pills) ───────────────── */
+/* ── Chapter label ───────────────────────────────── */
 .apt-story__chapter {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   opacity: 0;
 }
 
@@ -118,67 +201,102 @@
   width: 36px;
   height: 1px;
   background: #c8a96e;
-  transform-origin: left;
+  flex-shrink: 0;
 }
 
 .apt-story__chapter-label {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(200, 169, 110, 0.7);
+}
+
+.apt-story__chapter-sep {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: rgba(200, 169, 110, 0.4);
+  margin: 0 2px;
+}
+
+.apt-story__chapter-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #c8a96e;
 }
 
-/* ── Main Title ──────────────────────────────────── */
+/* ── Split-char animation ────────────────────────── */
+.apt-story__char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ── Title ───────────────────────────────────────── */
+.apt-story__title-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 14px;
+  margin-bottom: 24px;
+  opacity: 0;
+  line-height: 1.1;
+}
+
 .apt-story__title {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(44px, 6vw, 80px);
   font-weight: 300;
   line-height: 1.08;
   color: #ffffff;
-  margin: 0 0 22px;
-  opacity: 0;
-  clip-path: inset(0 0 100% 0);
+  margin: 0;
+  white-space: nowrap;
 }
 
-.apt-story__title em {
+.apt-story__title-em {
+  font-family: 'Cormorant Garamond', serif;
   font-style: italic;
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1.08;
   color: #d4b483;
+  white-space: nowrap;
 }
 
-/* ── Description Text ────────────────────────────── */
+/* ── Description ─────────────────────────────────── */
 .apt-story__desc {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(14px, 1.2vw, 17px);
+  font-size: clamp(13px, 1.15vw, 16px);
   font-weight: 300;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.72);
-  margin: 0 0 36px;
-  max-width: 440px;
+  line-height: 1.82;
+  color: rgba(255, 255, 255, 0.68);
+  margin: 0 0 38px;
+  max-width: 430px;
   opacity: 0;
 }
 
-/* ── CTA Button ──────────────────────────────────── */
+/* ── CTA ─────────────────────────────────────────── */
 .apt-story__cta {
   display: inline-flex;
   align-items: center;
   gap: 14px;
   background: transparent;
-  border: 1px solid rgba(200, 169, 110, 0.6);
+  border: 1px solid rgba(200, 169, 110, 0.55);
   color: #c8a96e;
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   text-decoration: none;
   padding: 14px 28px;
   cursor: pointer;
-  transition: background 0.35s, color 0.35s, border-color 0.35s;
-  opacity: 0;
   position: relative;
   overflow: hidden;
+  transition: color 0.35s, border-color 0.35s;
 }
 
 .apt-story__cta::before {
@@ -187,22 +305,12 @@
   inset: 0;
   background: #c8a96e;
   transform: translateX(-101%);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.apt-story__cta:hover::before {
-  transform: translateX(0);
-}
-
-.apt-story__cta:hover {
-  color: #0a0a0a;
-  border-color: #c8a96e;
-}
-
-.apt-story__cta span {
-  position: relative;
-  z-index: 1;
-}
+.apt-story__cta:hover::before  { transform: translateX(0); }
+.apt-story__cta:hover          { color: #0a0a0a; border-color: #c8a96e; }
+.apt-story__cta span           { position: relative; z-index: 1; }
 
 .apt-story__cta-arrow {
   position: relative;
@@ -225,93 +333,13 @@
   transform: rotate(45deg);
 }
 
-.apt-story__cta:hover .apt-story__cta-arrow {
-  width: 26px;
-}
+.apt-story__cta:hover .apt-story__cta-arrow { width: 26px; }
 
-/* ── Progress Bar ────────────────────────────────── */
-.apt-story__progress-container {
-  position: absolute;
-  bottom: 42px;
-  left: 7vw;
-  right: 7vw;
-  z-index: 15;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.apt-story__progress-track {
-  width: 100%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.15);
-  position: relative;
-  overflow: hidden;
-}
-
-.apt-story__progress-fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  background: linear-gradient(90deg, #c8a96e, #e8d5a3);
-  width: 0%;
-  transform-origin: left;
-  box-shadow: 0 0 8px rgba(200, 169, 110, 0.6);
-}
-
-.apt-story__progress-dots {
-  display: flex;
-  gap: 0;
-  justify-content: space-between;
-}
-
-.apt-story__progress-dot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  cursor: default;
-}
-
-.apt-story__dot-pip {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: transparent;
-  transition: all 0.4s ease;
-  position: relative;
-  top: -9px;
-}
-
-.apt-story__dot-pip.is-active {
-  background: #c8a96e;
-  border-color: #c8a96e;
-  box-shadow: 0 0 10px rgba(200, 169, 110, 0.7);
-}
-
-.apt-story__dot-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.3);
-  transition: color 0.4s ease;
-  white-space: nowrap;
-}
-
-.apt-story__dot-pip.is-active + .apt-story__dot-label,
-.apt-story__progress-dot.is-active .apt-story__dot-label {
-  color: rgba(200, 169, 110, 0.85);
-}
-
-/* ── Scroll Hint ─────────────────────────────────── */
+/* ── Scroll hint ─────────────────────────────────── */
 .apt-story__scroll-hint {
   position: absolute;
   right: 7vw;
-  bottom: 52px;
+  bottom: 110px;
   z-index: 15;
   display: flex;
   flex-direction: column;
@@ -326,7 +354,7 @@
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.35);
   writing-mode: vertical-lr;
   transform: rotate(180deg);
 }
@@ -334,38 +362,183 @@
 .apt-story__scroll-line {
   width: 1px;
   height: 50px;
-  background: linear-gradient(to top, transparent, rgba(200, 169, 110, 0.6));
+  background: linear-gradient(to top, transparent, rgba(200, 169, 110, 0.55));
   animation: scrollLine 2.5s ease-in-out infinite;
 }
 
 @keyframes hintBounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50%       { transform: translateY(-6px); }
 }
 
 @keyframes scrollLine {
-  0% { transform: scaleY(0); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
-  50.01% { transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
+  0%      { transform: scaleY(0); transform-origin: top; }
+  50%     { transform: scaleY(1); transform-origin: top; }
+  50.01%  { transform-origin: bottom; }
+  100%    { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* ── Stage Number (large bg) ─────────────────────── */
-.apt-story__stage-num {
+/* ════════════════════════════════════════════════════
+   FILM-STRIP PROGRESS NAV
+   ════════════════════════════════════════════════════ */
+.apt-story__filmstrip {
   position: absolute;
-  right: 7vw;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 5;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(120px, 20vw, 220px);
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.04);
-  line-height: 1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Thin gold progress line */
+.apt-story__progress-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.apt-story__progress-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #c8a96e 0%, #e8d5a3 60%, #c8a96e 100%);
+  transform-origin: left;
+  box-shadow: 0 0 10px rgba(200, 169, 110, 0.7);
+}
+
+/* Film frame row */
+.apt-story__frames {
+  display: flex;
+  width: 100%;
+  background: rgba(4, 4, 4, 0.88);
+  backdrop-filter: blur(12px) saturate(0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Individual film frame cell */
+.apt-story__frame {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.4s ease;
+  overflow: hidden;
+  cursor: default;
+}
+
+.apt-story__frame:last-child {
+  border-right: none;
+}
+
+.apt-story__frame.is-active {
+  background: rgba(200, 169, 110, 0.07);
+}
+
+/* Film perforations (sprocket holes) */
+.apt-story__perf {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 0 8px;
   pointer-events: none;
-  user-select: none;
-  transition: none;
-  letter-spacing: -8px;
+}
+
+.apt-story__perf--top {
+  padding-top: 5px;
+  padding-bottom: 2px;
+}
+
+.apt-story__perf--bot {
+  padding-top: 2px;
+  padding-bottom: 5px;
+}
+
+.apt-story__perf span {
+  display: block;
+  width: 8px;
+  height: 5px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.4s;
+}
+
+.apt-story__frame.is-active .apt-story__perf span {
+  background: rgba(200, 169, 110, 0.18);
+  border-color: rgba(200, 169, 110, 0.1);
+}
+
+/* Frame content */
+.apt-story__frame-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 0 6px;
+  flex: 1;
+}
+
+.apt-story__frame-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.12);
+  letter-spacing: -1px;
+  transition: color 0.4s;
+}
+
+.apt-story__frame.is-active .apt-story__frame-num {
+  color: rgba(200, 169, 110, 0.75);
+}
+
+.apt-story__frame-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.2);
+  transition: color 0.4s;
+  white-space: nowrap;
+}
+
+.apt-story__frame.is-active .apt-story__frame-label {
+  color: rgba(200, 169, 110, 0.8);
+}
+
+.apt-story__frame-timecode {
+  font-family: 'Inter', monospace;
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.1);
+  transition: color 0.4s;
+}
+
+.apt-story__frame.is-active .apt-story__frame-timecode {
+  color: rgba(200, 169, 110, 0.45);
+}
+
+/* Gold active bar at top of active frame */
+.apt-story__frame-active-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c8a96e, transparent);
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apt-story__frame.is-active .apt-story__frame-active-bar {
+  transform: scaleX(1);
 }
 
 /* ── Responsive ──────────────────────────────────── */
@@ -373,17 +546,12 @@
   .apt-story__content {
     padding: 0 5vw;
     justify-content: flex-end;
-    padding-bottom: 130px;
+    padding-bottom: 120px;
   }
 
-  .apt-story__title {
+  .apt-story__title,
+  .apt-story__title-em {
     font-size: clamp(36px, 9vw, 56px);
-  }
-
-  .apt-story__progress-container {
-    left: 5vw;
-    right: 5vw;
-    bottom: 24px;
   }
 
   .apt-story__scroll-hint {
@@ -394,12 +562,21 @@
     font-size: clamp(80px, 25vw, 140px);
     right: 5vw;
     top: auto;
-    bottom: 100px;
+    bottom: 110px;
     transform: none;
-    opacity: 0.5;
   }
 
-  .apt-story__dot-label {
+  .apt-story__frame-label,
+  .apt-story__frame-timecode {
     display: none;
+  }
+
+  .apt-story__frame-num {
+    font-size: 15px;
+  }
+
+  .apt-story__perf span {
+    width: 5px;
+    height: 4px;
   }
 }

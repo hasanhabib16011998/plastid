@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -7,351 +7,393 @@ import './ApartmentStory.css'
 gsap.registerPlugin(ScrollTrigger)
 
 // ── Story data — 5 transformation stages ──────────
+// `time` = second in the 10-second video where this chapter begins.
+// The scroll maps 0→1 to video 0→10s; the slow-motion feel comes
+// from the user scrolling through 4 viewport-heights of distance.
 const STAGES = [
   {
-    img: '/images/hero-story/stage-0.jpg',
-    chapter: 'Chapter I — Origin',
-    title: 'Where It\nAll Begins',
-    titleEm: null,
+    time: 0,
+    chapter: 'Chapter I',
+    chapterSub: 'Origin',
+    title: 'Where It All',
+    titleEm: 'Begins',
     desc: 'Every masterpiece starts with raw potential. Bare concrete, empty space — the blank canvas that holds a thousand possibilities.',
     cta: { label: 'Our Process', to: '/services' },
+    timecode: '00:00',
   },
   {
-    img: '/images/hero-story/stage-1.jpg',
-    chapter: 'Chapter II — Foundation',
-    title: 'Structure\nTakes',
+    time: 2,
+    chapter: 'Chapter II',
+    chapterSub: 'Foundation',
+    title: 'Structure Takes',
     titleEm: 'Shape',
     desc: 'Bones emerge from the shell. Windows breathe light into the space, and the floor — laid plank by plank — begins to tell its own story.',
     cta: { label: 'See How We Build', to: '/services' },
+    timecode: '00:02',
   },
   {
-    img: '/images/hero-story/stage-2.jpg',
-    chapter: 'Chapter III — Canvas',
-    title: 'The Walls\nListen',
-    titleEm: null,
+    time: 4,
+    chapter: 'Chapter III',
+    chapterSub: 'Canvas',
+    title: 'The Walls',
+    titleEm: 'Listen',
     desc: 'Smooth walls absorb the light. Recessed fixtures are placed with precision. The space breathes with the clarity of intention.',
     cta: { label: 'Our Approach', to: '/about' },
+    timecode: '00:04',
   },
   {
-    img: '/images/hero-story/stage-3.jpg',
-    chapter: 'Chapter IV — Soul',
-    title: 'Furniture\nFinds Its',
+    time: 6,
+    chapter: 'Chapter IV',
+    chapterSub: 'Soul',
+    title: 'Furniture Finds Its',
     titleEm: 'Home',
     desc: 'Piece by piece, the room gains its soul. Each element chosen not just for beauty, but for the feeling it creates in you.',
     cta: { label: 'Explore Designs', to: '/projects' },
+    timecode: '00:06',
   },
   {
-    img: '/images/hero-story/stage-4.jpg',
-    chapter: 'Chapter V — Revelation',
-    title: 'The Art of\n',
+    time: 8,
+    chapter: 'Chapter V',
+    chapterSub: 'Revelation',
+    title: 'The Art of',
     titleEm: 'Living',
     desc: 'The transformation is complete. What was once concrete and silence is now warmth, luxury, and the quiet confidence of a life well-designed.',
     cta: { label: 'Start Your Story', to: '/contact' },
+    timecode: '00:08',
   },
 ]
 
-// dust particle positions
-const DUST_PARTICLES = Array.from({ length: 30 }, (_, i) => ({
-  left: `${Math.random() * 100}%`,
-  animationDelay: `${Math.random() * 8}s`,
-  animationDuration: `${6 + Math.random() * 8}s`,
-  drift: `${(Math.random() - 0.5) * 120}px`,
-  size: `${1 + Math.random() * 3}px`,
-}))
+// ── Video duration (seconds) ─────────────────────
+// Keep this equal to the actual video length.
+// Scroll scrubbing maps progress [0→1] to currentTime [0→VIDEO_DURATION].
+// A 10s video at ~24fps ≈ 240 frames — typically under 8MB at 1080p H.264.
+const VIDEO_DURATION = 10
+
+// ── Split text into character spans ───────────────
+function splitToChars(el) {
+  if (!el) return []
+  const text = el.textContent || ''
+  el.innerHTML = ''
+  return text.split('').map((ch) => {
+    const span = document.createElement('span')
+    span.className = 'apt-story__char'
+    span.textContent = ch === ' ' ? '\u00A0' : ch
+    el.appendChild(span)
+    return span
+  })
+}
 
 export default function ApartmentStory() {
   const sectionRef = useRef(null)
-  const stageImgRefs = useRef([])
+  const videoRef = useRef(null)
   const progressFillRef = useRef(null)
-  const dotRefs = useRef([])
-  const dustRef = useRef(null)
-  const stageNumRef = useRef(null)
-  const titleRef = useRef(null)
-  const chapterRef = useRef(null)
-  const descRef = useRef(null)
-  const ctaRef = useRef(null)
+  const filmStripRef = useRef(null)
   const scrollHintRef = useRef(null)
   const overlayRef = useRef(null)
+  const letterboxTopRef = useRef(null)
+  const letterboxBotRef = useRef(null)
+  const glitchRef = useRef(null)
+  const stageNumRef = useRef(null)
+  const chapterLabelRef = useRef(null)
+  const chapterSubRef = useRef(null)
+  const titleRef = useRef(null)
+  const titleEmRef = useRef(null)
+  const descRef = useRef(null)
+  const ctaRef = useRef(null)
+  const filmDotRefs = useRef([])
 
-  // Refs for per-stage content elements
-  const contentRefs = useRef({
-    chapters: [],
-    titles: [],
-    descs: [],
-    ctas: [],
-  })
+  const lastStageRef = useRef(0)
+  const glitchTimerRef = useRef(null)
+  const pendingVideoTime = useRef(null)  // RAF-based video seek target
+  const rafIdRef = useRef(null)          // RAF loop handle
+
+  // ── Glitch effect ──────────────────────────────
+  const triggerGlitch = useCallback(() => {
+    if (!glitchRef.current) return
+    clearTimeout(glitchTimerRef.current)
+    glitchRef.current.classList.add('is-glitching')
+    glitchTimerRef.current = setTimeout(() => {
+      if (glitchRef.current) glitchRef.current.classList.remove('is-glitching')
+    }, 280)
+  }, [])
+
+  // ── Animate title characters in ───────────────
+  const animateCharsIn = useCallback((titleEl, titleEmEl, chapterLabelEl, chapterSubEl) => {
+    const allChars = [
+      ...splitToChars(chapterLabelEl),
+      ...splitToChars(chapterSubEl),
+    ]
+    const titleChars = splitToChars(titleEl)
+    const emChars = splitToChars(titleEmEl)
+
+    gsap.killTweensOf([...allChars, ...titleChars, ...emChars])
+
+    // Chapter label chars
+    gsap.from(allChars, {
+      opacity: 0,
+      y: 10,
+      stagger: 0.025,
+      duration: 0.4,
+      ease: 'power3.out',
+    })
+
+    // Main title chars
+    gsap.from(titleChars, {
+      opacity: 0,
+      y: 30,
+      stagger: 0.03,
+      duration: 0.55,
+      ease: 'power3.out',
+      delay: 0.1,
+    })
+
+    // Em chars (italic accent)
+    gsap.from(emChars, {
+      opacity: 0,
+      y: 30,
+      stagger: 0.04,
+      duration: 0.6,
+      ease: 'power3.out',
+      delay: 0.18,
+    })
+  }, [])
+
+  // ── Update all text content for a stage ───────
+  const updateTextContent = useCallback((stageIndex, animate = true) => {
+    const stage = STAGES[stageIndex]
+    const chEl = chapterLabelRef.current
+    const chSubEl = chapterSubRef.current
+    const titleEl = titleRef.current
+    const titleEmEl = titleEmRef.current
+    const descEl = descRef.current
+    const ctaEl = ctaRef.current
+
+    if (chEl) chEl.textContent = stage.chapter
+    if (chSubEl) chSubEl.textContent = stage.chapterSub
+    if (titleEl) titleEl.textContent = stage.title
+    if (titleEmEl) titleEmEl.textContent = stage.titleEm
+    if (descEl) descEl.textContent = stage.desc
+    if (ctaEl) {
+      const span = ctaEl.querySelector('.apt-story__cta-label-text')
+      if (span) span.textContent = stage.cta.label
+      ctaEl.href = stage.cta.to
+    }
+
+    if (animate) {
+      animateCharsIn(titleEl, titleEmEl, chEl, chSubEl)
+    }
+  }, [animateCharsIn])
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const total = STAGES.length
       const pin = sectionRef.current
+      const video = videoRef.current
 
-      // ── Set initial states ─────────────────────────
-      // First image visible, rest hidden
-      stageImgRefs.current.forEach((el, i) => {
-        gsap.set(el, { opacity: i === 0 ? 1 : 0, scale: 1.06 })
+      // ── Letterbox open on entry ──────────────────
+      gsap.set([letterboxTopRef.current, letterboxBotRef.current], { scaleY: 1 })
+      gsap.to([letterboxTopRef.current, letterboxBotRef.current], {
+        scaleY: 0,
+        duration: 1.2,
+        ease: 'power3.inOut',
+        delay: 0.2,
       })
 
-      // Animate first stage content in on load
-      const firstContent = document.querySelector('.apt-story__content')
-      const initTl = gsap.timeline({ delay: 0.3 })
+      // ── Init first stage text (no char anim on load) ─
+      updateTextContent(0, false)
+
+      // ── Entrance content animation ──────────────
+      const initTl = gsap.timeline({ delay: 0.6 })
       initTl
-        .to('.apt-story__chapter', {
-          opacity: 1, duration: 0.7, ease: 'power2.out',
-          onComplete: () => {
-            gsap.to('.apt-story__chapter-line', { scaleX: 1, duration: 0.4, ease: 'power2.out' })
-          },
-        })
-        .to('.apt-story__title', {
-          opacity: 1,
-          clipPath: 'inset(0 0 0% 0)',
-          duration: 0.9,
-          ease: 'power3.out',
-        }, '-=0.3')
-        .to('.apt-story__desc', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5')
-        .to('.apt-story__cta', { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.4')
-        .to(scrollHintRef.current, { opacity: 1, duration: 0.5 }, '-=0.2')
+        .to('.apt-story__chapter', { opacity: 1, duration: 0.5, ease: 'power2.out' })
+        .call(() => animateCharsIn(
+          titleRef.current,
+          titleEmRef.current,
+          chapterLabelRef.current,
+          chapterSubRef.current,
+        ))
+        .to('.apt-story__title-wrap', { opacity: 1, duration: 0.01 }, '<')
+        .to('.apt-story__desc', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.2')
+        .to('.apt-story__cta', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.4')
+        .to(scrollHintRef.current, { opacity: 1, duration: 0.4 }, '-=0.3')
 
-      // Track current stage to avoid redundant DOM updates
-      let lastStage = 0
-
-      const updateTextContent = (stageIndex) => {
-        const stage = STAGES[stageIndex]
-        const chapterEl = document.querySelector('.apt-story__chapter-label')
-        const titleEl = document.querySelector('.apt-story__title')
-        const descEl = document.querySelector('.apt-story__desc')
-        const ctaEl = document.querySelector('.apt-story__cta')
-
-        if (chapterEl) chapterEl.textContent = stage.chapter
-        if (titleEl) {
-          titleEl.innerHTML = stage.titleEm
-            ? stage.title.replace('\n', '<br/>') + `<em>${stage.titleEm}</em>`
-            : stage.title.replace('\n', '<br/>')
+      // ── RAF loop: one seek per animation frame ───
+      // onUpdate writes a target time; this loop does the actual seek.
+      // This prevents the browser's seek queue from backing up during
+      // fast scrolling, which is the primary cause of video lag.
+      const seekLoop = () => {
+        if (pendingVideoTime.current !== null && video && video.readyState >= 2) {
+          const t = pendingVideoTime.current
+          pendingVideoTime.current = null
+          // fastSeek() is a lower-overhead approximate seek (Chrome/FF)
+          if (typeof video.fastSeek === 'function') {
+            video.fastSeek(t)
+          } else {
+            video.currentTime = t
+          }
         }
-        if (descEl) descEl.textContent = stage.desc
-        if (ctaEl) {
-          const span = ctaEl.querySelector('.apt-story__cta-label-text')
-          if (span) span.textContent = stage.cta.label
-          ctaEl.href = stage.cta.to
-        }
+        rafIdRef.current = requestAnimationFrame(seekLoop)
       }
+      rafIdRef.current = requestAnimationFrame(seekLoop)
 
-      // ── Master ScrollTrigger timeline ──────────────
-      const master = gsap.timeline({
-        scrollTrigger: {
-          trigger: pin,
-          start: 'top top',
-          end: `+=${window.innerHeight * 4}`,
-          pin: true,
-          scrub: 1.2,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            const progress = self.progress
+      // ── Master ScrollTrigger ─────────────────────
+      ScrollTrigger.create({
+        trigger: pin,
+        start: 'top top',
+        end: `+=${window.innerHeight * 4}`,
+        pin: true,
+        scrub: 1.5,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const progress = self.progress
 
-            // Update progress bar fill
-            if (progressFillRef.current) {
-              gsap.set(progressFillRef.current, { width: `${progress * 100}%` })
-            }
+          // 1. Queue video seek — RAF loop will execute it once per frame
+          if (video && video.readyState >= 1) {
+            pendingVideoTime.current = progress * VIDEO_DURATION
+          }
 
-            // Update dust opacity (visible only in early stages)
-            if (dustRef.current) {
-              gsap.set(dustRef.current, { opacity: Math.max(0, 1 - progress * 3) })
-            }
+          // 2. Progress fill
+          if (progressFillRef.current) {
+            gsap.set(progressFillRef.current, { scaleX: progress })
+          }
 
-            // Update overlay darkness (lighter at end = more luxurious feel)
-            if (overlayRef.current) {
-              const darknessFactor = 0.82 - progress * 0.3
-              overlayRef.current.style.background = `
-                linear-gradient(
-                  105deg,
-                  rgba(5,5,5,${darknessFactor}) 0%,
-                  rgba(5,5,5,${darknessFactor * 0.6}) 45%,
-                  rgba(5,5,5,0.05) 100%
-                ),
-                linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%)
-              `
-            }
+          // 3. Overlay brightness
+          if (overlayRef.current) {
+            const d = 0.82 - progress * 0.28
+            overlayRef.current.style.background = `
+              linear-gradient(105deg,
+                rgba(5,5,5,${d}) 0%,
+                rgba(5,5,5,${d * 0.55}) 45%,
+                rgba(5,5,5,0.04) 100%),
+              linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 40%)`
+          }
 
-            // Determine current stage (0–4)
-            const rawStage = progress * (total - 1)
-            const currentStage = Math.round(rawStage)
+          // 4. Determine stage
+          const rawStage = progress * (STAGES.length - 1)
+          const currentStage = Math.min(
+            STAGES.length - 1,
+            Math.floor(rawStage + 0.5)
+          )
 
-            // Update dot pips
-            dotRefs.current.forEach((dot, i) => {
-              if (!dot) return
-              const pip = dot.querySelector('.apt-story__dot-pip')
-              if (pip) pip.classList.toggle('is-active', i === currentStage)
-              dot.classList.toggle('is-active', i === currentStage)
+          // 5. Stage number
+          if (stageNumRef.current) {
+            stageNumRef.current.textContent = `0${currentStage + 1}`
+          }
+
+          // 6. Film strip dot highlight
+          filmDotRefs.current.forEach((dot, i) => {
+            if (!dot) return
+            dot.classList.toggle('is-active', i === currentStage)
+          })
+
+          // 7. Text + glitch on stage change
+          if (currentStage !== lastStageRef.current) {
+            const goingForward = currentStage > lastStageRef.current
+            lastStageRef.current = currentStage
+
+            triggerGlitch()
+
+            // Fade out → swap text → fade in
+            gsap.to([
+              chapterLabelRef.current,
+              chapterSubRef.current,
+              '.apt-story__title-wrap',
+              descRef.current,
+              ctaRef.current,
+            ], {
+              opacity: 0,
+              y: goingForward ? -10 : 10,
+              duration: 0.18,
+              ease: 'power2.in',
+              onComplete: () => {
+                updateTextContent(currentStage, true)
+                gsap.to([
+                  chapterLabelRef.current,
+                  chapterSubRef.current,
+                  '.apt-story__title-wrap',
+                  descRef.current,
+                  ctaRef.current,
+                ], {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.35,
+                  ease: 'power3.out',
+                })
+              },
             })
+          }
 
-            // Update large stage number
-            if (stageNumRef.current) {
-              stageNumRef.current.textContent = `0${currentStage + 1}`
-            }
-
-            // Update text content whenever the active stage changes (works both directions)
-            if (currentStage !== lastStage) {
-              lastStage = currentStage
-              updateTextContent(currentStage)
-            }
-          },
+          // 8. Scroll hint fade
+          if (scrollHintRef.current && progress > 0.05) {
+            gsap.to(scrollHintRef.current, { opacity: 0, duration: 0.3 })
+          }
         },
       })
-
-      // ── Build cross-fade timeline per stage ────────
-      // Each stage occupies 1/(total-1) of the total scroll
-      const segLen = 1 / (total - 1)
-
-      // Image cross-fades
-      STAGES.forEach((_, i) => {
-        if (i === 0) return // already visible
-        const start = (i - 1) * segLen
-        const mid = start + segLen * 0.4
-        const end = start + segLen
-
-        master.to(stageImgRefs.current[i - 1], {
-          opacity: 0,
-          scale: 1.0,
-          ease: 'power1.inOut',
-        }, mid)
-        master.to(stageImgRefs.current[i], {
-          opacity: 1,
-          scale: 1.0,
-          ease: 'power1.inOut',
-        }, mid)
-      })
-
-      // ── Narrative text transitions ─────────────────
-      // Text content (chapter, title, desc, cta) is updated in the master
-      // ScrollTrigger's onUpdate handler above, so it works correctly in
-      // both scroll directions. Here we only drive the opacity/y animations.
-
-      const chapterEl = document.querySelector('.apt-story__chapter-label')
-      const titleEl = document.querySelector('.apt-story__title')
-      const descEl = document.querySelector('.apt-story__desc')
-      const ctaEl = document.querySelector('.apt-story__cta')
-
-      // Separate scrubbed timeline just for opacity/position fades
-      const textTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: pin,
-          start: 'top top',
-          end: `+=${window.innerHeight * 4}`,
-          scrub: 0.8,
-        },
-      })
-
-      STAGES.forEach((_, i) => {
-        if (i === 0) return
-        const start = (i - 1) * segLen
-        const mid = start + segLen * 0.35
-        const arrive = start + segLen * 0.5
-
-        // Fade out
-        textTl.to([chapterEl, titleEl, descEl, ctaEl], {
-          opacity: 0,
-          y: -12,
-          duration: segLen * 0.3,
-          ease: 'power2.in',
-        }, mid - segLen * 0.3)
-
-        // Fade in
-        textTl.to([chapterEl, titleEl, descEl, ctaEl], {
-          opacity: 1,
-          y: 0,
-          duration: segLen * 0.3,
-          ease: 'power2.out',
-        }, arrive)
-      })
-
-      // Scroll hint fades away after first scroll
-      textTl.to(scrollHintRef.current, {
-        opacity: 0,
-        duration: segLen * 0.2,
-        ease: 'power1.in',
-      }, 0.02)
-
     }, sectionRef)
 
     return () => {
+      cancelAnimationFrame(rafIdRef.current)
       ctx.revert()
       ScrollTrigger.getAll().forEach((st) => st.kill())
+      clearTimeout(glitchTimerRef.current)
     }
-  }, [])
-
-  // Build initial title HTML
-  const firstStage = STAGES[0]
-  const firstTitleHtml = firstStage.titleEm
-    ? firstStage.title.replace('\n', '<br/>') + `<em>${firstStage.titleEm}</em>`
-    : firstStage.title.replace('\n', '<br/>')
+  }, [updateTextContent, animateCharsIn, triggerGlitch])
 
   return (
     <section className="apt-story" ref={sectionRef}>
 
-      {/* ── Background Images (stacked) ── */}
-      {STAGES.map((stage, i) => (
-        <img
-          key={i}
-          ref={(el) => (stageImgRefs.current[i] = el)}
-          src={stage.img}
-          alt={`Stage ${i + 1}`}
-          className="apt-story__stage"
-          draggable="false"
-        />
-      ))}
+      {/* ── Letterbox bars ── */}
+      <div className="apt-story__letterbox apt-story__letterbox--top" ref={letterboxTopRef} />
+      <div className="apt-story__letterbox apt-story__letterbox--bot" ref={letterboxBotRef} />
 
-      {/* ── Overlay gradient ── */}
+      {/* ── Video background ── */}
+      <video
+        ref={videoRef}
+        className="apt-story__video"
+        src="/playback.mp4"
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+      />
+
+      {/* ── Gradient overlay ── */}
       <div className="apt-story__overlay" ref={overlayRef} />
 
-      {/* ── Dust particles (visible only early stages) ── */}
-      <div className="apt-story__dust" ref={dustRef}>
-        {DUST_PARTICLES.map((p, i) => (
-          <div
-            key={i}
-            className="apt-story__dust-particle"
-            style={{
-              left: p.left,
-              bottom: '-10px',
-              width: p.size,
-              height: p.size,
-              animationDelay: p.animationDelay,
-              animationDuration: p.animationDuration,
-              '--drift': p.drift,
-            }}
-          />
-        ))}
-      </div>
+      {/* ── Film grain ── */}
+      <div className="apt-story__grain" aria-hidden="true" />
 
       {/* ── Cinematic vignette ── */}
       <div className="apt-story__vignette" />
 
-      {/* ── Large background stage number ── */}
+      {/* ── Glitch layer ── */}
+      <div className="apt-story__glitch" ref={glitchRef} aria-hidden="true" />
+
+      {/* ── Large stage number ── */}
       <div className="apt-story__stage-num" ref={stageNumRef}>01</div>
 
       {/* ── Narrative content ── */}
       <div className="apt-story__content">
         <div className="apt-story__chapter">
           <span className="apt-story__chapter-line" />
-          <span className="apt-story__chapter-label">{firstStage.chapter}</span>
+          <span className="apt-story__chapter-label" ref={chapterLabelRef} />
+          <span className="apt-story__chapter-sep">—</span>
+          <span className="apt-story__chapter-sub" ref={chapterSubRef} />
         </div>
 
-        <h1
-          className="apt-story__title"
-          ref={titleRef}
-          dangerouslySetInnerHTML={{ __html: firstTitleHtml }}
-        />
+        <div className="apt-story__title-wrap">
+          <h1 className="apt-story__title" ref={titleRef} />
+          <em className="apt-story__title-em" ref={titleEmRef} />
+        </div>
 
-        <p className="apt-story__desc" ref={descRef}>
-          {firstStage.desc}
-        </p>
+        <p className="apt-story__desc" ref={descRef} />
 
         <Link
-          to={firstStage.cta.to}
+          to={STAGES[0].cta.to}
           className="apt-story__cta"
           ref={ctaRef}
-          style={{ alignSelf: 'flex-start' }}
+          style={{ alignSelf: 'flex-start', opacity: 0 }}
         >
-          <span className="apt-story__cta-label-text">{firstStage.cta.label}</span>
+          <span className="apt-story__cta-label-text">{STAGES[0].cta.label}</span>
           <span className="apt-story__cta-arrow" />
         </Link>
       </div>
@@ -362,24 +404,48 @@ export default function ApartmentStory() {
         <span>Scroll</span>
       </div>
 
-      {/* ── Progress bar ── */}
-      <div className="apt-story__progress-container">
+      {/* ── Film-strip progress nav ── */}
+      <nav className="apt-story__filmstrip" ref={filmStripRef} aria-label="Chapter navigation">
         <div className="apt-story__progress-track">
-          <div className="apt-story__progress-fill" ref={progressFillRef} />
+          <div
+            className="apt-story__progress-fill"
+            ref={progressFillRef}
+            style={{ transform: 'scaleX(0)' }}
+          />
         </div>
-        <div className="apt-story__progress-dots">
+
+        <div className="apt-story__frames">
           {STAGES.map((stage, i) => (
             <div
               key={i}
-              className={`apt-story__progress-dot${i === 0 ? ' is-active' : ''}`}
-              ref={(el) => (dotRefs.current[i] = el)}
+              className={`apt-story__frame${i === 0 ? ' is-active' : ''}`}
+              ref={(el) => (filmDotRefs.current[i] = el)}
             >
-              <div className={`apt-story__dot-pip${i === 0 ? ' is-active' : ''}`} />
-              <span className="apt-story__dot-label">{stage.chapter.split('—')[0].trim()}</span>
+              {/* Film perforations */}
+              <div className="apt-story__perf apt-story__perf--top">
+                <span /><span /><span />
+              </div>
+              <div className="apt-story__perf apt-story__perf--bot">
+                <span /><span /><span />
+              </div>
+
+              {/* Frame content */}
+              <div className="apt-story__frame-body">
+                <span className="apt-story__frame-num">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="apt-story__frame-label">
+                  {stage.chapterSub}
+                </span>
+                <span className="apt-story__frame-timecode">{stage.timecode}</span>
+              </div>
+
+              {/* Active indicator */}
+              <div className="apt-story__frame-active-bar" />
             </div>
           ))}
         </div>
-      </div>
+      </nav>
 
     </section>
   )
