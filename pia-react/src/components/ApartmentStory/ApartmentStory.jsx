@@ -112,6 +112,30 @@ export default function ApartmentStory() {
         .to('.apt-story__cta', { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.4')
         .to(scrollHintRef.current, { opacity: 1, duration: 0.5 }, '-=0.2')
 
+      // Track current stage to avoid redundant DOM updates
+      let lastStage = 0
+
+      const updateTextContent = (stageIndex) => {
+        const stage = STAGES[stageIndex]
+        const chapterEl = document.querySelector('.apt-story__chapter-label')
+        const titleEl = document.querySelector('.apt-story__title')
+        const descEl = document.querySelector('.apt-story__desc')
+        const ctaEl = document.querySelector('.apt-story__cta')
+
+        if (chapterEl) chapterEl.textContent = stage.chapter
+        if (titleEl) {
+          titleEl.innerHTML = stage.titleEm
+            ? stage.title.replace('\n', '<br/>') + `<em>${stage.titleEm}</em>`
+            : stage.title.replace('\n', '<br/>')
+        }
+        if (descEl) descEl.textContent = stage.desc
+        if (ctaEl) {
+          const span = ctaEl.querySelector('.apt-story__cta-label-text')
+          if (span) span.textContent = stage.cta.label
+          ctaEl.href = stage.cta.to
+        }
+      }
+
       // ── Master ScrollTrigger timeline ──────────────
       const master = gsap.timeline({
         scrollTrigger: {
@@ -164,6 +188,12 @@ export default function ApartmentStory() {
             if (stageNumRef.current) {
               stageNumRef.current.textContent = `0${currentStage + 1}`
             }
+
+            // Update text content whenever the active stage changes (works both directions)
+            if (currentStage !== lastStage) {
+              lastStage = currentStage
+              updateTextContent(currentStage)
+            }
           },
         },
       })
@@ -192,18 +222,16 @@ export default function ApartmentStory() {
       })
 
       // ── Narrative text transitions ─────────────────
-      // We'll use a separate "onUpdate" approach with GSAP
-      // for smooth text swapping driven by scroll progress
-      const textSegLen = segLen
+      // Text content (chapter, title, desc, cta) is updated in the master
+      // ScrollTrigger's onUpdate handler above, so it works correctly in
+      // both scroll directions. Here we only drive the opacity/y animations.
 
-      // Build a GSAP tween that calls a callback per progress
-      master.call(() => {}, [], 0) // anchor start
+      const chapterEl = document.querySelector('.apt-story__chapter-label')
+      const titleEl = document.querySelector('.apt-story__title')
+      const descEl = document.querySelector('.apt-story__desc')
+      const ctaEl = document.querySelector('.apt-story__cta')
 
-      // For text, we manually watch via onUpdate (already set above)
-      // Instead, create label markers for each stage in the master tl
-      // and tween text opacity in/out
-
-      // Content text fade per stage - using a separate scrub tl
+      // Separate scrubbed timeline just for opacity/position fades
       const textTl = gsap.timeline({
         scrollTrigger: {
           trigger: pin,
@@ -213,45 +241,21 @@ export default function ApartmentStory() {
         },
       })
 
-      const chapterEl = document.querySelector('.apt-story__chapter-label')
-      const titleEl = document.querySelector('.apt-story__title')
-      const descEl = document.querySelector('.apt-story__desc')
-      const ctaEl = document.querySelector('.apt-story__cta')
-      const ctaLabelEl = document.querySelector('.apt-story__cta-label-text')
-
-      // For each transition between stages, we animate text
-      STAGES.forEach((stage, i) => {
+      STAGES.forEach((_, i) => {
         if (i === 0) return
         const start = (i - 1) * segLen
         const mid = start + segLen * 0.35
         const arrive = start + segLen * 0.5
 
-        // Fade out old text
+        // Fade out
         textTl.to([chapterEl, titleEl, descEl, ctaEl], {
           opacity: 0,
           y: -12,
           duration: segLen * 0.3,
           ease: 'power2.in',
-          onComplete: () => {
-            // Snap content to new stage
-            if (chapterEl) chapterEl.textContent = stage.chapter
-            if (titleEl) {
-              if (stage.titleEm) {
-                titleEl.innerHTML = stage.title.replace('\n', '<br/>') + `<em>${stage.titleEm}</em>`
-              } else {
-                titleEl.innerHTML = stage.title.replace('\n', '<br/>')
-              }
-            }
-            if (descEl) descEl.textContent = stage.desc
-            if (ctaEl) {
-              const span = ctaEl.querySelector('.apt-story__cta-label-text')
-              if (span) span.textContent = stage.cta.label
-              ctaEl.href = stage.cta.to
-            }
-          },
         }, mid - segLen * 0.3)
 
-        // Fade in new text
+        // Fade in
         textTl.to([chapterEl, titleEl, descEl, ctaEl], {
           opacity: 1,
           y: 0,
