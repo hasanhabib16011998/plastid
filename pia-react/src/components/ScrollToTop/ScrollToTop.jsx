@@ -4,9 +4,34 @@ export default function ScrollToTop() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 400)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const checkVisibility = () => {
+      const isLoading =
+        document.body.classList.contains('loading-active') ||
+        !!document.querySelector('.pia-loader-wrapper') ||
+        !!document.querySelector('.preloader')
+
+      let isAptStory = document.body.classList.contains('in-apt-story')
+      if (!isAptStory) {
+        const aptStoryEl = document.querySelector('.apt-story')
+        if (aptStoryEl) {
+          const rect = aptStoryEl.getBoundingClientRect()
+          isAptStory = rect.top < window.innerHeight && rect.bottom > 0
+        }
+      }
+
+      setVisible(window.scrollY > 400 && !isLoading && !isAptStory)
+    }
+
+    checkVisibility()
+    window.addEventListener('scroll', checkVisibility)
+    window.addEventListener('resize', checkVisibility)
+    window.addEventListener('loadingStateChange', checkVisibility)
+
+    return () => {
+      window.removeEventListener('scroll', checkVisibility)
+      window.removeEventListener('resize', checkVisibility)
+      window.removeEventListener('loadingStateChange', checkVisibility)
+    }
   }, [])
 
   const handleClick = () => {

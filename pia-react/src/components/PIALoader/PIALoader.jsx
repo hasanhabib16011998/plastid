@@ -164,6 +164,8 @@ export default function PIALoader() {
   const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
+    document.body.classList.add('loading-active');
+
     const timer = setTimeout(() => {
       // Smooth GSAP fade out + slight scale-up exit
       gsap.to(wrapRef.current, {
@@ -171,11 +173,19 @@ export default function PIALoader() {
         scale: 1.04,
         duration: 0.65,
         ease: 'power2.inOut',
-        onComplete: () => setMounted(false),
+        onComplete: () => {
+          document.body.classList.remove('loading-active');
+          window.dispatchEvent(new Event('loadingStateChange'));
+          setMounted(false);
+        },
       });
     }, DISPLAY_MS);
 
-    return () => clearTimeout(timer);
+    return () => {
+      document.body.classList.remove('loading-active');
+      window.dispatchEvent(new Event('loadingStateChange'));
+      clearTimeout(timer);
+    };
   }, []);
 
   if (!mounted) return null;
@@ -183,6 +193,7 @@ export default function PIALoader() {
   return (
     <div
       ref={wrapRef}
+      className="pia-loader-wrapper"
       style={{
         position: 'fixed',
         inset: 0,

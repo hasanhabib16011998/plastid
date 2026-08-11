@@ -656,12 +656,27 @@ li {
     display: none;
     text-align: center;
     transition: all 500ms ease 0s;
-    z-index: 9999999999999;
+    z-index: 9999;
     box-shadow: 0px 8px 23px -6px rgba(27, 27, 27, 1);
 }
 
 .scroll-to-top-style2:hover {
     opacity: .5;
+}
+
+/* Hide scroll to top button whenever loading screen is active or user is in ApartmentStory */
+body.loading-active .scroll-to-top,
+body.loading-active .scroll-to-top-style2,
+body.in-apt-story .scroll-to-top,
+body.in-apt-story .scroll-to-top-style2,
+.pia-loader-wrapper ~ .scroll-to-top,
+.pia-loader-wrapper ~ .scroll-to-top-style2,
+.preloader ~ .scroll-to-top,
+.preloader ~ .scroll-to-top-style2 {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 

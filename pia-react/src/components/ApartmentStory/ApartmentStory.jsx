@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useCallback } from 'react'
+import { useEffect, useLayoutEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -182,6 +182,43 @@ export default function ApartmentStory() {
     }
   }, [animateCharsIn])
 
+  // ── iOS Safari Video Kickstart ──────────────────
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    video.muted = true
+    video.defaultMuted = true
+    video.playsInline = true
+    video.setAttribute('muted', '')
+    video.setAttribute('playsinline', '')
+    video.setAttribute('webkit-playsinline', 'true')
+    video.setAttribute('x5-playsinline', 'true')
+
+    video.load()
+
+    const kickstart = () => {
+      video.muted = true
+      const p = video.play()
+      if (p !== undefined) {
+        p.then(() => video.pause()).catch(() => {})
+      }
+      window.removeEventListener('touchstart', kickstart)
+      window.removeEventListener('scroll', kickstart)
+      window.removeEventListener('pointerdown', kickstart)
+    }
+
+    window.addEventListener('touchstart', kickstart, { passive: true })
+    window.addEventListener('scroll', kickstart, { passive: true })
+    window.addEventListener('pointerdown', kickstart, { passive: true })
+
+    return () => {
+      window.removeEventListener('touchstart', kickstart)
+      window.removeEventListener('scroll', kickstart)
+      window.removeEventListener('pointerdown', kickstart)
+    }
+  }, [])
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const pin = sectionRef.current
@@ -222,13 +259,25 @@ export default function ApartmentStory() {
         pin: true,
         scrub: 1.5,
         anticipatePin: 1,
+        onToggle: (self) => {
+          if (self.isActive) {
+            document.body.classList.add('in-apt-story')
+          } else {
+            document.body.classList.remove('in-apt-story')
+          }
+          window.dispatchEvent(new Event('scroll'))
+        },
         onUpdate: (self) => {
           const progress = self.progress
 
-          // 1. Scrub video
-          if (video && video.readyState >= 1) {
+          // 1. Scrub video (robust for iOS Safari)
+          if (video) {
             const targetTime = progress * VIDEO_DURATION
-            video.currentTime = targetTime
+            if (Number.isFinite(targetTime)) {
+              try {
+                video.currentTime = targetTime
+              } catch (_) {}
+            }
           }
 
           // 2. Progress fill
@@ -311,6 +360,7 @@ export default function ApartmentStory() {
     }, sectionRef)
 
     return () => {
+      document.body.classList.remove('in-apt-story')
       ctx.revert()
       ScrollTrigger.getAll().forEach((st) => st.kill())
       clearTimeout(glitchTimerRef.current)
@@ -330,7 +380,10 @@ export default function ApartmentStory() {
         className="apt-story__video"
         src="/playback_opt.mp4"
         muted
+        defaultMuted
         playsInline
+        webkit-playsinline="true"
+        x5-playsinline="true"
         preload="auto"
         aria-hidden="true"
       />
