@@ -419,7 +419,7 @@ export default function ApartmentStory() {
                 <span className="apt-story__frame-label">
                   {stage.chapterSub}
                 </span>
-                <span className="apt-story__frame-timecode">{stage.timecode}</span>
+                {/*<span className="apt-story__frame-timecode">{stage.timecode}</span> */}
               </div>
 
               {/* Active indicator */}
