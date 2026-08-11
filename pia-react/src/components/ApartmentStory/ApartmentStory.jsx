@@ -104,8 +104,6 @@ export default function ApartmentStory() {
 
   const lastStageRef = useRef(0)
   const glitchTimerRef = useRef(null)
-  const pendingVideoTime = useRef(null)  // RAF-based video seek target
-  const rafIdRef = useRef(null)          // RAF loop handle
 
   // ── Glitch effect ──────────────────────────────
   const triggerGlitch = useCallback(() => {
@@ -216,25 +214,6 @@ export default function ApartmentStory() {
         .to('.apt-story__cta', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.4')
         .to(scrollHintRef.current, { opacity: 1, duration: 0.4 }, '-=0.3')
 
-      // ── RAF loop: one seek per animation frame ───
-      // onUpdate writes a target time; this loop does the actual seek.
-      // This prevents the browser's seek queue from backing up during
-      // fast scrolling, which is the primary cause of video lag.
-      const seekLoop = () => {
-        if (pendingVideoTime.current !== null && video && video.readyState >= 2) {
-          const t = pendingVideoTime.current
-          pendingVideoTime.current = null
-          // fastSeek() is a lower-overhead approximate seek (Chrome/FF)
-          if (typeof video.fastSeek === 'function') {
-            video.fastSeek(t)
-          } else {
-            video.currentTime = t
-          }
-        }
-        rafIdRef.current = requestAnimationFrame(seekLoop)
-      }
-      rafIdRef.current = requestAnimationFrame(seekLoop)
-
       // ── Master ScrollTrigger ─────────────────────
       ScrollTrigger.create({
         trigger: pin,
@@ -246,9 +225,10 @@ export default function ApartmentStory() {
         onUpdate: (self) => {
           const progress = self.progress
 
-          // 1. Queue video seek — RAF loop will execute it once per frame
+          // 1. Scrub video
           if (video && video.readyState >= 1) {
-            pendingVideoTime.current = progress * VIDEO_DURATION
+            const targetTime = progress * VIDEO_DURATION
+            video.currentTime = targetTime
           }
 
           // 2. Progress fill
@@ -331,7 +311,6 @@ export default function ApartmentStory() {
     }, sectionRef)
 
     return () => {
-      cancelAnimationFrame(rafIdRef.current)
       ctx.revert()
       ScrollTrigger.getAll().forEach((st) => st.kill())
       clearTimeout(glitchTimerRef.current)
@@ -349,7 +328,7 @@ export default function ApartmentStory() {
       <video
         ref={videoRef}
         className="apt-story__video"
-        src="/playback.mp4"
+        src="/playback_opt.mp4"
         muted
         playsInline
         preload="auto"
@@ -361,6 +340,9 @@ export default function ApartmentStory() {
 
       {/* ── Film grain ── */}
       <div className="apt-story__grain" aria-hidden="true" />
+
+      {/* ── Ultra-smooth blur & softening layer ── */}
+      <div className="apt-story__smooth-blur" aria-hidden="true" />
 
       {/* ── Cinematic vignette ── */}
       <div className="apt-story__vignette" />
