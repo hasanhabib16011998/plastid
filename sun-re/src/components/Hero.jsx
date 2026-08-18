@@ -92,8 +92,9 @@ export default function Hero() {
           backgroundPosition: 'center 30%',
         }}
       >
+        {/* Dark Overlay Gradient for High Text Contrast */}
         <div className="absolute inset-0" style={{
-          background: 'linear-gradient(180deg,rgba(15,15,13,0.3) 0%,rgba(15,15,13,0.15) 30%,rgba(15,15,13,0.6) 70%,rgba(15,15,13,0.96) 100%)'
+          background: 'linear-gradient(180deg, rgba(10,10,9,0.75) 0%, rgba(10,10,9,0.6) 35%, rgba(10,10,9,0.8) 70%, rgba(10,10,9,0.98) 100%)'
         }} />
       </div>
 
@@ -131,7 +132,7 @@ export default function Hero() {
 
         {/* Sub */}
         <p className="text-sm md:text-base leading-relaxed md:leading-8 max-w-xl mx-auto mb-16 md:mb-24"
-          style={{ color: 'rgba(245,240,232,0.5)', fontWeight: 300 }}>
+          style={{ color: 'rgba(245,240,232,0.75)', fontWeight: 300 }}>
           Crafting extraordinary living experiences across Dhaka's most coveted addresses —
           where architectural brilliance and refined luxury converge.
         </p>
