@@ -124,8 +124,8 @@ export default function ContactPage() {
               </div>
 
               {/* Visit promo */}
-              <div className="p-8 md:p-10"
-                style={{ background:'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.3))', border:'1px solid rgba(200,137,26,0.18)' }}>
+              <div className="card-luxury"
+                style={{ background:'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.3))', border:'1px solid rgba(200,137,26,0.18)', padding:'2.5rem' }}>
                 <h4 className="font-display text-xl md:text-2xl mb-3" style={{ color:'var(--text-primary)', fontWeight:400 }}>
                   Book a Site Visit
                 </h4>
@@ -150,7 +150,7 @@ export default function ContactPage() {
                   <button onClick={() => setSent(false)} className="btn-outline text-xs mt-2">Send Another</button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-8 md:p-14 card-dark">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6 card-dark" style={{ padding:'2.75rem' }}>
                   <h3 className="font-display text-2xl md:text-3xl mb-2" style={{ color:'var(--text-primary)', fontWeight:400 }}>
                     Send Us a Message
                   </h3>

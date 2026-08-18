@@ -126,7 +126,7 @@ export default function ProjectsPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="p-7 md:p-8 flex flex-col flex-1">
+                  <div className="card-body flex flex-col flex-1">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(200,137,26,0.7)' }}>{p.type}</span>
                       <span className="text-[0.55rem] tracking-wider" style={{ color:'rgba(245,240,232,0.25)' }}>{p.year}</span>

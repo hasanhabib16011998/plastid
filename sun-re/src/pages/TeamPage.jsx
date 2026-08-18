@@ -153,7 +153,7 @@ export default function TeamPage() {
                     {p.dept}
                   </div>
                 </div>
-                <div className="p-7 md:p-9 flex flex-col flex-1">
+                <div className="card-body flex flex-col flex-1">
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div>
                       <h3 className="font-display text-xl md:text-2xl leading-tight mb-1" style={{ color:'var(--text-primary)', fontWeight:500 }}>
@@ -226,8 +226,8 @@ export default function TeamPage() {
       {/* Join us CTA */}
       <section className="section-py" style={{ background:'#0f0f0d' }}>
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center p-10 md:p-16"
-            style={{ background:'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.35))', border:'1px solid rgba(200,137,26,0.18)' }}>
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center card-luxury"
+            style={{ background:'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.35))', border:'1px solid rgba(200,137,26,0.18)', padding:'3rem' }}>
             <div>
               <p className="section-label mb-3.5" style={{ fontSize:'0.62rem' }}>Join Our Team</p>
               <h3 className="font-display text-2xl md:text-4xl mb-4" style={{ color:'var(--text-primary)', fontWeight:400 }}>

@@ -123,9 +123,9 @@ function FeaturedProjects() {
   return (
     <section className="section-py" style={{ background: '#0c0c0a' }}>
       <div className="container">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16 md:mb-20">
-          <SectionHeader label="Our Portfolio" title='Signature <span class="italic gold-text">Developments</span>' />
-          <Link to="/projects" className="btn-outline shrink-0 self-start sm:self-auto mb-16 md:mb-20 sm:mb-0">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12 md:mb-16">
+          <SectionHeader label="Our Portfolio" title='Signature <span class="italic gold-text">Developments</span>' className="!mb-0" />
+          <Link to="/projects" className="btn-outline shrink-0 self-start sm:self-auto">
             View All <ArrowUpRight size={13} />
           </Link>
         </div>
@@ -160,7 +160,7 @@ function FeaturedProjects() {
                 </div>
 
                 {/* Body */}
-                <div className="p-7 md:p-8 flex flex-col flex-1">
+                <div className="card-body flex flex-col flex-1">
                   <span className="text-[0.6rem] tracking-widest uppercase mb-2" style={{ color:'rgba(200,137,26,0.7)' }}>{p.type}</span>
                   <h3 className="font-display text-xl md:text-2xl mb-4 leading-tight" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.name}</h3>
                   <div className="flex flex-col gap-2 mb-6">
@@ -219,9 +219,9 @@ function ServicesSnippet() {
   return (
     <section className="section-py" style={{ background: 'linear-gradient(180deg,#0f0f0d,#0c0c0a)' }}>
       <div className="container">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16 md:mb-20">
-          <SectionHeader label="What We Offer" title='Services Built on <span class="italic gold-text">Excellence</span>' />
-          <Link to="/services" className="btn-outline shrink-0 self-start sm:self-auto mb-16 md:mb-20 sm:mb-0">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12 md:mb-16">
+          <SectionHeader label="What We Offer" title='Services Built on <span class="italic gold-text">Excellence</span>' className="!mb-0" />
+          <Link to="/services" className="btn-outline shrink-0 self-start sm:self-auto">
             All Services <ArrowUpRight size={13} />
           </Link>
         </div>
@@ -335,40 +335,103 @@ function StatsSection() {
    TESTIMONIALS
 ═══════════════════════════════════════════════════ */
 const testimonials = [
-  { name:'Rahman A. Chowdhury', role:'CEO, Apex Industries', rating:5,
-    text:'Sun Real Estate redefines what luxury living means in Dhaka. Our penthouse at Sun Aura Towers is beyond anything we imagined — the craftsmanship, the views, the service. Truly world-class.' },
-  { name:'Nadia Islam', role:'Entrepreneur & Investor', rating:5,
-    text:"As a real estate investor I've worked with many developers. None match Sun's attention to detail, transparent communication, and commitment to delivering on every promise." },
-  { name:'Dr. Khalid Hossain', role:'Senior Consultant', rating:5,
-    text:'From the first consultation to the handover ceremony, the team made the entire journey effortless. The quality of construction is exceptional — worth every taka.' },
+  {
+    name: 'Rahman A. Chowdhury',
+    role: 'CEO, Apex Industries',
+    property: 'Penthouse Owner, Sun Aura Towers',
+    initials: 'RC',
+    location: 'Gulshan-1',
+    rating: 5,
+    text: 'Sun Real Estate redefines what luxury living means in Dhaka. Our penthouse at Sun Aura Towers is beyond anything we imagined — the craftsmanship, the light, the panoramic views, and the bespoke after-sales service. Truly world-class.',
+  },
+  {
+    name: 'Nadia Islam',
+    role: 'Managing Director & Investor',
+    property: 'Resident, Infinity Tower',
+    initials: 'NI',
+    location: 'Banani',
+    rating: 5,
+    text: "As a commercial real estate investor I've worked with many top developers across South Asia. None match Sun RE's architectural distinction, transparent timelines, and commitment to building timeless structures.",
+  },
+  {
+    name: 'Dr. Khalid Hossain',
+    role: 'Senior Medical Specialist',
+    property: 'Resident, The Grand Reserve',
+    initials: 'KH',
+    location: 'Baridhara',
+    rating: 5,
+    text: 'From the initial design consultation to our private handover ceremony, the team made every step effortless. The acoustic insulation, marble finishing, and security systems are exceptional — worth every single taka.',
+  },
 ]
 
 function Testimonials() {
   const ref = useReveal('.testi-card')
 
   return (
-    <section className="section-py" style={{ background:'linear-gradient(180deg,#0f0f0d,#0c0c0a)', position:'relative' }}>
-      <div className="absolute right-4 top-16 font-display text-[12rem] md:text-[18rem] leading-none pointer-events-none select-none" style={{ color:'rgba(245,240,232,0.015)' }}>"</div>
+    <section className="section-py" style={{ background: 'linear-gradient(180deg,#0f0f0d 0%,#080807 100%)', position: 'relative' }}>
       <div className="container relative z-10">
-        <SectionHeader label="Testimonials" title='Voices of Our <span class="italic gold-text">Residents</span>' />
-        <div ref={ref} className="grid md:grid-cols-3 gap-8 lg:gap-10">
+        <SectionHeader
+          center
+          label="Testimonials"
+          title='Voices of Our <span class="italic gold-text">Residents</span>'
+          subtitle="Discover what living in a Sun Real Estate landmark feels like from our distinguished homeowners."
+        />
+
+        <div ref={ref} className="grid md:grid-cols-3 gap-8 lg:gap-12 mt-12 md:mt-16">
           {testimonials.map((t, i) => (
-            <div key={i} className="testi-card card-glass p-8 md:p-10 flex flex-col gap-6">
-              <div className="w-10 h-10 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.2)' }}>
-                <Quote size={15} style={{ color:'var(--gold-mid)' }} />
+            <div
+              key={i}
+              className="testi-card card-dark flex flex-col justify-between"
+              style={{
+                padding: '2.5rem',
+                border: '1px solid rgba(200,137,26,0.18)',
+                background: 'linear-gradient(145deg, rgba(20,20,18,0.9), rgba(12,12,10,0.95))',
+              }}
+            >
+              <div className="flex flex-col gap-6">
+                {/* Top bar: Avatar + Quote Icon */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3.5">
+                    <div
+                      className="w-12 h-12 flex items-center justify-center font-display font-bold text-lg gold-text shrink-0"
+                      style={{ border: '1px solid rgba(200,137,26,0.3)', background: 'rgba(200,137,26,0.06)' }}
+                    >
+                      {t.initials}
+                    </div>
+                    <div>
+                      <span className="text-[0.6rem] tracking-widest uppercase block" style={{ color: 'var(--gold-mid)' }}>
+                        {t.location}
+                      </span>
+                      <span className="text-xs text-neutral-400 font-light block">Verified Resident</span>
+                    </div>
+                  </div>
+
+                  <div
+                    className="w-10 h-10 flex items-center justify-center shrink-0"
+                    style={{ border: '1px solid rgba(200,137,26,0.2)', background: 'rgba(200,137,26,0.03)' }}
+                  >
+                    <Quote size={16} style={{ color: 'var(--gold-mid)' }} />
+                  </div>
+                </div>
+
+                {/* Stars */}
+                <div className="flex gap-1.5 pt-1">
+                  {Array(t.rating).fill(0).map((_, j) => (
+                    <Star key={j} size={13} style={{ color: 'var(--gold)', fill: 'var(--gold)' }} />
+                  ))}
+                </div>
+
+                {/* Quote text */}
+                <p className="font-display italic text-base md:text-lg leading-relaxed text-neutral-300 font-light">
+                  "{t.text}"
+                </p>
               </div>
-              <div className="flex gap-1">
-                {Array(t.rating).fill(0).map((_, j) => (
-                  <Star key={j} size={12} style={{ color:'var(--gold)', fill:'var(--gold)' }} />
-                ))}
-              </div>
-              <p className="font-display italic text-base md:text-lg leading-8 flex-1" style={{ color:'rgba(245,240,232,0.6)', fontWeight:300 }}>
-                "{t.text}"
-              </p>
-              <div className="h-px gold-line-h-left my-2" />
-              <div>
-                <p className="text-sm font-medium" style={{ color:'var(--text-primary)' }}>{t.name}</p>
-                <p className="text-xs mt-1" style={{ color:'rgba(200,137,26,0.65)' }}>{t.role}</p>
+
+              {/* Divider & Author footer */}
+              <div className="pt-8 mt-8 border-t border-white/10 flex flex-col gap-1">
+                <p className="text-sm md:text-base font-medium text-neutral-100">{t.name}</p>
+                <p className="text-xs text-neutral-400 font-light">{t.role}</p>
+                <p className="text-[0.65rem] text-[#c8891a] tracking-wider uppercase mt-1 font-accent">{t.property}</p>
               </div>
             </div>
           ))}

@@ -97,60 +97,112 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 .btn-outline {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   padding: 0.875rem 2.25rem;
   border: 1px solid var(--border-gold-hover);
   color: var(--gold);
   font-family: 'Cinzel', serif;
   font-size: 0.72rem;
+  font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   position: relative;
+  z-index: 1;
   overflow: hidden;
-  transition: color 0.4s ease;
+  transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
   white-space: nowrap;
 }
 .btn-outline::before {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: -1;
   background: linear-gradient(135deg, var(--gold-mid), var(--gold));
   transform: translateX(-101%);
   transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.btn-outline:hover::before { transform: translateX(0); }
-.btn-outline:hover { color: var(--dark-bg); }
-.btn-outline > * { position: relative; z-index: 1; }
+.btn-outline:hover::before {
+  transform: translateX(0);
+}
+.btn-outline:hover {
+  color: #0a0a09 !important;
+  border-color: var(--gold);
+  box-shadow: 0 4px 25px rgba(200,137,26,0.35);
+}
+.btn-outline svg {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.btn-outline:hover svg {
+  color: #0a0a09 !important;
+  stroke: #0a0a09 !important;
+}
 
 .btn-solid {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   padding: 0.875rem 2.25rem;
   background: linear-gradient(135deg, var(--gold-mid), var(--gold));
   border: 1px solid var(--gold);
-  color: var(--dark-bg);
+  color: #0a0a09 !important;
   font-family: 'Cinzel', serif;
   font-size: 0.72rem;
+  font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
   white-space: nowrap;
 }
 .btn-solid:hover {
-  box-shadow: 0 6px 30px rgba(200,137,26,0.4);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #0a0a09 !important;
+  box-shadow: 0 6px 30px rgba(200,137,26,0.45);
   transform: translateY(-2px);
+}
+.btn-solid svg {
+  color: #0a0a09 !important;
+  stroke: #0a0a09 !important;
 }
 
 /* ─── Cards ─────────────────────────────────────────────── */
 .card-dark {
   background: var(--card-bg);
   border: 1px solid rgba(255,255,255,0.06);
+  padding: 2.25rem;
 }
+@media (min-width: 768px) {
+  .card-dark { padding: 2.75rem; }
+}
+
 .card-glass {
   background: rgba(255,255,255,0.025);
   backdrop-filter: blur(16px);
   border: 1px solid var(--border-gold);
+  padding: 2.25rem;
+}
+@media (min-width: 768px) {
+  .card-glass { padding: 2.75rem; }
+}
+
+.card-luxury {
+  background: linear-gradient(145deg, rgba(20,20,18,0.9), rgba(12,12,10,0.95));
+  border: 1px solid rgba(200,137,26,0.2);
+  padding: 2.25rem;
+}
+@media (min-width: 768px) {
+  .card-luxury { padding: 3rem; }
+}
+
+.card-body {
+  padding: 2rem;
+}
+@media (min-width: 768px) {
+  .card-body { padding: 2.5rem; }
 }
 
 /* ─── Property card ─────────────────────────────────────── */
@@ -168,7 +220,11 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 /* ─── Service card ──────────────────────────────────────── */
 .svc-card {
   border: 1px solid rgba(200,137,26,0.08);
+  padding: 2.25rem;
   transition: border-color 0.35s ease, background 0.35s ease;
+}
+@media (min-width: 768px) {
+  .svc-card { padding: 2.75rem; }
 }
 .svc-card:hover { border-color: rgba(200,137,26,0.35); background: rgba(200,137,26,0.03); }
 

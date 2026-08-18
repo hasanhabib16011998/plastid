@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Home, Building2, Briefcase, Wrench, TrendingUp, Shield,
+import { Home, Building2, Briefcase, TrendingUp, Shield,
          BarChart3, Layers, Paintbrush, ArrowUpRight } from 'lucide-react'
 import SectionHeader from '../components/SectionHeader'
 
@@ -88,7 +88,7 @@ const process = [
 
 export default function ServicesPage() {
   useEffect(() => { window.scrollTo(0, 0) }, [])
-  const servicesRef = useReveal('.svc-row')
+  const servicesRef = useReveal('.svc-card-wrap')
   const processRef  = useReveal('.proc-item')
   const whyRef      = useReveal('.why-item')
 
@@ -98,73 +98,98 @@ export default function ServicesPage() {
       <div className="page-hero" style={{ background:'linear-gradient(180deg,#0a0a09,#0f0f0d)' }}>
         <div className="absolute inset-0 opacity-12"
           style={{ backgroundImage:"url('/images/property_commercial.jpg')", backgroundSize:'cover', backgroundPosition:'center' }} />
-        <div className="absolute inset-0" style={{ background:'rgba(10,10,9,0.9)' }} />
+        <div className="absolute inset-0" style={{ background:'rgba(10,10,9,0.92)' }} />
         <div className="container relative z-10">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-7 h-px" style={{ background:'var(--gold-mid)' }} />
-            <span className="section-label" style={{ fontSize:'0.6rem' }}>What We Offer</span>
+            <span className="section-label" style={{ fontSize:'0.65rem' }}>What We Offer</span>
           </div>
-          <h1 className="font-display leading-tight mb-4"
-            style={{ fontSize:'clamp(2.5rem,6vw,5.5rem)', color:'var(--text-primary)', fontWeight:300, maxWidth:650 }}>
+          <h1 className="font-display leading-tight mb-5"
+            style={{ fontSize:'clamp(2.5rem,6vw,5.5rem)', color:'var(--text-primary)', fontWeight:300, maxWidth:700 }}>
             Services Built on <span className="italic gold-text">Excellence</span>
           </h1>
-          <p className="text-sm md:text-base max-w-xl" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300, lineHeight:1.9 }}>
-            From the first sketch to lifetime after-care, we deliver an end-to-end real estate experience
-            that is as seamless as it is exceptional.
+          <p className="text-sm md:text-base max-w-2xl" style={{ color:'rgba(245,240,232,0.55)', fontWeight:300, lineHeight:1.9 }}>
+            From the first architectural sketch to lifetime property care, we deliver an end-to-end real estate experience
+            that is as seamless as it is extraordinary.
           </p>
         </div>
       </div>
 
-      {/* Services list */}
+      {/* Main Services List */}
       <section className="section-py" style={{ background:'#0c0c0a' }}>
         <div className="container">
-          <div ref={servicesRef} className="flex flex-col gap-0" style={{ border:'1px solid rgba(200,137,26,0.08)' }}>
+          <div ref={servicesRef} className="flex flex-col gap-12 md:gap-16">
             {mainServices.map((svc, i) => {
               const Icon = svc.icon
               const isEven = i % 2 === 0
               return (
-                <div key={svc.number}
-                  className="svc-row grid md:grid-cols-2 border-b last:border-b-0"
-                  style={{ borderColor:'rgba(200,137,26,0.08)' }}>
-                  {/* Content */}
-                  <div className={`p-10 md:p-16 lg:p-20 flex flex-col justify-center ${isEven ? '' : 'md:order-2'}`}>
-                    <div className="flex items-center gap-3.5 mb-6">
-                      <div className="w-12 h-12 flex items-center justify-center shrink-0"
-                        style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
-                        <Icon size={20} style={{ color:'var(--gold-mid)' }} />
+                <div
+                  key={svc.number}
+                  className="svc-card-wrap card-dark grid md:grid-cols-2 overflow-hidden"
+                  style={{
+                    border: '1px solid rgba(200,137,26,0.18)',
+                    background: 'linear-gradient(145deg, rgba(20,20,18,0.9), rgba(12,12,10,0.95))',
+                  }}
+                >
+                  {/* Content half */}
+                  <div
+                    className={`flex flex-col justify-between ${isEven ? '' : 'md:order-2'}`}
+                    style={{ padding: '3rem 2.5rem' }}
+                  >
+                    <div>
+                      <div className="flex items-center gap-4 mb-6">
+                        <div
+                          className="w-12 h-12 flex items-center justify-center shrink-0"
+                          style={{ border: '1px solid rgba(200,137,26,0.3)', background: 'rgba(200,137,26,0.05)' }}
+                        >
+                          <Icon size={22} style={{ color: 'var(--gold-mid)' }} />
+                        </div>
+                        <span className="font-accent text-xs tracking-widest text-[#c8891a]/60">
+                          {svc.number}
+                        </span>
                       </div>
-                      <span className="font-accent text-[0.6rem] tracking-widest" style={{ color:'rgba(200,137,26,0.45)' }}>
-                        {svc.number}
-                      </span>
+                      <p className="text-[0.62rem] tracking-[0.35em] uppercase mb-3 text-[#c8891a]/70 font-accent">{svc.tagline}</p>
+                      <h2 className="font-display text-2xl md:text-3xl lg:text-4xl mb-5 leading-snug text-neutral-100 font-normal">
+                        {svc.title}
+                      </h2>
+                      <p className="text-sm md:text-base leading-relaxed mb-8 text-neutral-400 font-light">
+                        {svc.desc}
+                      </p>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 mb-10">
+                        {svc.features.map(f => (
+                          <li key={f} className="flex items-start gap-3 text-xs md:text-sm text-neutral-300 font-light">
+                            <span style={{ color: 'var(--gold-mid)', marginTop: '0.2rem', flexShrink: 0, fontSize: '0.5rem' }}>◆</span>
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="text-[0.62rem] tracking-[0.35em] uppercase mb-2.5" style={{ color:'rgba(200,137,26,0.6)' }}>{svc.tagline}</p>
-                    <h2 className="font-display text-2xl md:text-3xl lg:text-4xl mb-5 leading-snug"
-                      style={{ color:'var(--text-primary)', fontWeight:400 }}>{svc.title}</h2>
-                    <p className="text-sm md:text-base leading-8 mb-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>{svc.desc}</p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-6 mb-10">
-                      {svc.features.map(f => (
-                        <li key={f} className="flex items-start gap-2.5 text-xs md:text-sm" style={{ color:'rgba(245,240,232,0.55)' }}>
-                          <span style={{ color:'var(--gold-mid)', marginTop:'0.15rem', flexShrink:0, fontSize: '0.5rem' }}>◆</span>
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
                     <Link to="/contact" className="btn-outline self-start">
                       Enquire Now <ArrowUpRight size={13} />
                     </Link>
                   </div>
-                  {/* Visual accent */}
-                  <div className={`hidden md:flex items-center justify-center p-16 ${isEven ? '' : 'md:order-1'}`}
-                    style={{ background:'rgba(200,137,26,0.025)', borderLeft: isEven ? '1px solid rgba(200,137,26,0.08)' : 'none',
-                      borderRight: isEven ? 'none' : '1px solid rgba(200,137,26,0.08)' }}>
+
+                  {/* Visual accent half */}
+                  <div
+                    className={`hidden md:flex flex-col items-center justify-center p-12 ${isEven ? '' : 'md:order-1'}`}
+                    style={{
+                      background: 'rgba(200,137,26,0.025)',
+                      borderLeft: isEven ? '1px solid rgba(200,137,26,0.1)' : 'none',
+                      borderRight: isEven ? 'none' : '1px solid rgba(200,137,26,0.1)',
+                    }}
+                  >
                     <div className="text-center">
-                      <div className="font-display font-bold gold-text leading-none mb-3"
-                        style={{ fontSize:'clamp(5rem,10vw,9rem)', opacity:0.15 }}>
+                      <div
+                        className="font-display font-bold gold-text leading-none mb-4"
+                        style={{ fontSize: 'clamp(5rem,10vw,9rem)', opacity: 0.15 }}
+                      >
                         {svc.number}
                       </div>
-                      <div className="w-14 h-14 mx-auto flex items-center justify-center"
-                        style={{ border:'1px solid rgba(200,137,26,0.3)' }}>
-                        <Icon size={24} style={{ color:'var(--gold)' }} />
+                      <div
+                        className="w-16 h-16 mx-auto flex items-center justify-center"
+                        style={{ border: '1px solid rgba(200,137,26,0.3)', background: 'rgba(10,10,9,0.8)' }}
+                      >
+                        <Icon size={28} style={{ color: 'var(--gold)' }} />
                       </div>
                     </div>
                   </div>
@@ -176,18 +201,28 @@ export default function ServicesPage() {
       </section>
 
       {/* Our Process */}
-      <section className="section-py" style={{ background:'linear-gradient(180deg,#0f0f0d,#0c0c0a)' }}>
+      <section className="section-py" style={{ background:'linear-gradient(180deg,#0f0f0d 0%,#0c0c0a 100%)' }}>
         <div className="container">
-          <SectionHeader center label="How We Work" title='Our <span class="italic gold-text">Process</span>'
-            subtitle="A seamless six-step journey from initial consultation to keys in hand." />
-          <div ref={processRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          <SectionHeader
+            center
+            label="How We Work"
+            title='Our <span class="italic gold-text">Process</span>'
+            subtitle="A seamless six-step journey from initial consultation to keys in hand."
+          />
+          <div ref={processRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mt-12 md:mt-16">
             {process.map(p => (
-              <div key={p.step} className="proc-item p-8 md:p-10 svc-card relative overflow-hidden">
-                <div className="absolute top-4 right-5 font-display text-5xl font-bold pointer-events-none"
-                  style={{ color:'rgba(200,137,26,0.06)' }}>{p.step}</div>
-                <div className="font-accent text-[0.62rem] tracking-widest gold-text mb-4">Step {p.step}</div>
-                <h4 className="font-display text-xl md:text-2xl mb-3" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.title}</h4>
-                <p className="text-xs md:text-sm leading-8" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{p.desc}</p>
+              <div
+                key={p.step}
+                className="proc-item svc-card relative overflow-hidden flex flex-col justify-between"
+                style={{ padding: '2.5rem' }}
+              >
+                <div className="absolute top-4 right-5 font-display text-5xl font-bold pointer-events-none select-none"
+                  style={{ color: 'rgba(200,137,26,0.07)' }}>{p.step}</div>
+                <div>
+                  <div className="font-accent text-xs tracking-widest gold-text mb-4">Step {p.step}</div>
+                  <h4 className="font-display text-xl md:text-2xl mb-3 text-neutral-100 font-medium">{p.title}</h4>
+                  <p className="text-xs md:text-sm leading-relaxed text-neutral-400 font-light">{p.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -198,34 +233,47 @@ export default function ServicesPage() {
       <section className="section-py" style={{ background:'#0a0a09' }}>
         <div className="container">
           <SectionHeader center label="Why Sun RE" title='Why Clients <span class="italic gold-text">Choose Us</span>' />
-          <div ref={whyRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div ref={whyRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mt-12 md:mt-16">
             {[
               { icon:BarChart3, stat:'#1',   label:'Luxury Developer in Dhaka', desc:'Ranked top by Bangladesh Real Estate Summit 3 years running.' },
               { icon:Shield,    stat:'10yr', label:'Structural Warranty',        desc:'Unmatched peace of mind with decade-long construction guarantee.' },
-              { icon:Layers,    stat:'500+', label:'Units Delivered',             desc:'Half a millennium of premium homes across Dhaka.' },
-              { icon:TrendingUp,stat:'98%',  label:'Client Satisfaction',         desc:'An industry-leading score from post-handover surveys.' },
+              { icon:Layers,    stat:'500+', label:'Units Delivered',             desc:'Over half a thousand premium homes delivered across Dhaka.' },
+              { icon:TrendingUp,stat:'98%',  label:'Client Satisfaction',         desc:'An industry-leading score from post-handover customer surveys.' },
             ].map(({ icon:Icon, stat, label, desc }) => (
-              <div key={label} className="why-item p-8 md:p-10 svc-card text-center flex flex-col items-center gap-4">
-                <div className="w-12 h-12 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
-                  <Icon size={20} style={{ color:'var(--gold-mid)' }} />
+              <div
+                key={label}
+                className="why-item svc-card text-center flex flex-col items-center gap-5"
+                style={{ padding: '2.75rem 2rem' }}
+              >
+                <div className="w-13 h-13 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.25)', width:'3.25rem', height:'3.25rem' }}>
+                  <Icon size={22} style={{ color:'var(--gold-mid)' }} />
                 </div>
-                <div className="font-display text-3xl md:text-4xl font-bold gold-text">{stat}</div>
-                <h4 className="font-display text-base md:text-lg" style={{ color:'var(--text-primary)', fontWeight:500 }}>{label}</h4>
-                <p className="text-xs leading-7" style={{ color:'rgba(245,240,232,0.4)', fontWeight:300 }}>{desc}</p>
+                <div className="font-display text-4xl font-bold gold-text">{stat}</div>
+                <h4 className="font-display text-base md:text-lg text-neutral-100 font-medium">{label}</h4>
+                <p className="text-xs leading-relaxed text-neutral-400 font-light">{desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA Section */}
       <section className="section-py" style={{ background:'#0f0f0d' }}>
-        <div className="container text-center max-w-3xl mx-auto">
-          <SectionHeader center label="Get Started" title='Ready to <span class="italic gold-text">Begin?</span>'
-            subtitle="Schedule a free consultation with our property experts today." />
-          <div className="flex flex-col sm:flex-row gap-5 justify-center mt-6">
-            <Link to="/contact" className="btn-solid">Book Consultation</Link>
-            <Link to="/projects" className="btn-outline">Browse Projects</Link>
+        <div className="container text-center max-w-4xl mx-auto">
+          <div
+            className="card-luxury flex flex-col items-center"
+            style={{ padding: '3.5rem 2.5rem' }}
+          >
+            <SectionHeader
+              center
+              label="Get Started"
+              title='Ready to <span class="italic gold-text">Begin?</span>'
+              subtitle="Schedule a free consultation with our property experts today."
+            />
+            <div className="flex flex-col sm:flex-row gap-5 justify-center mt-6">
+              <Link to="/contact" className="btn-solid">Book Consultation</Link>
+              <Link to="/projects" className="btn-outline">Browse Projects</Link>
+            </div>
           </div>
         </div>
       </section>
