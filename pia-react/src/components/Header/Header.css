@@ -1,0 +1,523 @@
+/* ================================================
+   PIA React - Mobile Navbar Enhancement
+   Design Language: Deep Forest Velvet
+   Colors: #1F2E23 (forest), #C49B5D (brass), #F5F3ED (alabaster)
+   ================================================ */
+
+/* ── HAMBURGER BUTTON ─────────────────────────── */
+.pia-hamburger {
+  display: none;
+  /* Fixed to the viewport — completely independent of any parent
+     clip-path or stacking context (GSAP safe) */
+  position: fixed;
+  top: 22px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  /* Must be above everything */
+  z-index: 10000000001;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: background 0.25s ease;
+}
+
+.pia-hamburger:hover {
+  background: rgba(196, 155, 93, 0.12);
+}
+
+.pia-hamburger:focus-visible {
+  outline: 2px solid #C49B5D;
+  outline-offset: 2px;
+}
+
+.pia-hamburger-box {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pia-hamburger-box span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #1F2E23;
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 0.2s ease,
+    width 0.3s ease;
+}
+
+/* ── Animated to X when open ── */
+.pia-hamburger.is-open .pia-hamburger-box span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.pia-hamburger.is-open .pia-hamburger-box span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.pia-hamburger.is-open .pia-hamburger-box span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ── MOBILE DRAWER OVERLAY ────────────────────── */
+.pia-mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 46, 35, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pia-mobile-overlay.visible {
+  opacity: 1;
+}
+
+/* ── MOBILE DRAWER PANEL ──────────────────────── */
+.pia-mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(340px, 90vw);
+  height: 100dvh;
+  background: #1F2E23;
+  z-index: 9999;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.35);
+  flex-direction: column;
+}
+
+.pia-mobile-drawer.slide-in {
+  transform: translateX(0);
+}
+
+/* ── DRAWER HEADER ────────────────────────────── */
+.pia-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(196, 155, 93, 0.2);
+  flex-shrink: 0;
+  background: #1F2E23;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.pia-drawer-logo img {
+  height: 56px;
+  width: auto;
+  /* apply a brightness filter so the dark logo is visible on dark bg */
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+
+/* ── DRAWER NAV LIST ──────────────────────────── */
+.pia-drawer-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+
+.pia-drawer-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pia-drawer-nav ul li {
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pia-drawer-nav ul li:last-child {
+  border-bottom: none;
+}
+
+/* Top-level links */
+.pia-drawer-nav ul>li>a,
+.pia-drawer-nav ul>li>.pia-drawer-item-link,
+.pia-drawer-nav ul>li>.pia-drawer-item-row>.pia-drawer-item-link {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 14px 24px;
+  color: #F5F3ED !important;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+/* Row wrapper for items with a dropdown chevron */
+.pia-drawer-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 16px;
+}
+
+.pia-drawer-nav ul>li>a:hover,
+.pia-drawer-nav ul>li>.pia-drawer-item-link:hover,
+.pia-drawer-nav ul>li>.pia-drawer-item-row>.pia-drawer-item-link:hover,
+.pia-drawer-nav ul>li.current>a,
+.pia-drawer-nav ul>li.current>.pia-drawer-item-link,
+.pia-drawer-nav ul>li.current>.pia-drawer-item-row>.pia-drawer-item-link {
+  color: #C49B5D !important;
+}
+
+.pia-drawer-nav ul>li.current>a,
+.pia-drawer-nav ul>li.current>.pia-drawer-item-row .pia-drawer-item-link {
+  padding-left: 28px;
+}
+
+.pia-drawer-nav ul>li.current>a::before,
+.pia-drawer-nav ul>li.current>.pia-drawer-item-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #C49B5D;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Dropdown toggle chevron */
+.pia-drawer-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: rgba(196, 155, 93, 0.1);
+  color: #C49B5D;
+  font-size: 11px;
+  transition: transform 0.25s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.pia-drawer-nav ul>li.dropdown-open>a .pia-drawer-chevron {
+  transform: rotate(180deg);
+  background: rgba(196, 155, 93, 0.2);
+}
+
+/* Sub-menu */
+.pia-drawer-submenu {
+  display: none;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px 0;
+}
+
+.pia-drawer-submenu.open {
+  display: block;
+}
+
+.pia-drawer-submenu li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+.pia-drawer-submenu li a {
+  display: flex;
+  align-items: center;
+  padding: 11px 24px 11px 36px !important;
+  color: rgba(245, 243, 237, 0.75) !important;
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  text-transform: capitalize !important;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  gap: 8px;
+}
+
+.pia-drawer-submenu li a::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #C49B5D;
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.pia-drawer-submenu li a:hover {
+  color: #C49B5D !important;
+  padding-left: 40px !important;
+}
+
+.pia-drawer-submenu li a:hover::before {
+  opacity: 1;
+}
+
+/* ── DRAWER CONTACT FOOTER ────────────────────── */
+.pia-drawer-footer {
+  flex-shrink: 0;
+  padding: 20px 24px 32px;
+  border-top: 1px solid rgba(196, 155, 93, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pia-drawer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(245, 243, 237, 0.7);
+  font-size: 13px;
+  font-family: 'Rubik', sans-serif;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.pia-drawer-contact-item:hover {
+  color: #C49B5D;
+}
+
+.pia-drawer-contact-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(196, 155, 93, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C49B5D;
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.pia-drawer-contact-item:hover .pia-drawer-contact-icon {
+  background: rgba(196, 155, 93, 0.2);
+}
+
+.pia-drawer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.pia-drawer-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(196, 155, 93, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C49B5D;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.pia-drawer-social a:hover {
+  background: #C49B5D;
+  color: #1F2E23;
+  transform: translateY(-2px);
+}
+
+/* ── DESKTOP STICKY NAVBAR & GLASSMORPHISM ── */
+@media only screen and (min-width: 992px) {
+
+  /* Default relative header */
+  .main-header.header-style1 {
+    position: relative !important;
+  }
+
+  /* When the glass-active class is applied, make the upper header sticky & glass */
+  .header-upper-style1.glass-active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: rgba(31, 46, 35, 0.42) !important;
+    backdrop-filter: blur(18px) saturate(1.5);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    border-bottom: 1px solid rgba(196, 155, 93, 0.22);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+  }
+
+  /* Make inner container transparent to reveal glass background */
+  .header-upper-style1.glass-active .inner-container {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Invert logo so it's readable on dark glass */
+  .header-upper-style1.glass-active .logo-box-style1 img {
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* Update navigation links color to be readable on dark glass */
+  .header-upper-style1.glass-active .main-menu .navigation>li>a {
+    color: #F5F3ED;
+    transition: color 0.3s ease;
+  }
+
+  .header-upper-style1.glass-active .main-menu .navigation>li:hover>a,
+  .header-upper-style1.glass-active .main-menu .navigation>li.current>a {
+    color: #C49B5D;
+  }
+}
+
+/* ── MOBILE HEADER REDESIGN (≤ 991px) ────────────── */
+@media only screen and (max-width: 991px) {
+
+  /* ── Show hamburger, overlay, drawer ── */
+  .pia-hamburger {
+    display: flex;
+  }
+
+  .pia-mobile-overlay {
+    display: block;
+  }
+
+  .pia-mobile-drawer {
+    display: flex;
+  }
+
+  /* ── Hide the original desktop nav ── */
+  .main-menu-box {
+    display: none !important;
+  }
+
+  /* ── Make the whole header position:fixed so it sticks on scroll ── */
+  .main-header.header-style1 {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9000;
+  }
+
+  /* ── Hide the lower contact bar on mobile ── */
+  .header-lower-style1 {
+    display: none !important;
+  }
+
+  /* ── The upper nav bar: fully transparent initially ── */
+  .header-upper-style1 {
+    background: transparent !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 1px solid transparent;
+    opacity: 1;
+    /* No clip-path here — GSAP fromTo sets the start state */
+    transition: none;
+  }
+
+  /* ── Inner container: transparent — parent provides all bg ── */
+  .header-upper-style1 .inner-container {
+    position: relative;
+    padding: 0 16px !important;
+    min-height: 66px;
+    background: transparent !important;
+    box-shadow: none !important;
+    z-index: 1 !important;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Logo: centred vertically, sits inside header-upper-style1 */
+  .logo-box-style1 {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    float: none !important;
+    z-index: 33;
+  }
+
+  /* Logo inverted to white — always readable on dark hero */
+  .logo-box-style1 img {
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+    transition: opacity 0.35s ease;
+  }
+
+  /* Hamburger bars: white */
+  .pia-hamburger-box span {
+    background: #ffffff;
+  }
+
+  /* ── GLASS-ACTIVE STATE (applied by GSAP scroll trigger) ── */
+  .header-upper-style1.glass-active {
+    background: rgba(31, 46, 35, 0.42) !important;
+    backdrop-filter: blur(18px) saturate(1.5);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    border-bottom: 1px solid rgba(196, 155, 93, 0.22);
+    /* clip-path reset is animated by GSAP, not CSS */
+  }
+
+  /* Deeper glass when sticky/scrolled further */
+  .main-header.header-style1.fixed-header .header-upper-style1.glass-active {
+    background: rgba(31, 46, 35, 0.78) !important;
+    backdrop-filter: blur(22px) saturate(1.7);
+    -webkit-backdrop-filter: blur(22px) saturate(1.7);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28) !important;
+    border-bottom: 1px solid rgba(196, 155, 93, 0.3);
+    height: 90px;
+  }
+
+  /* Inner container in fixed state stays transparent */
+  .main-header.header-style1.fixed-header .header-upper-style1 .inner-container {
+    background: transparent !important;
+    box-shadow: none !important;
+    z-index: 1 !important;
+  }
+
+  /* Logo stays white */
+  .main-header.header-style1.fixed-header .logo-box-style1 img {
+    opacity: 1;
+  }
+
+}
+
+/* ── Compensate for the fixed mobile header ─────── */
+@media only screen and (max-width: 991px) {
+
+  /* Push page content down by the header height so hero starts below it.
+     This targets the first sibling after the header (the main content wrapper). */
+  body>#root>div>main,
+  body>#root>.page-wrapper,
+  body>#root>div>.page-wrapper,
+  body>#root>div>.wrapper {
+    padding-top: 66px;
+  }
+}
+
+/* ── PREVENT BODY SCROLL WHEN DRAWER OPEN ─────── */
+body.pia-drawer-open {
+  overflow: hidden;
+}

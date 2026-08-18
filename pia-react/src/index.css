@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/* Global resets and base styles for the React app wrapper */
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: #F5F3ED; /* Alabaster White */
+}
+
+/* Fix Tailwind CSS v4 .collapse utility class conflict with Bootstrap/theme navigation menu */
+/* The desktop nav (.main-menu-box) always stays visible on ≥ 992px.
+   On mobile (< 992px) the entire .main-menu-box is hidden via Header.css
+   and replaced by the slide-in drawer. */
+.main-menu .navbar-collapse {
+  visibility: visible !important;
+  display: block !important;
+}

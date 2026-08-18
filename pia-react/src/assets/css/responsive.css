@@ -932,7 +932,7 @@
 =============================================
 ***/
     .appointment-area {
-        background: #27282c;
+        background: #1F2E23;
         background-position: unset;
         background-attachment: scroll;
         background-size: cover;
@@ -1885,7 +1885,7 @@
 =============================================
 ***/
     .appointment-area {
-        background: #27282c;
+        background: #1F2E23;
         background-position: unset;
         background-attachment: scroll;
         background-size: cover;
@@ -3291,7 +3291,7 @@
     .main-menu .navbar-collapse .navigation li,
     .main-menu .navbar-collapse .navigation li ul li,
     .main-menu .navbar-collapse .navigation li ul li ul li {
-        background: #27282c;
+        background: #1F2E23;
         border-top: 1px solid #151618;
         opacity: 1 !important;
         top: 0px !important;
@@ -3349,7 +3349,7 @@
     .main-menu .navbar-collapse>.navigation>li>ul>li>ul>li:hover>a,
     .main-menu .navbar-collapse>.navigation>li.current>a {
         color: #ffffff !important;
-        background: #d5a832;
+        background: #C49B5D;
     }
 
     .main-menu .navbar-collapse>.navigation li.dropdown .dropdown-btn {
