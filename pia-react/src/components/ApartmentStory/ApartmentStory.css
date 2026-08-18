@@ -196,12 +196,19 @@
 .apt-story__content {
   position: absolute;
   inset: 0;
-  z-index: 10;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 7vw;
   max-width: 720px;
+  pointer-events: none;
+}
+
+.apt-story__chapter,
+.apt-story__title-wrap,
+.apt-story__desc {
+  pointer-events: auto;
 }
 
 /* ── Chapter label ───────────────────────────────── */
@@ -314,6 +321,10 @@
   position: relative;
   overflow: hidden;
   transition: color 0.35s, border-color 0.35s;
+  pointer-events: auto;
+  z-index: 110;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(200, 169, 110, 0.3);
 }
 
 .apt-story__cta::before {
@@ -403,10 +414,11 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 20;
+  z-index: 80;
   display: flex;
   flex-direction: column;
   gap: 0;
+  pointer-events: auto;
 }
 
 /* Thin gold progress line */
@@ -446,7 +458,10 @@
   border-right: 1px solid rgba(255, 255, 255, 0.05);
   transition: background 0.4s ease;
   overflow: hidden;
-  cursor: default;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .apt-story__frame:last-child {
@@ -561,14 +576,34 @@
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 768px) {
   .apt-story__content {
-    padding: 0 5vw;
+    padding: 0 6vw;
     justify-content: flex-end;
-    padding-bottom: 120px;
+    padding-bottom: 75px;
+    pointer-events: none;
   }
 
   .apt-story__title,
   .apt-story__title-em {
-    font-size: clamp(36px, 9vw, 56px);
+    font-size: clamp(32px, 8.5vw, 52px);
+    white-space: normal;
+  }
+
+  .apt-story__desc {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .apt-story__cta {
+    padding: 12px 22px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 110;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(200, 169, 110, 0.3);
   }
 
   .apt-story__scroll-hint {
@@ -576,10 +611,10 @@
   }
 
   .apt-story__stage-num {
-    font-size: clamp(80px, 25vw, 140px);
-    right: 5vw;
+    font-size: clamp(80px, 25vw, 130px);
+    right: 4vw;
     top: auto;
-    bottom: 110px;
+    bottom: 90px;
     transform: none;
   }
 

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -102,8 +102,19 @@ export default function ApartmentStory() {
   const ctaRef = useRef(null)
   const filmDotRefs = useRef([])
 
+  const [activeStage, setActiveStage] = useState(0)
   const lastStageRef = useRef(0)
   const glitchTimerRef = useRef(null)
+
+  const scrollToStage = useCallback((stageIndex) => {
+    if (!sectionRef.current) return
+    const allTriggers = ScrollTrigger.getAll()
+    const st = allTriggers.find((t) => t.trigger === sectionRef.current)
+    if (st) {
+      const targetScroll = st.start + (st.end - st.start) * (stageIndex / (STAGES.length - 1)) + 5
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' })
+    }
+  }, [])
 
   // ── Glitch effect ──────────────────────────────
   const triggerGlitch = useCallback(() => {
@@ -140,9 +151,8 @@ export default function ApartmentStory() {
       opacity: 0,
       y: 30,
       stagger: 0.03,
-      duration: 0.55,
+      duration: 0.5,
       ease: 'power3.out',
-      delay: 0.1,
     })
 
     // Em chars (italic accent)
@@ -174,7 +184,6 @@ export default function ApartmentStory() {
     if (ctaEl) {
       const span = ctaEl.querySelector('.apt-story__cta-label-text')
       if (span) span.textContent = stage.cta.label
-      ctaEl.href = stage.cta.to
     }
 
     if (animate) {
@@ -219,6 +228,49 @@ export default function ApartmentStory() {
     }
   }, [])
 
+  // ── Mobile CTA touch navigation ────────────────
+  // Inside GSAP-pinned sections, the browser's scroll gesture detection
+  // consumes touch events before React Router's synthetic click fires.
+  // Native touchend → window.location.href is the only reliable fix.
+  useEffect(() => {
+    const cta = ctaRef.current
+    if (!cta) return
+
+    let touchStartX = 0
+    let touchStartY = 0
+    let isTap = false
+
+    const onTouchStart = (e) => {
+      touchStartX = e.touches[0].clientX
+      touchStartY = e.touches[0].clientY
+      isTap = true
+    }
+
+    const onTouchMove = (e) => {
+      const dx = Math.abs(e.touches[0].clientX - touchStartX)
+      const dy = Math.abs(e.touches[0].clientY - touchStartY)
+      if (dx > 8 || dy > 8) isTap = false
+    }
+
+    const onTouchEnd = () => {
+      if (!isTap) return
+      const href = cta.getAttribute('href')
+      if (href && href !== '#') {
+        window.location.href = href
+      }
+    }
+
+    cta.addEventListener('touchstart', onTouchStart, { passive: true })
+    cta.addEventListener('touchmove', onTouchMove, { passive: true })
+    cta.addEventListener('touchend', onTouchEnd, { passive: true })
+
+    return () => {
+      cta.removeEventListener('touchstart', onTouchStart)
+      cta.removeEventListener('touchmove', onTouchMove)
+      cta.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [])
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const pin = sectionRef.current
@@ -235,6 +287,12 @@ export default function ApartmentStory() {
 
       // ── Init first stage text (no char anim on load) ─
       updateTextContent(0, false)
+
+      // ── Set initial states (GSAP owns these, not React) ─
+      gsap.set('.apt-story__cta', { opacity: 0 })
+      gsap.set('.apt-story__desc', { opacity: 0, y: 20 })
+      gsap.set('.apt-story__chapter', { opacity: 0 })
+      gsap.set('.apt-story__title-wrap', { opacity: 0 })
 
       // ── Entrance content animation ──────────────
       const initTl = gsap.timeline({ delay: 0.6 })
@@ -318,6 +376,7 @@ export default function ApartmentStory() {
           if (currentStage !== lastStageRef.current) {
             const goingForward = currentStage > lastStageRef.current
             lastStageRef.current = currentStage
+            setActiveStage(currentStage)
 
             triggerGlitch()
 
@@ -423,12 +482,12 @@ export default function ApartmentStory() {
         <p className="apt-story__desc" ref={descRef} />
 
         <Link
-          to={STAGES[0].cta.to}
+          to={STAGES[activeStage]?.cta.to || '/services'}
           className="apt-story__cta"
           ref={ctaRef}
-          style={{ alignSelf: 'flex-start', opacity: 0 }}
+          style={{ alignSelf: 'flex-start' }}
         >
-          <span className="apt-story__cta-label-text">{STAGES[0].cta.label}</span>
+          <span className="apt-story__cta-label-text">{STAGES[activeStage]?.cta.label || 'Learn More'}</span>
           <span className="apt-story__cta-arrow" />
         </Link>
       </div>
@@ -453,8 +512,12 @@ export default function ApartmentStory() {
           {STAGES.map((stage, i) => (
             <div
               key={i}
-              className={`apt-story__frame${i === 0 ? ' is-active' : ''}`}
+              className={`apt-story__frame${i === activeStage ? ' is-active' : ''}`}
               ref={(el) => (filmDotRefs.current[i] = el)}
+              onClick={() => scrollToStage(i)}
+              role="button"
+              tabIndex={0}
+              style={{ cursor: 'pointer' }}
             >
               {/* Film perforations */}
               <div className="apt-story__perf apt-story__perf--top">
@@ -472,7 +535,6 @@ export default function ApartmentStory() {
                 <span className="apt-story__frame-label">
                   {stage.chapterSub}
                 </span>
-                {/*<span className="apt-story__frame-timecode">{stage.timecode}</span> */}
               </div>
 
               {/* Active indicator */}
