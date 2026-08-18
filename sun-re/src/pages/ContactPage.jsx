@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react'
 import SectionHeader from '../components/SectionHeader'
+import FaqSection from '../components/FaqSection'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -20,23 +21,14 @@ const offices = [
   { city:'Dhanmondi',addr:'House 7, Road 27, Dhanmondi, Dhaka', phone:'+880 1700-000003' },
 ]
 
-const faqs = [
-  { q:'How do I book a site visit?',       a:'Simply fill out the enquiry form or call us. Our team will schedule a private viewing at your convenience, typically within 48 hours.' },
-  { q:'What payment plans are available?', a:'We offer flexible instalment plans starting from 20% down payment with easy EMIs over 5–10 years, depending on the project.' },
-  { q:'Do you offer investment advice?',   a:'Yes. Our dedicated Investment Advisory team provides personalised market analysis, ROI projections, and portfolio guidance.' },
-  { q:'What is included in after-sales?',  a:'All Sun RE properties include a 10-year structural warranty, dedicated relationship manager, annual health check, and priority maintenance.' },
-]
-
 export default function ContactPage() {
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
   const [form, setForm]       = useState({ name:'', email:'', phone:'', interest:'', message:'' })
   const [sent, setSent]       = useState(false)
-  const [openFaq, setOpenFaq] = useState(null)
 
   const formRef  = useRef(null)
   const infoRef  = useRef(null)
-  const faqRef   = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -48,13 +40,6 @@ export default function ContactPage() {
             scrollTrigger: { trigger: r.current, start:'top 80%' } }
         )
       })
-      if (faqRef.current) {
-        gsap.fromTo(faqRef.current.querySelectorAll('.faq-item'),
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease:'power3.out',
-            scrollTrigger: { trigger: faqRef.current, start:'top 80%' } }
-        )
-      }
     })
     return () => ctx.revert()
   }, [])
@@ -227,30 +212,7 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ */}
-      <section className="section-py" style={{ background:'#0c0c0a' }}>
-        <div className="container max-w-3xl mx-auto">
-          <SectionHeader center label="FAQ" title='Frequently Asked <span class="italic gold-text">Questions</span>' />
-          <div ref={faqRef} className="flex flex-col gap-5">
-            {faqs.map((f, i) => (
-              <div key={i} className="faq-item overflow-hidden" style={{ border:'1px solid rgba(200,137,26,0.12)' }}>
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-5 p-6 md:p-8 text-left transition-colors duration-200"
-                  style={{ background: openFaq === i ? 'rgba(200,137,26,0.05)' : 'transparent' }}
-                >
-                  <span className="text-sm md:text-base font-medium" style={{ color:'var(--text-primary)', fontFamily:'Inter,sans-serif' }}>{f.q}</span>
-                  <span className="shrink-0 font-display text-2xl gold-text">{openFaq === i ? '−' : '+'}</span>
-                </button>
-                {openFaq === i && (
-                  <div className="px-6 md:px-8 pb-7">
-                    <p className="text-sm md:text-base leading-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>{f.a}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqSection />
     </>
   )
 }

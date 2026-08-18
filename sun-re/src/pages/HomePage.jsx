@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowUpRight, MapPin, BedDouble, Maximize2, Star, Quote,
-         Building2, Home, Briefcase, Wrench, TrendingUp, Shield } from 'lucide-react'
+import {
+  ArrowUpRight, MapPin, BedDouble, Maximize2, Star, Quote,
+  Building2, Home, Briefcase, Wrench, TrendingUp, Shield
+} from 'lucide-react'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 
@@ -87,14 +89,14 @@ function HomeAbout() {
               as enduring testaments to vision, craft, and the relentless pursuit of excellence.
             </p>
             <div className="reveal grid grid-cols-2 gap-5 mb-12">
-              {['Award-Winning Design','Prime Locations','Premium Materials','Expert After-Sales'].map(item => (
+              {['Award-Winning Design', 'Prime Locations', 'Premium Materials', 'Expert After-Sales'].map(item => (
                 <div key={item} className="flex items-center gap-3">
                   <span style={{ color: 'var(--gold-mid)', fontSize: '0.55rem' }}>◆</span>
                   <span className="text-xs md:text-sm" style={{ color: 'rgba(245,240,232,0.65)' }}>{item}</span>
                 </div>
               ))}
             </div>
-            <Link to="/about" className="reveal btn-outline">Discover Our Heritage</Link>
+            <Link to="/about" className="reveal btn-outline" style={{ marginTop: '20px' }}>Discover Our Heritage</Link>
           </div>
         </div>
       </div>
@@ -106,15 +108,15 @@ function HomeAbout() {
    FEATURED PROJECTS
 ═══════════════════════════════════════════════════ */
 const projects = [
-  { id:1, name:'Sun Aura Towers',           type:'Residential',       location:'Gulshan-1, Dhaka',  beds:'3–5 Bed', area:'2,400–6,800 sqft', price:'BDT 4.5 Cr+', status:'Ongoing',  img:'/images/property_exterior.jpg',   tag:'Flagship'   },
-  { id:2, name:'Sun Penthouse Collection',   type:'Luxury Penthouse',  location:'Banani, Dhaka',     beds:'4–6 Bed', area:'5,000–12,000 sqft', price:'BDT 8 Cr+',   status:'Ready',    img:'/images/property_interior.jpg',   tag:'Exclusive'  },
-  { id:3, name:'Sun Infinity Tower',         type:'Commercial',        location:'Motijheel, Dhaka',  beds:'Office',  area:'1,200–8,000 sqft',  price:'BDT 2.2 Cr+', status:'Upcoming', img:'/images/property_commercial.jpg', tag:'Commercial' },
+  { id: 1, name: 'Sun Aura Towers', type: 'Residential', location: 'Gulshan-1, Dhaka', beds: '3–5 Bed', area: '2,400–6,800 sqft', price: 'BDT 4.5 Cr+', status: 'Ongoing', img: '/images/property_exterior.jpg', tag: 'Flagship' },
+  { id: 2, name: 'Sun Penthouse Collection', type: 'Luxury Penthouse', location: 'Banani, Dhaka', beds: '4–6 Bed', area: '5,000–12,000 sqft', price: 'BDT 8 Cr+', status: 'Ready', img: '/images/property_interior.jpg', tag: 'Exclusive' },
+  { id: 3, name: 'Sun Infinity Tower', type: 'Commercial', location: 'Motijheel, Dhaka', beds: 'Office', area: '1,200–8,000 sqft', price: 'BDT 2.2 Cr+', status: 'Upcoming', img: '/images/property_commercial.jpg', tag: 'Commercial' },
 ]
 
 const statusStyle = {
-  Ongoing:  { bg:'rgba(79,85,48,0.35)',  color:'#a9b07e', border:'rgba(79,85,48,0.6)' },
-  Ready:    { bg:'rgba(200,137,26,0.15)',color:'#e5a827', border:'rgba(200,137,26,0.4)' },
-  Upcoming: { bg:'rgba(255,255,255,0.05)',color:'rgba(245,240,232,0.5)', border:'rgba(255,255,255,0.12)' },
+  Ongoing: { bg: 'rgba(79,85,48,0.35)', color: '#a9b07e', border: 'rgba(79,85,48,0.6)' },
+  Ready: { bg: 'rgba(200,137,26,0.15)', color: '#e5a827', border: 'rgba(200,137,26,0.4)' },
+  Upcoming: { bg: 'rgba(255,255,255,0.05)', color: 'rgba(245,240,232,0.5)', border: 'rgba(255,255,255,0.12)' },
 }
 
 function FeaturedProjects() {
@@ -130,7 +132,7 @@ function FeaturedProjects() {
           </Link>
         </div>
 
-        <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mt-4" style={{ marginTop: '20px' }}>
           {projects.map(p => {
             const s = statusStyle[p.status]
             return (
@@ -147,13 +149,13 @@ function FeaturedProjects() {
                   {/* Tag */}
                   <div className="absolute top-4 left-4">
                     <span className="font-accent text-[0.55rem] tracking-widest px-3 py-1 uppercase"
-                      style={{ background:'rgba(10,10,9,0.85)', border:'1px solid rgba(200,137,26,0.4)', color:'var(--gold)' }}>
+                      style={{ background: 'rgba(10,10,9,0.85)', border: '1px solid rgba(200,137,26,0.4)', color: 'var(--gold)' }}>
                       {p.tag}
                     </span>
                   </div>
                   <div className="absolute top-4 right-4">
                     <span className="text-[0.55rem] tracking-widest px-3 py-1 rounded-full"
-                      style={{ background:s.bg, color:s.color, border:`1px solid ${s.border}` }}>
+                      style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}` }}>
                       {p.status}
                     </span>
                   </div>
@@ -161,35 +163,35 @@ function FeaturedProjects() {
 
                 {/* Body */}
                 <div className="card-body flex flex-col flex-1">
-                  <span className="text-[0.6rem] tracking-widest uppercase mb-2" style={{ color:'rgba(200,137,26,0.7)' }}>{p.type}</span>
-                  <h3 className="font-display text-xl md:text-2xl mb-4 leading-tight" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.name}</h3>
+                  <span className="text-[0.6rem] tracking-widest uppercase mb-2" style={{ color: 'rgba(200,137,26,0.7)' }}>{p.type}</span>
+                  <h3 className="font-display text-xl md:text-2xl mb-4 leading-tight" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{p.name}</h3>
                   <div className="flex flex-col gap-2 mb-6">
                     <div className="flex items-center gap-2.5">
-                      <MapPin size={12} style={{ color:'var(--gold-mid)', flexShrink:0 }} />
-                      <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.location}</span>
+                      <MapPin size={12} style={{ color: 'var(--gold-mid)', flexShrink: 0 }} />
+                      <span className="text-xs" style={{ color: 'rgba(245,240,232,0.4)' }}>{p.location}</span>
                     </div>
                     <div className="flex items-center gap-5">
                       <div className="flex items-center gap-2">
-                        <BedDouble size={12} style={{ color:'var(--gold-mid)' }} />
-                        <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.beds}</span>
+                        <BedDouble size={12} style={{ color: 'var(--gold-mid)' }} />
+                        <span className="text-xs" style={{ color: 'rgba(245,240,232,0.4)' }}>{p.beds}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Maximize2 size={12} style={{ color:'var(--gold-mid)' }} />
-                        <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.area}</span>
+                        <Maximize2 size={12} style={{ color: 'var(--gold-mid)' }} />
+                        <span className="text-xs" style={{ color: 'rgba(245,240,232,0.4)' }}>{p.area}</span>
                       </div>
                     </div>
                   </div>
                   <div className="h-px mb-6 gold-line-h-left" />
                   <div className="flex items-center justify-between mt-auto">
                     <div>
-                      <p className="text-[0.55rem] tracking-widest uppercase mb-0.5" style={{ color:'rgba(245,240,232,0.3)' }}>Starting From</p>
+                      <p className="text-[0.55rem] tracking-widest uppercase mb-0.5" style={{ color: 'rgba(245,240,232,0.3)' }}>Starting From</p>
                       <p className="font-display text-lg md:text-xl font-semibold gold-text">{p.price}</p>
                     </div>
                     <Link to="/projects"
                       className="w-10 h-10 flex items-center justify-center border transition-all duration-300"
-                      style={{ borderColor:'rgba(200,137,26,0.3)', color:'var(--gold-mid)' }}
-                      onMouseEnter={e => { e.currentTarget.style.background='var(--gold-mid)'; e.currentTarget.style.color='#0f0f0d'; }}
-                      onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='var(--gold-mid)'; }}
+                      style={{ borderColor: 'rgba(200,137,26,0.3)', color: 'var(--gold-mid)' }}
+                      onMouseEnter={e => { e.currentTarget.style.background = 'var(--gold-mid)'; e.currentTarget.style.color = '#0f0f0d'; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--gold-mid)'; }}
                     >
                       <ArrowUpRight size={16} />
                     </Link>
@@ -200,7 +202,7 @@ function FeaturedProjects() {
           })}
         </div>
       </div>
-    </section>
+    </section >
   )
 }
 
@@ -208,9 +210,9 @@ function FeaturedProjects() {
    SERVICES SNIPPET (3 cards)
 ═══════════════════════════════════════════════════ */
 const services3 = [
-  { icon: Home,       title: 'Residential',  desc: 'Landmark apartment towers and gated communities crafted for discerning homeowners.' },
-  { icon: Building2,  title: 'Commercial',   desc: 'Premium office towers and mixed-use developments designed to elevate business.' },
-  { icon: TrendingUp, title: 'Investment',   desc: 'Expert guidance with deep market insights to maximize your real estate returns.' },
+  { icon: Home, title: 'Residential', desc: 'Landmark apartment towers and gated communities crafted for discerning homeowners.' },
+  { icon: Building2, title: 'Commercial', desc: 'Premium office towers and mixed-use developments designed to elevate business.' },
+  { icon: TrendingUp, title: 'Investment', desc: 'Expert guidance with deep market insights to maximize your real estate returns.' },
 ]
 
 function ServicesSnippet() {
@@ -225,20 +227,20 @@ function ServicesSnippet() {
             All Services <ArrowUpRight size={13} />
           </Link>
         </div>
-        <div ref={ref} className="grid sm:grid-cols-3 gap-8 lg:gap-10">
+        <div ref={ref} className="grid sm:grid-cols-3 gap-8 lg:gap-10" style={{ marginTop: '20px' }}>
           {services3.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="svc-item svc-card p-8 md:p-10 flex flex-col gap-6">
-              <div className="w-12 h-12 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
-                <Icon size={20} style={{ color:'var(--gold-mid)' }} />
+              <div className="w-12 h-12 flex items-center justify-center" style={{ border: '1px solid rgba(200,137,26,0.25)' }}>
+                <Icon size={20} style={{ color: 'var(--gold-mid)' }} />
               </div>
               <div>
-                <h3 className="font-display text-xl md:text-2xl mb-3" style={{ color:'var(--text-primary)', fontWeight:500 }}>{title}</h3>
-                <p className="text-xs md:text-sm leading-8" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{desc}</p>
+                <h3 className="font-display text-xl md:text-2xl mb-3" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{title}</h3>
+                <p className="text-xs md:text-sm leading-8" style={{ color: 'rgba(245,240,232,0.45)', fontWeight: 300 }}>{desc}</p>
               </div>
               <Link to="/services" className="flex items-center gap-2 text-xs mt-auto pt-2"
-                style={{ color:'var(--gold-mid)', letterSpacing:'0.12em' }}
-                onMouseEnter={e => e.currentTarget.style.color='var(--gold)'}
-                onMouseLeave={e => e.currentTarget.style.color='var(--gold-mid)'}
+                style={{ color: 'var(--gold-mid)', letterSpacing: '0.12em' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'var(--gold-mid)'}
               >
                 Learn More <ArrowUpRight size={14} />
               </Link>
@@ -254,10 +256,10 @@ function ServicesSnippet() {
    STATS
 ═══════════════════════════════════════════════════ */
 const stats = [
-  { end:500, suf:'+', label:'Units Delivered' },
-  { end:20,  suf:'+', label:'Years of Legacy'  },
-  { end:50,  suf:'+', label:'Prime Locations'  },
-  { end:98,  suf:'%', label:'Client Satisfaction' },
+  { end: 500, suf: '+', label: 'Units Delivered' },
+  { end: 20, suf: '+', label: 'Years of Legacy' },
+  { end: 50, suf: '+', label: 'Prime Locations' },
+  { end: 98, suf: '%', label: 'Client Satisfaction' },
 ]
 
 function Counter({ end, suf, label, go }) {
@@ -276,10 +278,10 @@ function Counter({ end, suf, label, go }) {
 
   return (
     <div className="text-center py-12 px-6">
-      <div className="stat-num font-display leading-none mb-3" style={{ fontSize:'clamp(2.8rem,6vw,5.5rem)' }}>
+      <div className="stat-num font-display leading-none mb-3" style={{ fontSize: 'clamp(2.8rem,6vw,5.5rem)' }}>
         {v}{suf}
       </div>
-      <p className="text-xs tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.4)' }}>{label}</p>
+      <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(245,240,232,0.4)' }}>{label}</p>
     </div>
   )
 }
@@ -300,13 +302,13 @@ function StatsSection() {
   }, [])
 
   return (
-    <section ref={ref} className="section-py" style={{ background:'#0a0a09', position:'relative', overflow:'hidden' }}>
+    <section ref={ref} className="section-py" style={{ background: '#0a0a09', position: 'relative', overflow: 'hidden' }}>
       <div className="absolute inset-0 opacity-10"
-        style={{ backgroundImage:"url('/images/hero_bg.jpg')", backgroundSize:'cover', backgroundPosition:'center', backgroundAttachment:'fixed' }} />
-      <div className="absolute inset-0" style={{ background:'rgba(10,10,9,0.92)' }} />
+        style={{ backgroundImage: "url('/images/hero_bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }} />
+      <div className="absolute inset-0" style={{ background: 'rgba(10,10,9,0.92)' }} />
       <div className="container relative z-10">
         <SectionHeader center label="Our Numbers" title='Two Decades of <span class="italic gold-text">Transforming</span> Dhaka' />
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-0" style={{ border:'1px solid rgba(200,137,26,0.12)' }}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0" style={{ border: '1px solid rgba(200,137,26,0.12)', marginTop: '20px', marginBottom: '20px' }}>
           {stats.map((s, i) => (
             <div key={s.label} style={{
               borderRight: i < 3 ? '1px solid rgba(200,137,26,0.1)' : 'none',
@@ -316,11 +318,11 @@ function StatsSection() {
           ))}
         </div>
         {/* Marquee */}
-        <div className="mt-20 overflow-hidden py-6 border-t border-b" style={{ borderColor:'rgba(200,137,26,0.1)' }}>
+        <div className="mt-20 overflow-hidden py-6 border-t border-b" style={{ borderColor: 'rgba(200,137,26,0.1)' }}>
           <div className="marquee-track">
-            {Array(2).fill(['Award-Winning Design','·','Luxury Living','·','Dhaka Heritage','·','Premium Craftsmanship','·','Trusted Since 2005','·','Sun Real Estate','·']).flat().map((t, i) => (
-              <span key={i} className={`px-8 text-xs ${t==='·' ? '' : 'font-accent'}`}
-                style={{ color: t==='·' ? 'var(--gold-mid)' : 'rgba(245,240,232,0.2)', letterSpacing:'0.2em' }}>
+            {Array(2).fill(['Award-Winning Design', '·', 'Luxury Living', '·', 'Dhaka Heritage', '·', 'Premium Craftsmanship', '·', 'Trusted Since 2005', '·', 'Sun Real Estate', '·']).flat().map((t, i) => (
+              <span key={i} className={`px-8 text-xs ${t === '·' ? '' : 'font-accent'}`}
+                style={{ color: t === '·' ? 'var(--gold-mid)' : 'rgba(245,240,232,0.2)', letterSpacing: '0.2em' }}>
                 {t}
               </span>
             ))}
@@ -377,7 +379,7 @@ function Testimonials() {
           subtitle="Discover what living in a Sun Real Estate landmark feels like from our distinguished homeowners."
         />
 
-        <div ref={ref} className="grid md:grid-cols-3 gap-8 lg:gap-12 mt-12 md:mt-16">
+        <div ref={ref} className="grid md:grid-cols-3 gap-8 lg:gap-12 mt-12 md:mt-16" style={{ marginTop: '20px' }}>
           {testimonials.map((t, i) => (
             <div
               key={i}
