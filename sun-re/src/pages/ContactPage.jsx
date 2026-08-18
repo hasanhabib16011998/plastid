@@ -92,86 +92,88 @@ export default function ContactPage() {
       {/* Main contact section */}
       <section className="section-py" style={{ background:'#0c0c0a' }}>
         <div className="container">
-          <div className="grid lg:grid-cols-5 gap-10 lg:gap-16">
+          <div className="grid lg:grid-cols-5 gap-14 lg:gap-20">
 
             {/* Contact Info */}
-            <div ref={infoRef} className="lg:col-span-2 flex flex-col gap-6">
-              <h2 className="font-display text-2xl md:text-3xl" style={{ color:'var(--text-primary)', fontWeight:400 }}>
-                Let's <span className="italic gold-text">Talk</span>
-              </h2>
-              <p className="text-sm leading-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>
-                Whether you're looking for your dream home, a commercial investment, or professional property advice —
-                we're here to help every step of the way.
-              </p>
+            <div ref={infoRef} className="lg:col-span-2 flex flex-col gap-8">
+              <div>
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl mb-3" style={{ color:'var(--text-primary)', fontWeight:400 }}>
+                  Let's <span className="italic gold-text">Talk</span>
+                </h2>
+                <p className="text-sm md:text-base leading-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>
+                  Whether you're looking for your dream home, a commercial investment, or professional property advice —
+                  we're here to help every step of the way.
+                </p>
+              </div>
 
               {/* Info cards */}
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-5">
                 {contactInfo.map(({ icon:Icon, label, value, sub }) => (
-                  <div key={label} className="flex items-start gap-4 p-4 svc-card">
-                    <div className="w-10 h-10 flex items-center justify-center shrink-0"
+                  <div key={label} className="flex items-start gap-5 p-5 md:p-6 svc-card">
+                    <div className="w-11 h-11 flex items-center justify-center shrink-0"
                       style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
-                      <Icon size={16} style={{ color:'var(--gold-mid)' }} />
+                      <Icon size={18} style={{ color:'var(--gold-mid)' }} />
                     </div>
                     <div>
-                      <p className="text-[0.6rem] tracking-[0.25em] uppercase mb-0.5 font-accent" style={{ color:'rgba(200,137,26,0.55)' }}>{label}</p>
-                      <p className="text-sm" style={{ color:'rgba(245,240,232,0.8)' }}>{value}</p>
-                      <p className="text-[0.7rem] mt-0.5" style={{ color:'rgba(245,240,232,0.3)', fontWeight:300 }}>{sub}</p>
+                      <p className="text-[0.62rem] tracking-[0.25em] uppercase mb-1 font-accent" style={{ color:'rgba(200,137,26,0.55)' }}>{label}</p>
+                      <p className="text-sm md:text-base" style={{ color:'rgba(245,240,232,0.85)' }}>{value}</p>
+                      <p className="text-[0.72rem] mt-1" style={{ color:'rgba(245,240,232,0.35)', fontWeight:300 }}>{sub}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* Visit promo */}
-              <div className="p-6"
+              <div className="p-8 md:p-10"
                 style={{ background:'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.3))', border:'1px solid rgba(200,137,26,0.18)' }}>
-                <h4 className="font-display text-xl mb-2" style={{ color:'var(--text-primary)', fontWeight:400 }}>
+                <h4 className="font-display text-xl md:text-2xl mb-3" style={{ color:'var(--text-primary)', fontWeight:400 }}>
                   Book a Site Visit
                 </h4>
-                <p className="text-xs leading-7 mb-4" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>
+                <p className="text-xs md:text-sm leading-8 mb-6" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>
                   Experience our showroom apartments in person. Private tours available 7 days a week.
                 </p>
-                <a href="tel:+8801700000000" className="btn-solid text-xs py-2.5 px-5">Call Now</a>
+                <a href="tel:+8801700000000" className="btn-solid text-xs py-3 px-6">Call Now</a>
               </div>
             </div>
 
             {/* Form */}
             <div ref={formRef} className="lg:col-span-3">
               {sent ? (
-                <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center p-10 gap-5 card-dark">
-                  <CheckCircle size={44} style={{ color:'var(--gold-mid)' }} />
-                  <h3 className="font-display text-2xl md:text-3xl" style={{ color:'var(--text-primary)', fontWeight:400 }}>
+                <div className="h-full min-h-[450px] flex flex-col items-center justify-center text-center p-12 gap-6 card-dark">
+                  <CheckCircle size={52} style={{ color:'var(--gold-mid)' }} />
+                  <h3 className="font-display text-2xl md:text-4xl" style={{ color:'var(--text-primary)', fontWeight:400 }}>
                     Message Received
                   </h3>
-                  <p className="text-sm leading-7 max-w-sm" style={{ color:'rgba(245,240,232,0.4)', fontWeight:300 }}>
+                  <p className="text-sm md:text-base leading-8 max-w-md" style={{ color:'rgba(245,240,232,0.4)', fontWeight:300 }}>
                     Thank you for reaching out. A Sun Real Estate consultant will contact you within 24 hours.
                   </p>
-                  <button onClick={() => setSent(false)} className="btn-outline text-xs">Send Another</button>
+                  <button onClick={() => setSent(false)} className="btn-outline text-xs mt-2">Send Another</button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-7 md:p-10 card-dark">
-                  <h3 className="font-display text-xl md:text-2xl mb-1" style={{ color:'var(--text-primary)', fontWeight:400 }}>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-8 md:p-14 card-dark">
+                  <h3 className="font-display text-2xl md:text-3xl mb-2" style={{ color:'var(--text-primary)', fontWeight:400 }}>
                     Send Us a Message
                   </h3>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.4)' }}>Full Name *</label>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[0.62rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.45)' }}>Full Name *</label>
                       <input required type="text" value={form.name} onChange={e => setForm({...form,name:e.target.value})}
                         placeholder="Your full name" className="input-luxury" />
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.4)' }}>Email *</label>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[0.62rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.45)' }}>Email *</label>
                       <input required type="email" value={form.email} onChange={e => setForm({...form,email:e.target.value})}
                         placeholder="your@email.com" className="input-luxury" />
                     </div>
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.4)' }}>Phone</label>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[0.62rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.45)' }}>Phone</label>
                       <input type="tel" value={form.phone} onChange={e => setForm({...form,phone:e.target.value})}
                         placeholder="+880 ..." className="input-luxury" />
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.4)' }}>Interest</label>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[0.62rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.45)' }}>Interest</label>
                       <select value={form.interest} onChange={e => setForm({...form,interest:e.target.value})} className="input-luxury">
                         <option value="">Select property type</option>
                         <option value="residential">Residential</option>
@@ -182,13 +184,13 @@ export default function ContactPage() {
                       </select>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.4)' }}>Message *</label>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[0.62rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.45)' }}>Message *</label>
                     <textarea required rows={5} value={form.message} onChange={e => setForm({...form,message:e.target.value})}
                       placeholder="Tell us about your dream property..." className="input-luxury resize-none" />
                   </div>
-                  <button type="submit" className="btn-solid flex items-center justify-center gap-2 mt-1">
-                    Send Enquiry <Send size={14} />
+                  <button type="submit" className="btn-solid flex items-center justify-center gap-3 mt-3">
+                    Send Enquiry <Send size={15} />
                   </button>
                 </form>
               )}
@@ -201,21 +203,21 @@ export default function ContactPage() {
       <section className="section-py" style={{ background:'#0f0f0d' }}>
         <div className="container">
           <SectionHeader label="Our Offices" title='Find Us <span class="italic gold-text">Across Dhaka</span>' />
-          <div className="grid sm:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-3 gap-8 lg:gap-10">
             {offices.map(o => (
-              <div key={o.city} className="p-7 svc-card">
-                <h4 className="font-display text-xl mb-2" style={{ color:'var(--text-primary)', fontWeight:500 }}>
+              <div key={o.city} className="p-8 md:p-10 svc-card">
+                <h4 className="font-display text-xl md:text-2xl mb-3" style={{ color:'var(--text-primary)', fontWeight:500 }}>
                   {o.city} <span className="gold-text italic">Office</span>
                 </h4>
-                <div className="h-px mb-4 gold-line-h-left" />
-                <div className="flex flex-col gap-2.5">
-                  <div className="flex items-start gap-2">
-                    <MapPin size={12} className="mt-0.5 shrink-0" style={{ color:'var(--gold-mid)' }} />
-                    <p className="text-xs leading-6" style={{ color:'rgba(245,240,232,0.5)' }}>{o.addr}</p>
+                <div className="h-px mb-5 gold-line-h-left" />
+                <div className="flex flex-col gap-3.5">
+                  <div className="flex items-start gap-3">
+                    <MapPin size={14} className="mt-1 shrink-0" style={{ color:'var(--gold-mid)' }} />
+                    <p className="text-xs md:text-sm leading-7" style={{ color:'rgba(245,240,232,0.5)' }}>{o.addr}</p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Phone size={12} style={{ color:'var(--gold-mid)' }} />
-                    <p className="text-xs" style={{ color:'rgba(245,240,232,0.5)' }}>{o.phone}</p>
+                  <div className="flex items-center gap-3">
+                    <Phone size={14} style={{ color:'var(--gold-mid)' }} />
+                    <p className="text-xs md:text-sm" style={{ color:'rgba(245,240,232,0.5)' }}>{o.phone}</p>
                   </div>
                 </div>
               </div>
@@ -228,20 +230,20 @@ export default function ContactPage() {
       <section className="section-py" style={{ background:'#0c0c0a' }}>
         <div className="container max-w-3xl mx-auto">
           <SectionHeader center label="FAQ" title='Frequently Asked <span class="italic gold-text">Questions</span>' />
-          <div ref={faqRef} className="flex flex-col gap-3">
+          <div ref={faqRef} className="flex flex-col gap-5">
             {faqs.map((f, i) => (
-              <div key={i} className="faq-item overflow-hidden" style={{ border:'1px solid rgba(200,137,26,0.1)' }}>
+              <div key={i} className="faq-item overflow-hidden" style={{ border:'1px solid rgba(200,137,26,0.12)' }}>
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 p-5 md:p-6 text-left transition-colors duration-200"
+                  className="w-full flex items-center justify-between gap-5 p-6 md:p-8 text-left transition-colors duration-200"
                   style={{ background: openFaq === i ? 'rgba(200,137,26,0.05)' : 'transparent' }}
                 >
-                  <span className="text-sm font-medium" style={{ color:'var(--text-primary)', fontFamily:'Inter,sans-serif' }}>{f.q}</span>
-                  <span className="shrink-0 font-display text-xl gold-text">{openFaq === i ? '−' : '+'}</span>
+                  <span className="text-sm md:text-base font-medium" style={{ color:'var(--text-primary)', fontFamily:'Inter,sans-serif' }}>{f.q}</span>
+                  <span className="shrink-0 font-display text-2xl gold-text">{openFaq === i ? '−' : '+'}</span>
                 </button>
                 {openFaq === i && (
-                  <div className="px-5 md:px-6 pb-5">
-                    <p className="text-sm leading-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>{f.a}</p>
+                  <div className="px-6 md:px-8 pb-7">
+                    <p className="text-sm md:text-base leading-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>{f.a}</p>
                   </div>
                 )}
               </div>

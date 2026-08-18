@@ -76,14 +76,14 @@ export default function ProjectsPage() {
       <section className="section-py" style={{ background:'#0c0c0a' }}>
         <div className="container">
           {/* Filter bar */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10">
-            <div className="flex items-center gap-2 flex-wrap">
-              <SlidersHorizontal size={14} style={{ color:'var(--gold-mid)' }} />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 mb-14">
+            <div className="flex items-center gap-3 flex-wrap">
+              <SlidersHorizontal size={15} style={{ color:'var(--gold-mid)' }} />
               {filters.map(f => (
                 <button
                   key={f}
                   onClick={() => setActive(f)}
-                  className="text-xs px-4 py-2 tracking-wider font-accent transition-all duration-300"
+                  className="text-xs px-5 py-2.5 tracking-wider font-accent transition-all duration-300"
                   style={{
                     background: active === f ? 'linear-gradient(135deg,var(--gold-mid),var(--gold))' : 'rgba(255,255,255,0.04)',
                     color:      active === f ? '#0f0f0d' : 'rgba(245,240,232,0.55)',
@@ -100,7 +100,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Grid */}
-          <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {filtered.map(p => {
               const s = statusStyle[p.status]
               return (
@@ -108,59 +108,59 @@ export default function ProjectsPage() {
                   <div className="relative overflow-hidden" style={{ aspectRatio:'4/3' }}>
                     <img src={p.img} alt={p.name} className="prop-img w-full h-full object-cover" />
                     <div className="prop-overlay absolute inset-0 flex items-center justify-center">
-                      <div className="flex flex-col items-center gap-1">
-                        <ArrowUpRight size={22} style={{ color:'var(--gold)' }} />
+                      <div className="flex flex-col items-center gap-1.5">
+                        <ArrowUpRight size={24} style={{ color:'var(--gold)' }} />
                         <span className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.8)' }}>View Details</span>
                       </div>
                     </div>
-                    <div className="absolute top-3 left-3">
-                      <span className="font-accent text-[0.55rem] tracking-widest px-2.5 py-1 uppercase"
+                    <div className="absolute top-4 left-4">
+                      <span className="font-accent text-[0.55rem] tracking-widest px-3 py-1 uppercase"
                         style={{ background:'rgba(10,10,9,0.85)', border:'1px solid rgba(200,137,26,0.4)', color:'var(--gold)' }}>
                         {p.tag}
                       </span>
                     </div>
-                    <div className="absolute top-3 right-3">
-                      <span className="text-[0.55rem] tracking-widest px-2.5 py-1 rounded-full"
+                    <div className="absolute top-4 right-4">
+                      <span className="text-[0.55rem] tracking-widest px-3 py-1 rounded-full"
                         style={{ background:s.bg, color:s.color, border:`1px solid ${s.border}` }}>
                         {p.status}
                       </span>
                     </div>
                   </div>
-                  <div className="p-5 md:p-6 flex flex-col flex-1">
-                    <div className="flex items-center justify-between mb-1.5">
+                  <div className="p-7 md:p-8 flex flex-col flex-1">
+                    <div className="flex items-center justify-between mb-2">
                       <span className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(200,137,26,0.7)' }}>{p.type}</span>
                       <span className="text-[0.55rem] tracking-wider" style={{ color:'rgba(245,240,232,0.25)' }}>{p.year}</span>
                     </div>
-                    <h3 className="font-display text-xl md:text-2xl mb-3 leading-tight" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.name}</h3>
-                    <div className="flex flex-col gap-1.5 mb-4">
-                      <div className="flex items-center gap-2">
-                        <MapPin size={11} style={{ color:'var(--gold-mid)', flexShrink:0 }} />
+                    <h3 className="font-display text-xl md:text-2xl mb-4 leading-tight" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.name}</h3>
+                    <div className="flex flex-col gap-2 mb-6">
+                      <div className="flex items-center gap-2.5">
+                        <MapPin size={12} style={{ color:'var(--gold-mid)', flexShrink:0 }} />
                         <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.location}</span>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1.5">
-                          <BedDouble size={11} style={{ color:'var(--gold-mid)' }} />
+                      <div className="flex items-center gap-5">
+                        <div className="flex items-center gap-2">
+                          <BedDouble size={12} style={{ color:'var(--gold-mid)' }} />
                           <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.beds}</span>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                          <Maximize2 size={11} style={{ color:'var(--gold-mid)' }} />
+                        <div className="flex items-center gap-2">
+                          <Maximize2 size={12} style={{ color:'var(--gold-mid)' }} />
                           <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.area}</span>
                         </div>
                       </div>
                     </div>
-                    <div className="h-px mb-4 gold-line-h-left" />
+                    <div className="h-px mb-6 gold-line-h-left" />
                     <div className="flex items-center justify-between mt-auto">
                       <div>
                         <p className="text-[0.55rem] tracking-widest uppercase mb-0.5" style={{ color:'rgba(245,240,232,0.3)' }}>Starting From</p>
                         <p className="font-display text-lg md:text-xl font-semibold gold-text">{p.price}</p>
                       </div>
                       <Link to="/contact"
-                        className="w-9 h-9 flex items-center justify-center border transition-all duration-300"
+                        className="w-10 h-10 flex items-center justify-center border transition-all duration-300"
                         style={{ borderColor:'rgba(200,137,26,0.3)', color:'var(--gold-mid)' }}
                         onMouseEnter={e => { e.currentTarget.style.background='var(--gold-mid)'; e.currentTarget.style.color='#0f0f0d'; }}
                         onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='var(--gold-mid)'; }}
                       >
-                        <ArrowUpRight size={15} />
+                        <ArrowUpRight size={16} />
                       </Link>
                     </div>
                   </div>
@@ -174,13 +174,13 @@ export default function ProjectsPage() {
       {/* CTA */}
       <section className="section-py" style={{ background:'#0f0f0d' }}>
         <div className="container">
-          <div className="p-8 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+          <div className="p-10 md:p-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
             style={{ background:'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.35))', border:'1px solid rgba(200,137,26,0.18)' }}>
             <div>
-              <h3 className="font-display text-2xl md:text-3xl mb-2" style={{ color:'var(--text-primary)', fontWeight:400 }}>
+              <h3 className="font-display text-2xl md:text-3xl mb-3" style={{ color:'var(--text-primary)', fontWeight:400 }}>
                 Interested in a Property?
               </h3>
-              <p className="text-sm" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>
+              <p className="text-sm md:text-base" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>
                 Book a private viewing with our consultants today.
               </p>
             </div>

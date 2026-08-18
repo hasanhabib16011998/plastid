@@ -140,41 +140,41 @@ export default function TeamPage() {
         <div className="container">
           <SectionHeader label="Leadership" title='Our <span class="italic gold-text">Leadership</span> Team'
             subtitle="The visionaries and strategists driving Sun Real Estate forward." />
-          <div ref={leaderRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div ref={leaderRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {leadership.map(p => (
-              <div key={p.name} className="leader-card team-card card-dark overflow-hidden">
+              <div key={p.name} className="leader-card team-card card-dark overflow-hidden flex flex-col">
                 {/* Avatar */}
                 <div className="relative overflow-hidden flex items-center justify-center"
                   style={{ aspectRatio:'4/3', background:p.imgBg }}>
                   <span className="font-display font-bold text-6xl md:text-7xl gold-text opacity-40">{p.initials}</span>
                   {/* Dept badge */}
-                  <div className="absolute top-3 right-3 px-2.5 py-1 font-accent text-[0.55rem] tracking-widest uppercase"
+                  <div className="absolute top-4 right-4 px-3 py-1 font-accent text-[0.55rem] tracking-widest uppercase"
                     style={{ background:'rgba(10,10,9,0.85)', border:'1px solid rgba(200,137,26,0.35)', color:'var(--gold)' }}>
                     {p.dept}
                   </div>
                 </div>
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-2 mb-1">
+                <div className="p-7 md:p-9 flex flex-col flex-1">
+                  <div className="flex items-start justify-between gap-3 mb-2">
                     <div>
-                      <h3 className="font-display text-xl leading-tight mb-0.5" style={{ color:'var(--text-primary)', fontWeight:500 }}>
+                      <h3 className="font-display text-xl md:text-2xl leading-tight mb-1" style={{ color:'var(--text-primary)', fontWeight:500 }}>
                         {p.name}
                       </h3>
                       <p className="text-xs mb-1" style={{ color:'var(--gold-mid)' }}>{p.title}</p>
                       <p className="text-[0.6rem] tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.3)' }}>{p.exp} experience</p>
                     </div>
                     <a href="#" aria-label="LinkedIn"
-                      className="w-8 h-8 flex items-center justify-center shrink-0 transition-all duration-300"
+                      className="w-9 h-9 flex items-center justify-center shrink-0 transition-all duration-300"
                       style={{ border:'1px solid rgba(200,137,26,0.2)', color:'rgba(245,240,232,0.4)' }}
                       onMouseEnter={e => { e.currentTarget.style.color='var(--gold)'; e.currentTarget.style.borderColor='rgba(200,137,26,0.5)'; }}
                       onMouseLeave={e => { e.currentTarget.style.color='rgba(245,240,232,0.4)'; e.currentTarget.style.borderColor='rgba(200,137,26,0.2)'; }}
                     >
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
                       </svg>
                     </a>
                   </div>
-                  <div className="h-px my-4 gold-line-h-left" />
-                  <p className="text-xs leading-6.5" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{p.bio}</p>
+                  <div className="h-px my-5 gold-line-h-left" />
+                  <p className="text-xs md:text-sm leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{p.bio}</p>
                 </div>
               </div>
             ))}
@@ -187,19 +187,19 @@ export default function TeamPage() {
         <div className="container">
           <SectionHeader label="Our Departments" title='How We <span class="italic gold-text">Organise</span>'
             subtitle="Six expert departments working in harmony to deliver exceptional results." />
-          <div ref={deptRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div ref={deptRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {departments.map((d, i) => (
-              <div key={d.name} className="dept-card svc-card p-7 flex flex-col gap-4">
-                <div className="flex items-start justify-between">
+              <div key={d.name} className="dept-card svc-card p-8 md:p-10 flex flex-col gap-5">
+                <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="font-accent text-[0.55rem] tracking-widest block mb-1.5" style={{ color:'rgba(200,137,26,0.45)' }}>
+                    <span className="font-accent text-[0.6rem] tracking-widest block mb-2" style={{ color:'rgba(200,137,26,0.45)' }}>
                       {String(i+1).padStart(2,'0')}
                     </span>
                     <h4 className="font-display text-lg md:text-xl" style={{ color:'var(--text-primary)', fontWeight:500 }}>{d.name}</h4>
                   </div>
                   <div className="font-display text-3xl font-bold gold-text shrink-0">{d.count}</div>
                 </div>
-                <p className="text-xs leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{d.desc}</p>
+                <p className="text-xs md:text-sm leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{d.desc}</p>
               </div>
             ))}
           </div>
@@ -211,12 +211,12 @@ export default function TeamPage() {
         <div className="container">
           <SectionHeader center label="Our Culture" title='Life at <span class="italic gold-text">Sun Real Estate</span>'
             subtitle="We build more than buildings — we build careers, culture, and community." />
-          <div ref={valRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={valRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map(v => (
-              <div key={v.title} className="val-card p-7 svc-card text-center flex flex-col items-center gap-3">
-                <span className="text-2xl" style={{ color:'var(--gold)' }}>{v.icon}</span>
-                <h4 className="font-display text-lg" style={{ color:'var(--text-primary)', fontWeight:500 }}>{v.title}</h4>
-                <p className="text-xs leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{v.desc}</p>
+              <div key={v.title} className="val-card p-8 md:p-10 svc-card text-center flex flex-col items-center gap-4">
+                <span className="text-3xl mb-1" style={{ color:'var(--gold)' }}>{v.icon}</span>
+                <h4 className="font-display text-xl" style={{ color:'var(--text-primary)', fontWeight:500 }}>{v.title}</h4>
+                <p className="text-xs md:text-sm leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{v.desc}</p>
               </div>
             ))}
           </div>
@@ -226,19 +226,19 @@ export default function TeamPage() {
       {/* Join us CTA */}
       <section className="section-py" style={{ background:'#0f0f0d' }}>
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-8 items-center p-8 md:p-14"
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center p-10 md:p-16"
             style={{ background:'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.35))', border:'1px solid rgba(200,137,26,0.18)' }}>
             <div>
-              <p className="section-label mb-3" style={{ fontSize:'0.6rem' }}>Join Our Team</p>
-              <h3 className="font-display text-2xl md:text-4xl mb-3" style={{ color:'var(--text-primary)', fontWeight:400 }}>
+              <p className="section-label mb-3.5" style={{ fontSize:'0.62rem' }}>Join Our Team</p>
+              <h3 className="font-display text-2xl md:text-4xl mb-4" style={{ color:'var(--text-primary)', fontWeight:400 }}>
                 Build Your Career with <span className="italic gold-text">Sun Real Estate</span>
               </h3>
-              <p className="text-sm leading-8" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>
+              <p className="text-sm md:text-base leading-8" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>
                 We are always looking for passionate, talented professionals to join our growing team.
                 Send your CV and let's build something great together.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-4 md:justify-end">
+            <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-5 md:justify-end">
               <Link to="/contact" className="btn-solid flex items-center gap-2">
                 Apply Now <ArrowUpRight size={14} />
               </Link>

@@ -127,24 +127,24 @@ export default function ServicesPage() {
                   className="svc-row grid md:grid-cols-2 border-b last:border-b-0"
                   style={{ borderColor:'rgba(200,137,26,0.08)' }}>
                   {/* Content */}
-                  <div className={`p-8 md:p-12 lg:p-16 flex flex-col justify-center ${isEven ? '' : 'md:order-2'}`}>
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="w-11 h-11 flex items-center justify-center shrink-0"
+                  <div className={`p-10 md:p-16 lg:p-20 flex flex-col justify-center ${isEven ? '' : 'md:order-2'}`}>
+                    <div className="flex items-center gap-3.5 mb-6">
+                      <div className="w-12 h-12 flex items-center justify-center shrink-0"
                         style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
-                        <Icon size={18} style={{ color:'var(--gold-mid)' }} />
+                        <Icon size={20} style={{ color:'var(--gold-mid)' }} />
                       </div>
-                      <span className="font-accent text-[0.55rem] tracking-widest" style={{ color:'rgba(200,137,26,0.45)' }}>
+                      <span className="font-accent text-[0.6rem] tracking-widest" style={{ color:'rgba(200,137,26,0.45)' }}>
                         {svc.number}
                       </span>
                     </div>
-                    <p className="text-[0.6rem] tracking-[0.3em] uppercase mb-2" style={{ color:'rgba(200,137,26,0.6)' }}>{svc.tagline}</p>
-                    <h2 className="font-display text-2xl md:text-3xl lg:text-4xl mb-4 leading-snug"
+                    <p className="text-[0.62rem] tracking-[0.35em] uppercase mb-2.5" style={{ color:'rgba(200,137,26,0.6)' }}>{svc.tagline}</p>
+                    <h2 className="font-display text-2xl md:text-3xl lg:text-4xl mb-5 leading-snug"
                       style={{ color:'var(--text-primary)', fontWeight:400 }}>{svc.title}</h2>
-                    <p className="text-sm leading-8 mb-6" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>{svc.desc}</p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mb-8">
+                    <p className="text-sm md:text-base leading-8 mb-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>{svc.desc}</p>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-6 mb-10">
                       {svc.features.map(f => (
-                        <li key={f} className="flex items-start gap-2 text-xs" style={{ color:'rgba(245,240,232,0.55)' }}>
-                          <span style={{ color:'var(--gold-mid)', marginTop:'0.1rem', flexShrink:0 }}>◆</span>
+                        <li key={f} className="flex items-start gap-2.5 text-xs md:text-sm" style={{ color:'rgba(245,240,232,0.55)' }}>
+                          <span style={{ color:'var(--gold-mid)', marginTop:'0.15rem', flexShrink:0, fontSize: '0.5rem' }}>◆</span>
                           {f}
                         </li>
                       ))}
@@ -154,17 +154,17 @@ export default function ServicesPage() {
                     </Link>
                   </div>
                   {/* Visual accent */}
-                  <div className={`hidden md:flex items-center justify-center p-12 ${isEven ? '' : 'md:order-1'}`}
+                  <div className={`hidden md:flex items-center justify-center p-16 ${isEven ? '' : 'md:order-1'}`}
                     style={{ background:'rgba(200,137,26,0.025)', borderLeft: isEven ? '1px solid rgba(200,137,26,0.08)' : 'none',
                       borderRight: isEven ? 'none' : '1px solid rgba(200,137,26,0.08)' }}>
                     <div className="text-center">
-                      <div className="font-display font-bold gold-text leading-none mb-2"
+                      <div className="font-display font-bold gold-text leading-none mb-3"
                         style={{ fontSize:'clamp(5rem,10vw,9rem)', opacity:0.15 }}>
                         {svc.number}
                       </div>
-                      <div className="w-12 h-12 mx-auto flex items-center justify-center"
+                      <div className="w-14 h-14 mx-auto flex items-center justify-center"
                         style={{ border:'1px solid rgba(200,137,26,0.3)' }}>
-                        <Icon size={22} style={{ color:'var(--gold)' }} />
+                        <Icon size={24} style={{ color:'var(--gold)' }} />
                       </div>
                     </div>
                   </div>
@@ -180,14 +180,14 @@ export default function ServicesPage() {
         <div className="container">
           <SectionHeader center label="How We Work" title='Our <span class="italic gold-text">Process</span>'
             subtitle="A seamless six-step journey from initial consultation to keys in hand." />
-          <div ref={processRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div ref={processRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {process.map(p => (
-              <div key={p.step} className="proc-item p-7 svc-card relative overflow-hidden">
-                <div className="absolute top-3 right-4 font-display text-5xl font-bold pointer-events-none"
+              <div key={p.step} className="proc-item p-8 md:p-10 svc-card relative overflow-hidden">
+                <div className="absolute top-4 right-5 font-display text-5xl font-bold pointer-events-none"
                   style={{ color:'rgba(200,137,26,0.06)' }}>{p.step}</div>
-                <div className="font-accent text-[0.6rem] tracking-widest gold-text mb-3">Step {p.step}</div>
-                <h4 className="font-display text-xl mb-3" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.title}</h4>
-                <p className="text-xs leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{p.desc}</p>
+                <div className="font-accent text-[0.62rem] tracking-widest gold-text mb-4">Step {p.step}</div>
+                <h4 className="font-display text-xl md:text-2xl mb-3" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.title}</h4>
+                <p className="text-xs md:text-sm leading-8" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{p.desc}</p>
               </div>
             ))}
           </div>
@@ -198,20 +198,20 @@ export default function ServicesPage() {
       <section className="section-py" style={{ background:'#0a0a09' }}>
         <div className="container">
           <SectionHeader center label="Why Sun RE" title='Why Clients <span class="italic gold-text">Choose Us</span>' />
-          <div ref={whyRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={whyRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { icon:BarChart3, stat:'#1',   label:'Luxury Developer in Dhaka', desc:'Ranked top by Bangladesh Real Estate Summit 3 years running.' },
               { icon:Shield,    stat:'10yr', label:'Structural Warranty',        desc:'Unmatched peace of mind with decade-long construction guarantee.' },
               { icon:Layers,    stat:'500+', label:'Units Delivered',             desc:'Half a millennium of premium homes across Dhaka.' },
               { icon:TrendingUp,stat:'98%',  label:'Client Satisfaction',         desc:'An industry-leading score from post-handover surveys.' },
             ].map(({ icon:Icon, stat, label, desc }) => (
-              <div key={label} className="why-item p-7 svc-card text-center flex flex-col items-center gap-3">
-                <div className="w-11 h-11 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
-                  <Icon size={18} style={{ color:'var(--gold-mid)' }} />
+              <div key={label} className="why-item p-8 md:p-10 svc-card text-center flex flex-col items-center gap-4">
+                <div className="w-12 h-12 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
+                  <Icon size={20} style={{ color:'var(--gold-mid)' }} />
                 </div>
-                <div className="font-display text-3xl font-bold gold-text">{stat}</div>
-                <h4 className="font-display text-base" style={{ color:'var(--text-primary)', fontWeight:500 }}>{label}</h4>
-                <p className="text-xs leading-6" style={{ color:'rgba(245,240,232,0.4)', fontWeight:300 }}>{desc}</p>
+                <div className="font-display text-3xl md:text-4xl font-bold gold-text">{stat}</div>
+                <h4 className="font-display text-base md:text-lg" style={{ color:'var(--text-primary)', fontWeight:500 }}>{label}</h4>
+                <p className="text-xs leading-7" style={{ color:'rgba(245,240,232,0.4)', fontWeight:300 }}>{desc}</p>
               </div>
             ))}
           </div>
@@ -220,10 +220,10 @@ export default function ServicesPage() {
 
       {/* CTA */}
       <section className="section-py" style={{ background:'#0f0f0d' }}>
-        <div className="container text-center max-w-2xl mx-auto">
+        <div className="container text-center max-w-3xl mx-auto">
           <SectionHeader center label="Get Started" title='Ready to <span class="italic gold-text">Begin?</span>'
             subtitle="Schedule a free consultation with our property experts today." />
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-5 justify-center mt-6">
             <Link to="/contact" className="btn-solid">Book Consultation</Link>
             <Link to="/projects" className="btn-outline">Browse Projects</Link>
           </div>

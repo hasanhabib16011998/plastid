@@ -63,81 +63,112 @@ export default function Footer() {
   return (
     <footer style={{ background: '#080807', borderTop: '1px solid rgba(200,137,26,0.1)' }}>
       <div className="container">
-        {/* Main grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 py-16 md:py-20 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-2">
-            <Link to="/" className="inline-flex flex-col leading-none mb-5">
-              <span className="font-accent gold-text text-3xl font-bold tracking-widest">SUN</span>
-              <span className="text-[0.5rem] tracking-[0.5em] uppercase" style={{ color: 'rgba(245,240,232,0.3)' }}>Real Estate</span>
-            </Link>
-            <p className="text-sm leading-7 mb-6 max-w-xs" style={{ color: 'rgba(245,240,232,0.35)', fontWeight: 300 }}>
-              Crafting extraordinary living experiences across Dhaka's most prestigious addresses since 2005.
-            </p>
-            {/* Quick contact */}
-            <div className="flex flex-col gap-2.5 mb-7">
-              {[
-                { Icon: Phone,  val: '+880 1700-000000' },
-                { Icon: Mail,   val: 'hello@sunrealestate.com.bd' },
-                { Icon: MapPin, val: 'Gulshan-1, Dhaka 1212' },
-              ].map(({ Icon, val }, i) => (
-                <div key={i} className="flex items-center gap-2.5">
-                  <Icon size={12} style={{ color: 'var(--gold-mid)', flexShrink: 0 }} />
-                  <span className="text-xs" style={{ color: 'rgba(245,240,232,0.4)' }}>{val}</span>
-                </div>
-              ))}
-            </div>
-            {/* Socials */}
-            <div className="flex items-center gap-3">
-              {socials.map(({ Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-9 h-9 flex items-center justify-center transition-all duration-300"
-                  style={{
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    color: 'rgba(245,240,232,0.4)',
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold)'; e.currentTarget.style.borderColor = 'rgba(200,137,26,0.5)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,240,232,0.4)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
-                >
-                  <Icon />
-                </a>
-              ))}
-            </div>
-          </div>
 
-          {/* Nav columns */}
-          {navCols.map(col => (
-            <div key={col.title} className="col-span-1">
-              <h5 className="section-label mb-5" style={{ fontSize: '0.6rem' }}>{col.title}</h5>
-              <ul className="flex flex-col gap-3">
-                {col.links.map(l => (
-                  <li key={l.label}>
-                    <Link
-                      to={l.to}
-                      className="text-xs transition-colors duration-200"
-                      style={{ color: 'rgba(245,240,232,0.35)', fontFamily: 'Inter,sans-serif' }}
-                      onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold)'; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,240,232,0.35)'; }}
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
+        {/* ── Top section ── */}
+        <div
+          className="py-20 md:py-28 border-b"
+          style={{ borderColor: 'rgba(255,255,255,0.05)' }}
+        >
+          {/* Grid: 1 col → 2 col → 5 col */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-14 lg:gap-12">
+
+            {/* Brand – full width on mobile/sm, 2 cols on lg */}
+            <div className="sm:col-span-2 lg:col-span-2">
+              <Link to="/" className="inline-flex flex-col leading-none mb-8">
+                <span className="font-accent gold-text text-3xl font-bold tracking-widest">SUN</span>
+                <span
+                  className="text-[0.5rem] tracking-[0.5em] uppercase"
+                  style={{ color: 'rgba(245,240,232,0.3)' }}
+                >
+                  Real Estate
+                </span>
+              </Link>
+
+              <p
+                className="text-sm mb-9"
+                style={{ color: 'rgba(245,240,232,0.35)', fontWeight: 300, maxWidth: '22rem', lineHeight: '2' }}
+              >
+                Crafting extraordinary living experiences across Dhaka's most prestigious
+                addresses since 2005.
+              </p>
+
+              {/* Quick contact */}
+              <div className="flex flex-col gap-4 mb-10">
+                {[
+                  { Icon: Phone,  val: '+880 1700-000000'            },
+                  { Icon: Mail,   val: 'hello@sunrealestate.com.bd'  },
+                  { Icon: MapPin, val: 'Gulshan-1, Dhaka 1212'       },
+                ].map(({ Icon, val }, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <Icon size={12} style={{ color: 'var(--gold-mid)', flexShrink: 0 }} />
+                    <span className="text-xs" style={{ color: 'rgba(245,240,232,0.4)' }}>{val}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
+
+              {/* Socials */}
+              <div className="flex items-center gap-3">
+                {socials.map(({ Icon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    className="w-9 h-9 flex items-center justify-center transition-all duration-300"
+                    style={{ border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(245,240,232,0.4)' }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.color = 'var(--gold)'
+                      e.currentTarget.style.borderColor = 'rgba(200,137,26,0.5)'
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.color = 'rgba(245,240,232,0.4)'
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
+                    }}
+                  >
+                    <Icon />
+                  </a>
+                ))}
+              </div>
             </div>
-          ))}
+
+            {/* Nav columns – each 1 col on sm grid, 1 col on lg */}
+            {navCols.map(col => (
+              <div key={col.title} className="lg:col-span-1">
+                <h5 className="section-label mb-7" style={{ fontSize: '0.6rem' }}>
+                  {col.title}
+                </h5>
+                <ul className="flex flex-col gap-4">
+                  {col.links.map(l => (
+                    <li key={l.label}>
+                      <Link
+                        to={l.to}
+                        className="text-xs transition-colors duration-200"
+                        style={{ color: 'rgba(245,240,232,0.35)' }}
+                        onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold)' }}
+                        onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,240,232,0.35)' }}
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* CTA strip */}
+        {/* ── CTA strip ── */}
         <div
-          className="my-12 p-8 md:p-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
-          style={{ background: 'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.35))', border: '1px solid rgba(200,137,26,0.18)' }}
+          className="my-14 p-10 md:p-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
+          style={{
+            background: 'linear-gradient(135deg,rgba(200,137,26,0.08),rgba(42,45,24,0.35))',
+            border: '1px solid rgba(200,137,26,0.18)',
+          }}
         >
           <div>
-            <h3 className="font-display text-2xl md:text-3xl mb-2" style={{ color: 'var(--text-primary)', fontWeight: 400 }}>
+            <h3
+              className="font-display text-xl md:text-2xl mb-1.5"
+              style={{ color: 'var(--text-primary)', fontWeight: 400 }}
+            >
               Ready to Elevate Your{' '}
               <span className="italic gold-text">Living Standard?</span>
             </h3>
@@ -150,23 +181,32 @@ export default function Footer() {
           </Link>
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-6">
-          <p className="text-xs" style={{ color: 'rgba(245,240,232,0.2)' }}>
+        {/* ── Bottom bar ── */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 py-10"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}
+        >
+          <p className="text-xs text-center sm:text-left" style={{ color: 'rgba(245,240,232,0.2)' }}>
             © {new Date().getFullYear()} Sun Real Estate Ltd. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            {['Privacy Policy','Terms','Cookies'].map(t => (
-              <a key={t} href="#" className="text-xs transition-colors" style={{ color: 'rgba(245,240,232,0.2)' }}
-                onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold)'; }}
-                onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,240,232,0.2)'; }}
+          <div className="flex items-center gap-5">
+            {['Privacy Policy', 'Terms', 'Cookies'].map(t => (
+              <a
+                key={t}
+                href="#"
+                className="text-xs transition-colors"
+                style={{ color: 'rgba(245,240,232,0.2)' }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold)' }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,240,232,0.2)' }}
               >
                 {t}
               </a>
             ))}
           </div>
         </div>
+
       </div>
     </footer>
   )
 }
+

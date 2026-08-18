@@ -100,22 +100,22 @@ export default function AboutPage() {
       {/* Vision & Mission */}
       <section className="section-py" style={{ background:'linear-gradient(180deg,#0f0f0d,#111210)' }}>
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
             {[
               { label:'Our Vision', icon:'◈', heading:'A skyline worthy of Dhaka\'s ambitions.',
                 body:'We envision a Dhaka where architectural beauty meets functional living — where every Sun Real Estate building becomes a landmark that defines the city\'s character and elevates its global standing.' },
               { label:'Our Mission', icon:'◇', heading:'Delivering uncompromising quality, every time.',
                 body:'Our mission is to develop premium residential and commercial properties that exceed client expectations in quality, design, and value — while maintaining absolute integrity in every transaction and relationship.' },
             ].map(v => (
-              <div key={v.label} className="p-8 md:p-10 svc-card">
-                <div className="flex items-center gap-3 mb-5">
-                  <span style={{ color:'var(--gold)', fontSize:'1.2rem' }}>{v.icon}</span>
-                  <span className="section-label" style={{ fontSize:'0.6rem' }}>{v.label}</span>
+              <div key={v.label} className="p-10 md:p-14 svc-card flex flex-col gap-2">
+                <div className="flex items-center gap-3 mb-6">
+                  <span style={{ color:'var(--gold)', fontSize:'1.3rem' }}>{v.icon}</span>
+                  <span className="section-label" style={{ fontSize:'0.62rem' }}>{v.label}</span>
                 </div>
-                <h3 className="font-display text-2xl md:text-3xl mb-4 leading-snug" style={{ color:'var(--text-primary)', fontWeight:400 }}>
+                <h3 className="font-display text-2xl md:text-3xl mb-5 leading-snug" style={{ color:'var(--text-primary)', fontWeight:400 }}>
                   {v.heading}
                 </h3>
-                <p className="text-sm leading-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>{v.body}</p>
+                <p className="text-sm md:text-base leading-8" style={{ color:'rgba(245,240,232,0.5)', fontWeight:300 }}>{v.body}</p>
               </div>
             ))}
           </div>
@@ -131,21 +131,21 @@ export default function AboutPage() {
             <div className="absolute left-1/2 top-0 bottom-0 w-px hidden md:block -translate-x-1/2"
               style={{ background:'linear-gradient(to bottom,transparent,rgba(200,137,26,0.25),transparent)' }} />
 
-            <div className="flex flex-col gap-8 md:gap-12">
+            <div className="flex flex-col gap-12 md:gap-16">
               {milestones.map((m, i) => (
                 <div key={m.year}
                   className={`reveal flex flex-col md:flex-row gap-6 md:gap-0 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                   {/* Content */}
-                  <div className={`md:w-[calc(50%-2.5rem)] ${i % 2 === 0 ? 'md:text-right md:pr-10' : 'md:pl-10'}`}>
-                    <div className="p-6 md:p-8 card-dark">
-                      <span className="font-accent text-[0.6rem] tracking-widest gold-text mb-2 block">{m.year}</span>
-                      <h4 className="font-display text-xl md:text-2xl mb-2" style={{ color:'var(--text-primary)', fontWeight:500 }}>{m.title}</h4>
-                      <p className="text-sm leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{m.desc}</p>
+                  <div className={`md:w-[calc(50%-2.5rem)] ${i % 2 === 0 ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
+                    <div className="p-8 md:p-10 card-dark">
+                      <span className="font-accent text-[0.65rem] tracking-widest gold-text mb-3 block">{m.year}</span>
+                      <h4 className="font-display text-xl md:text-2xl mb-3" style={{ color:'var(--text-primary)', fontWeight:500 }}>{m.title}</h4>
+                      <p className="text-sm leading-8" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{m.desc}</p>
                     </div>
                   </div>
                   {/* Dot */}
-                  <div className="hidden md:flex items-start pt-6 justify-center w-20 shrink-0">
-                    <div className="w-3 h-3 rounded-full border-2 mt-1" style={{ borderColor:'var(--gold)', background:'var(--gold-mid)' }} />
+                  <div className="hidden md:flex items-start pt-8 justify-center w-20 shrink-0">
+                    <div className="w-3.5 h-3.5 rounded-full border-2 mt-1" style={{ borderColor:'var(--gold)', background:'var(--gold-mid)' }} />
                   </div>
                   {/* Spacer */}
                   <div className="hidden md:block md:w-[calc(50%-2.5rem)]" />
@@ -160,15 +160,15 @@ export default function AboutPage() {
       <section className="section-py" style={{ background:'linear-gradient(180deg,#0f0f0d,#0c0c0a)' }}>
         <div className="container">
           <SectionHeader center label="Core Values" title='The Principles That <span class="italic gold-text">Guide Us</span>' />
-          <div ref={valuesRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={valuesRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((v, i) => (
-              <div key={v.title} className="reveal p-7 svc-card text-center flex flex-col items-center gap-4">
-                <div className="w-12 h-12 flex items-center justify-center font-accent text-lg gold-text"
-                  style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
+              <div key={v.title} className="reveal p-8 md:p-10 svc-card text-center flex flex-col items-center gap-5">
+                <div className="w-13 h-13 flex items-center justify-center font-accent text-xl gold-text"
+                  style={{ border:'1px solid rgba(200,137,26,0.25)', width: '3.25rem', height: '3.25rem' }}>
                   {String(i+1).padStart(2,'0')}
                 </div>
-                <h4 className="font-display text-xl" style={{ color:'var(--text-primary)', fontWeight:500 }}>{v.title}</h4>
-                <p className="text-xs leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{v.desc}</p>
+                <h4 className="font-display text-xl md:text-2xl" style={{ color:'var(--text-primary)', fontWeight:500 }}>{v.title}</h4>
+                <p className="text-xs md:text-sm leading-8" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{v.desc}</p>
               </div>
             ))}
           </div>
@@ -179,13 +179,13 @@ export default function AboutPage() {
       <section className="section-py" style={{ background:'#0a0a09' }}>
         <div className="container">
           <SectionHeader label="Recognition" title='Awards & <span class="italic gold-text">Accolades</span>' />
-          <div ref={awardsRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div ref={awardsRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {awards.map((a, i) => (
-              <div key={i} className="reveal flex items-start gap-4 p-5 card-dark">
-                <CheckCircle size={18} className="shrink-0 mt-0.5" style={{ color:'var(--gold-mid)' }} />
+              <div key={i} className="reveal flex items-start gap-5 p-7 card-dark">
+                <CheckCircle size={20} className="shrink-0 mt-0.5" style={{ color:'var(--gold-mid)' }} />
                 <div>
-                  <p className="text-[0.6rem] tracking-widest mb-1 font-accent" style={{ color:'rgba(200,137,26,0.55)' }}>{a.year} · {a.org}</p>
-                  <p className="text-sm font-medium" style={{ color:'var(--text-primary)' }}>{a.title}</p>
+                  <p className="text-[0.6rem] tracking-widest mb-1.5 font-accent" style={{ color:'rgba(200,137,26,0.55)' }}>{a.year} · {a.org}</p>
+                  <p className="text-sm md:text-base font-medium leading-snug" style={{ color:'var(--text-primary)' }}>{a.title}</p>
                 </div>
               </div>
             ))}
@@ -196,9 +196,9 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="section-py" style={{ background:'#0f0f0d' }}>
         <div className="container">
-          <div className="text-center max-w-2xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto">
             <SectionHeader center label="Work With Us" title='Start Your <span class="italic gold-text">Journey</span> Today' />
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-5 justify-center mt-6">
               <Link to="/projects" className="btn-solid">View Projects</Link>
               <Link to="/contact"  className="btn-outline">Contact Us</Link>
             </div>

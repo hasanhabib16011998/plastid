@@ -54,20 +54,20 @@ function HomeAbout() {
   return (
     <section id="home-about" className="section-py" style={{ background: 'linear-gradient(180deg,#0f0f0d,#111210)' }}>
       <div className="container">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
 
           {/* Image */}
           <div ref={imgRef} className="relative order-2 lg:order-1">
-            <div className="overflow-hidden" style={{ aspectRatio: '4/5', maxHeight: 600 }}>
+            <div className="overflow-hidden" style={{ aspectRatio: '4/5', maxHeight: 620 }}>
               <img src="/images/property_interior.jpg" alt="Luxury interior" className="w-full h-full object-cover" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg,rgba(42,45,24,0.35),transparent 60%)' }} />
             </div>
             {/* Floating badge */}
             <div
-              className="absolute -right-4 md:-right-8 bottom-8 p-5 md:p-7"
+              className="absolute -right-4 md:-right-8 bottom-8 p-6 md:p-8"
               style={{ background: 'rgba(10,10,9,0.95)', border: '1px solid rgba(200,137,26,0.3)' }}
             >
-              <div className="font-display text-4xl md:text-5xl font-bold gold-text leading-none mb-1">20+</div>
+              <div className="font-display text-4xl md:text-5xl font-bold gold-text leading-none mb-2">20+</div>
               <p className="text-[0.6rem] tracking-widest uppercase" style={{ color: 'rgba(245,240,232,0.45)' }}>Years of Excellence</p>
             </div>
             <div className="absolute -bottom-3 -left-3 w-2/3 h-2/3 pointer-events-none" style={{ border: '1px solid rgba(200,137,26,0.15)' }} />
@@ -76,20 +76,20 @@ function HomeAbout() {
           {/* Content */}
           <div ref={ref} className="order-1 lg:order-2">
             <SectionHeader label="Our Story" title='Building <span class="italic gold-text">Legacy</span> Across Dhaka' />
-            <div className="h-px mb-7 gold-line-h-left" />
-            <p className="reveal text-sm md:text-base leading-8 mb-5" style={{ color: 'rgba(245,240,232,0.55)', fontWeight: 300 }}>
+            <div className="h-px mb-8 gold-line-h-left" />
+            <p className="reveal text-sm md:text-base leading-8 mb-6" style={{ color: 'rgba(245,240,232,0.55)', fontWeight: 300 }}>
               Since 2005, Sun Real Estate has been synonymous with architectural distinction and
               uncompromising quality in Bangladesh's premium property market. We believe that a home
               is more than a structure — it is a statement of who you are.
             </p>
-            <p className="reveal text-sm md:text-base leading-8 mb-10" style={{ color: 'rgba(245,240,232,0.55)', fontWeight: 300 }}>
+            <p className="reveal text-sm md:text-base leading-8 mb-12" style={{ color: 'rgba(245,240,232,0.55)', fontWeight: 300 }}>
               From Gulshan's prestigious avenues to Banani's vibrant corridors, our projects stand
               as enduring testaments to vision, craft, and the relentless pursuit of excellence.
             </p>
-            <div className="reveal grid grid-cols-2 gap-4 mb-10">
+            <div className="reveal grid grid-cols-2 gap-5 mb-12">
               {['Award-Winning Design','Prime Locations','Premium Materials','Expert After-Sales'].map(item => (
-                <div key={item} className="flex items-center gap-2.5">
-                  <span style={{ color: 'var(--gold-mid)', fontSize: '0.5rem' }}>◆</span>
+                <div key={item} className="flex items-center gap-3">
+                  <span style={{ color: 'var(--gold-mid)', fontSize: '0.55rem' }}>◆</span>
                   <span className="text-xs md:text-sm" style={{ color: 'rgba(245,240,232,0.65)' }}>{item}</span>
                 </div>
               ))}
@@ -123,14 +123,14 @@ function FeaturedProjects() {
   return (
     <section className="section-py" style={{ background: '#0c0c0a' }}>
       <div className="container">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12 md:mb-16">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16 md:mb-20">
           <SectionHeader label="Our Portfolio" title='Signature <span class="italic gold-text">Developments</span>' />
-          <Link to="/projects" className="btn-outline shrink-0 self-start sm:self-auto mb-12 md:mb-16 sm:mb-0">
+          <Link to="/projects" className="btn-outline shrink-0 self-start sm:self-auto mb-16 md:mb-20 sm:mb-0">
             View All <ArrowUpRight size={13} />
           </Link>
         </div>
 
-        <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {projects.map(p => {
             const s = statusStyle[p.status]
             return (
@@ -139,20 +139,20 @@ function FeaturedProjects() {
                 <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
                   <img src={p.img} alt={p.name} className="prop-img w-full h-full object-cover" />
                   <div className="prop-overlay absolute inset-0 flex items-center justify-center">
-                    <div className="flex flex-col items-center gap-1">
+                    <div className="flex flex-col items-center gap-1.5">
                       <ArrowUpRight size={24} style={{ color: 'var(--gold)' }} />
                       <span className="text-[0.6rem] tracking-widest uppercase" style={{ color: 'rgba(245,240,232,0.8)' }}>View Details</span>
                     </div>
                   </div>
                   {/* Tag */}
-                  <div className="absolute top-3 left-3">
-                    <span className="font-accent text-[0.55rem] tracking-widest px-2.5 py-1 uppercase"
+                  <div className="absolute top-4 left-4">
+                    <span className="font-accent text-[0.55rem] tracking-widest px-3 py-1 uppercase"
                       style={{ background:'rgba(10,10,9,0.85)', border:'1px solid rgba(200,137,26,0.4)', color:'var(--gold)' }}>
                       {p.tag}
                     </span>
                   </div>
-                  <div className="absolute top-3 right-3">
-                    <span className="text-[0.55rem] tracking-widest px-2.5 py-1 rounded-full"
+                  <div className="absolute top-4 right-4">
+                    <span className="text-[0.55rem] tracking-widest px-3 py-1 rounded-full"
                       style={{ background:s.bg, color:s.color, border:`1px solid ${s.border}` }}>
                       {p.status}
                     </span>
@@ -160,38 +160,38 @@ function FeaturedProjects() {
                 </div>
 
                 {/* Body */}
-                <div className="p-5 md:p-6 flex flex-col flex-1">
-                  <span className="text-[0.6rem] tracking-widest uppercase mb-1.5" style={{ color:'rgba(200,137,26,0.7)' }}>{p.type}</span>
-                  <h3 className="font-display text-xl md:text-2xl mb-3 leading-tight" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.name}</h3>
-                  <div className="flex flex-col gap-1.5 mb-4">
-                    <div className="flex items-center gap-2">
-                      <MapPin size={11} style={{ color:'var(--gold-mid)', flexShrink:0 }} />
+                <div className="p-7 md:p-8 flex flex-col flex-1">
+                  <span className="text-[0.6rem] tracking-widest uppercase mb-2" style={{ color:'rgba(200,137,26,0.7)' }}>{p.type}</span>
+                  <h3 className="font-display text-xl md:text-2xl mb-4 leading-tight" style={{ color:'var(--text-primary)', fontWeight:500 }}>{p.name}</h3>
+                  <div className="flex flex-col gap-2 mb-6">
+                    <div className="flex items-center gap-2.5">
+                      <MapPin size={12} style={{ color:'var(--gold-mid)', flexShrink:0 }} />
                       <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.location}</span>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-1.5">
-                        <BedDouble size={11} style={{ color:'var(--gold-mid)' }} />
+                    <div className="flex items-center gap-5">
+                      <div className="flex items-center gap-2">
+                        <BedDouble size={12} style={{ color:'var(--gold-mid)' }} />
                         <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.beds}</span>
                       </div>
-                      <div className="flex items-center gap-1.5">
-                        <Maximize2 size={11} style={{ color:'var(--gold-mid)' }} />
+                      <div className="flex items-center gap-2">
+                        <Maximize2 size={12} style={{ color:'var(--gold-mid)' }} />
                         <span className="text-xs" style={{ color:'rgba(245,240,232,0.4)' }}>{p.area}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="h-px mb-4 gold-line-h-left" />
+                  <div className="h-px mb-6 gold-line-h-left" />
                   <div className="flex items-center justify-between mt-auto">
                     <div>
                       <p className="text-[0.55rem] tracking-widest uppercase mb-0.5" style={{ color:'rgba(245,240,232,0.3)' }}>Starting From</p>
                       <p className="font-display text-lg md:text-xl font-semibold gold-text">{p.price}</p>
                     </div>
                     <Link to="/projects"
-                      className="w-9 h-9 flex items-center justify-center border transition-all duration-300"
+                      className="w-10 h-10 flex items-center justify-center border transition-all duration-300"
                       style={{ borderColor:'rgba(200,137,26,0.3)', color:'var(--gold-mid)' }}
                       onMouseEnter={e => { e.currentTarget.style.background='var(--gold-mid)'; e.currentTarget.style.color='#0f0f0d'; }}
                       onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='var(--gold-mid)'; }}
                     >
-                      <ArrowUpRight size={15} />
+                      <ArrowUpRight size={16} />
                     </Link>
                   </div>
                 </div>
@@ -219,28 +219,28 @@ function ServicesSnippet() {
   return (
     <section className="section-py" style={{ background: 'linear-gradient(180deg,#0f0f0d,#0c0c0a)' }}>
       <div className="container">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12 md:mb-16">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16 md:mb-20">
           <SectionHeader label="What We Offer" title='Services Built on <span class="italic gold-text">Excellence</span>' />
-          <Link to="/services" className="btn-outline shrink-0 self-start sm:self-auto mb-12 md:mb-16 sm:mb-0">
+          <Link to="/services" className="btn-outline shrink-0 self-start sm:self-auto mb-16 md:mb-20 sm:mb-0">
             All Services <ArrowUpRight size={13} />
           </Link>
         </div>
-        <div ref={ref} className="grid sm:grid-cols-3 gap-6 md:gap-8">
+        <div ref={ref} className="grid sm:grid-cols-3 gap-8 lg:gap-10">
           {services3.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="svc-item svc-card p-7 md:p-9 flex flex-col gap-5">
-              <div className="w-11 h-11 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
-                <Icon size={19} style={{ color:'var(--gold-mid)' }} />
+            <div key={title} className="svc-item svc-card p-8 md:p-10 flex flex-col gap-6">
+              <div className="w-12 h-12 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.25)' }}>
+                <Icon size={20} style={{ color:'var(--gold-mid)' }} />
               </div>
               <div>
-                <h3 className="font-display text-xl mb-2.5" style={{ color:'var(--text-primary)', fontWeight:500 }}>{title}</h3>
-                <p className="text-xs md:text-sm leading-7" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{desc}</p>
+                <h3 className="font-display text-xl md:text-2xl mb-3" style={{ color:'var(--text-primary)', fontWeight:500 }}>{title}</h3>
+                <p className="text-xs md:text-sm leading-8" style={{ color:'rgba(245,240,232,0.45)', fontWeight:300 }}>{desc}</p>
               </div>
-              <Link to="/services" className="flex items-center gap-2 text-xs mt-auto"
-                style={{ color:'var(--gold-mid)', letterSpacing:'0.1em' }}
+              <Link to="/services" className="flex items-center gap-2 text-xs mt-auto pt-2"
+                style={{ color:'var(--gold-mid)', letterSpacing:'0.12em' }}
                 onMouseEnter={e => e.currentTarget.style.color='var(--gold)'}
                 onMouseLeave={e => e.currentTarget.style.color='var(--gold-mid)'}
               >
-                Learn More <ArrowUpRight size={13} />
+                Learn More <ArrowUpRight size={14} />
               </Link>
             </div>
           ))}
@@ -275,8 +275,8 @@ function Counter({ end, suf, label, go }) {
   }, [go, end])
 
   return (
-    <div className="text-center py-8 px-4">
-      <div className="stat-num font-display leading-none mb-2" style={{ fontSize:'clamp(2.5rem,6vw,5rem)' }}>
+    <div className="text-center py-12 px-6">
+      <div className="stat-num font-display leading-none mb-3" style={{ fontSize:'clamp(2.8rem,6vw,5.5rem)' }}>
         {v}{suf}
       </div>
       <p className="text-xs tracking-widest uppercase" style={{ color:'rgba(245,240,232,0.4)' }}>{label}</p>
@@ -316,11 +316,11 @@ function StatsSection() {
           ))}
         </div>
         {/* Marquee */}
-        <div className="mt-16 overflow-hidden py-5 border-t border-b" style={{ borderColor:'rgba(200,137,26,0.1)' }}>
+        <div className="mt-20 overflow-hidden py-6 border-t border-b" style={{ borderColor:'rgba(200,137,26,0.1)' }}>
           <div className="marquee-track">
             {Array(2).fill(['Award-Winning Design','·','Luxury Living','·','Dhaka Heritage','·','Premium Craftsmanship','·','Trusted Since 2005','·','Sun Real Estate','·']).flat().map((t, i) => (
-              <span key={i} className={`px-6 text-xs ${t==='·' ? '' : 'font-accent'}`}
-                style={{ color: t==='·' ? 'var(--gold-mid)' : 'rgba(245,240,232,0.2)', letterSpacing:'0.18em' }}>
+              <span key={i} className={`px-8 text-xs ${t==='·' ? '' : 'font-accent'}`}
+                style={{ color: t==='·' ? 'var(--gold-mid)' : 'rgba(245,240,232,0.2)', letterSpacing:'0.2em' }}>
                 {t}
               </span>
             ))}
@@ -351,24 +351,24 @@ function Testimonials() {
       <div className="absolute right-4 top-16 font-display text-[12rem] md:text-[18rem] leading-none pointer-events-none select-none" style={{ color:'rgba(245,240,232,0.015)' }}>"</div>
       <div className="container relative z-10">
         <SectionHeader label="Testimonials" title='Voices of Our <span class="italic gold-text">Residents</span>' />
-        <div ref={ref} className="grid md:grid-cols-3 gap-6 md:gap-8">
+        <div ref={ref} className="grid md:grid-cols-3 gap-8 lg:gap-10">
           {testimonials.map((t, i) => (
-            <div key={i} className="testi-card card-glass p-7 md:p-9 flex flex-col gap-5">
-              <div className="w-9 h-9 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.2)' }}>
-                <Quote size={14} style={{ color:'var(--gold-mid)' }} />
+            <div key={i} className="testi-card card-glass p-8 md:p-10 flex flex-col gap-6">
+              <div className="w-10 h-10 flex items-center justify-center" style={{ border:'1px solid rgba(200,137,26,0.2)' }}>
+                <Quote size={15} style={{ color:'var(--gold-mid)' }} />
               </div>
-              <div className="flex gap-0.5">
+              <div className="flex gap-1">
                 {Array(t.rating).fill(0).map((_, j) => (
-                  <Star key={j} size={11} style={{ color:'var(--gold)', fill:'var(--gold)' }} />
+                  <Star key={j} size={12} style={{ color:'var(--gold)', fill:'var(--gold)' }} />
                 ))}
               </div>
-              <p className="font-display italic text-base leading-8 flex-1" style={{ color:'rgba(245,240,232,0.6)', fontWeight:300 }}>
+              <p className="font-display italic text-base md:text-lg leading-8 flex-1" style={{ color:'rgba(245,240,232,0.6)', fontWeight:300 }}>
                 "{t.text}"
               </p>
-              <div className="h-px gold-line-h-left" />
+              <div className="h-px gold-line-h-left my-2" />
               <div>
                 <p className="text-sm font-medium" style={{ color:'var(--text-primary)' }}>{t.name}</p>
-                <p className="text-xs mt-0.5" style={{ color:'rgba(200,137,26,0.65)' }}>{t.role}</p>
+                <p className="text-xs mt-1" style={{ color:'rgba(200,137,26,0.65)' }}>{t.role}</p>
               </div>
             </div>
           ))}
