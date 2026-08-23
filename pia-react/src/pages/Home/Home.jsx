@@ -72,7 +72,7 @@ const workingAreas = [
     img: '/images/resources/working-3.jpg',
     iconClass: 'icon-company',
     title: 'Industries',
-    text: 'Innovating industrial environments with efficient and sustainable design solutions, optimizing workflows and maximizing operational effectiveness for long-term success.',
+    text: 'Innovating industrial spaces with efficient and sustainable design solutions, optimizing workflows and maximizing operational effectiveness for long-term success.',
   },
 ]
 
@@ -575,13 +575,13 @@ export default function Home() {
               <div className="about-image-box">
                 <div className="inner-box">
                   <img src="/images/resources/about-image.jpg" alt="Awesome Image" />
-                  <div className="overlay">
+                  {/* <div className="overlay">
                     <div className="box">
                       <div className="icon">
                         <img src="/images/icon/home.png" alt="Home Icon" />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="text-box">
                   <p>Where Vision Meets Reality</p>
