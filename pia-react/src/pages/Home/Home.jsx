@@ -346,24 +346,280 @@ function useCarousel(items, visibleCount = 3, autoPlay = true) {
 
 // ─── Projects Carousel ──────────────────────────────────────
 function ProjectsCarousel() {
-  const [index, setIndex] = useState(0)
-  const visibleCount = 3
+  const [index, setIndex]          = useState(0)
+  const [visibleCount, setVisible] = useState(3)
+  const containerRef = useRef(null)
+  const trackRef     = useRef(null)
+  const GAP          = 20
 
-  const prev = () => setIndex((p) => (p - 1 + recentProjects.length) % recentProjects.length)
-  const next = () => setIndex((p) => (p + 1) % recentProjects.length)
+  const isMouseDraggingRef = useRef(false)
+  const mouseDragDataRef   = useRef({
+    startX: 0,
+    startY: 0,
+    startTrackX: 0,
+    isHorizontal: null,
+  })
+  const indexRef      = useRef(0)
+  const maxIndexRef   = useRef(2)
 
-  const visible = []
-  for (let i = 0; i < visibleCount; i++) {
-    visible.push(recentProjects[(index + i) % recentProjects.length])
+  // Responsive breakpoint handling
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth
+      setVisible(w < 600 ? 1 : w < 992 ? 2 : 3)
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
+  const maxIndex = Math.max(0, recentProjects.length - visibleCount)
+
+  // Keep index & maxIndex refs in sync
+  useEffect(() => {
+    indexRef.current = index
+  }, [index])
+
+  useEffect(() => {
+    maxIndexRef.current = maxIndex
+    if (index > maxIndex) {
+      setIndex(maxIndex)
+    }
+  }, [maxIndex, index])
+
+  const getCardWidth = () => {
+    if (!containerRef.current) return 0
+    const cw = containerRef.current.offsetWidth
+    return (cw - GAP * (visibleCount - 1)) / visibleCount
+  }
+
+  const getOffset = (idx) => {
+    const cardW = getCardWidth()
+    return -(idx * (cardW + GAP))
+  }
+
+  const snapTo = (newIdx, animate = true) => {
+    const clamped = Math.max(0, Math.min(newIdx, maxIndexRef.current))
+    setIndex(clamped)
+    indexRef.current = clamped
+    const targetX = getOffset(clamped)
+    if (trackRef.current) {
+      if (animate) {
+        gsap.to(trackRef.current, {
+          x: targetX,
+          duration: 0.4,
+          ease: 'power2.out',
+        })
+      } else {
+        gsap.set(trackRef.current, { x: targetX })
+      }
+    }
+  }
+
+  // Re-snap on breakpoint resize
+  useEffect(() => {
+    snapTo(Math.min(indexRef.current, maxIndex), false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visibleCount])
+
+  // ── 1. Native Touch Handlers for Mobile (Non-Passive) ──
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    let startX = 0
+    let startY = 0
+    let startTrackX = 0
+    let isTouchDragging = false
+    let isHorizontal = null
+
+    const onTouchStart = (e) => {
+      if (!e.touches || e.touches.length !== 1) return
+      isTouchDragging = true
+      isHorizontal = null
+      startX = e.touches[0].clientX
+      startY = e.touches[0].clientY
+
+      if (trackRef.current) {
+        const rawX = gsap.getProperty(trackRef.current, 'x')
+        startTrackX = typeof rawX === 'number' ? rawX : parseFloat(rawX) || getOffset(indexRef.current)
+      } else {
+        startTrackX = getOffset(indexRef.current)
+      }
+    }
+
+    const onTouchMove = (e) => {
+      if (!isTouchDragging || !e.touches || e.touches.length === 0) return
+      const currentX = e.touches[0].clientX
+      const currentY = e.touches[0].clientY
+      const dx = currentX - startX
+      const dy = currentY - startY
+
+      if (isHorizontal === null) {
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+          isHorizontal = Math.abs(dx) >= Math.abs(dy)
+        }
+      }
+
+      if (isHorizontal === true) {
+        if (e.cancelable) {
+          e.preventDefault()
+        }
+        if (trackRef.current) {
+          gsap.set(trackRef.current, { x: startTrackX + dx })
+        }
+      }
+    }
+
+    const onTouchEnd = (e) => {
+      if (!isTouchDragging) return
+      isTouchDragging = false
+
+      if (isHorizontal === true) {
+        const endX = e.changedTouches && e.changedTouches.length > 0
+          ? e.changedTouches[0].clientX
+          : startX
+        const dx = endX - startX
+        const threshold = 40
+        const curIndex = indexRef.current
+        if (dx < -threshold) {
+          snapTo(curIndex + 1)
+        } else if (dx > threshold) {
+          snapTo(curIndex - 1)
+        } else {
+          snapTo(curIndex)
+        }
+      }
+    }
+
+    container.addEventListener('touchstart', onTouchStart, { passive: true })
+    container.addEventListener('touchmove', onTouchMove, { passive: false })
+    container.addEventListener('touchend', onTouchEnd, { passive: true })
+    container.addEventListener('touchcancel', onTouchEnd, { passive: true })
+
+    return () => {
+      container.removeEventListener('touchstart', onTouchStart)
+      container.removeEventListener('touchmove', onTouchMove)
+      container.removeEventListener('touchend', onTouchEnd)
+      container.removeEventListener('touchcancel', onTouchEnd)
+    }
+  }, [visibleCount])
+
+  // ── 2. Mouse Drag Handlers for Desktop ──
+  const handleMouseDown = (e) => {
+    if (e.button !== 0) return
+    isMouseDraggingRef.current = true
+
+    let currentX = 0
+    if (trackRef.current) {
+      const rawX = gsap.getProperty(trackRef.current, 'x')
+      currentX = typeof rawX === 'number' ? rawX : parseFloat(rawX) || getOffset(indexRef.current)
+    } else {
+      currentX = getOffset(indexRef.current)
+    }
+
+    mouseDragDataRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      startTrackX: currentX,
+      isHorizontal: null,
+    }
+
+    window.addEventListener('mousemove', handleWindowMouseMove)
+    window.addEventListener('mouseup', handleWindowMouseUp)
+  }
+
+  const handleWindowMouseMove = (e) => {
+    if (!isMouseDraggingRef.current) return
+    const { startX, startY, startTrackX, isHorizontal } = mouseDragDataRef.current
+    const dx = e.clientX - startX
+    const dy = e.clientY - startY
+
+    let horiz = isHorizontal
+    if (horiz === null) {
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+        horiz = Math.abs(dx) >= Math.abs(dy)
+        mouseDragDataRef.current.isHorizontal = horiz
+      }
+    }
+
+    if (horiz === true && trackRef.current) {
+      gsap.set(trackRef.current, { x: startTrackX + dx })
+    }
+  }
+
+  const handleWindowMouseUp = (e) => {
+    if (!isMouseDraggingRef.current) return
+    isMouseDraggingRef.current = false
+
+    window.removeEventListener('mousemove', handleWindowMouseMove)
+    window.removeEventListener('mouseup', handleWindowMouseUp)
+
+    const { startX, isHorizontal } = mouseDragDataRef.current
+    if (isHorizontal === true) {
+      const dx = e.clientX - startX
+      const threshold = 40
+      const curIndex = indexRef.current
+      if (dx < -threshold) {
+        snapTo(curIndex + 1)
+      } else if (dx > threshold) {
+        snapTo(curIndex - 1)
+      } else {
+        snapTo(curIndex)
+      }
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('mousemove', handleWindowMouseMove)
+      window.removeEventListener('mouseup', handleWindowMouseUp)
+    }
+  }, [])
+
+  const cardStyle = {
+    flex: `0 0 calc((100% - ${GAP * (visibleCount - 1)}px) / ${visibleCount})`,
+    minWidth: 0,
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
   }
 
   return (
-    <div style={{ position: 'relative' }}>
-      <div className="project-carousel owl-carousel owl-theme" style={{ display: 'flex', gap: '20px', overflow: 'hidden' }}>
-        {visible.map((p, i) => (
-          <div key={i} className="single-project-style1" style={{ flex: '1', minWidth: 0 }}>
+    <div
+      ref={containerRef}
+      style={{ overflow: 'hidden', position: 'relative', touchAction: 'pan-y' }}
+    >
+      {/* ── Sliding track ── */}
+      <div
+        ref={trackRef}
+        className="project-carousel owl-carousel owl-theme"
+        style={{
+          display: 'flex',
+          gap: `${GAP}px`,
+          willChange: 'transform',
+          cursor: 'grab',
+          touchAction: 'pan-y',
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+        }}
+        onMouseDown={handleMouseDown}
+      >
+        {recentProjects.map((p, i) => (
+          <div key={i} className="single-project-style1" style={cardStyle}>
             <div className="img-holder" style={{ position: 'relative' }}>
-              <img src={p.img} alt={p.title} style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+              <img
+                src={p.img}
+                alt={p.title}
+                draggable={false}
+                style={{
+                  width: '100%',
+                  height: '300px',
+                  objectFit: 'cover',
+                  pointerEvents: 'none',
+                  userSelect: 'none',
+                  WebkitUserDrag: 'none',
+                }}
+              />
               <div className="overlay-content">
                 <div className="inner-content">
                   <div className="link-box">
@@ -379,11 +635,42 @@ function ProjectsCarousel() {
           </div>
         ))}
       </div>
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <button onClick={prev} className="btn-two" style={{ marginRight: '10px' }}>
+
+      {/* ── Controls: arrows + dots ── */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '24px' }}>
+        <button
+          onClick={() => snapTo(index - 1)}
+          className="btn-two"
+          aria-label="Previous projects"
+          style={{ opacity: index === 0 ? 0.4 : 1, transition: 'opacity 0.3s', cursor: index === 0 ? 'default' : 'pointer' }}
+        >
           <i className="fa fa-angle-left" />
         </button>
-        <button onClick={next} className="btn-two">
+
+        {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => snapTo(i)}
+            aria-label={`Go to project group ${i + 1}`}
+            style={{
+              width:        i === index ? '24px' : '10px',
+              height:       '10px',
+              borderRadius: '5px',
+              background:   i === index ? '#c8a96e' : '#ccc',
+              border:       'none',
+              cursor:       'pointer',
+              padding:      0,
+              transition:   'all 0.3s ease',
+            }}
+          />
+        ))}
+
+        <button
+          onClick={() => snapTo(index + 1)}
+          className="btn-two"
+          aria-label="Next projects"
+          style={{ opacity: index === maxIndex ? 0.4 : 1, transition: 'opacity 0.3s', cursor: index === maxIndex ? 'default' : 'pointer' }}
+        >
           <i className="fa fa-angle-right" />
         </button>
       </div>
