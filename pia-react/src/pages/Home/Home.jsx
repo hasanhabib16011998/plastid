@@ -344,6 +344,184 @@ function useCarousel(items, visibleCount = 3, autoPlay = true) {
   return { visible, index, setIndex }
 }
 
+// ─── GSAP Fluid Dot Indicator ──────────────────────────────────
+function GSAPDots({ count, current, onChange }) {
+  const dotsRef = useRef([])
+  const indicatorRef = useRef(null)
+
+  useEffect(() => {
+    if (!indicatorRef.current || !dotsRef.current[current]) return
+    const activeDot = dotsRef.current[current]
+    const left = activeDot.offsetLeft
+    const width = activeDot.offsetWidth
+
+    gsap.to(indicatorRef.current, {
+      x: left,
+      width: width,
+      duration: 0.45,
+      ease: 'back.out(1.4)',
+    })
+  }, [current, count])
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        display: 'inline-flex',
+        alignItems: 'center',
+        background: 'rgba(31, 46, 35, 0.06)',
+        padding: '6px 12px',
+        borderRadius: '30px',
+        border: '1px solid rgba(196, 155, 93, 0.2)',
+        gap: '6px',
+      }}
+    >
+      {/* Sliding active highlight pill */}
+      <div
+        ref={indicatorRef}
+        style={{
+          position: 'absolute',
+          top: '6px',
+          left: 0,
+          height: '10px',
+          borderRadius: '5px',
+          background: 'linear-gradient(135deg, #C49B5D 0%, #9F814D 100%)',
+          boxShadow: '0 2px 8px rgba(196, 155, 93, 0.4)',
+          pointerEvents: 'none',
+        }}
+      />
+      {Array.from({ length: count }).map((_, i) => (
+        <button
+          key={i}
+          ref={(el) => (dotsRef.current[i] = el)}
+          onClick={() => onChange(i)}
+          aria-label={`Go to project slide group ${i + 1}`}
+          style={{
+            width: i === current ? '26px' : '10px',
+            height: '10px',
+            borderRadius: '5px',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0,
+            transition: 'width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            zIndex: 1,
+            outline: 'none',
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+// ─── Micro-Interactive Arrow Button ───────────────────────────
+function CarouselArrowButton({ direction, disabled, onClick }) {
+  const btnRef = useRef(null)
+  const iconRef = useRef(null)
+
+  const handleMouseEnter = () => {
+    if (disabled) return
+    gsap.to(btnRef.current, {
+      scale: 1.1,
+      backgroundColor: '#C49B5D',
+      color: '#ffffff',
+      borderColor: '#C49B5D',
+      boxShadow: '0 6px 20px rgba(196, 155, 93, 0.4)',
+      duration: 0.25,
+      ease: 'power2.out',
+    })
+    gsap.to(iconRef.current, {
+      x: direction === 'left' ? -3 : 3,
+      duration: 0.2,
+      ease: 'power2.out',
+    })
+  }
+
+  const handleMouseLeave = () => {
+    if (disabled) return
+    gsap.to(btnRef.current, {
+      scale: 1,
+      backgroundColor: 'rgba(31, 46, 35, 0.06)',
+      color: '#1F2E23',
+      borderColor: 'rgba(196, 155, 93, 0.2)',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+      duration: 0.25,
+      ease: 'power2.out',
+    })
+    gsap.to(iconRef.current, {
+      x: 0,
+      duration: 0.2,
+      ease: 'power2.out',
+    })
+  }
+
+  const handleMouseDown = () => {
+    if (disabled) return
+    gsap.to(btnRef.current, { scale: 0.94, duration: 0.1 })
+  }
+
+  const handleMouseUp = () => {
+    if (disabled) return
+    gsap.to(btnRef.current, { scale: 1.1, duration: 0.15 })
+  }
+
+  return (
+    <button
+      ref={btnRef}
+      onClick={onClick}
+      disabled={disabled}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      aria-label={direction === 'left' ? 'Previous projects' : 'Next projects'}
+      style={{
+        width: '44px',
+        height: '44px',
+        borderRadius: '50%',
+        background: disabled ? 'rgba(0, 0, 0, 0.04)' : 'rgba(31, 46, 35, 0.06)',
+        color: disabled ? '#bbb' : '#1F2E23',
+        border: '1px solid rgba(196, 155, 93, 0.2)',
+        cursor: disabled ? 'default' : 'pointer',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 0,
+        margin: 0,
+        lineHeight: 0,
+        transition: 'opacity 0.3s ease',
+        opacity: disabled ? 0.35 : 1,
+        outline: 'none',
+        userSelect: 'none',
+        WebkitTapHighlightColor: 'transparent',
+        flexShrink: 0,
+      }}
+    >
+      <span
+        ref={iconRef}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          height: '100%',
+          lineHeight: 0,
+        }}
+      >
+        {direction === 'left' ? (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        ) : (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        )}
+      </span>
+    </button>
+  )
+}
+
 // ─── Projects Carousel ──────────────────────────────────────
 function ProjectsCarousel() {
   const [index, setIndex]          = useState(0)
@@ -636,43 +814,25 @@ function ProjectsCarousel() {
         ))}
       </div>
 
-      {/* ── Controls: arrows + dots ── */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '24px' }}>
-        <button
+      {/* ── Controls: Premium Arrow Buttons + GSAP Fluid Dots ── */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginTop: '20px' }}>
+        <CarouselArrowButton
+          direction="left"
+          disabled={index === 0}
           onClick={() => snapTo(index - 1)}
-          className="btn-two"
-          aria-label="Previous projects"
-          style={{ opacity: index === 0 ? 0.4 : 1, transition: 'opacity 0.3s', cursor: index === 0 ? 'default' : 'pointer' }}
-        >
-          <i className="fa fa-angle-left" />
-        </button>
+        />
 
-        {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => snapTo(i)}
-            aria-label={`Go to project group ${i + 1}`}
-            style={{
-              width:        i === index ? '24px' : '10px',
-              height:       '10px',
-              borderRadius: '5px',
-              background:   i === index ? '#c8a96e' : '#ccc',
-              border:       'none',
-              cursor:       'pointer',
-              padding:      0,
-              transition:   'all 0.3s ease',
-            }}
-          />
-        ))}
+        <GSAPDots
+          count={maxIndex + 1}
+          current={index}
+          onChange={(i) => snapTo(i)}
+        />
 
-        <button
+        <CarouselArrowButton
+          direction="right"
+          disabled={index === maxIndex}
           onClick={() => snapTo(index + 1)}
-          className="btn-two"
-          aria-label="Next projects"
-          style={{ opacity: index === maxIndex ? 0.4 : 1, transition: 'opacity 0.3s', cursor: index === maxIndex ? 'default' : 'pointer' }}
-        >
-          <i className="fa fa-angle-right" />
-        </button>
+        />
       </div>
     </div>
   )
