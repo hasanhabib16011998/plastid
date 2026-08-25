@@ -887,32 +887,224 @@ function MissionCarousel() {
   )
 }
 
-// ─── Brands Carousel ────────────────────────────────────────
-function BrandsCarousel() {
-  const [index, setIndex] = useState(0)
-  const visibleCount = 4
+// ─── Project Footprint Showcase ────────────────────────────
+const sectorMetrics = [
+  {
+    badge: 'Bespoke Living',
+    metric: '1,200+',
+    label: 'Residential Turnkeys',
+    desc: 'Bespoke interior design, luxury master suites, modular kitchens, and custom apartments.',
+  },
+  {
+    badge: 'Workplace Design',
+    metric: '150+',
+    label: 'Corporate Workspaces',
+    desc: 'Ergonomic executive suites, tech hubs, conference facilities, and office renovations.',
+  },
+  {
+    badge: 'Retail Experience',
+    metric: '80+',
+    label: 'Commercial & Cafes',
+    desc: 'High-conversion retail showrooms, boutique dining, and commercial merchandising.',
+  },
+  {
+    badge: 'Landscape Harmony',
+    metric: '100%',
+    label: 'Design Satisfaction',
+    desc: 'Rooftop greening, architectural landscaping, and outdoor lifestyle spaces.',
+  },
+]
 
-  useEffect(() => {
-    const t = setInterval(() => setIndex((p) => (p + 1) % brands.length), 2500)
-    return () => clearInterval(t)
-  }, [])
+const craftPills = [
+  'Italian Marble Finishes',
+  '3D Concept Merchandising',
+  'Custom Teak Woodwork',
+  'Acoustic Office Partitioning',
+  'Wrought Iron Crafting',
+  'Smart Architectural Lighting',
+  'Structural Glasswork',
+  'Full Site Engineering',
+  'Landscape Greening',
+  'Space Optimization',
+]
 
-  const visible = []
-  for (let i = 0; i < visibleCount; i++) {
-    visible.push(brands[(index + i) % brands.length])
-  }
+function ProjectFootprint() {
+  const doublePills = [...craftPills, ...craftPills]
 
   return (
-    <ul className="brand-items-carousel owl-carousel owl-theme" style={{ display: 'flex', gap: '30px', alignItems: 'center', listStyle: 'none', padding: 0, justifyContent: 'center' }}>
-      {visible.map((src, i) => (
-        <li key={i} className="single-brand-item" style={{ flex: 1, textAlign: 'center' }}>
-          <a href="#"><img src={src} alt="Brand" style={{ maxHeight: '60px', objectFit: 'contain', filter: 'grayscale(1)', transition: 'filter 0.3s' }}
-            onMouseEnter={e => e.currentTarget.style.filter = 'grayscale(0)'}
-            onMouseLeave={e => e.currentTarget.style.filter = 'grayscale(1)'}
-          /></a>
-        </li>
-      ))}
-    </ul>
+    <section className="brand-area" style={{ background: '#F5F3ED', padding: '90px 0 80px' }}>
+      <div className="container">
+        {/* Section Header */}
+        <div className="sec-title text-center max-width" style={{ paddingBottom: '40px' }}>
+          <p>Proven Expertise Across Sectors</p>
+          <div className="title">
+            Trusted Spaces <span>Crafted to Inspire</span>
+          </div>
+        </div>
+
+        {/* 4 Sector Cards Grid */}
+        <div className="row d-flex flex-wrap" style={{ marginBottom: '30px' }}>
+          {sectorMetrics.map((s, i) => (
+            <div key={i} className="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex" style={{ marginBottom: '24px' }}>
+              <div
+                style={{
+                  width: '100%',
+                  background: '#ffffff',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(196, 155, 93, 0.25)',
+                  padding: '28px 24px',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  transition: 'all 0.35s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-6px)'
+                  e.currentTarget.style.borderColor = '#C49B5D'
+                  e.currentTarget.style.boxShadow = '0 10px 28px rgba(196, 155, 93, 0.18)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.25)'
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                    <span
+                      style={{
+                        background: 'rgba(196, 155, 93, 0.12)',
+                        color: '#C49B5D',
+                        padding: '4px 12px',
+                        borderRadius: '20px',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        letterSpacing: '1px',
+                        textTransform: 'uppercase',
+                        fontFamily: 'var(--font-primary)',
+                      }}
+                    >
+                      {s.badge}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '42px',
+                      lineHeight: '1',
+                      fontWeight: 500,
+                      color: '#1F2E23',
+                      marginBottom: '6px',
+                    }}
+                  >
+                    {s.metric}
+                  </div>
+                  <h4
+                    style={{
+                      fontFamily: 'var(--font-primary)',
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      color: '#C49B5D',
+                      marginBottom: '10px',
+                    }}
+                  >
+                    {s.label}
+                  </h4>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-primary)',
+                      fontSize: '13.5px',
+                      lineHeight: '1.65',
+                      color: 'rgba(31, 46, 35, 0.75)',
+                      margin: 0,
+                    }}
+                  >
+                    {s.desc}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Infinite Craft Marquee */}
+        <div style={{ overflow: 'hidden', padding: '10px 0 30px' }}>
+          <div className="footprint-marquee-track">
+            {doublePills.map((pill, i) => (
+              <div
+                key={i}
+                style={{
+                  background: '#1F2E23',
+                  border: '1px solid #C49B5D',
+                  color: '#F5F3ED',
+                  padding: '10px 22px',
+                  borderRadius: '30px',
+                  fontSize: '13px',
+                  fontFamily: 'var(--font-primary)',
+                  fontWeight: 500,
+                  whiteSpace: 'nowrap',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <span style={{ color: '#C49B5D', fontSize: '14px' }}>◆</span>
+                {pill}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 100% Refund Policy Highlight Banner */}
+        <div
+          style={{
+            background: '#1F2E23',
+            borderRadius: '8px',
+            border: '1.5px solid #C49B5D',
+            padding: '28px 32px',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
+            marginTop: '10px',
+          }}
+        >
+          <div className="row align-items-center">
+            <div className="col-lg-9 col-md-8" style={{ marginBottom: '15px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '8px' }}>
+                <span style={{ color: '#C49B5D', fontSize: '20px' }}>★</span>
+                <h4
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: '22px',
+                    color: '#C49B5D',
+                    margin: 0,
+                    fontWeight: 500,
+                  }}
+                >
+                  100% 3D Design Fee Refund Policy
+                </h4>
+              </div>
+              <p
+                style={{
+                  fontFamily: 'var(--font-primary)',
+                  fontSize: '14.5px',
+                  lineHeight: '1.7',
+                  color: '#F5F3ED',
+                  margin: 0,
+                  opacity: 0.9,
+                }}
+              >
+                Our 20 BDT/sqft 3D design fee secures your project in our pipeline and is credited back 100% as a discount when you execute the project with us.
+              </p>
+            </div>
+            <div className="col-lg-3 col-md-4 text-md-right">
+              <Link className="btn-one" to="/contact" style={{ width: '100%', justifyContent: 'center' }}>
+                Book Consultation<span className="flaticon-next"></span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -1243,20 +1435,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brands */}
-      <section className="brand-area">
-        <div className="container">
-          <div className="sec-title">
-            <p>Corporate Clients</p>
-            <div className="title">More than <span>2000 Clients</span></div>
-          </div>
-          <div className="row">
-            <div className="col-xl-12">
-              <BrandsCarousel />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Project Footprint & Expertise */}
+      <ProjectFootprint />
 
       <Footer />
       <ScrollToTop />

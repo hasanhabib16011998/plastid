@@ -14899,3 +14899,20 @@ li .single-footer-contact-info .text p span {
         padding-right: 6px !important;
     }
 }
+
+/* Continuous Craft Marquee */
+.footprint-marquee-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: footprintMarquee 30s linear infinite;
+}
+
+.footprint-marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes footprintMarquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
