@@ -2742,13 +2742,18 @@ select:focus {
 }
 
 .slogan-area .button a {
-    color: #1F2E23;
+    background: #1F2E23;
+    color: #C49B5D !important;
+    border: 1px solid #1F2E23;
+}
+
+.slogan-area .button a::before {
     background: #ffffff;
 }
 
 .slogan-area .button a:hover {
-    color: #ffffff;
-    background: #e11f2c;
+    color: #1F2E23 !important;
+    border-color: #ffffff;
 }
 
 
@@ -3062,12 +3067,11 @@ select:focus {
 }
 
 .appointment-form .single-box button {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    background: #C49B5D;
-    color: #ffffff;
-    margin-top: 20px;
-    border-radius: 5px;
+    margin-top: 15px;
 }
 
 .appointment-form input::-webkit-input-placeholder {
