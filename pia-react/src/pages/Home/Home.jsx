@@ -422,16 +422,16 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
   const handleMouseEnter = () => {
     if (disabled) return
     gsap.to(btnRef.current, {
-      scale: 1.1,
+      scale: 1.08,
       backgroundColor: '#C49B5D',
-      color: '#ffffff',
+      color: '#1F2E23',
       borderColor: '#C49B5D',
-      boxShadow: '0 6px 20px rgba(196, 155, 93, 0.4)',
+      boxShadow: '0 8px 24px rgba(196, 155, 93, 0.45)',
       duration: 0.25,
       ease: 'power2.out',
     })
     gsap.to(iconRef.current, {
-      x: direction === 'left' ? -3 : 3,
+      x: direction === 'left' ? -4 : 4,
       duration: 0.2,
       ease: 'power2.out',
     })
@@ -441,10 +441,10 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
     if (disabled) return
     gsap.to(btnRef.current, {
       scale: 1,
-      backgroundColor: 'rgba(31, 46, 35, 0.06)',
-      color: '#1F2E23',
-      borderColor: 'rgba(196, 155, 93, 0.2)',
-      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+      backgroundColor: '#1F2E23',
+      color: '#C49B5D',
+      borderColor: '#C49B5D',
+      boxShadow: '0 4px 14px rgba(31, 46, 35, 0.25)',
       duration: 0.25,
       ease: 'power2.out',
     })
@@ -462,7 +462,7 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
 
   const handleMouseUp = () => {
     if (disabled) return
-    gsap.to(btnRef.current, { scale: 1.1, duration: 0.15 })
+    gsap.to(btnRef.current, { scale: 1.08, duration: 0.15 })
   }
 
   return (
@@ -476,12 +476,13 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
       onMouseUp={handleMouseUp}
       aria-label={direction === 'left' ? 'Previous projects' : 'Next projects'}
       style={{
-        width: '44px',
-        height: '44px',
-        borderRadius: '50%',
-        background: disabled ? 'rgba(0, 0, 0, 0.04)' : 'rgba(31, 46, 35, 0.06)',
-        color: disabled ? '#bbb' : '#1F2E23',
-        border: '1px solid rgba(196, 155, 93, 0.2)',
+        width: '48px',
+        height: '48px',
+        borderRadius: '12px',
+        background: disabled ? 'rgba(31, 46, 35, 0.4)' : '#1F2E23',
+        color: disabled ? '#777777' : '#C49B5D',
+        border: disabled ? '1.5px solid rgba(196, 155, 93, 0.3)' : '1.5px solid #C49B5D',
+        boxShadow: disabled ? 'none' : '0 4px 14px rgba(31, 46, 35, 0.25)',
         cursor: disabled ? 'default' : 'pointer',
         display: 'inline-flex',
         alignItems: 'center',
@@ -490,7 +491,7 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
         margin: 0,
         lineHeight: 0,
         transition: 'opacity 0.3s ease',
-        opacity: disabled ? 0.35 : 1,
+        opacity: disabled ? 0.4 : 1,
         outline: 'none',
         userSelect: 'none',
         WebkitTapHighlightColor: 'transparent',
@@ -509,12 +510,14 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
         }}
       >
         {direction === 'left' ? (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
           </svg>
         ) : (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6" />
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
           </svg>
         )}
       </span>
