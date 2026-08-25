@@ -1909,8 +1909,9 @@ select:focus {
     position: relative;
     display: block;
     background: transparent;
-    margin-top: -135px;
-    z-index: 100;
+    margin-top: 0;
+    padding-top: 80px;
+    z-index: 10;
 }
 
 .single-highlight-box {
