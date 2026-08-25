@@ -182,18 +182,85 @@ li {
 
 
 
-.btn-one {
+/* ==============================================
+   Unified Architectural Button System (Matching ApartmentStory)
+=============================================== */
+.btn-one,
+.btn-two,
+.btn-three {
     position: relative;
-    display: inline-block;
-    background: #C49B5D;
-    color: #ffffff;
-    font-size: 15px;
-    line-height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: var(--font-primary);
+    font-size: 11px;
     font-weight: 500;
-    text-transform: capitalize;
-    font-family: 'Rubik', sans-serif;
-    padding: 0 30px 0;
-    transition: all 500ms ease;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    padding: 14px 28px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.35s ease, border-color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(196, 155, 93, 0.3);
+    line-height: 1.2;
+    border-radius: 0px;
+}
+
+/* Sliding Background Fill Layer (ApartmentStory effect) */
+.btn-one::before,
+.btn-two::before,
+.btn-three::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-101%);
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+}
+
+.btn-one:hover::before,
+.btn-two:hover::before,
+.btn-three:hover::before {
+    transform: translateX(0);
+}
+
+/* Smooth Arrow Icon Slide */
+.btn-one span:before,
+.btn-two span:before,
+.btn-three span:before {
+    font-size: 14px;
+    display: inline-block;
+    padding-left: 6px;
+    position: relative;
+    top: 0px;
+    transition: transform 0.3s ease;
+    vertical-align: middle;
+}
+
+.btn-one:hover span:before,
+.btn-two:hover span:before,
+.btn-three:hover span:before {
+    transform: translateX(6px);
+}
+
+/* ── Primary Button (.btn-one) ── */
+.btn-one {
+    background: #1F2E23;
+    color: #C49B5D !important;
+    border: 1px solid #C49B5D;
+}
+
+.btn-one::before {
+    background: #C49B5D;
+}
+
+.btn-one:hover {
+    color: #1F2E23 !important;
+    border-color: #C49B5D;
 }
 
 .btn-one img {
@@ -201,76 +268,39 @@ li {
     display: inline-block;
     padding-left: 10px;
     width: auto;
+    z-index: 1;
 }
 
-.btn-one span:before {
-    font-size: 26px;
-    line-height: 14px;
-    display: inline-block;
-    padding-left: 10px;
-    position: relative;
-    top: 4px;
-}
-
-.btn-one:hover {
-    color: #ffffff;
-    background: #1F2E23;
-}
-
-
+/* ── Secondary Button (.btn-two) ── */
 .btn-two {
-    color: #1F2E23;
-    font-size: 15px;
-    line-height: 20px;
-    ;
-    font-weight: 500;
-    text-transform: capitalize;
-    font-family: 'Rubik', sans-serif;
-    transition: all 500ms ease;
+    background: transparent;
+    color: #C49B5D !important;
+    border: 1px solid rgba(196, 155, 93, 0.55);
 }
 
-.btn-two span:before {
-    position: relative;
-    top: 5px;
-    font-size: 26px;
-    line-height: 14px;
-    display: inline-block;
-    padding-left: 10px;
+.btn-two::before {
+    background: #C49B5D;
 }
 
 .btn-two:hover {
-    color: #C49B5D;
+    color: #1F2E23 !important;
+    border-color: #C49B5D;
 }
 
-
-
+/* ── Light Accent Button (.btn-three) ── */
 .btn-three {
-    position: relative;
-    display: inline-block;
-    background: #ffffff;
-    color: #4B6047;
-    font-size: 14px;
-    line-height: 62px;
-    font-weight: 700;
-    height: 60px;
-    text-transform: uppercase;
-    font-family: 'Roboto', sans-serif;
-    padding: 0 30px 0;
-    border-radius: 5px;
-    transition: all 500ms ease;
+    background: #F5F3ED;
+    color: #1F2E23 !important;
+    border: 1px solid #C49B5D;
 }
 
-.btn-three span:before {
-    position: relative;
-    display: inline-block;
-    top: 4px;
-    padding-left: 9px;
-    font-size: 20px;
-    font-weight: 400;
+.btn-three::before {
+    background: #C49B5D;
 }
 
 .btn-three:hover {
-    color: #3aa40c;
+    color: #1F2E23 !important;
+    border-color: #C49B5D;
 }
 
 
