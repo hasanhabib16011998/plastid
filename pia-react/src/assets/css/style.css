@@ -512,82 +512,80 @@ li {
 }
 
 
+/* ==============================================
+   Brand Architectural Accordion & FAQ System
+=============================================== */
 .accordion-box {
     position: relative;
     display: block;
-    overflow: hidden;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
 .accordion-box .accordion {
     position: relative;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(196, 155, 93, 0.25);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accordion-box .accordion:hover {
+    border-color: #C49B5D;
+    box-shadow: 0 6px 24px rgba(196, 155, 93, 0.12);
 }
 
 .accordion-box .accordion .accord-btn {
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     cursor: pointer;
     background: #ffffff;
-    padding-left: 40px;
-    padding-right: 70px;
-    padding-top: 22px;
-    padding-bottom: 22px;
-    -webkit-box-shadow: 0px 3px 5px 2px #ededed;
-    box-shadow: 0px 3px 5px 2px #ededed;
-    transition: all 500ms ease;
+    padding: 22px 28px;
+    transition: background-color 0.35s ease, color 0.35s ease;
+    user-select: none;
 }
 
 .accordion-box .accordion .accord-btn h4 {
     color: #1F2E23;
-    font-size: 18px;
-    line-height: 26px;
-    font-weight: 600;
-    transition: all 500ms ease;
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    margin: 0;
+    transition: color 0.35s ease;
+    letter-spacing: -0.01em;
 }
 
 .accordion-box .accordion .accord-btn::after {
-    font-family: "Flaticon";
-    position: absolute;
-    top: 22px;
-    right: 40px;
-    color: #b4b4b4;
-    content: "\f10d";
-    font-size: 25px;
-    line-height: 25px;
-    font-weight: 300;
-    transition: all 500ms ease 0s;
+    display: none;
 }
 
 .accordion-box .accordion .accord-btn.active {
     background: #1F2E23;
-    transition: all 500ms ease;
 }
 
 .accordion-box .accordion .accord-btn.active h4 {
-    color: #ffffff;
-}
-
-.accordion-box .accordion .accord-btn.active:after {
-    color: #ffffff;
+    color: #C49B5D !important;
 }
 
 .accordion-box .accordion .accord-content {
     position: relative;
-    display: block;
-    padding-top: 29px;
-    padding-bottom: 7px;
-    padding-left: 0px;
-    padding-right: 40px;
-    display: none;
-}
-
-.accordion-box .accordion .accord-content.collapsed {
-    display: block;
+    background: #ffffff;
 }
 
 .accordion-box .accordion .accord-content p {
     margin: 0;
+    font-family: var(--font-primary);
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(31, 46, 35, 0.82);
+    padding: 20px 28px 26px;
 }
 
 

@@ -71,16 +71,35 @@ export default function FAQ() {
                       <div
                         className={`accord-btn${openIndex === i ? ' active' : ''}`}
                         onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
-                        style={{ cursor: 'pointer' }}
                       >
                         <h4>{item.question}</h4>
+                        <div
+                          style={{
+                            width: '32px',
+                            height: '32px',
+                            borderRadius: '50%',
+                            background: openIndex === i ? '#C49B5D' : 'rgba(196, 155, 93, 0.12)',
+                            color: openIndex === i ? '#1F2E23' : '#C49B5D',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                            marginLeft: '16px',
+                            transform: openIndex === i ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.35s ease, background 0.35s ease, color 0.35s ease',
+                          }}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                        </div>
                       </div>
                       <div
-                        className={`accord-content${openIndex === i ? '' : ' collapsed'}`}
+                        className="accord-content"
                         style={{
                           maxHeight: openIndex === i ? '500px' : '0',
                           overflow: 'hidden',
-                          transition: 'max-height 0.4s ease',
+                          transition: 'max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                         }}
                       >
                         <p>{item.answer}</p>
