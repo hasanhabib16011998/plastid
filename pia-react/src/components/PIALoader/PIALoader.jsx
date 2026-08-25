@@ -126,7 +126,7 @@ function PIALoaderContent() {
       <div style={{ marginTop: '10px', textAlign: 'center' }}>
         <div
           style={{
-            fontFamily: 'Garamond, "Times New Roman", serif',
+            fontFamily: "'Cormorant Garamond', serif",
             fontSize: '36px',
             color: colors.gold,
             letterSpacing: '2px',
@@ -138,7 +138,7 @@ function PIALoaderContent() {
         </div>
         <div
           style={{
-            fontFamily: 'Arial, sans-serif',
+            fontFamily: "'Inter', sans-serif",
             fontSize: '12px',
             color: colors.primary,
             letterSpacing: '3px',
