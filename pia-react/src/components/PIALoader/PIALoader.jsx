@@ -156,9 +156,6 @@ function PIALoaderContent() {
 }
 
 // ── Full-screen overlay wrapper with GSAP fade-out exit ───────────────────────
-// The animation cycle is 4 s; we let it run for one full loop then exit.
-const DISPLAY_MS = 4200; // slightly over one 4 s animation cycle
-
 export default function PIALoader() {
   const wrapRef = useRef(null);
   const [mounted, setMounted] = useState(true);
@@ -166,25 +163,47 @@ export default function PIALoader() {
   useEffect(() => {
     document.body.classList.add('loading-active');
 
-    const timer = setTimeout(() => {
-      // Smooth GSAP fade out + slight scale-up exit
-      gsap.to(wrapRef.current, {
-        opacity: 0,
-        scale: 1.04,
-        duration: 0.65,
-        ease: 'power2.inOut',
-        onComplete: () => {
+    let dismissed = false;
+
+    const dismissLoader = () => {
+      if (dismissed) return;
+      dismissed = true;
+
+      requestAnimationFrame(() => {
+        if (wrapRef.current) {
+          gsap.to(wrapRef.current, {
+            opacity: 0,
+            scale: 1.03,
+            duration: 0.4,
+            ease: 'power2.inOut',
+            onComplete: () => {
+              document.body.classList.remove('loading-active');
+              window.dispatchEvent(new Event('loadingStateChange'));
+              setMounted(false);
+            },
+          });
+        } else {
           document.body.classList.remove('loading-active');
-          window.dispatchEvent(new Event('loadingStateChange'));
           setMounted(false);
-        },
+        }
       });
-    }, DISPLAY_MS);
+    };
+
+    if (document.readyState === 'complete') {
+      dismissLoader();
+    } else {
+      window.addEventListener('load', dismissLoader, { once: true });
+      // Fallback max cap in case an external asset hangs
+      const fallbackTimer = setTimeout(dismissLoader, 2000);
+      return () => {
+        window.removeEventListener('load', dismissLoader);
+        clearTimeout(fallbackTimer);
+      };
+    }
 
     return () => {
       document.body.classList.remove('loading-active');
       window.dispatchEvent(new Event('loadingStateChange'));
-      clearTimeout(timer);
     };
   }, []);
 
