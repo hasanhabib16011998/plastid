@@ -439,7 +439,6 @@ export default function ApartmentStory() {
         className="apt-story__video"
         src="/playback_opt.mp4"
         muted
-        defaultMuted
         playsInline
         webkit-playsinline="true"
         x5-playsinline="true"
