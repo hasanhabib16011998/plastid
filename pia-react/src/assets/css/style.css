@@ -14836,3 +14836,40 @@ li .single-footer-contact-info .text p span {
 .timer-box .subscribe-box .text p span {
     font-weight: 600;
 }
+
+/* ==============================================
+   About Us Page Responsive Enhancements
+=============================================== */
+.about-founder-quote {
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    background: #1F2E23;
+    border: 1.5px solid #C49B5D;
+    border-radius: 6px;
+    padding: 20px 24px;
+    max-width: 320px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    z-index: 2;
+}
+
+@media only screen and (max-width: 991px) {
+    .about-founder-quote {
+        position: relative;
+        bottom: 0;
+        right: 0;
+        margin-top: 16px;
+        max-width: 100%;
+        width: 100%;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    .about-content-col {
+        padding-left: 0 !important;
+        margin-top: 25px;
+    }
+
+    .company-timeline-card {
+        padding: 24px 20px !important;
+    }
+}

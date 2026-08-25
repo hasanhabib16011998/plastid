@@ -10,10 +10,10 @@ import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 const teamMembers = [
   { name: 'Md. Mozammel Hossain', role: 'CEO & Founder', img: '/images/team/v2-1.jpg' },
   { name: 'Md. Al Rafat', role: 'Managing Director & Quantity Surveyor', img: '/images/team/v2-1.jpg' },
-  { name: 'Saad Ibne Hossain', role: 'Procurement Specialist', img: '/images/team/v2-1.jpg' },
-  { name: 'Jubayer', role: 'Site Engineer', img: '/images/team/v2-1.jpg' },
   { name: 'Hasan Habib', role: 'IT & Digital Marketing', img: '/images/team/v2-1.jpg' },
   { name: 'Shakirul Islam Shajib', role: '3D Concept Designer', img: '/images/team/v2-1.jpg' },
+  { name: 'Zahedul Islam', role: 'Site Engineer', img: '/images/team/v2-1.jpg' },
+  { name: 'Saad Ibne Hossain', role: 'Procurement', img: '/images/team/v2-1.jpg' },
   { name: 'Touhidur Rahman Digonto', role: 'Accounts & Finance', img: '/images/team/v2-1.jpg' },
   { name: 'Md. Mustafizur Rahman', role: 'Graphic Designer', img: '/images/team/v2-1.jpg' },
 ]
@@ -171,6 +171,7 @@ function CompanyTimeline() {
 
       {/* Active Milestone Details Card */}
       <div
+        className="company-timeline-card"
         style={{
           background: '#ffffff',
           borderRadius: '8px',
@@ -314,19 +315,7 @@ export default function About() {
                   />
                 </div>
                 {/* Founder Quote Card */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '-25px',
-                    right: '-20px',
-                    background: '#1F2E23',
-                    border: '1.5px solid #C49B5D',
-                    borderRadius: '6px',
-                    padding: '20px 24px',
-                    maxWidth: '300px',
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-                  }}
-                >
+                <div className="about-founder-quote">
                   <p
                     style={{
                       fontFamily: 'var(--font-serif)',
@@ -356,7 +345,7 @@ export default function About() {
             </div>
 
             <div className="col-xl-7 col-lg-7">
-              <div style={{ paddingLeft: '30px' }}>
+              <div className="about-content-col" style={{ paddingLeft: '30px' }}>
                 <div className="sec-title" style={{ paddingBottom: '20px' }}>
                   <p>About Company</p>
                   <div className="title">
@@ -450,12 +439,16 @@ export default function About() {
             <div className="title">Expert &amp; Dedicated <span>Team</span></div>
           </div>
 
-          <div className="row">
+          <div className="row d-flex flex-wrap">
             {teamMembers.map((m, i) => (
-              <div key={i} className="col-xl-3 col-lg-4 col-md-6 col-sm-12" style={{ marginBottom: '30px' }}>
+              <div key={i} className="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex" style={{ marginBottom: '30px' }}>
                 <div
                   className="single-team-member"
                   style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
                     background: '#ffffff',
                     borderRadius: '6px',
                     overflow: 'hidden',
@@ -474,15 +467,15 @@ export default function About() {
                     e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'
                   }}
                 >
-                  <div className="img-holder" style={{ overflow: 'hidden', maxHeight: '250px' }}>
+                  <div className="img-holder" style={{ overflow: 'hidden', height: '260px', flexShrink: 0 }}>
                     <img
                       src={m.img}
                       alt={m.name}
-                      style={{ width: '100%', height: '250px', objectFit: 'cover', display: 'block' }}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                     />
                   </div>
-                  <div className="name text-center" style={{ padding: '18px 15px' }}>
-                    <p style={{ margin: '0 0 4px' }}>
+                  <div className="name text-center" style={{ padding: '20px 16px', flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <p style={{ margin: '0 0 6px' }}>
                       <span
                         style={{
                           color: '#C49B5D',
