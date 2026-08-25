@@ -441,7 +441,7 @@ export default function About() {
 
           <div className="row d-flex flex-wrap">
             {teamMembers.map((m, i) => (
-              <div key={i} className="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex" style={{ marginBottom: '30px' }}>
+              <div key={i} className="col-xl-3 col-lg-4 col-md-6 col-6 team-card-col d-flex" style={{ marginBottom: '30px' }}>
                 <div
                   className="single-team-member"
                   style={{

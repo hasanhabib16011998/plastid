@@ -14873,3 +14873,29 @@ li .single-footer-contact-info .text p span {
         padding: 24px 20px !important;
     }
 }
+
+/* Compact Mobile Team Card Grid */
+@media only screen and (max-width: 767px) {
+    .single-team-member .img-holder {
+        height: 140px !important;
+    }
+
+    .single-team-member .name {
+        padding: 12px 8px !important;
+    }
+
+    .single-team-member .name h3 {
+        font-size: 14.5px !important;
+    }
+
+    .single-team-member .name p span {
+        font-size: 9.5px !important;
+        letter-spacing: 0.8px !important;
+    }
+
+    .team-card-col {
+        margin-bottom: 16px !important;
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+    }
+}
