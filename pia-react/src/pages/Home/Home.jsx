@@ -1043,7 +1043,7 @@ export default function Home() {
                 </div>
                 <div className="text-box">
                   <p>Where Vision Meets Reality</p>
-                  <h3>Md. Al Rafat, <span>CEO &amp; Founder</span></h3>
+                  <h3>Md. Mozammel Hossain, <span>CEO &amp; Founder</span></h3>
                 </div>
               </div>
             </div>
