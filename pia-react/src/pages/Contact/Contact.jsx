@@ -5,6 +5,7 @@ import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import PIADropdown from '../../components/PIADropdown/PIADropdown'
 
 const contactInfo = [
   {
@@ -99,10 +100,11 @@ export default function Contact() {
 
                 {submitted && (
                   <div style={{
-                    background: '#4caf50', color: '#fff', padding: '15px 20px',
-                    borderRadius: '4px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px'
+                    background: '#1F2E23', color: '#C49B5D', border: '1px solid #C49B5D', padding: '15px 20px',
+                    borderRadius: '4px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px',
+                    fontSize: '14px', fontFamily: 'var(--font-primary)'
                   }}>
-                    <span>✓</span>
+                    <span style={{ fontWeight: 'bold' }}>✓</span>
                     Thank you for reaching out! We'll get back to you within 24 hours.
                   </div>
                 )}
@@ -110,7 +112,7 @@ export default function Contact() {
                 <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-xl-6 col-md-6">
-                      <div className="single-box" style={{ marginBottom: '20px' }}>
+                      <div className="single-box">
                         <input
                           type="text"
                           name="name"
@@ -118,12 +120,11 @@ export default function Contact() {
                           onChange={handleChange}
                           placeholder="Your Name *"
                           required
-                          style={{ width: '100%', padding: '14px 18px', border: '1px solid #e5e5e5', borderRadius: '3px', outline: 'none', fontSize: '14px' }}
                         />
                       </div>
                     </div>
                     <div className="col-xl-6 col-md-6">
-                      <div className="single-box" style={{ marginBottom: '20px' }}>
+                      <div className="single-box">
                         <input
                           type="email"
                           name="email"
@@ -131,44 +132,40 @@ export default function Contact() {
                           onChange={handleChange}
                           placeholder="Email Address *"
                           required
-                          style={{ width: '100%', padding: '14px 18px', border: '1px solid #e5e5e5', borderRadius: '3px', outline: 'none', fontSize: '14px' }}
                         />
                       </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-xl-6 col-md-6">
-                      <div className="single-box" style={{ marginBottom: '20px' }}>
+                      <div className="single-box">
                         <input
                           type="tel"
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="Phone Number"
-                          style={{ width: '100%', padding: '14px 18px', border: '1px solid #e5e5e5', borderRadius: '3px', outline: 'none', fontSize: '14px' }}
                         />
                       </div>
                     </div>
                     <div className="col-xl-6 col-md-6">
-                      <div className="single-box" style={{ marginBottom: '20px' }}>
-                        <select
-                          name="service"
-                          value={formData.service}
-                          onChange={handleChange}
-                          style={{ width: '100%', padding: '14px 18px', border: '1px solid #e5e5e5', borderRadius: '3px', outline: 'none', fontSize: '14px', background: '#fff' }}
-                        >
-                          <option value="">Select Service</option>
-                          <option>Concept Designs</option>
-                          <option>Project Designs</option>
-                          <option>Make Overs</option>
-                          <option>Consulting</option>
-                          <option>Glass &amp; Wrought</option>
-                          <option>Space Planning</option>
-                        </select>
-                      </div>
+                      <PIADropdown
+                        name="service"
+                        value={formData.service}
+                        onChange={handleChange}
+                        placeholder="Select Service"
+                        options={[
+                          'Concept Designs',
+                          'Project Designs',
+                          'Make Overs',
+                          'Consulting',
+                          'Glass & Wrought',
+                          'Space Planning',
+                        ]}
+                      />
                     </div>
                   </div>
-                  <div className="single-box" style={{ marginBottom: '25px' }}>
+                  <div className="single-box">
                     <textarea
                       name="message"
                       value={formData.message}
@@ -176,10 +173,10 @@ export default function Contact() {
                       placeholder="Your Message *"
                       required
                       rows="6"
-                      style={{ width: '100%', padding: '14px 18px', border: '1px solid #e5e5e5', borderRadius: '3px', outline: 'none', fontSize: '14px', resize: 'vertical' }}
+                      style={{ resize: 'vertical' }}
                     />
                   </div>
-                  <button className="btn-one" type="submit">
+                  <button className="btn-one" type="submit" style={{ width: '100%' }}>
                     Send Message<span className="flaticon-next"></span>
                   </button>
                 </form>

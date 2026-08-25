@@ -6,6 +6,7 @@ import Footer from '../../components/Footer/Footer'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
+import PIADropdown from '../../components/PIADropdown/PIADropdown'
 
 // ─── Hero Slider Data ─────────────────────────────────────
 const slides = [
@@ -936,8 +937,12 @@ function AppointmentForm() {
       </div>
       <div className="appointment">
         {submitted && (
-          <div style={{ background: '#4caf50', color: '#fff', padding: '12px', borderRadius: '4px', marginBottom: '15px' }}>
-            Thank you! We'll be in touch within 24 hours.
+          <div style={{
+            background: '#1F2E23', color: '#C49B5D', border: '1px solid #C49B5D', padding: '14px 20px',
+            borderRadius: '4px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px',
+            fontSize: '14px', fontFamily: 'var(--font-primary)'
+          }}>
+            <span style={{ fontWeight: 'bold' }}>✓</span> Thank you! We'll be in touch within 24 hours.
           </div>
         )}
         <form className="appointment-form" onSubmit={handleSubmit}>
@@ -957,17 +962,20 @@ function AppointmentForm() {
           </div>
           <div className="row">
             <div className="col-xl-12">
-              <div className="single-box">
-                <select name="service" value={formData.service} onChange={handleChange} style={{ width: '100%', padding: '12px 15px', border: '1px solid #e5e5e5' }}>
-                  <option value="">Interested In</option>
-                  <option>Concept Designs</option>
-                  <option>Project Designs</option>
-                  <option>Make Overs</option>
-                  <option>Consulting</option>
-                  <option>Glass &amp; Wrought</option>
-                  <option>Space Planning</option>
-                </select>
-              </div>
+              <PIADropdown
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                placeholder="Interested In"
+                options={[
+                  'Concept Designs',
+                  'Project Designs',
+                  'Make Overs',
+                  'Consulting',
+                  'Glass & Wrought',
+                  'Space Planning',
+                ]}
+              />
             </div>
           </div>
           <div className="row">
