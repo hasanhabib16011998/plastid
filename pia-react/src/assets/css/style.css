@@ -690,10 +690,10 @@ body.loading-active .scroll-to-top,
 body.loading-active .scroll-to-top-style2,
 body.in-apt-story .scroll-to-top,
 body.in-apt-story .scroll-to-top-style2,
-.pia-loader-wrapper ~ .scroll-to-top,
-.pia-loader-wrapper ~ .scroll-to-top-style2,
-.preloader ~ .scroll-to-top,
-.preloader ~ .scroll-to-top-style2 {
+.pia-loader-wrapper~.scroll-to-top,
+.pia-loader-wrapper~.scroll-to-top-style2,
+.preloader~.scroll-to-top,
+.preloader~.scroll-to-top-style2 {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
@@ -2921,8 +2921,9 @@ select:focus {
 }
 
 .map-content-box .inner .overlay .single-location-box.one {
-    top: 60px;
-    left: 70px;
+    top: 42%;
+    left: 76.5%;
+    transform: translate(-50%, -50%);
 }
 
 .map-content-box .inner .overlay .single-location-box.two {
@@ -2940,22 +2941,56 @@ select:focus {
     bottom: 60px;
 }
 
-
-
 .map-content-box .inner .overlay .marker-box {
     display: inline-block;
+    position: relative;
+}
+
+.map-content-box .inner .overlay .single-location-box.one .marker-box::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-top: -12px;
+    margin-left: -12px;
+    border-radius: 50%;
+    background: rgba(196, 155, 93, 0.45);
+    animation: piaPinPulse 2s infinite;
+    z-index: -1;
+}
+
+@keyframes piaPinPulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
 }
 
 .map-content-box .inner .overlay .marker-box span:before {
-    color: #ffffff;
-    font-size: 50px;
-    line-height: 50px;
+    color: #C49B5D;
+    font-size: 44px;
+    line-height: 44px;
     cursor: pointer;
+    filter: drop-shadow(0 2px 8px rgba(196, 155, 93, 0.6));
+    transition: all 0.3s ease;
+}
+
+.map-content-box .inner .overlay .single-location-box:hover .marker-box span:before {
+    color: #ffffff;
+    transform: scale(1.15);
 }
 
 .map-content-box .inner .overlay .location-info {
     position: absolute;
-    left: -10px;
+    right: -20px;
+    left: auto;
     bottom: 100px;
     width: 270px;
     opacity: 0;
@@ -2963,15 +2998,18 @@ select:focus {
     padding: 25px 30px 22px;
     padding-right: 20px;
     margin-left: 0;
-    border-radius: 0px;
+    border-radius: 6px;
     background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    border-left: 4px solid #C49B5D;
     transition: all 0.3s ease;
     z-index: 9999999999;
 }
 
 .map-content-box .inner .overlay .location-info:before {
     position: absolute;
-    left: 30px;
+    right: 25px;
+    left: auto;
     bottom: -30px;
     font-family: "Flaticon";
     content: "\f103";
@@ -3105,14 +3143,15 @@ textarea:-ms-input-placeholder {
 }
 
 @keyframes piaDropdownSlide {
-  from {
-    opacity: 0;
-    transform: translateY(-8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .appointment-form .single-box button {
@@ -3689,6 +3728,9 @@ textarea:-ms-input-placeholder {
 }
 
 .single-footer-widget .services-links ul li a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
     color: #7c7e84;
     font-size: 15px;
     font-weight: 400;
@@ -3702,16 +3744,17 @@ textarea:-ms-input-placeholder {
 
 .single-footer-widget .services-links ul li a:before {
     position: absolute;
-    top: 0px;
+    top: 50%;
     left: 0;
+    transform: translateY(-50%);
     content: "\f107";
     font-family: "Flaticon";
     color: #7c7e84;
     font-size: 10px;
     transition: all 500ms ease;
     font-weight: 600;
-    line-height: 20px;
-    margin: 14px 0 16px;
+    line-height: 1;
+    margin: 0;
 }
 
 .single-footer-widget .services-links ul li a:hover:before {
@@ -14849,7 +14892,7 @@ li .single-footer-contact-info .text p span {
     border-radius: 6px;
     padding: 20px 24px;
     max-width: 320px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     z-index: 2;
 }
 
@@ -14861,7 +14904,7 @@ li .single-footer-contact-info .text p span {
         margin-top: 16px;
         max-width: 100%;
         width: 100%;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     }
 
     .about-content-col {
@@ -14913,6 +14956,11 @@ li .single-footer-contact-info .text p span {
 }
 
 @keyframes footprintMarquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }

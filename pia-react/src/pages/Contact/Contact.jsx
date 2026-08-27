@@ -63,6 +63,7 @@ export default function Contact() {
                   textAlign: 'center',
                   boxShadow: '0 5px 30px rgba(0,0,0,0.06)',
                   transition: 'transform 0.3s',
+                  height: '100%',
                 }}
                   onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-5px)'}
                   onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
@@ -87,21 +88,21 @@ export default function Contact() {
       </section>
 
       {/* Contact Form + Map */}
-      <section style={{ padding: '80px 0' }}>
+      <section style={{ padding: '80px 0', background: '#ffffff' }}>
         <div className="container">
-          <div className="row">
-            {/* Contact Form */}
-            <div className="col-xl-7 col-lg-7">
-              <div style={{ paddingRight: '30px' }}>
-                <div className="sec-title" style={{ marginBottom: '30px' }}>
-                  <p>Get In Touch</p>
+          <div className="row align-items-start">
+            {/* Contact Form ("Get In Touch") */}
+            <div className="col-xl-7 col-lg-7 col-md-12 col-12" style={{ marginBottom: '45px' }}>
+              <div className="contact-form-wrapper" style={{ paddingRight: '15px' }}>
+                <div className="sec-title" style={{ marginBottom: '25px', paddingBottom: '0' }}>
+                  <p style={{ margin: '0 0 5px' }}>Get In Touch</p>
                   <div className="title">Send Us a <span>Message</span></div>
                 </div>
 
                 {submitted && (
                   <div style={{
                     background: '#1F2E23', color: '#C49B5D', border: '1px solid #C49B5D', padding: '15px 20px',
-                    borderRadius: '4px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px',
+                    borderRadius: '4px', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '10px',
                     fontSize: '14px', fontFamily: 'var(--font-primary)'
                   }}>
                     <span style={{ fontWeight: 'bold' }}>✓</span>
@@ -111,8 +112,8 @@ export default function Contact() {
 
                 <form onSubmit={handleSubmit}>
                   <div className="row">
-                    <div className="col-xl-6 col-md-6">
-                      <div className="single-box">
+                    <div className="col-xl-6 col-md-6 col-12">
+                      <div className="single-box" style={{ marginBottom: '20px' }}>
                         <input
                           type="text"
                           name="name"
@@ -120,11 +121,12 @@ export default function Contact() {
                           onChange={handleChange}
                           placeholder="Your Name *"
                           required
+                          style={{ margin: 0 }}
                         />
                       </div>
                     </div>
-                    <div className="col-xl-6 col-md-6">
-                      <div className="single-box">
+                    <div className="col-xl-6 col-md-6 col-12">
+                      <div className="single-box" style={{ marginBottom: '20px' }}>
                         <input
                           type="email"
                           name="email"
@@ -132,23 +134,25 @@ export default function Contact() {
                           onChange={handleChange}
                           placeholder="Email Address *"
                           required
+                          style={{ margin: 0 }}
                         />
                       </div>
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-xl-6 col-md-6">
-                      <div className="single-box">
+                    <div className="col-xl-6 col-md-6 col-12">
+                      <div className="single-box" style={{ marginBottom: '20px' }}>
                         <input
                           type="tel"
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="Phone Number"
+                          style={{ margin: 0 }}
                         />
                       </div>
                     </div>
-                    <div className="col-xl-6 col-md-6">
+                    <div className="col-xl-6 col-md-6 col-12">
                       <PIADropdown
                         name="service"
                         value={formData.service}
@@ -165,7 +169,7 @@ export default function Contact() {
                       />
                     </div>
                   </div>
-                  <div className="single-box">
+                  <div className="single-box" style={{ marginBottom: '25px' }}>
                     <textarea
                       name="message"
                       value={formData.message}
@@ -173,7 +177,7 @@ export default function Contact() {
                       placeholder="Your Message *"
                       required
                       rows="6"
-                      style={{ resize: 'vertical' }}
+                      style={{ resize: 'vertical', margin: 0 }}
                     />
                   </div>
                   <button className="btn-one" type="submit" style={{ width: '100%' }}>
@@ -183,21 +187,28 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Map & Info */}
-            <div className="col-xl-5 col-lg-5">
-              <div style={{ paddingLeft: '20px' }}>
-                <div className="sec-title" style={{ marginBottom: '30px' }}>
-                  <p>Our Location</p>
+            {/* Map & Info ("Our Location") */}
+            <div className="col-xl-5 col-lg-5 col-md-12 col-12">
+              <div className="location-map-wrapper" style={{ paddingLeft: '15px' }}>
+                <div className="sec-title" style={{ marginBottom: '25px', paddingBottom: '0' }}>
+                  <p style={{ margin: '0 0 5px' }}>Our Location</p>
                   <div className="title">Find Us On <span>Map</span></div>
                 </div>
 
                 {/* Embedded Map */}
-                <div style={{ borderRadius: '4px', overflow: 'hidden', marginBottom: '30px', height: '320px' }}>
+                <div style={{
+                  borderRadius: '6px',
+                  overflow: 'hidden',
+                  marginBottom: '25px',
+                  height: '340px',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
+                  border: '1px solid rgba(31, 46, 35, 0.1)'
+                }}>
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.5773855994097!2d90.4356!3d23.7806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7cb2fd59f91%3A0x3be47af01c4efbc!2sAftab%20Nagar%2C%20Dhaka%201212!5e0!3m2!1sen!2sbd!4v1234567890"
                     width="100%"
-                    height="320"
-                    style={{ border: 0 }}
+                    height="340"
+                    style={{ border: 0, display: 'block' }}
                     allowFullScreen=""
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -206,9 +217,9 @@ export default function Contact() {
                 </div>
 
                 {/* Social Links */}
-                <div style={{ textAlign: 'center' }}>
-                  <p style={{ marginBottom: '15px', color: '#666' }}>Follow us on social media</p>
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: '15px' }}>
+                <div style={{ textAlign: 'center', background: '#F5F3ED', padding: '20px', borderRadius: '6px', border: '1px solid rgba(31, 46, 35, 0.1)' }}>
+                  <p style={{ marginBottom: '12px', color: '#1F2E23', fontWeight: 500, fontFamily: 'var(--font-primary)', fontSize: '14px' }}>Follow us on social media</p>
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}>
                     {[
                       { icon: 'fa-facebook', href: 'https://www.facebook.com/profile.php?id=61555749343330' },
                       { icon: 'fa-skype', href: '#' },
@@ -221,13 +232,20 @@ export default function Contact() {
                         rel="noreferrer"
                         style={{
                           width: '40px', height: '40px', borderRadius: '50%',
-                          background: '#1a1a2e', color: '#fff',
+                          background: '#1F2E23', color: '#C49B5D',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontSize: '16px', transition: 'background 0.3s',
+                          fontSize: '16px', transition: 'all 0.3s ease',
                           textDecoration: 'none',
+                          border: '1px solid #C49B5D',
                         }}
-                        onMouseEnter={e => e.currentTarget.style.background = '#c8a96e'}
-                        onMouseLeave={e => e.currentTarget.style.background = '#1a1a2e'}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.background = '#C49B5D'
+                          e.currentTarget.style.color = '#1F2E23'
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.background = '#1F2E23'
+                          e.currentTarget.style.color = '#C49B5D'
+                        }}
                       >
                         <i className={`fa ${s.icon}`} aria-hidden="true"></i>
                       </a>
@@ -245,3 +263,4 @@ export default function Contact() {
     </div>
   )
 }
+
