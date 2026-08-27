@@ -3823,4 +3823,67 @@
         font-size: 13px !important;
         line-height: 20px !important;
     }
+}
+
+/* ==============================================
+   Single Service Detail Mobile Optimizations
+=============================================== */
+@media only screen and (max-width: 991px) {
+    .single-service-area {
+        padding: 40px 0 30px !important;
+    }
+
+    .single-service-top .text {
+        padding-top: 20px !important;
+        padding-bottom: 15px !important;
+    }
+
+    .single-service-top .text h2 {
+        font-size: 22px !important;
+        line-height: 30px !important;
+    }
+
+    .advantages-content {
+        margin-top: 15px !important;
+    }
+
+    .single-advantages-box .inner {
+        padding: 16px 8px !important;
+    }
+
+    .how-we-work {
+        margin-top: 25px !important;
+    }
+
+    .how-we-work h3 {
+        font-size: 20px !important;
+        margin-bottom: 14px !important;
+    }
+
+    .single-service-sidebar {
+        margin-top: 10px !important;
+    }
+
+    .sidebar-contact-box {
+        padding: 30px 20px 25px !important;
+    }
+
+    .sidebar-contact-box .bottom-box h2 {
+        font-size: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .single-service-area {
+        padding: 30px 0 20px !important;
+    }
+
+    .single-service-top .text h2 {
+        font-size: 20px !important;
+        line-height: 28px !important;
+    }
+
+    .single-advantages-box .static-content .title h3 {
+        font-size: 13px !important;
+    }
 }

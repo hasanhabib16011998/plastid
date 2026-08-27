@@ -125,9 +125,110 @@ export default function ServiceDetail() {
       {/* Single Service Area - matching original layout */}
       <section className="single-service-area">
         <div className="container">
+          {/* Mobile Quick Service Selector Pill Bar (< 992px) */}
+          <div className="d-block d-lg-none" style={{ marginBottom: '24px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: '6px' }}>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {allServices.map((s) => (
+                <Link
+                  key={s.slug}
+                  to={`/services/${s.slug}`}
+                  style={{
+                    padding: '8px 18px',
+                    borderRadius: '24px',
+                    whiteSpace: 'nowrap',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    background: slug === s.slug ? '#C49B5D' : '#1F2E23',
+                    color: slug === s.slug ? '#1F2E23' : '#F5F3ED',
+                    border: '1px solid #C49B5D',
+                    textDecoration: 'none',
+                    transition: 'all 0.25s ease',
+                    flexShrink: 0,
+                    boxShadow: slug === s.slug ? '0 4px 12px rgba(196, 155, 93, 0.35)' : 'none',
+                  }}
+                >
+                  {s.title}
+                </Link>
+              ))}
+            </div>
+          </div>
+
           <div className="row">
-            {/* Sidebar */}
-            <div className="col-xl-4 col-lg-5 col-md-12 col-sm-12">
+            {/* Main Content (Appears FIRST on mobile, SECOND on desktop) */}
+            <div className="col-xl-8 col-lg-7 col-md-12 col-sm-12 order-1 order-lg-2">
+              {/* Service Image + Description */}
+              <div className="single-service-top">
+                <div className="single-service-image-box" style={{ borderRadius: '8px', overflow: 'hidden' }}>
+                  <img src={service.mainImg} alt={service.title} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+                </div>
+                <div className="text">
+                  <h2>{service.title}</h2>
+                  <div className="inner">
+                    <p style={{ lineHeight: '1.7', color: '#555', marginBottom: '14px' }}>{service.description1}</p>
+                    <p style={{ lineHeight: '1.7', color: '#555' }}>{service.description2}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Advantages Boxes (2 cols on mobile, 4 cols on desktop) */}
+              <div className="advantages-content" style={{ marginTop: '20px' }}>
+                <div className="row">
+                  {service.advantages.map((adv, i) => (
+                    <div key={i} className="col-xl-3 col-lg-6 col-md-6 col-6" style={{ marginBottom: '15px' }}>
+                      <div className="single-advantages-box" style={{ height: '100%', borderRadius: '6px', background: '#fff', border: '1px solid rgba(196, 155, 93, 0.25)' }}>
+                        <div className="inner" style={{ padding: '20px 10px' }}>
+                          <div className="static-content">
+                            <div className="icon-holder" style={{ marginBottom: '10px' }}>
+                              <span className={adv.icon} style={{ fontSize: '36px', color: '#C49B5D' }}></span>
+                            </div>
+                            <div className="title">
+                              <h3 style={{ whiteSpace: 'pre-line', fontSize: '14px', lineHeight: '1.3', fontWeight: 600, color: '#1F2E23' }}>{adv.title}</h3>
+                            </div>
+                          </div>
+                          <div className="overlay-text">
+                            <div className="box">
+                              <div className="inner-text">
+                                <p style={{ fontSize: '12px', lineHeight: '1.4' }}>{adv.text}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* How We Work */}
+              <div className="how-we-work" style={{ marginTop: '35px' }}>
+                <h3 style={{ marginBottom: '18px', fontSize: '22px', fontWeight: 700, color: '#1F2E23' }}>How We Work</h3>
+                <div className="row align-items-center">
+                  <div className="col-xl-6 col-lg-6 col-md-12" style={{ marginBottom: '20px' }}>
+                    <img src="/images/services/service-single/how-work.jpg" alt="How We Work" style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }} />
+                  </div>
+                  <div className="col-xl-6 col-lg-6 col-md-12">
+                    <div>
+                      <p style={{ color: '#666', lineHeight: 1.7, marginBottom: '15px', fontSize: '14px' }}>
+                        Our proven process ensures every project is delivered on time, within budget, and to the highest standards of quality and craftsmanship.
+                      </p>
+                      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                        {['Initial Consultation & Discovery', 'Concept Development', 'Design Refinement & Approval', 'Project Execution', 'Quality Review & Handover'].map((step, i) => (
+                          <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 0', borderBottom: '1px solid #eee' }}>
+                            <span style={{ width: '26px', height: '26px', borderRadius: '50%', background: '#C49B5D', color: '#1F2E23', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '700', flexShrink: 0 }}>
+                              {i + 1}
+                            </span>
+                            <span style={{ color: '#333', fontSize: '13.5px', fontWeight: 500 }}>{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar (Appears SECOND on mobile, FIRST on desktop) */}
+            <div className="col-xl-4 col-lg-5 col-md-12 col-sm-12 order-2 order-lg-1" style={{ marginTop: '25px' }}>
               <div className="single-service-sidebar">
                 {/* Services Navigation */}
                 <div className="single-sidebar">
@@ -148,15 +249,15 @@ export default function ServiceDetail() {
                 </div>
 
                 {/* Contact Box */}
-                <div className="sidebar-contact-box text-center">
+                <div className="sidebar-contact-box text-center" style={{ borderRadius: '8px', overflow: 'hidden' }}>
                   <div className="inner-content">
                     <div className="icon-holder">
                       <span className="icon-support1"></span>
                     </div>
                     <h3>Consult with expert &<br /> Start today</h3>
                     <div className="bottom-box">
-                      <h2>+880 1768834417</h2>
-                      <span>Email: info@pcd-bd.com</span>
+                      <h2><a href="tel:+8801768834417" style={{ color: 'inherit', textDecoration: 'none' }}>+880 1768834417</a></h2>
+                      <span>Email: <a href="mailto:info@pcd-bd.com" style={{ color: 'inherit', textDecoration: 'none' }}>info@pcd-bd.com</a></span>
                     </div>
                     <div className="button">
                       <Link className="btn-one" to="/contact">Make Appointment<span className="flaticon-next"></span></Link>
@@ -176,79 +277,6 @@ export default function ServiceDetail() {
                       </div>
                     </li>
                   </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Main Content */}
-            <div className="col-xl-8 col-lg-7 col-md-12 col-sm-12">
-              {/* Service Image + Description */}
-              <div className="single-service-top">
-                <div className="single-service-image-box">
-                  <img src={service.mainImg} alt={service.title} />
-                </div>
-                <div className="text">
-                  <h2>{service.title}</h2>
-                  <div className="inner">
-                    <p>{service.description1}</p>
-                    <p>{service.description2}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Advantages Boxes */}
-              <div className="advantages-content">
-                <div className="row">
-                  {service.advantages.map((adv, i) => (
-                    <div key={i} className="col-xl-3 col-lg-6 col-md-6">
-                      <div className="single-advantages-box">
-                        <div className="inner">
-                          <div className="static-content">
-                            <div className="icon-holder">
-                              <span className={adv.icon}></span>
-                            </div>
-                            <div className="title">
-                              <h3 style={{ whiteSpace: 'pre-line' }}>{adv.title}</h3>
-                            </div>
-                          </div>
-                          <div className="overlay-text">
-                            <div className="box">
-                              <div className="inner-text">
-                                <p>{adv.text}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* How We Work */}
-              <div className="how-we-work" style={{ marginTop: '40px' }}>
-                <h3 style={{ marginBottom: '20px' }}>How We Work</h3>
-                <div className="row">
-                  <div className="col-xl-6">
-                    <img src="/images/services/service-single/how-work.jpg" alt="How We Work" style={{ width: '100%', borderRadius: '4px' }} />
-                  </div>
-                  <div className="col-xl-6">
-                    <div style={{ paddingLeft: '20px' }}>
-                      <p style={{ color: '#666', lineHeight: 1.8, marginBottom: '15px' }}>
-                        Our proven process ensures every project is delivered on time, within budget, and to the highest standards of quality and craftsmanship.
-                      </p>
-                      <ul style={{ listStyle: 'none', padding: 0 }}>
-                        {['Initial Consultation & Discovery', 'Concept Development', 'Design Refinement & Approval', 'Project Execution', 'Quality Review & Handover'].map((step, i) => (
-                          <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 0', borderBottom: '1px solid #eee' }}>
-                            <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#c8a96e', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '700', flexShrink: 0 }}>
-                              {i + 1}
-                            </span>
-                            <span style={{ color: '#555' }}>{step}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
