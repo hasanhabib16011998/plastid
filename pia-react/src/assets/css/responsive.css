@@ -3886,4 +3886,62 @@
     .single-advantages-box .static-content .title h3 {
         font-size: 13px !important;
     }
+}
+
+/* ==============================================
+   Projects & Project Detail Mobile Optimizations
+=============================================== */
+@media only screen and (max-width: 991px) {
+    .main-project-area {
+        padding: 40px 0 25px !important;
+    }
+
+    .single-project-details-area {
+        padding: 35px 0 25px !important;
+    }
+
+    .single-project-style1 .img-holder {
+        height: 200px !important;
+    }
+
+    .single-project-style1 .title-box h3 {
+        font-size: 14px !important;
+    }
+
+    .mixitup-filter {
+        margin-bottom: 24px !important;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .main-project-area {
+        padding: 30px 0 20px !important;
+    }
+
+    .single-project-style1 .img-holder {
+        height: 175px !important;
+    }
+
+    .single-project-style1 .title-box {
+        padding: 16px 10px 10px !important;
+    }
+
+    .single-project-style1 .title-box span {
+        font-size: 10px !important;
+    }
+
+    .single-project-style1 .title-box h3 {
+        font-size: 13px !important;
+        line-height: 1.25 !important;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .single-project-card:hover .project-tap-overlay {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    .single-project-card:hover .title-box {
+        opacity: 0 !important;
+    }
 }
