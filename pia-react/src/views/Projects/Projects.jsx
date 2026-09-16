@@ -1,5 +1,8 @@
+'use client'
+
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -26,7 +29,7 @@ const filters = ['all', 'residential', 'commercial', 'industrial']
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('all')
   const [activeCardId, setActiveCardId] = useState(null)
-  const navigate = useNavigate()
+  const router = useRouter()
 
   const filtered = activeFilter === 'all'
     ? allProjects
@@ -35,13 +38,13 @@ export default function Projects() {
   const handleCardClick = (e, p) => {
     // If click was on View Details button, navigate directly
     if (e.target.closest('.view-details-btn')) {
-      navigate(`/projects/${p.id}`)
+      router.push(`/projects/${p.id}`)
       return
     }
 
     // Toggle card overlay on tap/click
     if (activeCardId === p.id) {
-      navigate(`/projects/${p.id}`)
+      router.push(`/projects/${p.id}`)
     } else {
       setActiveCardId(p.id)
     }
@@ -239,7 +242,7 @@ export default function Projects() {
                             className="view-details-btn"
                             onClick={(e) => {
                               e.stopPropagation()
-                              navigate(`/projects/${p.id}`)
+                              router.push(`/projects/${p.id}`)
                             }}
                             style={{
                               width: '100%',
@@ -283,7 +286,7 @@ export default function Projects() {
                   <h3>Have a Project in Mind? Let's Discuss It.</h3>
                 </div>
                 <div className="button float-right">
-                  <Link className="btn-one" to="/contact">Contact Us<span className="flaticon-next"></span></Link>
+                  <Link className="btn-one" href="/contact">Contact Us<span className="flaticon-next"></span></Link>
                 </div>
               </div>
             </div>

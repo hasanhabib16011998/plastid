@@ -63,10 +63,11 @@ services:
       context: ./pia-react
       dockerfile: Dockerfile.dev
     ports:
-      - "5173:5173"
+      - "3000:3000"
     volumes:
       - ./pia-react:/app
       - /app/node_modules
+      - /app/.next
     environment:
       - CHOKIDAR_USEPOLLING=true
     restart: unless-stopped

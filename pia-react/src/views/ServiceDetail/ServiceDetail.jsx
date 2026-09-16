@@ -1,4 +1,7 @@
-import { useParams, Link } from 'react-router-dom'
+'use client'
+
+import { useParams } from 'next/navigation'
+import Link from 'next/link'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -102,7 +105,8 @@ const allServices = [
 ]
 
 export default function ServiceDetail() {
-  const { slug } = useParams()
+  const params = useParams()
+  const slug = params?.slug
   const service = serviceData[slug] || serviceData['concept-designs']
 
   return (
@@ -131,7 +135,7 @@ export default function ServiceDetail() {
               {allServices.map((s) => (
                 <Link
                   key={s.slug}
-                  to={`/services/${s.slug}`}
+                  href={`/services/${s.slug}`}
                   style={{
                     padding: '8px 18px',
                     borderRadius: '24px',
@@ -235,7 +239,7 @@ export default function ServiceDetail() {
                   <ul className="service-pages">
                     {allServices.map((s) => (
                       <li key={s.slug} className={slug === s.slug ? 'active' : ''}>
-                        <Link to={`/services/${s.slug}`}>
+                        <Link href={`/services/${s.slug}`}>
                           <div className="title">
                             <h3 className="static">{s.title}</h3>
                             <div className="overlay-title">
@@ -260,7 +264,7 @@ export default function ServiceDetail() {
                       <span>Email: <a href="mailto:info@pcd-bd.com" style={{ color: 'inherit', textDecoration: 'none' }}>info@pcd-bd.com</a></span>
                     </div>
                     <div className="button">
-                      <Link className="btn-one" to="/contact">Make Appointment<span className="flaticon-next"></span></Link>
+                      <Link className="btn-one" href="/contact">Make Appointment<span className="flaticon-next"></span></Link>
                     </div>
                   </div>
                 </div>
@@ -294,7 +298,7 @@ export default function ServiceDetail() {
                   <h3>Ready to Transform Your Space? Let's Get Started.</h3>
                 </div>
                 <div className="button float-right">
-                  <Link className="btn-one" to="/contact">Make an Appointment<span className="flaticon-next"></span></Link>
+                  <Link className="btn-one" href="/contact">Make an Appointment<span className="flaticon-next"></span></Link>
                 </div>
               </div>
             </div>

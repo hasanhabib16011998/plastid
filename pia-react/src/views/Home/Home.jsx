@@ -1,5 +1,7 @@
+'use client'
+
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { gsap } from 'gsap'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
@@ -265,7 +267,7 @@ function HeroSlider() {
               {slide.text}
             </div>
             <div className="btn-box">
-              <Link className="btn-one" to={slide.btnTo}>
+              <Link className="btn-one" href={slide.btnTo}>
                 {slide.btnLabel}<span className="flaticon-next"></span>
               </Link>
             </div>
@@ -805,7 +807,7 @@ function ProjectsCarousel() {
               <div className="overlay-content">
                 <div className="inner-content">
                   <div className="link-box">
-                    <Link className="btn-one" to="/projects">Case Study<span className="flaticon-next"></span></Link>
+                    <Link className="btn-one" href="/projects">Case Study<span className="flaticon-next"></span></Link>
                   </div>
                 </div>
               </div>
@@ -1097,7 +1099,7 @@ function ProjectFootprint() {
               </p>
             </div>
             <div className="col-lg-3 col-md-4 text-md-right">
-              <Link className="btn-one" to="/contact" style={{ width: '100%', justifyContent: 'center' }}>
+              <Link className="btn-one" href="/contact" style={{ width: '100%', justifyContent: 'center' }}>
                 Book Consultation<span className="flaticon-next"></span>
               </Link>
             </div>
@@ -1310,7 +1312,7 @@ export default function Home() {
                 <div className="title">Recently Completed <span>Works</span></div>
               </div>
               <div className="more-project-button float-right">
-                <Link className="btn-two" to="/projects">More Projects<span className="flaticon-next"></span></Link>
+                <Link className="btn-two" href="/projects">More Projects<span className="flaticon-next"></span></Link>
               </div>
             </div>
           </div>
@@ -1356,7 +1358,7 @@ export default function Home() {
                   <h3>Wanna Work With Our Professional Team? Make an Appointment.</h3>
                 </div>
                 <div className="button float-right">
-                  <Link className="btn-one" to="/contact">Make an Appointment<span className="flaticon-next"></span></Link>
+                  <Link className="btn-one" href="/contact">Make an Appointment<span className="flaticon-next"></span></Link>
                 </div>
               </div>
             </div>

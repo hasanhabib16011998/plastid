@@ -1,5 +1,7 @@
+'use client'
+
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './ApartmentStory.css'
@@ -481,7 +483,7 @@ export default function ApartmentStory() {
         <p className="apt-story__desc" ref={descRef} />
 
         <Link
-          to={STAGES[activeStage]?.cta.to || '/services'}
+          href={STAGES[activeStage]?.cta.to || '/services'}
           className="apt-story__cta"
           ref={ctaRef}
           style={{ alignSelf: 'flex-start' }}

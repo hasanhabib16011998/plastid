@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 
 /**
  * Breadcrumb component
@@ -27,7 +29,7 @@ export default function Breadcrumb({ title, subtitle, crumbs = [], bgImage, styl
                     <ul className="clearfix">
                       {crumbs.map((crumb, i) =>
                         crumb.to ? (
-                          <li key={i}><Link to={crumb.to}>{crumb.label}</Link></li>
+                          <li key={i}><Link href={crumb.to}>{crumb.label}</Link></li>
                         ) : (
                           <li key={i} className="active">{crumb.label}</li>
                         )
@@ -57,7 +59,7 @@ export default function Breadcrumb({ title, subtitle, crumbs = [], bgImage, styl
                   <ul className="clearfix">
                     {crumbs.map((crumb, i) =>
                       crumb.to ? (
-                        <li key={i}><Link to={crumb.to}>{crumb.label}</Link></li>
+                        <li key={i}><Link href={crumb.to}>{crumb.label}</Link></li>
                       ) : (
                         <li key={i} className="active">{crumb.label}</li>
                       )

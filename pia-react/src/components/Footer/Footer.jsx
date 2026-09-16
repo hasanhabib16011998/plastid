@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -14,7 +16,7 @@ export default function Footer() {
               <div className="single-footer-widget marbtm50">
                 <div className="contact-info-box">
                   <div className="footer-logo">
-                    <Link to="/">
+                    <Link href="/">
                       <img src="/images/resources/logo.png" alt="PIA Logo" style={{ width: 'auto', height: '80px', maxWidth: '100%' }} />
                     </Link>
                   </div>
@@ -44,12 +46,12 @@ export default function Footer() {
                 </div>
                 <div className="services-links">
                   <ul>
-                    <li><Link to="/services/concept-designs">Concept Designs</Link></li>
-                    <li><Link to="/services/project-designs">Project Designs</Link></li>
-                    <li><Link to="/services/make-overs">Make Overs</Link></li>
-                    <li><Link to="/services/consulting">Consulting</Link></li>
-                    <li><Link to="/services/glass-wrought">Glass &amp; Wrought</Link></li>
-                    <li><Link to="/services/space-planning">Space Planning</Link></li>
+                    <li><Link href="/services/concept-designs">Concept Designs</Link></li>
+                    <li><Link href="/services/project-designs">Project Designs</Link></li>
+                    <li><Link href="/services/make-overs">Make Overs</Link></li>
+                    <li><Link href="/services/consulting">Consulting</Link></li>
+                    <li><Link href="/services/glass-wrought">Glass &amp; Wrought</Link></li>
+                    <li><Link href="/services/space-planning">Space Planning</Link></li>
                   </ul>
                 </div>
               </div>
@@ -80,7 +82,7 @@ export default function Footer() {
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
               <div className="copyright-text text-center">
                 <p>
-                  Copyright &copy; {currentYear} <Link to="/">Plastid Interior &amp; Architecture</Link>. All Rights Reserved.
+                  Copyright &copy; {currentYear} <Link href="/">Plastid Interior &amp; Architecture</Link>. All Rights Reserved.
                 </p>
               </div>
             </div>

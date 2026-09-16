@@ -63,7 +63,7 @@ services:
       context: ./pia-react
       dockerfile: Dockerfile.prod
     expose:
-      - "5173"
+      - "3000"
     networks:
       - default
       - web-network

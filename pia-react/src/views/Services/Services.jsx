@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -88,7 +90,7 @@ export default function Services() {
                   <div className="text-holder">
                     <h3 style={{ marginBottom: '12px', fontSize: '22px' }}>{s.title}</h3>
                     <p style={{ marginBottom: '20px', color: '#666' }}>{s.text}</p>
-                    <Link className="btn-one" to={`/services/${s.slug}`}>
+                    <Link className="btn-one" href={`/services/${s.slug}`}>
                       Read More<span className="flaticon-next"></span>
                     </Link>
                   </div>
@@ -109,7 +111,7 @@ export default function Services() {
                   <h3>Wanna Work With Our Professional Team? Make an Appointment.</h3>
                 </div>
                 <div className="button float-right">
-                  <Link className="btn-one" to="/contact">Make an Appointment<span className="flaticon-next"></span></Link>
+                  <Link className="btn-one" href="/contact">Make an Appointment<span className="flaticon-next"></span></Link>
                 </div>
               </div>
             </div>

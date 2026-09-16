@@ -1,5 +1,8 @@
+'use client'
+
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { gsap } from 'gsap'
 import './Header.css'
 
@@ -45,7 +48,7 @@ const navItems = [
 ]
 
 export default function Header() {
-  const location = useLocation()
+  const pathname = usePathname()
   const [sticky, setSticky] = useState(false)
   const [glassActive, setGlassActive] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -150,7 +153,7 @@ export default function Header() {
   /* ── Close drawer on route change ── */
   useEffect(() => {
     closeDrawer()
-  }, [location.pathname])
+  }, [pathname])
 
   /* ── Trap focus / close on Escape ── */
   useEffect(() => {
@@ -180,8 +183,8 @@ export default function Header() {
   }
 
   const isActive = (to) => {
-    if (to === '/') return location.pathname === '/'
-    return location.pathname.startsWith(to)
+    if (to === '/') return pathname === '/'
+    return pathname.startsWith(to)
   }
 
   return (
@@ -196,7 +199,7 @@ export default function Header() {
 
                 {/* Logo */}
                 <div className="logo-box-style1 float-left">
-                  <Link to="/">
+                  <Link href="/">
                     <img
                       src="/images/resources/logo.png"
                       style={{ height: '80px', width: 'auto' }}
@@ -215,12 +218,12 @@ export default function Header() {
                             key={item.to}
                             className={`${item.dropdown ? 'dropdown' : ''}${isActive(item.to) ? ' current' : ''}`}
                           >
-                            <Link to={item.to}>{item.label}</Link>
+                            <Link href={item.to}>{item.label}</Link>
                             {item.dropdown && (
                               <ul>
                                 {item.dropdown.map((sub) => (
                                   <li key={sub.to}>
-                                    <Link to={sub.to}>{sub.label}</Link>
+                                    <Link href={sub.to}>{sub.label}</Link>
                                   </li>
                                 ))}
                               </ul>
@@ -341,7 +344,7 @@ export default function Header() {
         {/* Drawer header */}
         <div className="pia-drawer-header">
           <div className="pia-drawer-logo">
-            <Link to="/" onClick={closeDrawer}>
+            <Link href="/" onClick={closeDrawer}>
               <img src="/images/resources/logo.png" alt="PIA logo" />
             </Link>
           </div>
@@ -362,7 +365,7 @@ export default function Header() {
                     /* Item with sub-menu: row with nav link + chevron button */
                     <div className="pia-drawer-item-row">
                       <Link
-                        to={item.to}
+                        href={item.to}
                         onClick={closeDrawer}
                         className="pia-drawer-item-link"
                       >
@@ -378,7 +381,7 @@ export default function Header() {
                       </button>
                     </div>
                   ) : (
-                    <Link to={item.to} onClick={closeDrawer}>
+                    <Link href={item.to} onClick={closeDrawer}>
                       {item.label}
                     </Link>
                   )}
@@ -387,7 +390,7 @@ export default function Header() {
                     <ul className={`pia-drawer-submenu${isOpen ? ' open' : ''}`}>
                       {item.dropdown.map((sub) => (
                         <li key={sub.to}>
-                          <Link to={sub.to} onClick={closeDrawer}>
+                          <Link href={sub.to} onClick={closeDrawer}>
                             {sub.label}
                           </Link>
                         </li>

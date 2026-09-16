@@ -1,4 +1,7 @@
-import { useParams, Link } from 'react-router-dom'
+'use client'
+
+import { useParams } from 'next/navigation'
+import Link from 'next/link'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -46,7 +49,8 @@ const projectsData = {
 const defaultProject = projectsData[1]
 
 export default function ProjectSingle() {
-  const { id } = useParams()
+  const params = useParams()
+  const id = params?.id
   const project = projectsData[parseInt(id)] || { ...defaultProject, title: 'Project Detail' }
 
   return (
@@ -139,14 +143,14 @@ export default function ProjectSingle() {
                 <div style={{ background: '#1F2E23', border: '1px solid #C49B5D', padding: '28px 24px', borderRadius: '8px', textAlign: 'center', marginBottom: '24px' }}>
                   <h4 style={{ color: '#C49B5D', marginBottom: '10px', fontSize: '20px', fontWeight: 600 }}>Start Your Project</h4>
                   <p style={{ color: '#F5F3ED', opacity: 0.9, marginBottom: '18px', fontSize: '14px' }}>Ready to transform your space?</p>
-                  <Link className="btn-one" to="/contact" style={{ width: '100%', justifyContent: 'center' }}>
+                  <Link className="btn-one" href="/contact" style={{ width: '100%', justifyContent: 'center' }}>
                     Contact Us<span className="flaticon-next"></span>
                   </Link>
                 </div>
 
                 {/* Navigation */}
                 <div style={{ display: 'flex' }}>
-                  <Link to="/projects" className="btn-two" style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}>
+                  <Link href="/projects" className="btn-two" style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}>
                     ← Back to All Projects
                   </Link>
                 </div>

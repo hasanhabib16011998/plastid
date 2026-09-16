@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useRef, useEffect } from 'react'
 
 export default function PIADropdown({ name, value, onChange, options, placeholder = 'Select Service' }) {
