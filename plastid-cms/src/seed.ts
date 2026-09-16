@@ -8,10 +8,10 @@
  */
 import 'dotenv/config'
 import { getPayload } from 'payload'
-import config from './payload.config'
+import config from './payload.config.ts'
 
 async function seed() {
-  const payload = await getPayload({ config })
+  const payload = await getPayload({ config: await config })
 
   console.log('🌱 Seeding tenants...')
 

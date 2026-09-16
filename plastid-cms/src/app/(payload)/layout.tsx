@@ -1,6 +1,6 @@
 import { RootLayout } from '@payloadcms/next/layouts'
 import type { ImportMap } from 'payload'
-import configPromise from '@payload-config'
+import configPromise from '../../payload.config'
 import { importMap } from './admin/importMap.js'
 import { serverFunction } from './admin/serverFunction'
 import '@payloadcms/next/css'
@@ -11,10 +11,11 @@ export const metadata = {
 }
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
+  const map: ImportMap = importMap
   return (
     <RootLayout
       config={configPromise}
-      importMap={importMap as ImportMap}
+      importMap={map}
       serverFunction={serverFunction}
     >
       {children}

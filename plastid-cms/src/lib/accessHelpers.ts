@@ -3,15 +3,11 @@
  */
 import type { Access, PayloadRequest } from 'payload'
 
-type UserWithTenants = {
-  isSuperAdmin?: boolean | null
-  tenants?: Array<{ id?: string; slug?: string } | string> | null
-}
-
 /** Check if a user is a super-admin */
 export const isSuperAdmin = (user: PayloadRequest['user']): boolean => {
   if (!user) return false
-  return Boolean((user as UserWithTenants).isSuperAdmin)
+  const u: any = user
+  return Boolean(u.isSuperAdmin)
 }
 
 /** Check if a user has access to a specific tenant slug */
@@ -22,11 +18,11 @@ export const hasAccessToTenant = (
   if (!user) return false
   if (isSuperAdmin(user)) return true
 
-  const typedUser = user as UserWithTenants
-  const tenants = typedUser.tenants
+  const u: any = user
+  const tenants = u.tenants
   if (!tenants || !Array.isArray(tenants)) return false
 
-  return tenants.some((rel) => {
+  return tenants.some((rel: any) => {
     if (typeof rel === 'string') return false
     return rel && typeof rel === 'object' && 'slug' in rel && rel.slug === tenantSlug
   })

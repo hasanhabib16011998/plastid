@@ -8,17 +8,7 @@ import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-
-const teamMembers = [
-  { name: 'Md. Mozammel Hossain', role: 'CEO & Founder', img: '/images/team/v2-1.jpg' },
-  { name: 'Md. Al Rafat', role: 'Managing Director & Quantity Surveyor', img: '/images/team/v2-1.jpg' },
-  { name: 'Hasan Habib', role: 'IT & Digital Marketing', img: '/images/team/v2-1.jpg' },
-  { name: 'Shakirul Islam Shajib', role: '3D Concept Designer', img: '/images/team/v2-1.jpg' },
-  { name: 'Zahedul Islam', role: 'Site Engineer', img: '/images/team/v2-1.jpg' },
-  { name: 'Saad Ibne Hossain', role: 'Procurement', img: '/images/team/v2-1.jpg' },
-  { name: 'Touhidur Rahman Digonto', role: 'Accounts & Finance', img: '/images/team/v2-1.jpg' },
-  { name: 'Md. Mustafizur Rahman', role: 'Graphic Designer', img: '/images/team/v2-1.jpg' },
-]
+import { getPIATeam, getMediaUrl } from '../../lib/payload'
 
 const companyPillars = [
   {
@@ -277,6 +267,24 @@ function CompanyTimeline() {
 
 export default function About() {
   const teamRef = useRef(null)
+  const [teamList, setTeamList] = useState([])
+
+  useEffect(() => {
+    async function fetchTeam() {
+      const cmsTeam = await getPIATeam()
+      if (cmsTeam && cmsTeam.length > 0) {
+        const formatted = cmsTeam.map((m) => ({
+          name: m.name,
+          role: m.role,
+          img: getMediaUrl(m.photo) || '/images/team/v2-1.jpg',
+        }))
+        setTeamList(formatted)
+      } else {
+        setTeamList([])
+      }
+    }
+    fetchTeam()
+  }, [])
 
   useEffect(() => {
     if (teamRef.current) {
@@ -287,7 +295,7 @@ export default function About() {
         { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' }
       )
     }
-  }, [])
+  }, [teamList])
 
   return (
     <div className="boxed_wrapper">
@@ -442,7 +450,12 @@ export default function About() {
           </div>
 
           <div className="row d-flex flex-wrap">
-            {teamMembers.map((m, i) => (
+            {teamList.length === 0 ? (
+              <div className="col-12 text-center" style={{ color: '#888', padding: '30px 0' }}>
+                <p style={{ fontSize: '15px', fontStyle: 'italic' }}>No team members added yet.</p>
+              </div>
+            ) : (
+              teamList.map((m, i) => (
               <div key={i} className="col-xl-3 col-lg-4 col-md-6 col-6 team-card-col d-flex" style={{ marginBottom: '30px' }}>
                 <div
                   className="single-team-member"
@@ -505,7 +518,8 @@ export default function About() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          )}
           </div>
         </div>
       </section>

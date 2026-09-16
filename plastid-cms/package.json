@@ -4,7 +4,7 @@
   "description": "Payload CMS multi-tenant instance for Plastid group of companies",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start",
     "generate:types": "payload generate:types",

@@ -6,7 +6,7 @@
 
 import type { CollectionConfig, CollectionSlug, Field } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { tenantAccess } from '@/lib/accessHelpers'
+import { tenantAccess } from '../lib/accessHelpers'
 
 // ---------------------------------------------------------------------------
 // Shared SEO field group
@@ -53,7 +53,7 @@ const heroFields = (mediaSlug: CollectionSlug): Field[] => [
 // Tenant access factory
 // ---------------------------------------------------------------------------
 const access = (slug: string) => ({
-  read: tenantAccess(slug),
+  read: () => true,
   create: tenantAccess(slug),
   update: tenantAccess(slug),
   delete: tenantAccess(slug),
@@ -70,6 +70,32 @@ export const createMediaCollection = (
   upload: {
     staticDir: `../public/media/${collectionSlug}`,
     mimeTypes: ['image/*', 'application/pdf', 'video/*'],
+    formatOptions: {
+      format: 'webp',
+    },
+    imageSizes: [
+      {
+        name: 'mobile',
+        width: 480,
+        height: undefined,
+      },
+      {
+        name: 'tablet',
+        width: 768,
+        height: undefined,
+      },
+      {
+        name: 'desktop',
+        width: 1200,
+        height: undefined,
+      },
+      {
+        name: 'thumbnail',
+        width: 300,
+        height: 300,
+        crop: 'center',
+      },
+    ],
   },
   admin: {
     group: adminGroup,
@@ -261,22 +287,6 @@ export const createTeamCollection = (
       type: 'upload',
       relationTo: mediaSlug,
       label: 'Profile Photo',
-    },
-    {
-      name: 'bio',
-      type: 'richText',
-      label: 'Biography',
-      editor: lexicalEditor({}),
-    },
-    {
-      name: 'socialLinks',
-      type: 'group',
-      label: 'Social Links',
-      fields: [
-        { name: 'linkedin', type: 'text', label: 'LinkedIn URL' },
-        { name: 'instagram', type: 'text', label: 'Instagram URL' },
-        { name: 'email', type: 'email', label: 'Email' },
-      ],
     },
     {
       name: 'order',

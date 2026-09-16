@@ -2,36 +2,38 @@ import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import sharp from 'sharp'
 
 // Shared collections
-import { Tenants } from '@/collections/shared/Tenants'
-import { Users } from '@/collections/shared/Users'
+import { Tenants } from './collections/shared/Tenants'
+import { Users } from './collections/shared/Users'
 
 // Plastid Interior
 import {
   PIAMedia, PIAPages, PIAProjects, PIAServices,
   PIATeam, PIATestimonials, PIABlog, PIASettings,
-} from '@/collections/plastid-interior'
+} from './collections/plastid-interior'
 
 // Sun Real Estate
 import {
   SREMedia, SREPages, SREProjects, SREServices,
   SRETeam, SRETestimonials, SREBlog, SRESettings,
-} from '@/collections/sun-real-estate'
+} from './collections/sun-real-estate'
 
 // Plastid Digital
 import {
   PDMedia, PDPages, PDProjects, PDServices,
   PDTeam, PDTestimonials, PDBlog, PDSettings,
-} from '@/collections/plastid-digital'
+} from './collections/plastid-digital'
 
 // Plastid Construction
 import {
   PCDMedia, PCDPages, PCDProjects, PCDServices,
   PCDTeam, PCDTestimonials, PCDBlog, PCDSettings,
-} from '@/collections/plastid-construction'
+} from './collections/plastid-construction'
 
 export default buildConfig({
+  sharp,
   // ── Admin UI ──────────────────────────────────────────────────────────────
   admin: {
     user: 'users',
@@ -89,8 +91,8 @@ export default buildConfig({
         region: process.env.S3_REGION || 'us-east-1',
         forcePathStyle: true, // REQUIRED for MinIO
         credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY || '',
-          secretAccessKey: process.env.S3_SECRET_KEY || '',
+          accessKeyId: process.env.S3_ACCESS_KEY || process.env.MINIO_ROOT_USER || 'minioadmin',
+          secretAccessKey: process.env.S3_SECRET_KEY || process.env.MINIO_ROOT_PASSWORD || 'minioadmin_secure_password',
         },
       },
     }),
@@ -100,24 +102,26 @@ export default buildConfig({
   cors: [
     'http://localhost:3000',
     'http://localhost:3001',
+    'http://localhost:4000',
     process.env.PLASTID_INTERIOR_URL,
     process.env.SUN_REAL_ESTATE_URL,
     process.env.PLASTID_DIGITAL_URL,
     process.env.PLASTID_CONSTRUCTION_URL,
-  ].filter(Boolean) as string[],
+  ].filter((url): url is string => Boolean(url)),
 
   // ── CSRF protection ────────────────────────────────────────────────────────
   csrf: [
     'http://localhost:3000',
     'http://localhost:3001',
+    'http://localhost:4000',
     process.env.PLASTID_INTERIOR_URL,
     process.env.SUN_REAL_ESTATE_URL,
     process.env.PLASTID_DIGITAL_URL,
     process.env.PLASTID_CONSTRUCTION_URL,
-  ].filter(Boolean) as string[],
+  ].filter((url): url is string => Boolean(url)),
 
   // ── Server URL ────────────────────────────────────────────────────────────
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:4000',
 
   // ── Secret (JWT signing) ──────────────────────────────────────────────────
   secret: process.env.PAYLOAD_SECRET || 'change-me-in-production',

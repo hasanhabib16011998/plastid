@@ -14,11 +14,11 @@ import {
   createTestimonialsCollection,
   createBlogCollection,
   createSettingsCollection,
-} from '@/collections/collectionFactory'
+} from '../collectionFactory'
 
 const GROUP = 'Plastid Interior'
-const MEDIA = 'pia-media' as CollectionSlug
-const TEAM  = 'pia-team'  as CollectionSlug
+const MEDIA: CollectionSlug = 'pia-media'
+const TEAM: CollectionSlug  = 'pia-team'
 
 export const PIAMedia        = createMediaCollection('pia-media', GROUP)
 export const PIAPages        = createPagesCollection('pia-pages', GROUP, MEDIA)

@@ -14,11 +14,11 @@ import {
   createTestimonialsCollection,
   createBlogCollection,
   createSettingsCollection,
-} from '@/collections/collectionFactory'
+} from '../collectionFactory'
 
 const GROUP = 'Sun Real Estate'
-const MEDIA = 'sre-media' as CollectionSlug
-const TEAM  = 'sre-team'  as CollectionSlug
+const MEDIA: CollectionSlug = 'sre-media'
+const TEAM: CollectionSlug  = 'sre-team'
 
 export const SREMedia        = createMediaCollection('sre-media', GROUP)
 export const SREPages        = createPagesCollection('sre-pages', GROUP, MEDIA)

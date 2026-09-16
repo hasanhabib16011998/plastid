@@ -1,5 +1,5 @@
 import { REST_DELETE, REST_GET, REST_OPTIONS, REST_PATCH, REST_POST, REST_PUT } from '@payloadcms/next/routes'
-import configPromise from '@payload-config'
+import configPromise from '../../../../payload.config'
 
 // Payload REST routes are curried: handler(config) returns a Next.js route handler
 export const GET     = REST_GET(configPromise)

@@ -14,11 +14,11 @@ import {
   createTestimonialsCollection,
   createBlogCollection,
   createSettingsCollection,
-} from '@/collections/collectionFactory'
+} from '../collectionFactory'
 
 const GROUP = 'Plastid Digital'
-const MEDIA = 'pd-media' as CollectionSlug
-const TEAM  = 'pd-team'  as CollectionSlug
+const MEDIA: CollectionSlug = 'pd-media'
+const TEAM: CollectionSlug  = 'pd-team'
 
 export const PDMedia        = createMediaCollection('pd-media', GROUP)
 export const PDPages        = createPagesCollection('pd-pages', GROUP, MEDIA)
