@@ -63,7 +63,7 @@ export default function Projects() {
 
       <Breadcrumb
         style="style2"
-        title="More than 2300 Projects"
+        title="Signature Projects & Portfolio"
         subtitle="Our Projects"
         bgImage="/images/resources/breadcrumb-bg-2.jpg"
         crumbs={[
@@ -234,9 +234,14 @@ export default function Projects() {
                           <p
                             style={{
                               color: 'rgba(245, 243, 237, 0.85)',
-                              fontSize: '12.5px',
-                              lineHeight: '1.5',
+                              fontSize: '12px',
+                              lineHeight: '1.4',
                               margin: 0,
+                              display: '-webkit-box',
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: 'vertical',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
                             }}
                           >
                             {p.summary}

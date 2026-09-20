@@ -1,33 +1,191 @@
 /* ================================================
-   PIA React - Mobile Navbar Enhancement
-   Design Language: Deep Forest Velvet
+   PIA React - Glass Navbar & Desktop Theme Styling
+   Design Language: Deep Forest Glassmorphic Velvet
    Colors: #1F2E23 (forest), #C49B5D (brass), #F5F3ED (alabaster)
    ================================================ */
+
+/* ── PERMANENT GLASS HEADER ──────────────────────── */
+.main-header.header-style1 {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+/* Hide lower white header bar completely */
+.header-lower-style1 {
+  display: none !important;
+}
+
+.header-upper-style1 {
+  background: rgba(31, 46, 35, 0.78) !important;
+  backdrop-filter: blur(20px) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.6) !important;
+  border-bottom: 1px solid rgba(196, 155, 93, 0.28) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35) !important;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.header-upper-style1 .inner-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80px;
+}
+
+.header-upper-style1 .logo-box-style1 img {
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+}
+
+/* ── DESKTOP NAVIGATION STYLING (≥ 992px) ────────── */
+@media only screen and (min-width: 992px) {
+  .main-menu .navigation {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .main-menu .navigation > li {
+    position: relative;
+    float: none;
+    margin-right: 0 !important;
+  }
+
+  .main-menu .navigation > li > a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: #F5F3ED !important;
+    font-family: 'Rubik', 'Inter', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 30px 0 !important;
+    transition: color 0.3s ease;
+  }
+
+  /* Sleek Gold Accent Underline for Current / Active Item */
+  .main-menu .navigation > li > a::before {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #C49B5D;
+    border-radius: 2px;
+    transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 0 8px rgba(196, 155, 93, 0.6);
+  }
+
+  .main-menu .navigation > li.current > a::before,
+  .main-menu .navigation > li:hover > a::before {
+    width: 100%;
+  }
+
+  .main-menu .navigation > li:hover > a,
+  .main-menu .navigation > li.current > a {
+    color: #C49B5D !important;
+  }
+
+  /* ── DROPDOWN SUBMENU BOX ── */
+  .main-menu .navigation > li > ul {
+    position: absolute;
+    left: -12px;
+    top: 100%;
+    width: 240px;
+    background: rgba(31, 46, 35, 0.96) !important;
+    backdrop-filter: blur(18px) saturate(1.6);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    border: 1px solid rgba(196, 155, 93, 0.35) !important;
+    border-radius: 8px;
+    padding: 8px 0 !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.3s ease !important;
+    z-index: 100;
+  }
+
+  .main-menu .navigation > li > ul::before {
+    display: none !important;
+  }
+
+  .main-menu .navigation > li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .main-menu .navigation > li > ul > li {
+    display: block;
+    float: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-menu .navigation > li > ul > li > a {
+    display: flex;
+    align-items: center;
+    color: rgba(245, 243, 237, 0.9) !important;
+    font-family: 'Rubik', 'Inter', sans-serif;
+    font-size: 13.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    text-transform: capitalize !important;
+    padding: 12px 20px !important;
+    border-bottom: 1px solid rgba(196, 155, 93, 0.12) !important;
+    transition: color 0.25s ease, background 0.25s ease, padding-left 0.25s ease !important;
+  }
+
+  .main-menu .navigation > li > ul > li > a::after {
+    display: none !important;
+  }
+
+  .main-menu .navigation > li > ul > li:last-child > a {
+    border-bottom: none !important;
+  }
+
+  .main-menu .navigation > li > ul > li > a:hover {
+    color: #C49B5D !important;
+    background: rgba(196, 155, 93, 0.12) !important;
+    padding-left: 28px !important;
+  }
+}
 
 /* ── HAMBURGER BUTTON ─────────────────────────── */
 .pia-hamburger {
   display: none;
-  /* Fixed to the viewport — completely independent of any parent
-     clip-path or stacking context (GSAP safe) */
   position: fixed;
-  top: 22px;
+  top: 18px;
   right: 16px;
   width: 44px;
   height: 44px;
   cursor: pointer;
-  background: transparent;
-  border: none;
+  background: rgba(31, 46, 35, 0.6);
+  border: 1px solid rgba(196, 155, 93, 0.4);
   padding: 0;
-  /* Must be above everything */
   z-index: 10000000001;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  transition: background 0.25s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .pia-hamburger:hover {
-  background: rgba(196, 155, 93, 0.12);
+  background: rgba(196, 155, 93, 0.25);
+  border-color: #C49B5D;
 }
 
 .pia-hamburger:focus-visible {
@@ -48,7 +206,7 @@
   display: block;
   height: 2px;
   width: 100%;
-  background: #1F2E23;
+  background: #FFFFFF !important;
   border-radius: 2px;
   transform-origin: center;
   transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
@@ -74,9 +232,9 @@
 .pia-mobile-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(31, 46, 35, 0.45);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: rgba(31, 46, 35, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 9998;
   opacity: 0;
   visibility: hidden;
@@ -102,11 +260,12 @@
   overflow-y: auto;
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.35s ease;
-  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.35);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   visibility: hidden;
   pointer-events: none;
+  border-left: 1px solid rgba(196, 155, 93, 0.3);
 }
 
 .pia-mobile-drawer.slide-in {
@@ -132,7 +291,6 @@
 .pia-drawer-logo img {
   height: 56px;
   width: auto;
-  /* apply a brightness filter so the dark logo is visible on dark bg */
   filter: brightness(0) invert(1);
   opacity: 0.92;
 }
@@ -351,168 +509,28 @@
   transform: translateY(-2px);
 }
 
-/* ── DESKTOP STICKY NAVBAR & GLASSMORPHISM ── */
-@media only screen and (min-width: 992px) {
-
-  /* Default relative header */
-  .main-header.header-style1 {
-    position: relative !important;
-  }
-
-  /* When the glass-active class is applied, make the upper header sticky & glass */
-  .header-upper-style1.glass-active {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-    background: rgba(31, 46, 35, 0.42) !important;
-    backdrop-filter: blur(18px) saturate(1.5);
-    -webkit-backdrop-filter: blur(18px) saturate(1.5);
-    border-bottom: 1px solid rgba(196, 155, 93, 0.22);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
-  }
-
-  /* Make inner container transparent to reveal glass background */
-  .header-upper-style1.glass-active .inner-container {
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-
-  /* Invert logo so it's readable on dark glass */
-  .header-upper-style1.glass-active .logo-box-style1 img {
-    filter: brightness(0) invert(1);
-    opacity: 0.95;
-    transition: filter 0.3s ease, opacity 0.3s ease;
-  }
-
-  /* Update navigation links color to be readable on dark glass */
-  .header-upper-style1.glass-active .main-menu .navigation>li>a {
-    color: #F5F3ED;
-    transition: color 0.3s ease;
-  }
-
-  .header-upper-style1.glass-active .main-menu .navigation>li:hover>a,
-  .header-upper-style1.glass-active .main-menu .navigation>li.current>a {
-    color: #C49B5D;
-  }
-}
-
-/* ── MOBILE HEADER REDESIGN (≤ 991px) ────────────── */
+/* ── MOBILE NAVBAR BREAKPOINT (≤ 991px) ────────────── */
 @media only screen and (max-width: 991px) {
-
-  /* ── Show hamburger ── */
   .pia-hamburger {
     display: flex;
   }
 
-  /* ── Hide the original desktop nav ── */
   .main-menu-box {
     display: none !important;
   }
 
-  /* ── Make the whole header position:fixed so it sticks on scroll ── */
-  .main-header.header-style1 {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9000;
-  }
-
-  /* ── Hide the lower contact bar on mobile ── */
-  .header-lower-style1 {
-    display: none !important;
-  }
-
-  /* ── The upper nav bar: fully transparent initially ── */
-  .header-upper-style1 {
-    background: transparent !important;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border-bottom: 1px solid transparent;
-    opacity: 1;
-    /* No clip-path here — GSAP fromTo sets the start state */
-    transition: none;
-  }
-
-  /* ── Inner container: transparent — parent provides all bg ── */
   .header-upper-style1 .inner-container {
     position: relative;
     padding: 0 16px !important;
-    min-height: 66px;
-    background: transparent !important;
-    box-shadow: none !important;
-    z-index: 1 !important;
-    display: flex;
-    align-items: center;
+    min-height: 70px;
   }
 
-  /* Logo: centred vertically, sits inside header-upper-style1 */
   .logo-box-style1 {
     position: absolute;
     top: 50%;
     left: 16px;
     transform: translateY(-50%);
     float: none !important;
-    z-index: 33;
-  }
-
-  /* Logo inverted to white — always readable on dark hero */
-  .logo-box-style1 img {
-    filter: brightness(0) invert(1);
-    opacity: 0.95;
-    transition: opacity 0.35s ease;
-  }
-
-  /* Hamburger bars: white */
-  .pia-hamburger-box span {
-    background: #ffffff;
-  }
-
-  /* ── GLASS-ACTIVE STATE (applied by GSAP scroll trigger) ── */
-  .header-upper-style1.glass-active {
-    background: rgba(31, 46, 35, 0.42) !important;
-    backdrop-filter: blur(18px) saturate(1.5);
-    -webkit-backdrop-filter: blur(18px) saturate(1.5);
-    border-bottom: 1px solid rgba(196, 155, 93, 0.22);
-    /* clip-path reset is animated by GSAP, not CSS */
-  }
-
-  /* Deeper glass when sticky/scrolled further */
-  .main-header.header-style1.fixed-header .header-upper-style1.glass-active {
-    background: rgba(31, 46, 35, 0.78) !important;
-    backdrop-filter: blur(22px) saturate(1.7);
-    -webkit-backdrop-filter: blur(22px) saturate(1.7);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28) !important;
-    border-bottom: 1px solid rgba(196, 155, 93, 0.3);
-    height: 90px;
-  }
-
-  /* Inner container in fixed state stays transparent */
-  .main-header.header-style1.fixed-header .header-upper-style1 .inner-container {
-    background: transparent !important;
-    box-shadow: none !important;
-    z-index: 1 !important;
-  }
-
-  /* Logo stays white */
-  .main-header.header-style1.fixed-header .logo-box-style1 img {
-    opacity: 1;
-  }
-
-}
-
-/* ── Compensate for the fixed mobile header ─────── */
-@media only screen and (max-width: 991px) {
-
-  /* Push page content down by the header height so hero starts below it.
-     This targets the first sibling after the header (the main content wrapper). */
-  body>#root>div>main,
-  body>#root>.page-wrapper,
-  body>#root>div>.page-wrapper,
-  body>#root>div>.wrapper {
-    padding-top: 66px;
   }
 }
 
