@@ -103,7 +103,7 @@ export default function Header() {
                   <Link href="/">
                     <img
                       src="/images/resources/logo.png"
-                      style={{ height: '70px', width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.95 }}
+                      style={{ height: '70px', width: 'auto' , marginTop: '3px' }}
                       alt="PIA logo"
                     />
                   </Link>
@@ -259,7 +259,7 @@ export default function Header() {
           </a>
           <div className="pia-drawer-social">
             <a
-              href="https://www.facebook.com/profile.php?id=61555749343330"
+              href="https://www.facebook.com/plastid.interior"
               target="_blank"
               rel="noreferrer"
               aria-label="Facebook"
