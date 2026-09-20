@@ -104,6 +104,11 @@ export const PIAProjects: CollectionConfig = {
       editor: lexicalEditor({}),
     },
     { name: 'client', type: 'text', label: 'Client Name' },
+    { name: 'location', type: 'text', label: 'Location' },
+    { name: 'area', type: 'text', label: 'Project Area (e.g. 3,500 sqft)' },
+    { name: 'duration', type: 'text', label: 'Duration (e.g. 6 Months)' },
+    { name: 'challenge', type: 'textarea', label: 'The Challenge' },
+    { name: 'solution', type: 'textarea', label: 'Our Solution' },
     {
       name: 'year',
       type: 'number',

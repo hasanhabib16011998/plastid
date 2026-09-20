@@ -84,14 +84,21 @@ export function formatProject(doc) {
   const tag = category.toLowerCase()
   const img = getMediaUrl(doc.thumbnail) || ''
   
-  let galleryImgs = []
+  let galleryItems = []
   if (Array.isArray(doc.images) && doc.images.length > 0) {
-    galleryImgs = doc.images
-      .map((item) => getMediaUrl(item.image || item))
+    galleryItems = doc.images
+      .map((item) => {
+        const url = getMediaUrl(item?.image || item)
+        const caption = item?.caption || ''
+        return url ? { url, caption } : null
+      })
       .filter(Boolean)
   }
+  
+  let galleryImgs = galleryItems.map((gi) => gi.url)
   if (galleryImgs.length === 0 && img) {
     galleryImgs = [img]
+    galleryItems = [{ url: img, caption: '' }]
   }
 
   const fullDescription = extractTextFromLexical(doc.description) || doc.summary || ''
@@ -106,15 +113,16 @@ export function formatProject(doc) {
     mainImg: img,
     summary: doc.summary || (fullDescription.length > 120 ? fullDescription.slice(0, 120) + '...' : fullDescription),
     description: fullDescription || 'No description available for this project.',
-    challenge: doc.challenge || '',
-    solution: doc.solution || '',
+    challenge: typeof doc.challenge === 'object' ? extractTextFromLexical(doc.challenge) : (doc.challenge || ''),
+    solution: typeof doc.solution === 'object' ? extractTextFromLexical(doc.solution) : (doc.solution || ''),
     client: doc.client || 'N/A',
-    location: doc.location || 'N/A',
-    area: doc.area || (doc.year ? `Completed in ${doc.year}` : 'N/A'),
-    duration: doc.duration || 'N/A',
+    location: doc.location || '',
+    area: doc.area || '',
+    duration: doc.duration || '',
+    year: doc.year ? String(doc.year) : 'N/A',
     galleryImgs: galleryImgs,
-    year: doc.year,
-    tags: Array.isArray(doc.tags) ? doc.tags.map((t) => t.tag || t) : [],
+    galleryItems: galleryItems,
+    tags: Array.isArray(doc.tags) ? doc.tags.map((t) => (typeof t === 'string' ? t : t?.tag)).filter(Boolean) : [],
   }
 }
 
