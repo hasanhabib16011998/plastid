@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Header from '../../components/Header/Header'
@@ -7,51 +8,75 @@ import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-
-const projectsData = {
-  1: {
-    title: 'Modern Living Room',
-    category: 'Residential',
-    client: 'Private Client',
-    location: 'Dhaka, Bangladesh',
-    area: '1,200 sq ft',
-    duration: '45 Days',
-    mainImg: '/images/projects/lat-pro-1.jpg',
-    galleryImgs: [
-      '/images/projects/v1-1.jpg',
-      '/images/projects/v1-2.jpg',
-      '/images/projects/v1-3.jpg',
-    ],
-    description: 'A stunning modern living room transformation that combines clean lines with warm textures. This project showcases our ability to create spaces that are both aesthetically beautiful and highly functional for everyday living.',
-    challenge: 'The primary challenge was transforming an outdated, compartmentalized layout into an open-plan living space while maintaining structural integrity and meeting the client\'s budget constraints.',
-    solution: 'We developed a creative solution by removing non-load-bearing walls to open the floor plan, introducing a neutral color palette with golden accents, and using custom-designed furniture pieces to optimize the space.',
-  },
-  2: {
-    title: 'Office Partition Walls',
-    category: 'Commercial',
-    client: 'Corporate Client',
-    location: 'Dhaka, Bangladesh',
-    area: '3,500 sq ft',
-    duration: '60 Days',
-    mainImg: '/images/projects/lat-pro-2.jpg',
-    galleryImgs: [
-      '/images/projects/v2-1.jpg',
-      '/images/projects/v2-2.jpg',
-      '/images/projects/v2-3.jpg',
-    ],
-    description: 'A comprehensive office redesign featuring elegant glass partition walls that create privacy without sacrificing natural light. This project demonstrates our commercial interior expertise.',
-    challenge: 'The client needed to create distinct work zones for different departments while maintaining an open, collaborative feel and maximizing natural light throughout the space.',
-    solution: 'We implemented a system of frosted glass partitions with aluminum framing, combined with strategic furniture placement to create acoustic barriers while preserving visual connectivity.',
-  },
-}
-
-// Fallback project for IDs not in data
-const defaultProject = projectsData[1]
+import { getPIAProjectByIdOrSlug } from '../../lib/payload'
 
 export default function ProjectSingle() {
   const params = useParams()
-  const id = params?.id
-  const project = projectsData[parseInt(id)] || { ...defaultProject, title: 'Project Detail' }
+  const idOrSlug = params?.id
+
+  const [project, setProject] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadProject() {
+      if (!idOrSlug) {
+        setLoading(false)
+        return
+      }
+      try {
+        const cmsProject = await getPIAProjectByIdOrSlug(idOrSlug)
+        setProject(cmsProject || null)
+      } catch (err) {
+        console.error('Failed to load project details from Payload CMS:', err)
+        setProject(null)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadProject()
+  }, [idOrSlug])
+
+  if (loading) {
+    return (
+      <div className="boxed_wrapper">
+        <PIALoader />
+        <Header />
+        <div style={{ padding: '120px 0', textAlign: 'center' }}>
+          <p>Loading project details...</p>
+        </div>
+        <Footer />
+      </div>
+    )
+  }
+
+  if (!project) {
+    return (
+      <div className="boxed_wrapper">
+        <Header />
+        <Breadcrumb
+          style="style2"
+          title="Project Not Found"
+          subtitle="Project Detail"
+          bgImage="/images/resources/breadcrumb-bg-2.jpg"
+          crumbs={[
+            { label: 'Home', to: '/' },
+            { label: 'Projects', to: '/projects' },
+            { label: 'Not Found' },
+          ]}
+        />
+        <section style={{ padding: '80px 0', textAlign: 'center' }}>
+          <div className="container">
+            <h2 style={{ fontSize: '28px', color: '#1F2E23', marginBottom: '16px' }}>Project Not Found</h2>
+            <p style={{ color: '#666', marginBottom: '24px' }}>The requested project could not be found.</p>
+            <Link href="/projects" className="btn-one">
+              Back to All Projects <span className="flaticon-next"></span>
+            </Link>
+          </div>
+        </section>
+        <Footer />
+      </div>
+    )
+  }
 
   return (
     <div className="boxed_wrapper">
@@ -87,36 +112,46 @@ export default function ProjectSingle() {
               </div>
 
               {/* Challenge & Solution */}
-              <div className="row d-flex flex-wrap" style={{ marginBottom: '25px' }}>
-                <div className="col-xl-6 col-lg-6 col-md-6 col-12 d-flex" style={{ marginBottom: '16px' }}>
-                  <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '8px', width: '100%', borderLeft: '4px solid #1F2E23' }}>
-                    <h4 style={{ color: '#1F2E23', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>The Challenge</h4>
-                    <p style={{ color: '#666', lineHeight: 1.65, fontSize: '14px', margin: 0 }}>{project.challenge}</p>
-                  </div>
+              {(project.challenge || project.solution) && (
+                <div className="row d-flex flex-wrap" style={{ marginBottom: '25px' }}>
+                  {project.challenge && (
+                    <div className="col-xl-6 col-lg-6 col-md-6 col-12 d-flex" style={{ marginBottom: '16px' }}>
+                      <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '8px', width: '100%', borderLeft: '4px solid #1F2E23' }}>
+                        <h4 style={{ color: '#1F2E23', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>The Challenge</h4>
+                        <p style={{ color: '#666', lineHeight: 1.65, fontSize: '14px', margin: 0 }}>{project.challenge}</p>
+                      </div>
+                    </div>
+                  )}
+                  {project.solution && (
+                    <div className="col-xl-6 col-lg-6 col-md-6 col-12 d-flex" style={{ marginBottom: '16px' }}>
+                      <div style={{ background: '#1F2E23', padding: '24px', borderRadius: '8px', width: '100%', borderLeft: '4px solid #C49B5D' }}>
+                        <h4 style={{ color: '#C49B5D', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>Our Solution</h4>
+                        <p style={{ color: '#F5F3ED', opacity: 0.9, lineHeight: 1.65, fontSize: '14px', margin: 0 }}>{project.solution}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <div className="col-xl-6 col-lg-6 col-md-6 col-12 d-flex" style={{ marginBottom: '16px' }}>
-                  <div style={{ background: '#1F2E23', padding: '24px', borderRadius: '8px', width: '100%', borderLeft: '4px solid #C49B5D' }}>
-                    <h4 style={{ color: '#C49B5D', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>Our Solution</h4>
-                    <p style={{ color: '#F5F3ED', opacity: 0.9, lineHeight: 1.65, fontSize: '14px', margin: 0 }}>{project.solution}</p>
-                  </div>
-                </div>
-              </div>
+              )}
 
               {/* Gallery */}
-              <h3 style={{ marginBottom: '16px', fontSize: '20px', color: '#1F2E23', fontWeight: 700 }}>Project Gallery</h3>
-              <div className="row">
-                {project.galleryImgs.map((img, i) => (
-                  <div key={i} className="col-xl-4 col-md-4 col-6" style={{ marginBottom: '16px' }}>
-                    <div style={{ borderRadius: '6px', overflow: 'hidden', height: '160px', background: '#1F2E23' }}>
-                      <img
-                        src={img}
-                        alt={`Gallery ${i + 1}`}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    </div>
+              {project.galleryImgs && project.galleryImgs.length > 0 && (
+                <>
+                  <h3 style={{ marginBottom: '16px', fontSize: '20px', color: '#1F2E23', fontWeight: 700 }}>Project Gallery</h3>
+                  <div className="row">
+                    {project.galleryImgs.map((img, i) => (
+                      <div key={i} className="col-xl-4 col-md-4 col-6" style={{ marginBottom: '16px' }}>
+                        <div style={{ borderRadius: '6px', overflow: 'hidden', height: '160px', background: '#1F2E23' }}>
+                          <img
+                            src={img}
+                            alt={`Gallery ${i + 1}`}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </>
+              )}
             </div>
 
             {/* Sidebar */}

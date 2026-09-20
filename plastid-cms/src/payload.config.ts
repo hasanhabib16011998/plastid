@@ -2,7 +2,6 @@ import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import sharp from 'sharp'
 
 // Shared collections
 import { Tenants } from './collections/shared/Tenants'
@@ -33,7 +32,6 @@ import {
 } from './collections/plastid-construction'
 
 export default buildConfig({
-  sharp,
   // ── Admin UI ──────────────────────────────────────────────────────────────
   admin: {
     user: 'users',

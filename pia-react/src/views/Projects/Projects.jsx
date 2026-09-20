@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Header from '../../components/Header/Header'
@@ -8,43 +8,49 @@ import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-
-const allProjects = [
-  { id: 1, img: '/images/projects/lat-pro-1.jpg', category: 'Residential', title: 'Modern Living Room', tag: 'residential', summary: 'Bespoke living room transformation with custom lighting and Italian marble.' },
-  { id: 2, img: '/images/projects/lat-pro-2.jpg', category: 'Commercial', title: 'Office Partition Walls', tag: 'commercial', summary: 'Acoustic glass partition systems maximizing natural light and privacy.' },
-  { id: 3, img: '/images/projects/lat-pro-3.jpg', category: 'Residential', title: 'Master Bedroom Suite', tag: 'residential', summary: 'Luxury master suite featuring custom teak woodwork and ambient lighting.' },
-  { id: 4, img: '/images/projects/lat-pro-4.jpg', category: 'Commercial', title: 'Corporate Reception', tag: 'commercial', summary: 'High-impact reception area reflecting modern brand identity and elegance.' },
-  { id: 5, img: '/images/projects/lat-pro-5.jpg', category: 'Residential', title: 'Kitchen Renovation', tag: 'residential', summary: 'Ergonomic modular kitchen design with premium marble countertops.' },
-  { id: 6, img: '/images/projects/v1-1.jpg', category: 'Residential', title: 'Luxury Apartment', tag: 'residential', summary: 'Full turnkey apartment interior blending modern aesthetic with comfort.' },
-  { id: 7, img: '/images/projects/v1-2.jpg', category: 'Commercial', title: 'Restaurant Interior', tag: 'commercial', summary: 'Boutique dining atmosphere with tailored seating and mood lighting.' },
-  { id: 8, img: '/images/projects/v1-3.jpg', category: 'Industrial', title: 'Factory Renovation', tag: 'industrial', summary: 'Optimized industrial workspace enhancing workflow efficiency.' },
-  { id: 9, img: '/images/projects/v1-4.jpg', category: 'Residential', title: 'Dining Area Design', tag: 'residential', summary: 'Warm family dining space with handcrafted teak furnishings.' },
-  { id: 10, img: '/images/projects/v1-5.jpg', category: 'Commercial', title: 'Boutique Hotel Lobby', tag: 'commercial', summary: 'Opulent hotel entrance design crafting unforgettable first impressions.' },
-  { id: 11, img: '/images/projects/v1-6.jpg', category: 'Residential', title: 'Home Study Room', tag: 'residential', summary: 'Quiet, ergonomic home office space designed for focus and productivity.' },
-  { id: 12, img: '/images/projects/v1-7.jpg', category: 'Industrial', title: 'Warehouse Office', tag: 'industrial', summary: 'Modern administrative hub integrated within industrial facility.' },
-]
-
-const filters = ['all', 'residential', 'commercial', 'industrial']
+import { getPIAProjects } from '../../lib/payload'
 
 export default function Projects() {
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
   const [activeFilter, setActiveFilter] = useState('all')
   const [activeCardId, setActiveCardId] = useState(null)
   const router = useRouter()
 
+  useEffect(() => {
+    async function loadProjects() {
+      try {
+        const cmsProjects = await getPIAProjects()
+        setProjects(cmsProjects || [])
+      } catch (err) {
+        console.error('Failed to load projects from Payload CMS:', err)
+        setProjects([])
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadProjects()
+  }, [])
+
+  // Build dynamic categories based on available projects
+  const categoryTags = Array.from(new Set(projects.map((p) => p.tag).filter(Boolean)))
+  const filters = ['all', ...categoryTags]
+
   const filtered = activeFilter === 'all'
-    ? allProjects
-    : allProjects.filter(p => p.tag === activeFilter)
+    ? projects
+    : projects.filter((p) => p.tag === activeFilter)
 
   const handleCardClick = (e, p) => {
+    const targetId = p.slug || p.id
     // If click was on View Details button, navigate directly
     if (e.target.closest('.view-details-btn')) {
-      router.push(`/projects/${p.id}`)
+      router.push(`/projects/${targetId}`)
       return
     }
 
     // Toggle card overlay on tap/click
     if (activeCardId === p.id) {
-      router.push(`/projects/${p.id}`)
+      router.push(`/projects/${targetId}`)
     } else {
       setActiveCardId(p.id)
     }
@@ -242,7 +248,7 @@ export default function Projects() {
                             className="view-details-btn"
                             onClick={(e) => {
                               e.stopPropagation()
-                              router.push(`/projects/${p.id}`)
+                              router.push(`/projects/${p.slug || p.id}`)
                             }}
                             style={{
                               width: '100%',

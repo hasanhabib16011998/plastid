@@ -9,6 +9,7 @@ import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
+import { getPIAProjects } from '../../lib/payload'
 
 // ─── Hero Slider Data ─────────────────────────────────────
 const slides = [
@@ -79,14 +80,6 @@ const workingAreas = [
   },
 ]
 
-// ─── Recent Projects Data ──────────────────────────────────
-const recentProjects = [
-  { img: '/images/projects/lat-pro-1.jpg', category: 'Modern Design', title: 'Office Partition Walls' },
-  { img: '/images/projects/lat-pro-2.jpg', category: 'Modern Design', title: 'Office Partition Walls' },
-  { img: '/images/projects/lat-pro-3.jpg', category: 'Modern Design', title: 'Office Partition Walls' },
-  { img: '/images/projects/lat-pro-4.jpg', category: 'Modern Design', title: 'Office Partition Walls' },
-  { img: '/images/projects/lat-pro-5.jpg', category: 'Modern Design', title: 'Office Partition Walls' },
-]
 
 // ─── Working Process ────────────────────────────────────────
 const workingProcess = [
@@ -530,11 +523,25 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
 
 // ─── Projects Carousel ──────────────────────────────────────
 function ProjectsCarousel() {
+  const [recentProjects, setRecentProjects] = useState([])
   const [index, setIndex]          = useState(0)
   const [visibleCount, setVisible] = useState(3)
   const containerRef = useRef(null)
   const trackRef     = useRef(null)
   const GAP          = 20
+
+  useEffect(() => {
+    async function loadRecent() {
+      try {
+        const cmsProjects = await getPIAProjects()
+        setRecentProjects(cmsProjects || [])
+      } catch (err) {
+        console.error('Failed to load recent projects from Payload CMS:', err)
+        setRecentProjects([])
+      }
+    }
+    loadRecent()
+  }, [])
 
   const isMouseDraggingRef = useRef(false)
   const mouseDragDataRef   = useRef({
@@ -807,7 +814,7 @@ function ProjectsCarousel() {
               <div className="overlay-content">
                 <div className="inner-content">
                   <div className="link-box">
-                    <Link className="btn-one" href="/projects">Case Study<span className="flaticon-next"></span></Link>
+                    <Link className="btn-one" href={`/projects/${p.slug || p.id}`}>Case Study<span className="flaticon-next"></span></Link>
                   </div>
                 </div>
               </div>
