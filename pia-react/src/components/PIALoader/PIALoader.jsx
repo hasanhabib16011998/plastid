@@ -134,17 +134,22 @@ export default function PIALoader() {
     document.body.classList.add('loading-active')
 
     let dismissed = false
+    const startTime = Date.now()
+    const minDisplayMs = 500 // Ensures loader is smoothly visible during rendering
 
     const dismissLoader = () => {
       if (dismissed) return
       dismissed = true
 
-      requestAnimationFrame(() => {
+      const elapsed = Date.now() - startTime
+      const remainingMs = Math.max(0, minDisplayMs - elapsed)
+
+      setTimeout(() => {
         if (wrapRef.current) {
           gsap.to(wrapRef.current, {
             opacity: 0,
-            scale: 1.03,
-            duration: 0.45,
+            scale: 1.02,
+            duration: 0.4,
             ease: 'power2.inOut',
             onComplete: () => {
               document.body.classList.remove('loading-active')
@@ -156,15 +161,14 @@ export default function PIALoader() {
           document.body.classList.remove('loading-active')
           setMounted(false)
         }
-      })
+      }, remainingMs)
     }
 
     if (document.readyState === 'complete') {
       dismissLoader()
     } else {
       window.addEventListener('load', dismissLoader, { once: true })
-      // Fallback max cap in case an external asset hangs
-      const fallbackTimer = setTimeout(dismissLoader, 1800)
+      const fallbackTimer = setTimeout(dismissLoader, 1600)
       return () => {
         window.removeEventListener('load', dismissLoader)
         clearTimeout(fallbackTimer)
