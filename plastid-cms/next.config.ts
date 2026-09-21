@@ -2,6 +2,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   // Allow serving media from MinIO in dev and disable image optimization
   images: {
     unoptimized: true,
