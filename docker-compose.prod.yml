@@ -61,7 +61,7 @@ services:
     container_name: plastid-cms-prod
     build:
       context: ./plastid-cms
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     expose:
       - "4000"
     ports:
