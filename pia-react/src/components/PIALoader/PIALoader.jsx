@@ -131,6 +131,12 @@ export default function PIALoader() {
   const [mounted, setMounted] = useState(true)
 
   useEffect(() => {
+    // Skip loader on internal route transitions if already loaded in session
+    if (typeof window !== 'undefined' && sessionStorage.getItem('pia_initial_loaded')) {
+      setMounted(false)
+      return
+    }
+
     document.body.classList.add('loading-active')
 
     let dismissed = false
@@ -154,12 +160,14 @@ export default function PIALoader() {
             onComplete: () => {
               if (wrapRef.current) wrapRef.current.style.display = 'none'
               document.body.classList.remove('loading-active')
+              try { sessionStorage.setItem('pia_initial_loaded', 'true') } catch (e) {}
               window.dispatchEvent(new Event('loadingStateChange'))
               setMounted(false)
             },
           })
         } else {
           document.body.classList.remove('loading-active')
+          try { sessionStorage.setItem('pia_initial_loaded', 'true') } catch (e) {}
           setMounted(false)
         }
       }, remainingMs)
@@ -178,7 +186,6 @@ export default function PIALoader() {
 
     return () => {
       document.body.classList.remove('loading-active')
-      window.dispatchEvent(new Event('loadingStateChange'))
     }
   }, [])
 
@@ -189,13 +196,18 @@ export default function PIALoader() {
       ref={wrapRef}
       className="pia-loader-wrapper"
       style={{
-        position: 'fixed',
-        inset: 0,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        minHeight: '100vh',
+        height: '100%',
         zIndex: 99999,
         backgroundColor: colors.forest,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        overflow: 'hidden',
       }}
     >
       <PIALoaderContent />
