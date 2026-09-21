@@ -147,7 +147,7 @@ export default function Contact() {
                 <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-xl-6 col-md-6 col-12">
-                      <div className="single-box" style={{ marginBottom: '20px' }}>
+                      <div className="single-box" style={{ marginBottom: '14px' }}>
                         <input
                           type="text"
                           name="name"
@@ -161,7 +161,7 @@ export default function Contact() {
                       </div>
                     </div>
                     <div className="col-xl-6 col-md-6 col-12">
-                      <div className="single-box" style={{ marginBottom: '20px' }}>
+                      <div className="single-box" style={{ marginBottom: '14px' }}>
                         <input
                           type="email"
                           name="email"
@@ -177,7 +177,7 @@ export default function Contact() {
                   </div>
                   <div className="row">
                     <div className="col-xl-6 col-md-6 col-12">
-                      <div className="single-box" style={{ marginBottom: '20px' }}>
+                      <div className="single-box" style={{ marginBottom: '14px' }}>
                         <input
                           type="tel"
                           name="phone"
@@ -190,24 +190,26 @@ export default function Contact() {
                       </div>
                     </div>
                     <div className="col-xl-6 col-md-6 col-12">
-                      <PIADropdown
-                        name="service"
-                        value={formData.service}
-                        onChange={handleChange}
-                        placeholder="Select Service"
-                        disabled={isSubmitting}
-                        options={[
-                          'Concept Designs',
-                          'Project Designs',
-                          'Make Overs',
-                          'Consulting',
-                          'Glass & Wrought',
-                          'Space Planning',
-                        ]}
-                      />
+                      <div style={{ marginBottom: '14px' }}>
+                        <PIADropdown
+                          name="service"
+                          value={formData.service}
+                          onChange={handleChange}
+                          placeholder="Select Service"
+                          disabled={isSubmitting}
+                          options={[
+                            'Concept Designs',
+                            'Project Designs',
+                            'Make Overs',
+                            'Consulting',
+                            'Glass & Wrought',
+                            'Space Planning',
+                          ]}
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="single-box" style={{ marginBottom: '25px' }}>
+                  <div className="single-box" style={{ marginBottom: '18px' }}>
                     <textarea
                       name="message"
                       value={formData.message}
@@ -215,8 +217,8 @@ export default function Contact() {
                       placeholder="Your Message *"
                       required
                       disabled={isSubmitting}
-                      rows="6"
-                      style={{ resize: 'vertical', margin: 0 }}
+                      rows="3"
+                      style={{ resize: 'vertical', margin: 0, minHeight: '80px' }}
                     />
                   </div>
                   <button className="btn-one" type="submit" disabled={isSubmitting} style={{ width: '100%', opacity: isSubmitting ? 0.7 : 1 }}>

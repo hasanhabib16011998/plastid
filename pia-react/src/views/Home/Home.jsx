@@ -1083,25 +1083,25 @@ function MissionCarousel() {
 const sectorMetrics = [
   {
     badge: 'Bespoke Living',
-    metric: '1,200+',
+    metric: '20+',
     label: 'Residential Turnkeys',
     desc: 'Bespoke interior design, luxury master suites, modular kitchens, and custom apartments.',
   },
   {
     badge: 'Workplace Design',
-    metric: '150+',
+    metric: '5+',
     label: 'Corporate Workspaces',
     desc: 'Ergonomic executive suites, tech hubs, conference facilities, and office renovations.',
   },
   {
     badge: 'Retail Experience',
-    metric: '80+',
+    metric: '4+',
     label: 'Commercial & Cafes',
     desc: 'High-conversion retail showrooms, boutique dining, and commercial merchandising.',
   },
   {
     badge: 'Landscape Harmony',
-    metric: '100%',
+    metric: '3+',
     label: 'Design Satisfaction',
     desc: 'Rooftop greening, architectural landscaping, and outdoor lifestyle spaces.',
   },
@@ -1302,7 +1302,7 @@ function ProjectFootprint() {
 
 // ─── Appointment Form ───────────────────────────────────────
 function AppointmentForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', service: '' })
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
@@ -1316,12 +1316,14 @@ function AppointmentForm() {
       const res = await submitPIALead({
         name: formData.name,
         email: formData.email,
+        phone: formData.phone,
         service: formData.service,
+        message: formData.message,
         source: 'homepage',
       })
       if (res.success) {
         setSubmitted(true)
-        setFormData({ name: '', email: '', service: '' })
+        setFormData({ name: '', email: '', phone: '', service: '', message: '' })
         setTimeout(() => setSubmitted(false), 5000)
       } else {
         setError('Something went wrong. Please try again.')
@@ -1359,42 +1361,63 @@ function AppointmentForm() {
         )}
         <form className="appointment-form" onSubmit={handleSubmit}>
           <div className="row">
+            <div className="col-xl-6 col-md-6 col-12">
+              <div className="single-box" style={{ marginBottom: '12px' }}>
+                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name *" required disabled={isSubmitting} style={{ margin: 0 }} />
+              </div>
+            </div>
+            <div className="col-xl-6 col-md-6 col-12">
+              <div className="single-box" style={{ marginBottom: '12px' }}>
+                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address *" required disabled={isSubmitting} style={{ margin: 0 }} />
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xl-6 col-md-6 col-12">
+              <div className="single-box" style={{ marginBottom: '12px' }}>
+                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" disabled={isSubmitting} style={{ margin: 0 }} />
+              </div>
+            </div>
+            <div className="col-xl-6 col-md-6 col-12">
+              <div style={{ marginBottom: '12px' }}>
+                <PIADropdown
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
+                  placeholder="Select Service"
+                  disabled={isSubmitting}
+                  options={[
+                    'Concept Designs',
+                    'Project Designs',
+                    'Make Overs',
+                    'Consulting',
+                    'Glass & Wrought',
+                    'Space Planning',
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="row">
             <div className="col-xl-12">
-              <div className="single-box">
-                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required disabled={isSubmitting} />
+              <div className="single-box" style={{ marginBottom: '16px' }}>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Your Message *"
+                  required
+                  disabled={isSubmitting}
+                  rows="2"
+                  style={{ resize: 'vertical', margin: 0, minHeight: '65px' }}
+                />
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-xl-12">
               <div className="single-box">
-                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required disabled={isSubmitting} />
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xl-12">
-              <PIADropdown
-                name="service"
-                value={formData.service}
-                onChange={handleChange}
-                placeholder="Interested In"
-                disabled={isSubmitting}
-                options={[
-                  'Concept Designs',
-                  'Project Designs',
-                  'Make Overs',
-                  'Consulting',
-                  'Glass & Wrought',
-                  'Space Planning',
-                ]}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="single-box">
-                <button className="btn-one" type="submit" disabled={isSubmitting} style={{ opacity: isSubmitting ? 0.7 : 1 }}>
+                <button className="btn-one" type="submit" disabled={isSubmitting} style={{ width: '100%', opacity: isSubmitting ? 0.7 : 1 }}>
                   {isSubmitting ? 'Submitting...' : 'Submit Here'}<span className="flaticon-next"></span>
                 </button>
               </div>
