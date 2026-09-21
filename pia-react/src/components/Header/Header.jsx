@@ -16,6 +16,7 @@ const navItems = [
     to: '/about',
     dropdown: [
       { label: 'About Company', to: '/about' },
+      { label: 'Testimonials', to: '/testimonials' },
       { label: "FAQ's", to: '/faq' },
     ],
   },

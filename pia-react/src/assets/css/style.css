@@ -2817,35 +2817,20 @@ select:focus {
 }
 
 .single-testimonial-item .inner-content .img-box::before {
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    bottom: -1px;
-    right: -1px;
-    content: "";
-    background: rgba(0, 0, 0, 0.70);
-    border-radius: 50%;
-    transition: all 0.5s ease-in-out 0s;
-    transform-style: preserve-3d;
-    transform: perspective(1200px) rotateY(-90deg) translateZ(0px);
-    opacity: 0;
-    z-index: 4;
+    display: none;
 }
 
 .single-testimonial-item:hover .inner-content .img-box::before {
-    transform: perspective(1200px) rotateY(0deg) translateZ(0px);
-    transition-delay: 0.1s;
-    opacity: 1;
+    display: none;
 }
 
 .single-testimonial-item .inner-content .img-box img {
     width: 100%;
-    transition: all 700ms ease 800ms;
     border-radius: 50%;
 }
 
 .single-testimonial-item:hover .inner-content .img-box img {
-    transform: rotate(360deg);
+    transform: none;
 }
 
 .single-testimonial-item .inner-content .text-box {

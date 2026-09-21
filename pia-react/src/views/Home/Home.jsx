@@ -9,7 +9,7 @@ import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
-import { getPIAProjects } from '../../lib/payload'
+import { getPIAProjects, getPIATestimonials } from '../../lib/payload'
 
 // ─── Hero Slider Data ─────────────────────────────────────
 const slides = [
@@ -103,27 +103,210 @@ const workingProcess = [
   },
 ]
 
-// ─── Testimonials ───────────────────────────────────────────
-const testimonials = [
-  {
-    name: 'Shelly Johnson',
-    location: 'Residential Client',
-    img: '/images/testimonial/testi-1.png',
-    text: 'The team at Plastid Interior transformed our penthouse into a modern masterpiece. Their attention to detail and spatial flow is unmatched.',
-  },
-  {
-    name: 'Cathrine Wagner',
-    location: 'Commercial Client',
-    img: '/images/testimonial/testi-2.png',
-    text: 'Outstanding design and project management. They delivered our corporate office redesign on time and within budget.',
-  },
-  {
-    name: 'Cuthbert Brain',
-    location: 'Villa Owner',
-    img: '/images/testimonial/testi-3.png',
-    text: 'From 3D concepts to final custom metalwork, every step of the process was professional, seamless, and beautifully executed.',
-  },
-]
+// ─── Testimonials Component (Connected to Payload CMS) ────────
+function TestimonialsSection() {
+  const [list, setList] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
+
+  useEffect(() => {
+    async function loadTestimonials() {
+      try {
+        setLoading(true)
+        const cmsData = await getPIATestimonials()
+        if (cmsData && cmsData.length > 0) {
+          setList(cmsData)
+          setError(false)
+        } else if (cmsData === null) {
+          setError(true)
+        } else {
+          setList([])
+        }
+      } catch (err) {
+        console.error('Failed to load testimonials from Payload CMS:', err)
+        setError(true)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadTestimonials()
+  }, [])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX
+    touchEndX.current = e.touches[0].clientX
+  }
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    const distance = touchStartX.current - touchEndX.current
+    if (Math.abs(distance) > 30 && list.length > 0) {
+      if (distance > 0) {
+        setActiveIndex((prev) => Math.min(prev + 1, list.length - 1))
+      } else {
+        setActiveIndex((prev) => Math.max(prev - 1, 0))
+      }
+    }
+  }
+
+  return (
+    <section className="testimonial-area" style={{ overflow: 'hidden' }}>
+      <div className="container">
+        <div className="row align-items-center" style={{ marginBottom: '30px' }}>
+          <div className="col-xl-8 col-lg-8 col-md-8 col-12">
+            <div className="sec-title float-left">
+              <p>Testimonials</p>
+              <div className="title">Our Customer <span>Words</span></div>
+            </div>
+          </div>
+          <div className="col-xl-4 col-lg-4 col-md-4 col-12 text-md-right mt-3 mt-md-0">
+            <div className="more-reviews-button">
+              <Link className="btn-two" href="/testimonials">View All Reviews<span className="flaticon-next"></span></Link>
+            </div>
+          </div>
+        </div>
+
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '50px 0', color: '#999', fontSize: '15px' }}>
+            Loading testimonials...
+          </div>
+        ) : error || list.length === 0 ? (
+          <div
+            style={{
+              textAlign: 'center',
+              padding: '40px 20px',
+              backgroundColor: '#F9F8F3',
+              borderRadius: '8px',
+              border: '1px solid #EAE6DF',
+              color: '#666',
+              fontSize: '15px',
+              fontFamily: 'var(--font-primary)',
+            }}
+          >
+            {error ? 'Something went wrong fetching the testimonials.' : 'No featured testimonials available at the moment.'}
+          </div>
+        ) : !isMobile ? (
+          <div className="row">
+            {list.map((t, i) => (
+              <div key={t.id || i} className="col-xl-4 col-lg-4 col-md-6" style={{ marginBottom: '30px' }}>
+                <div className="single-testimonial-item text-center">
+                  <div className="quote-icon">
+                    <span className="icon-quote1"></span>
+                  </div>
+                  <div className="inner-content">
+                    <div className="client-info">
+                      <h3>{t.name}</h3>
+                      <span>{t.location}</span>
+                    </div>
+                    <div className="img-box" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <img
+                        src={t.img || '/images/testimonial/user-placeholder.png'}
+                        alt={t.name}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null
+                          e.currentTarget.src = '/images/testimonial/user-placeholder.png'
+                        }}
+                        style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '50%', display: 'block', margin: '0 auto' }}
+                      />
+                    </div>
+                    <div className="text-box">
+                      <p>{t.text}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            className="testimonial-carousel-mobile"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{ position: 'relative', overflow: 'hidden', width: '100%' }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                transform: `translateX(-${activeIndex * 100}%)`,
+                transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
+                width: '100%',
+              }}
+            >
+              {list.map((t, i) => (
+                <div key={t.id || i} style={{ flex: '0 0 100%', minWidth: '100%', padding: '0 10px', boxSizing: 'border-box' }}>
+                  <div className="single-testimonial-item text-center">
+                    <div className="quote-icon">
+                      <span className="icon-quote1"></span>
+                    </div>
+                    <div className="inner-content">
+                      <div className="client-info">
+                        <h3>{t.name}</h3>
+                        <span>{t.location}</span>
+                      </div>
+                      <div className="img-box" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <img
+                          src={t.img || '/images/testimonial/user-placeholder.png'}
+                          alt={t.name}
+                          onError={(e) => {
+                            e.currentTarget.onerror = null
+                            e.currentTarget.src = '/images/testimonial/user-placeholder.png'
+                          }}
+                          style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '50%', display: 'block', margin: '0 auto' }}
+                        />
+                      </div>
+                      <div className="text-box">
+                        <p>{t.text}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {list.length > 1 && (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '20px' }}>
+                {list.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIndex(i)}
+                    aria-label={`Go to testimonial ${i + 1}`}
+                    style={{
+                      width: i === activeIndex ? '26px' : '10px',
+                      height: '10px',
+                      borderRadius: '5px',
+                      background: i === activeIndex ? '#c8a96e' : '#ddd',
+                      border: 'none',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      padding: 0,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
 
 // ─── Brands ─────────────────────────────────────────────────
 const brands = [
@@ -1374,44 +1557,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="testimonial-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="sec-title float-left">
-                <p>Testimonials</p>
-                <div className="title">Our Customer <span>Words</span></div>
-              </div>
-              <div className="more-reviews-button float-right">
-                <a className="btn-two" href="#">More Reviews<span className="flaticon-next"></span></a>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            {testimonials.map((t, i) => (
-              <div key={i} className="col-xl-4 col-lg-4">
-                <div className="single-testimonial-item text-center">
-                  <div className="quote-icon">
-                    <span className="icon-quote1"></span>
-                  </div>
-                  <div className="inner-content">
-                    <div className="client-info">
-                      <h3>{t.name}</h3>
-                      <span>{t.location}</span>
-                    </div>
-                    <div className="img-box">
-                      <img src={t.img} alt={t.name} />
-                    </div>
-                    <div className="text-box">
-                      <p>{t.text}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TestimonialsSection />
 
       {/* Appointment Area */}
       <section className="appointment-area" style={{ backgroundImage: 'url(/images/resources/appointment-bg.jpg)' }}>

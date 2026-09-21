@@ -146,12 +146,13 @@ export default function PIALoader() {
 
       setTimeout(() => {
         if (wrapRef.current) {
+          wrapRef.current.style.pointerEvents = 'none'
           gsap.to(wrapRef.current, {
             opacity: 0,
-            scale: 1.02,
-            duration: 0.4,
+            duration: 0.35,
             ease: 'power2.inOut',
             onComplete: () => {
+              if (wrapRef.current) wrapRef.current.style.display = 'none'
               document.body.classList.remove('loading-active')
               window.dispatchEvent(new Event('loadingStateChange'))
               setMounted(false)

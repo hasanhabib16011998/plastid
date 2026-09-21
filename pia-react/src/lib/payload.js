@@ -158,3 +158,42 @@ export async function getPIAProjectByIdOrSlug(idOrSlug) {
   return null
 }
 
+/**
+ * Format raw Payload CMS testimonial document to standard UI format
+ */
+export function formatTestimonial(doc) {
+  if (!doc) return null
+  const defaultPhoto = '/images/testimonial/user-placeholder.png'
+  return {
+    id: doc.id,
+    name: doc.clientName || 'Anonymous Client',
+    location: doc.company || 'Valued Client',
+    img: getMediaUrl(doc.photo) || defaultPhoto,
+    text: doc.quote || '',
+    isFeatured: Boolean(doc.isFeatured),
+  }
+}
+
+/**
+ * Fetch testimonials from pia-testimonials collection (only featured testimonials)
+ */
+export async function getPIATestimonials() {
+  const data = await fetchPayload('pia-testimonials?where[isFeatured][equals]=true&depth=2&limit=50')
+  if (!data?.docs || data.docs.length === 0) {
+    return []
+  }
+  return data.docs.map(formatTestimonial).filter((t) => Boolean(t && t.isFeatured))
+}
+
+/**
+ * Fetch ALL testimonials for dedicated testimonials page
+ */
+export async function getAllPIATestimonials() {
+  const data = await fetchPayload('pia-testimonials?depth=2&limit=100&sort=-createdAt')
+  if (!data?.docs || data.docs.length === 0) {
+    return []
+  }
+  return data.docs.map(formatTestimonial).filter(Boolean)
+}
+
+

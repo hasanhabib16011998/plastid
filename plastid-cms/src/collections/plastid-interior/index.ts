@@ -194,7 +194,7 @@ export const PIATestimonials: CollectionConfig = {
   admin: {
     group: GROUP,
     useAsTitle: 'clientName',
-    defaultColumns: ['clientName', 'company', 'rating'],
+    defaultColumns: ['clientName', 'company'],
   },
   access: collectionAccess(TENANT_SLUG),
   fields: [
@@ -207,19 +207,6 @@ export const PIATestimonials: CollectionConfig = {
       label: 'Client Photo',
     },
     { name: 'quote', type: 'textarea', required: true, label: 'Testimonial Quote' },
-    {
-      name: 'rating',
-      type: 'select',
-      label: 'Rating',
-      defaultValue: '5',
-      options: [
-        { label: '⭐ 1', value: '1' },
-        { label: '⭐⭐ 2', value: '2' },
-        { label: '⭐⭐⭐ 3', value: '3' },
-        { label: '⭐⭐⭐⭐ 4', value: '4' },
-        { label: '⭐⭐⭐⭐⭐ 5', value: '5' },
-      ],
-    },
     { name: 'isFeatured', type: 'checkbox', label: 'Featured', defaultValue: false },
   ],
 }
