@@ -2,6 +2,7 @@ import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { migrations } from './migrations'
 
 // Shared collections
 import { Tenants } from './collections/shared/Tenants'
@@ -71,6 +72,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
+    prodMigrations: migrations,
     push: true,
   }),
 
