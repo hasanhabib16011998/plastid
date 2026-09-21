@@ -10,7 +10,7 @@ import { Users } from './collections/shared/Users'
 // Plastid Interior
 import {
   PIAMedia, PIAPages, PIAProjects, PIAServices,
-  PIATeam, PIATestimonials, PIABlog, PIASettings,
+  PIATeam, PIATestimonials, PIALeads, PIABlog, PIASettings,
 } from './collections/plastid-interior'
 
 // Sun Real Estate
@@ -48,7 +48,7 @@ export default buildConfig({
 
     // Plastid Interior
     PIAMedia, PIAPages, PIAProjects, PIAServices,
-    PIATeam, PIATestimonials, PIABlog, PIASettings,
+    PIATeam, PIATestimonials, PIALeads, PIABlog, PIASettings,
 
     // Sun Real Estate
     SREMedia, SREPages, SREProjects, SREServices,

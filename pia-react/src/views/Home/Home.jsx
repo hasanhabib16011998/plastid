@@ -9,7 +9,7 @@ import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
-import { getPIAProjects, getPIATestimonials } from '../../lib/payload'
+import { getPIAProjects, getPIATestimonials, submitPIALead } from '../../lib/payload'
 
 // ─── Hero Slider Data ─────────────────────────────────────
 const slides = [
@@ -1304,13 +1304,33 @@ function ProjectFootprint() {
 function AppointmentForm() {
   const [formData, setFormData] = useState({ name: '', email: '', service: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState(null)
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 4000)
-    setFormData({ name: '', email: '', service: '' })
+    setIsSubmitting(true)
+    setError(null)
+    try {
+      const res = await submitPIALead({
+        name: formData.name,
+        email: formData.email,
+        service: formData.service,
+        source: 'homepage',
+      })
+      if (res.success) {
+        setSubmitted(true)
+        setFormData({ name: '', email: '', service: '' })
+        setTimeout(() => setSubmitted(false), 5000)
+      } else {
+        setError('Something went wrong. Please try again.')
+      }
+    } catch (err) {
+      setError('Failed to submit. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -1329,18 +1349,26 @@ function AppointmentForm() {
             <span style={{ fontWeight: 'bold' }}>✓</span> Thank you! We'll be in touch within 24 hours.
           </div>
         )}
+        {error && (
+          <div style={{
+            background: '#2e1f1f', color: '#e57373', border: '1px solid #e57373', padding: '14px 20px',
+            borderRadius: '4px', marginBottom: '20px', fontSize: '14px', fontFamily: 'var(--font-primary)'
+          }}>
+            {error}
+          </div>
+        )}
         <form className="appointment-form" onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-xl-12">
               <div className="single-box">
-                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required disabled={isSubmitting} />
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-xl-12">
               <div className="single-box">
-                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required disabled={isSubmitting} />
               </div>
             </div>
           </div>
@@ -1351,6 +1379,7 @@ function AppointmentForm() {
                 value={formData.service}
                 onChange={handleChange}
                 placeholder="Interested In"
+                disabled={isSubmitting}
                 options={[
                   'Concept Designs',
                   'Project Designs',
@@ -1365,7 +1394,9 @@ function AppointmentForm() {
           <div className="row">
             <div className="col-xl-12">
               <div className="single-box">
-                <button className="btn-one" type="submit">Submit Here<span className="flaticon-next"></span></button>
+                <button className="btn-one" type="submit" disabled={isSubmitting} style={{ opacity: isSubmitting ? 0.7 : 1 }}>
+                  {isSubmitting ? 'Submitting...' : 'Submit Here'}<span className="flaticon-next"></span>
+                </button>
               </div>
             </div>
           </div>

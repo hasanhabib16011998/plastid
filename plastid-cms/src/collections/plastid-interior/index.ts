@@ -341,3 +341,49 @@ export const PIASettings: CollectionConfig = {
     ...seoFields('pia-media'),
   ],
 }
+
+export const PIALeads: CollectionConfig = {
+  slug: 'pia-leads',
+  admin: {
+    group: GROUP,
+    useAsTitle: 'name',
+    defaultColumns: ['name', 'email', 'phone', 'service', 'source', 'status', 'createdAt'],
+  },
+  access: {
+    create: () => true,
+    read: () => true,
+    update: () => true,
+    delete: () => true,
+  },
+  fields: [
+    { name: 'name', type: 'text', required: true, label: 'Full Name' },
+    { name: 'email', type: 'email', required: true, label: 'Email Address' },
+    { name: 'phone', type: 'text', label: 'Phone Number' },
+    { name: 'service', type: 'text', label: 'Interested Service' },
+    { name: 'message', type: 'textarea', label: 'Message / Notes' },
+    {
+      name: 'source',
+      type: 'select',
+      label: 'Submission Source',
+      defaultValue: 'homepage',
+      options: [
+        { label: 'Homepage Form', value: 'homepage' },
+        { label: 'Contact Page Form', value: 'contact' },
+        { label: 'Other', value: 'other' },
+      ],
+    },
+    {
+      name: 'status',
+      type: 'select',
+      label: 'Lead Status',
+      defaultValue: 'new',
+      options: [
+        { label: 'New Lead', value: 'new' },
+        { label: 'Contacted', value: 'contacted' },
+        { label: 'Closed / Won', value: 'closed' },
+        { label: 'Archived', value: 'archived' },
+      ],
+    },
+  ],
+}
+

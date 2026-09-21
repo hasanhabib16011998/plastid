@@ -196,4 +196,32 @@ export async function getAllPIATestimonials() {
   return data.docs.map(formatTestimonial).filter(Boolean)
 }
 
+/**
+ * Submit lead form data to pia-leads collection in Payload CMS
+ */
+export async function submitPIALead(leadData) {
+  const url = `${PAYLOAD_URL}/api/pia-leads`
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(leadData),
+    })
+
+    if (!res.ok) {
+      console.warn(`Failed to submit lead to Payload CMS: ${res.status} ${res.statusText}`)
+      return { success: false, status: res.status }
+    }
+
+    const data = await res.json()
+    return { success: true, doc: data.doc }
+  } catch (err) {
+    console.error('Error submitting lead to Payload CMS:', err)
+    return { success: false, error: err.message }
+  }
+}
+
+
 

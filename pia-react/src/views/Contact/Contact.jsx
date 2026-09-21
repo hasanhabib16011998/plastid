@@ -8,6 +8,7 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
+import { submitPIALead } from '../../lib/payload'
 
 const contactInfo = [
   {
@@ -30,13 +31,35 @@ const contactInfo = [
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '', service: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState(null)
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 5000)
-    setFormData({ name: '', email: '', phone: '', message: '', service: '' })
+    setIsSubmitting(true)
+    setError(null)
+    try {
+      const res = await submitPIALead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message,
+        source: 'contact',
+      })
+      if (res.success) {
+        setSubmitted(true)
+        setFormData({ name: '', email: '', phone: '', message: '', service: '' })
+        setTimeout(() => setSubmitted(false), 5000)
+      } else {
+        setError('Something went wrong. Please try again.')
+      }
+    } catch (err) {
+      setError('Failed to send message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -112,6 +135,15 @@ export default function Contact() {
                   </div>
                 )}
 
+                {error && (
+                  <div style={{
+                    background: '#2e1f1f', color: '#e57373', border: '1px solid #e57373', padding: '15px 20px',
+                    borderRadius: '4px', marginBottom: '25px', fontSize: '14px', fontFamily: 'var(--font-primary)'
+                  }}>
+                    {error}
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-xl-6 col-md-6 col-12">
@@ -123,6 +155,7 @@ export default function Contact() {
                           onChange={handleChange}
                           placeholder="Your Name *"
                           required
+                          disabled={isSubmitting}
                           style={{ margin: 0 }}
                         />
                       </div>
@@ -136,6 +169,7 @@ export default function Contact() {
                           onChange={handleChange}
                           placeholder="Email Address *"
                           required
+                          disabled={isSubmitting}
                           style={{ margin: 0 }}
                         />
                       </div>
@@ -150,6 +184,7 @@ export default function Contact() {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="Phone Number"
+                          disabled={isSubmitting}
                           style={{ margin: 0 }}
                         />
                       </div>
@@ -160,6 +195,7 @@ export default function Contact() {
                         value={formData.service}
                         onChange={handleChange}
                         placeholder="Select Service"
+                        disabled={isSubmitting}
                         options={[
                           'Concept Designs',
                           'Project Designs',
@@ -178,12 +214,13 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="Your Message *"
                       required
+                      disabled={isSubmitting}
                       rows="6"
                       style={{ resize: 'vertical', margin: 0 }}
                     />
                   </div>
-                  <button className="btn-one" type="submit" style={{ width: '100%' }}>
-                    Send Message<span className="flaticon-next"></span>
+                  <button className="btn-one" type="submit" disabled={isSubmitting} style={{ width: '100%', opacity: isSubmitting ? 0.7 : 1 }}>
+                    {isSubmitting ? 'Sending Message...' : 'Send Message'}<span className="flaticon-next"></span>
                   </button>
                 </form>
               </div>
