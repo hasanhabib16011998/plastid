@@ -95,6 +95,8 @@ services:
       dockerfile: Dockerfile.prod
     expose:
       - "3000"
+    env_file:
+      - .env
     networks:
       - default
       - web-network
@@ -108,6 +110,8 @@ services:
       dockerfile: Dockerfile.prod
     expose:
       - "5174"
+    env_file:
+      - .env
     networks:
       - default
       - web-network
