@@ -67,6 +67,7 @@ services:
     ports:
       - "4000:4000"
     environment:
+      - HOSTNAME=0.0.0.0
       - PORT=4000
       - DATABASE_URI=postgres://${POSTGRES_USER:-payload}:${POSTGRES_PASSWORD:-changeme_secure_password}@postgres:5432/${POSTGRES_DB:-plastid_cms}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET:-change-me-in-production}
