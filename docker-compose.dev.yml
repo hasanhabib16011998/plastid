@@ -1,21 +1,17 @@
-name: plastid-dev
-
 services:
   # ── PostgreSQL ──────────────────────────────────────────────────────────────
   postgres:
     image: postgres:16-alpine
-    container_name: plastid-postgres-dev
+    container_name: plastid-postgres
     restart: unless-stopped
-    env_file:
-      - .env
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-payload}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme_secure_password}
-      POSTGRES_DB: ${POSTGRES_DB:-plastid_cms}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - postgres_data_dev:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432" # host 5433 → container 5432
+      - "5432:5432"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-payload} -d ${POSTGRES_DB:-plastid_cms}" ]
       interval: 10s
@@ -25,16 +21,14 @@ services:
   # ── MinIO (S3-compatible object storage) ────────────────────────────────────
   minio:
     image: minio/minio:latest
-    container_name: plastid-minio-dev
+    container_name: plastid-minio
     restart: unless-stopped
     command: server /data --console-address ":9001"
-    env_file:
-      - .env
     environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin_secure_password}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
-      - minio_data_dev:/data
+      - minio_data:/data
     ports:
       - "9000:9000" # S3 API endpoint
       - "9001:9001" # MinIO web console
@@ -44,30 +38,28 @@ services:
       timeout: 20s
       retries: 3
 
-  # ── MinIO bucket setup ──────────────────────────────────────────────────────
+  # ── MinIO bucket setup (runs once, then exits) ──────────────────────────────
   minio-setup:
-    image: minio/mc:latest
-    container_name: plastid-minio-setup-dev
+    image: quay.io/minio/mc:latest
+    container_name: plastid-minio-setup
     depends_on:
       minio:
         condition: service_healthy
     entrypoint: >
       /bin/sh -c "
-        mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER:-minioadmin} ${MINIO_ROOT_PASSWORD:-minioadmin_secure_password};
-        mc mb --ignore-existing myminio/${S3_BUCKET:-plastid-media};
-        mc anonymous set download myminio/${S3_BUCKET:-plastid-media};
-        echo 'Bucket ${S3_BUCKET:-plastid-media} ready.';
+        mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
+        mc mb --ignore-existing myminio/${S3_BUCKET};
+        mc anonymous set download myminio/${S3_BUCKET};
+        echo 'Bucket ${S3_BUCKET} ready.';
         exit 0;
       "
 
-  # ── Payload CMS (Dev) ───────────────────────────────────────────────────────
+  # ── Payload CMS ─────────────────────────────────────────────────────────────
   plastid-cms:
-    container_name: plastid-cms-dev
+    container_name: plastid-cms
     build:
       context: ./plastid-cms
-      dockerfile: Dockerfile.dev
-    env_file:
-      - .env
+      dockerfile: Dockerfile
     ports:
       - "4000:4000"
     volumes:
@@ -75,8 +67,14 @@ services:
       - /app/node_modules
       - /app/.next
     environment:
-      - DATABASE_URI=postgres://${POSTGRES_USER:-payload}:${POSTGRES_PASSWORD:-changeme_secure_password}@postgres:5432/${POSTGRES_DB:-plastid_cms}
+      - DATABASE_URI=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET}
+      - PAYLOAD_PUBLIC_SERVER_URL=http://localhost:4000
       - S3_ENDPOINT=http://minio:9000
+      - S3_BUCKET=${S3_BUCKET}
+      - S3_REGION=us-east-1
+      - S3_ACCESS_KEY=${MINIO_ROOT_USER}
+      - S3_SECRET_KEY=${MINIO_ROOT_PASSWORD}
       - CHOKIDAR_USEPOLLING=true
     depends_on:
       postgres:
@@ -121,7 +119,7 @@ services:
     restart: unless-stopped
 
 volumes:
-  postgres_data_dev:
+  postgres_data:
     driver: local
-  minio_data_dev:
+  minio_data:
     driver: local

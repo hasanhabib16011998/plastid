@@ -31,7 +31,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <h6>Email</h6>
-                      <p>info@pcd-bd.com<br />plastidarchitecture@gmail.com</p>
+                      <p>plastidarchitecture@gmail.com</p>
                     </li>
                   </ul>
                 </div>

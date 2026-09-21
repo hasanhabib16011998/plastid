@@ -40,7 +40,7 @@ services:
 
   # ── MinIO bucket setup (runs once, then exits) ──────────────────────────────
   minio-setup:
-    image: minio/mc:latest
+    image: quay.io/minio/mc:latest
     container_name: plastid-minio-setup
     depends_on:
       minio:
@@ -59,7 +59,7 @@ services:
     container_name: plastid-cms
     build:
       context: ./plastid-cms
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - "4000:4000"
     volumes:

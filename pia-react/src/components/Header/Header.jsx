@@ -251,11 +251,11 @@ export default function Header() {
             </span>
             +880 1768834417
           </a>
-          <a href="mailto:info@pcd-bd.com" className="pia-drawer-contact-item">
+          <a href="mailto:plastidarchitecture@gmail.com" className="pia-drawer-contact-item">
             <span className="pia-drawer-contact-icon">
               <i className="fa fa-envelope" aria-hidden="true" />
             </span>
-            info@pcd-bd.com
+            plastidarchitecture@gmail.com
           </a>
           <div className="pia-drawer-social">
             <a

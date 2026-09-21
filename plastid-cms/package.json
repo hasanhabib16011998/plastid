@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Payload CMS multi-tenant instance for Plastid group of companies",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "next dev -p 4000",
     "build": "next build",

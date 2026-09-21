@@ -23,7 +23,7 @@ const contactInfo = [
   {
     icon: 'icon-mail',
     title: 'Email Address',
-    lines: ['info@pcd-bd.com', 'plastidarchitecture@gmail.com'],
+    lines: ['plastidarchitecture@gmail.com'],
   },
 ]
 

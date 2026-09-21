@@ -9,7 +9,7 @@ RUN npm ci
 # Copy source
 COPY . .
 
-EXPOSE 3000
+EXPOSE 4000
 
 # Run migrations then start dev server
 CMD ["sh", "-c", "npx payload migrate && npm run dev"]

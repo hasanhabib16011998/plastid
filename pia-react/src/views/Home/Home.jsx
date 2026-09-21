@@ -43,18 +43,18 @@ const slides = [
 const highlights = [
   {
     icon: 'icon-concept',
-    title: 'Concept Designs',
-    text: 'Indignation dislike who are beguile works & demoralized the charms.',
+    title: 'Concept & 3D Design',
+    text: 'Immersive 3D renders and mood boards that define the aesthetic identity of your space.',
   },
   {
     icon: 'icon-scheme',
-    title: 'Project Designs',
-    text: 'Our power of choice is untrammelled and all nothing prevents best.',
+    title: 'Project Engineering',
+    text: 'Precise technical blueprints and material specifications for flawless site execution.',
   },
   {
     icon: 'icon-cupboard',
-    title: 'Make Overs',
-    text: 'Every pleasure is to be welcomed & every circumstances & owing power.',
+    title: 'Interior Renovations',
+    text: 'Transforming existing interiors with luxury finishes and custom bespoke styling.',
   },
 ]
 
@@ -85,20 +85,20 @@ const workingAreas = [
 const workingProcess = [
   {
     num: '01',
-    title: 'Idea & Design',
-    text: 'With righteous indignation and works off beguiled demoralized charm.',
+    title: 'Discovery & Concept',
+    text: 'Understanding your spatial vision, lifestyle requirements, and aesthetic goals.',
     icon: 'icon-productive',
   },
   {
     num: '02',
-    title: 'Specification',
-    text: 'Our power of choice is untrammelled and when nothing prevents.',
+    title: 'Design & Engineering',
+    text: 'Developing 3D visualizations, floor plans, material specs, and lighting layouts.',
     icon: 'icon-document',
   },
   {
     num: '03',
-    title: 'Execution',
-    text: 'Wing to the claims of duty the obligations will frequently occur.',
+    title: 'Execution & Handover',
+    text: 'Over-seeing site construction, custom installation, and final turnkey styling.',
     icon: 'icon-kitchen',
   },
 ]
@@ -107,21 +107,21 @@ const workingProcess = [
 const testimonials = [
   {
     name: 'Shelly Johnson',
-    location: 'California',
+    location: 'Residential Client',
     img: '/images/testimonial/testi-1.png',
-    text: 'Your guys were great knowledgeable, well experienced, efficient and neat. A true to work with Crystalo.',
+    text: 'The team at Plastid Interior transformed our penthouse into a modern masterpiece. Their attention to detail and spatial flow is unmatched.',
   },
   {
     name: 'Cathrine Wagner',
-    location: 'Los Angeles',
+    location: 'Commercial Client',
     img: '/images/testimonial/testi-2.png',
-    text: 'Indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment.',
+    text: 'Outstanding design and project management. They delivered our corporate office redesign on time and within budget.',
   },
   {
     name: 'Cuthbert Brain',
-    location: 'Newyork City',
+    location: 'Villa Owner',
     img: '/images/testimonial/testi-3.png',
-    text: 'Same as saying through shrinking from all pain these cases are perfectly simple and easy to distinguish.',
+    text: 'From 3D concepts to final custom metalwork, every step of the process was professional, seamless, and beautifully executed.',
   },
 ]
 
@@ -138,15 +138,15 @@ const brands = [
 // ─── Mission Statements ─────────────────────────────────────
 const missions = [
   {
-    title: 'Mission Statement',
+    title: 'Our Core Vision',
     text: 'Our mission at Plastid Interior and Architecture is to enrich lives by creating captivating spaces that harmonize functionality with aesthetics, fostering environments where people thrive and memories are made.',
   },
   {
-    title: 'Mission Statement',
+    title: 'Innovation & Excellence',
     text: 'Driven by a passion for innovation and guided by a commitment to excellence, our mission is to push the boundaries of design, crafting personalized solutions that reflect the unique aspirations and identities of our clients.',
   },
   {
-    title: 'Mission Statement',
+    title: 'Transformative Spaces',
     text: 'Our mission is to be pioneers of transformation, reshaping the way people experience their surroundings by infusing every project with creativity, integrity, and a relentless pursuit of perfection.',
   },
 ]
@@ -1217,7 +1217,7 @@ export default function Home() {
                       <h3>{h.title}</h3>
                       <p>{h.text}</p>
                     </div>
-                    <a className="btn-one" href="#">Read More<span className="flaticon-next"></span></a>
+                    <Link className="btn-one" href="/services">Learn More<span className="flaticon-next"></span></Link>
                   </div>
                 </div>
               </div>
@@ -1252,7 +1252,7 @@ export default function Home() {
               <div className="about-text">
                 <div className="sec-title">
                   <p>About Company</p>
-                  <div className="title">A small efficient<br />interior <span>designing team</span></div>
+                  <div className="title">A premier interior<br />architecture <span>&amp; design studio</span></div>
                 </div>
                 <div className="inner-content">
                   <div className="text">
@@ -1274,7 +1274,7 @@ export default function Home() {
           <div className="sec-title with-text max-width text-center">
             <p>Working Areas</p>
             <div className="title clr-white">Covered <span>Industries</span></div>
-            <p className="bottom-text">We are an Interior Designer, Who believe in excellence, quality and honesty, yes we design beautiful home interiors.</p>
+            <p className="bottom-text">We create inspiring environments through uncompromising quality, functional innovation, and timeless architectural elegance.</p>
           </div>
           <div className="row">
             {workingAreas.map((w, i) => (
@@ -1430,7 +1430,7 @@ export default function Home() {
                       <div className="marker-box"><span className="icon-pin"></span></div>
                       <div className="location-info">
                         <h3>Dhaka</h3>
-                        <p>House-11 (2nd Floor), Block-E,<br />Sector-1, Aftab Nagar,<br />Dhaka 1212<br />+880 1768834417<br />info@pcd-bd.com</p>
+                        <p>House-11 (2nd Floor), Block-E,<br />Sector-1, Aftab Nagar,<br />Dhaka 1212<br />+880 1768834417<br />plastidarchitecture@gmail.com</p>
                       </div>
                     </div>
                   </div>

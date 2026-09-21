@@ -56,7 +56,7 @@ const Header = () => {
                     <i className="fas fa-envelope"></i>
                   </div>
                   <div className="text">
-                    <h3>info@pcd-bd.com</h3>
+                    <h3>plastidarchitecture@gmail.com</h3>
                     <p>Get a Free Quote</p>
                   </div>
                 </div>

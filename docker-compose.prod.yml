@@ -42,7 +42,7 @@ services:
 
   # ── MinIO bucket setup ──────────────────────────────────────────────────────
   minio-setup:
-    image: minio/mc:latest
+    image: quay.io/minio/mc:latest
     container_name: plastid-minio-setup-prod
     depends_on:
       minio:

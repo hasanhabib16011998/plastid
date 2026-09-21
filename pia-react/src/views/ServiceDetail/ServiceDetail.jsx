@@ -14,13 +14,13 @@ const serviceData = {
     icon: 'icon-concept',
     heroTitle: 'Concept Designs',
     mainImg: '/images/services/service-single/single-service-1.jpg',
-    description1: 'Welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty obligations of business it will frequently occur that pleasures have to be repudiated & annoyances that accepted. That is wise man therefore always holds indignation and dislike men who are so beguiled.',
-    description2: 'Certain circumstances and owing to the claims of duty obligations of business it will frequently occurs all that pleasures have to be repudiated & annoyances that accepted. We at Plastid Interior bring your concept to life through meticulous 3D visualization and creative design documentation.',
+    description1: 'We craft innovative concept designs that translate your vision into tangible spatial experiences. From initial sketches and mood boards to high-definition 3D renderings, our concept design service sets the creative foundation for every project.',
+    description2: 'We analyze your spatial potential, lighting conditions, and architectural context to ensure your project balances artistic sophistication with functional comfort. We bring your vision to life before physical work begins.',
     advantages: [
-      { icon: 'icon-success', title: 'Interior\n Expertise', text: 'Have to accepted That is wise man of therefore always we indignation.' },
-      { icon: 'icon-guarantee-certificate', title: 'Guaranteed\n Work', text: 'Have to accepted That is wise man of therefore always we indignation.' },
-      { icon: 'icon-hr', title: 'Free\n Consultation', text: 'Have to accepted That is wise man of therefore always we indignation.' },
-      { icon: 'icon-wallet', title: 'Reasonable\n Price', text: 'Have to accepted That is wise man of therefore always we indignation.' },
+      { icon: 'icon-success', title: 'Spatial\n Expertise', text: 'Tailored architectural solutions designed by experienced interior architects.' },
+      { icon: 'icon-guarantee-certificate', title: 'Quality\n Assurance', text: 'Rigorous material selection and construction oversight for lasting value.' },
+      { icon: 'icon-hr', title: 'Client-Centric\n Approach', text: 'Collaborative consultations ensuring your unique vision comes to life.' },
+      { icon: 'icon-wallet', title: 'Transparent\n Budgeting', text: 'Clear itemized costing and material schedules with no hidden fees.' },
     ],
   },
   'project-designs': {
@@ -261,7 +261,7 @@ export default function ServiceDetail() {
                     <h3>Consult with expert &<br /> Start today</h3>
                     <div className="bottom-box">
                       <h2><a href="tel:+8801768834417" style={{ color: 'inherit', textDecoration: 'none' }}>+880 1768834417</a></h2>
-                      <span>Email: <a href="mailto:info@pcd-bd.com" style={{ color: 'inherit', textDecoration: 'none' }}>info@pcd-bd.com</a></span>
+                      <span>Email: <a href="mailto:plastidarchitecture@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>plastidarchitecture@gmail.com</a></span>
                     </div>
                     <div className="button">
                       <Link className="btn-one" href="/contact">Make Appointment<span className="flaticon-next"></span></Link>
