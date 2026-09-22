@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Header from '../../components/Header/Header'
@@ -8,29 +8,12 @@ import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-import { getPIAProjects } from '../../lib/payload'
 
-export default function Projects() {
-  const [projects, setProjects] = useState([])
-  const [loading, setLoading] = useState(true)
+export default function Projects({ initialProjects = [] }) {
+  const [projects, setProjects] = useState(initialProjects)
   const [activeFilter, setActiveFilter] = useState('all')
   const [activeCardId, setActiveCardId] = useState(null)
   const router = useRouter()
-
-  useEffect(() => {
-    async function loadProjects() {
-      try {
-        const cmsProjects = await getPIAProjects()
-        setProjects(cmsProjects || [])
-      } catch (err) {
-        console.error('Failed to load projects from Payload CMS:', err)
-        setProjects([])
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadProjects()
-  }, [])
 
   // Build dynamic categories based on available projects
   const categoryTags = Array.from(new Set(projects.map((p) => p.tag).filter(Boolean)))

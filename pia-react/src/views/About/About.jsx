@@ -8,7 +8,6 @@ import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-import { getPIATeam, getMediaUrl } from '../../lib/payload'
 
 const companyPillars = [
   {
@@ -265,26 +264,9 @@ function CompanyTimeline() {
   )
 }
 
-export default function About() {
+export default function About({ initialTeam = [] }) {
   const teamRef = useRef(null)
-  const [teamList, setTeamList] = useState([])
-
-  useEffect(() => {
-    async function fetchTeam() {
-      const cmsTeam = await getPIATeam()
-      if (cmsTeam && cmsTeam.length > 0) {
-        const formatted = cmsTeam.map((m) => ({
-          name: m.name,
-          role: m.role,
-          img: getMediaUrl(m.photo) || '/images/team/v2-1.jpg',
-        }))
-        setTeamList(formatted)
-      } else {
-        setTeamList([])
-      }
-    }
-    fetchTeam()
-  }, [])
+  const [teamList] = useState(initialTeam)
 
   useEffect(() => {
     if (teamRef.current) {

@@ -1,41 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-import { getAllPIATestimonials } from '../../lib/payload'
 
-export default function TestimonialsView() {
-  const [testimonials, setTestimonials] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-
-  useEffect(() => {
-    async function loadAll() {
-      try {
-        setLoading(true)
-        const cmsData = await getAllPIATestimonials()
-        if (cmsData && cmsData.length > 0) {
-          setTestimonials(cmsData)
-          setError(false)
-        } else if (cmsData === null) {
-          setError(true)
-        } else {
-          setTestimonials([])
-        }
-      } catch (err) {
-        console.error('Failed to load testimonials from Payload CMS:', err)
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadAll()
-  }, [])
+export default function TestimonialsView({ initialTestimonials = [] }) {
+  const [testimonials] = useState(initialTestimonials)
+  const [error] = useState(false)
 
   return (
     <div className="boxed_wrapper">
@@ -62,11 +37,7 @@ export default function TestimonialsView() {
             <p className="bottom-text">Discover how we've helped homeowners, business owners, and developers transform their spaces into architectural masterpieces.</p>
           </div>
 
-          {loading ? (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: '#888', fontSize: '16px' }}>
-              Loading client reviews...
-            </div>
-          ) : error || testimonials.length === 0 ? (
+          {error || testimonials.length === 0 ? (
             <div
               style={{
                 textAlign: 'center',

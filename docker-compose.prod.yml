@@ -99,6 +99,10 @@ services:
       - "3000"
     env_file:
       - .env
+    environment:
+      # Internal Docker hostname — used by the server-side CMS proxy route
+      # so the Next.js container reaches Payload without going through the internet
+      - PAYLOAD_INTERNAL_URL=http://plastid-cms:4000
     networks:
       - default
       - web-network

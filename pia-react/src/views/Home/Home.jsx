@@ -9,7 +9,7 @@ import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
-import { getPIAProjects, getPIATestimonials, submitPIALead } from '../../lib/payload'
+import { submitPIALead } from '../../lib/payload'
 
 // ─── Hero Slider Data ─────────────────────────────────────
 const slides = [
@@ -104,37 +104,13 @@ const workingProcess = [
 ]
 
 // ─── Testimonials Component (Connected to Payload CMS) ────────
-function TestimonialsSection() {
-  const [list, setList] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+function TestimonialsSection({ initialList = [] }) {
+  const [list] = useState(initialList)
+  const [error] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
-
-  useEffect(() => {
-    async function loadTestimonials() {
-      try {
-        setLoading(true)
-        const cmsData = await getPIATestimonials()
-        if (cmsData && cmsData.length > 0) {
-          setList(cmsData)
-          setError(false)
-        } else if (cmsData === null) {
-          setError(true)
-        } else {
-          setList([])
-        }
-      } catch (err) {
-        console.error('Failed to load testimonials from Payload CMS:', err)
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadTestimonials()
-  }, [])
 
   useEffect(() => {
     const handleResize = () => {
@@ -182,11 +158,7 @@ function TestimonialsSection() {
           </div>
         </div>
 
-        {loading ? (
-          <div style={{ textAlign: 'center', padding: '50px 0', color: '#999', fontSize: '15px' }}>
-            Loading testimonials...
-          </div>
-        ) : error || list.length === 0 ? (
+        {error || list.length === 0 ? (
           <div
             style={{
               textAlign: 'center',
@@ -705,26 +677,13 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
 }
 
 // ─── Projects Carousel ──────────────────────────────────────
-function ProjectsCarousel() {
-  const [recentProjects, setRecentProjects] = useState([])
+function ProjectsCarousel({ initialProjects = [] }) {
+  const [recentProjects] = useState(initialProjects)
   const [index, setIndex]          = useState(0)
   const [visibleCount, setVisible] = useState(3)
   const containerRef = useRef(null)
   const trackRef     = useRef(null)
   const GAP          = 20
-
-  useEffect(() => {
-    async function loadRecent() {
-      try {
-        const cmsProjects = await getPIAProjects()
-        setRecentProjects(cmsProjects || [])
-      } catch (err) {
-        console.error('Failed to load recent projects from Payload CMS:', err)
-        setRecentProjects([])
-      }
-    }
-    loadRecent()
-  }, [])
 
   const isMouseDraggingRef = useRef(false)
   const mouseDragDataRef   = useRef({
@@ -1430,7 +1389,7 @@ function AppointmentForm() {
 }
 
 // ─── Main Home Page ─────────────────────────────────────────
-export default function Home() {
+export default function Home({ initialProjects = [], initialTestimonials = [] }) {
   return (
     <div className="boxed_wrapper">
       <PIALoader />
@@ -1562,7 +1521,7 @@ export default function Home() {
           </div>
         </div>
         <div className="container-fluid">
-          <ProjectsCarousel />
+          <ProjectsCarousel initialProjects={initialProjects} />
         </div>
       </section>
 
@@ -1611,7 +1570,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <TestimonialsSection />
+      <TestimonialsSection initialList={initialTestimonials} />
 
       {/* Appointment Area */}
       <section className="appointment-area" style={{ backgroundImage: 'url(/images/resources/appointment-bg.jpg)' }}>

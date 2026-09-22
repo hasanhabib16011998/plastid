@@ -1,4 +1,17 @@
-const PAYLOAD_URL = process.env.NEXT_PUBLIC_PAYLOAD_URL || process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:4000'
+/**
+ * Payload CMS REST API client — runs SERVER-SIDE ONLY.
+ *
+ * All data fetching happens in Next.js async Server Components (page files).
+ * The browser never calls Payload directly, so no CORS is needed.
+ *
+ * PAYLOAD_INTERNAL_URL  → Docker internal hostname (preferred: fast, no TLS)
+ * PAYLOAD_PUBLIC_SERVER_URL → public HTTPS fallback
+ */
+const PAYLOAD_URL =
+  process.env.PAYLOAD_INTERNAL_URL ||
+  process.env.PAYLOAD_PUBLIC_SERVER_URL ||
+  'http://plastid-cms:4000'
+
 
 /**
  * Helper function to fetch data from Payload CMS REST API
@@ -72,7 +85,9 @@ export function getMediaUrl(media) {
     return rawUrl
   }
 
-  return `${PAYLOAD_URL}${rawUrl.startsWith('/') ? '' : '/'}${rawUrl}`
+  // For relative media URLs, always use the public CMS URL (not the proxy)
+  const publicCmsUrl = process.env.NEXT_PUBLIC_PAYLOAD_URL || process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://plastid-cms:4000'
+  return `${publicCmsUrl}${rawUrl.startsWith('/') ? '' : '/'}${rawUrl}`
 }
 
 /**
@@ -201,7 +216,9 @@ export async function getAllPIATestimonials() {
  * Submit lead form data to pia-leads collection in Payload CMS
  */
 export async function submitPIALead(leadData) {
-  const url = `${PAYLOAD_URL}/api/pia-leads`
+  // POST goes to our own Next.js API route (same origin) which forwards
+  // server-side to Payload — no CORS, no direct browser→CMS call.
+  const url = '/api/submit-lead'
   try {
     const res = await fetch(url, {
       method: 'POST',

@@ -1,22 +1,14 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-import { getPIAProjectByIdOrSlug } from '../../lib/payload'
 
-export default function ProjectSingle() {
-  const params = useParams()
-  const idOrSlug = params?.id
-
-  const [project, setProject] = useState(null)
-  const [loading, setLoading] = useState(true)
-
+export default function ProjectSingle({ project }) {
   // Lightbox Frame state for Desktop & Full Preview
   const [lightboxIndex, setLightboxIndex] = useState(null)
 
@@ -24,25 +16,6 @@ export default function ProjectSingle() {
   const [mobileSlide, setMobileSlide] = useState(0)
   const touchStartXRef = useRef(null)
   const touchEndXRef = useRef(null)
-
-  useEffect(() => {
-    async function loadProject() {
-      if (!idOrSlug) {
-        setLoading(false)
-        return
-      }
-      try {
-        const cmsProject = await getPIAProjectByIdOrSlug(idOrSlug)
-        setProject(cmsProject || null)
-      } catch (err) {
-        console.error('Failed to load project details from Payload CMS:', err)
-        setProject(null)
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadProject()
-  }, [idOrSlug])
 
   // Keyboard navigation for Lightbox Frame
   useEffect(() => {
@@ -63,18 +36,6 @@ export default function ProjectSingle() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [lightboxIndex, project])
 
-  if (loading) {
-    return (
-      <div className="boxed_wrapper">
-        <PIALoader />
-        <Header />
-        <div style={{ padding: '120px 0', textAlign: 'center' }}>
-          <p>Loading project details...</p>
-        </div>
-        <Footer />
-      </div>
-    )
-  }
 
   if (!project) {
     return (
