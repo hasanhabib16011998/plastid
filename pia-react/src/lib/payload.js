@@ -1,4 +1,4 @@
-const PAYLOAD_URL = process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:4000'
+const PAYLOAD_URL = process.env.NEXT_PUBLIC_PAYLOAD_URL || process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:4000'
 
 /**
  * Helper function to fetch data from Payload CMS REST API
@@ -64,7 +64,8 @@ export function getMediaUrl(media) {
 
   // Fix Docker internal container hostname 'minio:9000' for browser access
   if (rawUrl.includes('minio:9000')) {
-    rawUrl = rawUrl.replace('http://minio:9000', 'http://localhost:9000')
+    const publicBase = (process.env.NEXT_PUBLIC_PAYLOAD_URL || process.env.PAYLOAD_PUBLIC_SERVER_URL || '').replace(/\/api$/, '')
+    rawUrl = rawUrl.replace('http://minio:9000', publicBase || 'http://localhost:9000')
   }
 
   if (rawUrl.startsWith('http://') || rawUrl.startsWith('https://')) {

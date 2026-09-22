@@ -8,6 +8,11 @@ RUN npm ci
 
 COPY . .
 
+# NEXT_PUBLIC_* vars must be available at BUILD TIME so Next.js can embed them
+# into the client-side bundle. Pass with: --build-arg NEXT_PUBLIC_PAYLOAD_URL=...
+ARG NEXT_PUBLIC_PAYLOAD_URL
+ENV NEXT_PUBLIC_PAYLOAD_URL=$NEXT_PUBLIC_PAYLOAD_URL
+
 RUN npm run build
 
 FROM node:20-alpine AS runner

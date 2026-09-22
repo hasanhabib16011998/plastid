@@ -93,6 +93,8 @@ services:
     build:
       context: ./pia-react
       dockerfile: Dockerfile.prod
+      args:
+        NEXT_PUBLIC_PAYLOAD_URL: ${PAYLOAD_PUBLIC_SERVER_URL:-https://cms.plastid-group.cloud}
     expose:
       - "3000"
     env_file:
