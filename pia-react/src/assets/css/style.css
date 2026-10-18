@@ -2419,29 +2419,41 @@ select:focus {
     bottom: 0px;
     right: 0px;
     text-align: center;
-    display: block;
-    padding-bottom: 34px;
-    transform-style: preserve-3d;
-    transform: perspective(1200px) rotateX(90deg) translateZ(-45px);
-    opacity: 0;
-    transition: all 300ms ease 200ms;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 32px 20px 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.58) 62%, transparent 100%);
+    transform: translate3d(0px, 0px, 0px);
+    opacity: 1;
+    transition: all 350ms ease;
     z-index: 3;
 }
 
 .single-project-style1:hover .img-holder .title-box {
     transform: translate3d(0px, 0px, 0px);
     opacity: 1;
-    transition: all 700ms ease 800ms;
 }
 
 .single-project-style1 .img-holder .title-box span {
-    color: #95979c;
+    color: #C49B5D;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    display: block;
 }
 
 .single-project-style1 .img-holder .title-box h3 {
     color: #ffffff;
     font-weight: 600;
-    margin: 3px 0 0;
+    font-size: 18px;
+    margin: 4px 0 0;
+}
+
+.single-project-style1 .img-holder .title-box .title-box__mobile-btn {
+    display: none;
 }
 
 .project-carousel.owl-carousel .owl-stage-outer {

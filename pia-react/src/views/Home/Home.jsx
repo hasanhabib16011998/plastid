@@ -944,7 +944,7 @@ function ProjectsCarousel({ initialProjects = [] }) {
       >
         {recentProjects.map((p, i) => (
           <div key={i} className="single-project-style1" style={cardStyle}>
-            <div className="img-holder" style={{ position: 'relative' }}>
+            <div className="img-holder" style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
               <img
                 src={p.img}
                 alt={p.title}
@@ -961,13 +961,25 @@ function ProjectsCarousel({ initialProjects = [] }) {
               <div className="overlay-content">
                 <div className="inner-content">
                   <div className="link-box">
-                    <Link className="btn-one" href={`/projects/${p.slug || p.id}`}>Case Study<span className="flaticon-next"></span></Link>
+                    <Link className="btn-one" href={`/projects/${p.slug || p.id}`}>View Details<span className="flaticon-next"></span></Link>
                   </div>
                 </div>
               </div>
               <div className="title-box">
-                <span>{p.category}</span>
-                <h3>{p.title}</h3>
+                <div className="title-box__info">
+                  <span>{p.category}</span>
+                  <h3>
+                    <Link href={`/projects/${p.slug || p.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                      {p.title}
+                    </Link>
+                  </h3>
+                </div>
+                <Link
+                  href={`/projects/${p.slug || p.id}`}
+                  className="title-box__mobile-btn"
+                >
+                  View Details <span className="flaticon-next"></span>
+                </Link>
               </div>
             </div>
           </div>
