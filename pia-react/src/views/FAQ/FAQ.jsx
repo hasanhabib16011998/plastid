@@ -19,7 +19,7 @@ const faqItems = [
   },
   {
     question: 'Why do you have a design fee and purchasing fee on the project?',
-    answer: 'At Plastid Interior and Architecture, we charge a design fee of 20 BDT per square foot for our 3D design services. This fee secures your place in our design process and ensures we can dedicate time and resources to your project. If you choose us to execute the project after finalizing the design, we deduct the total design fee from your final project bill as a discount. This way, the design fee acts as a security deposit so we can deliver the best possible design for you.',
+    answer: 'At Plastid Interior and Architecture, we charge a design rate of BDT 40 per square foot for our 3D design services. This fee secures your place in our design process and ensures we can dedicate time and resources to your project. If you choose us to execute the project, 50% of the design fee will be refunded after project completion.',
   },
   {
     question: 'What should I have at our first meeting for my project?',
@@ -27,7 +27,7 @@ const faqItems = [
   },
   {
     question: 'How much will my interior design project cost?',
-    answer: 'The cost depends on the size and complexity of your project. We provide transparent unit pricing based on square footage for different work scopes. After an initial consultation and design proposal, you will receive a detailed quotation. If you proceed with us for the full project, your design fee will be credited back as a discount in the final bill.',
+    answer: 'The cost depends on the size and complexity of your project. We provide transparent unit pricing based on square footage for different work scopes. After an initial consultation and design proposal, you will receive a detailed quotation. If you proceed with us for the full project execution, 50% of your BDT 40/sqft design fee will be refunded after project completion.',
   },
   {
     question: 'How long will it take to design and build my project?',
@@ -39,7 +39,7 @@ const faqItems = [
   },
   {
     question: 'What makes Plastid Interior and Architecture different?',
-    answer: 'We offer flexible, affordable, and premium design solutions tailored to your needs. Our continuous project monitoring and regular client updates ensure transparency and peace of mind throughout your project. Plus, our unique design fee refund policy means you only pay for design if you don\'t choose us for project execution!',
+    answer: 'We offer flexible, affordable, and premium design solutions tailored to your needs. Our continuous project monitoring and regular client updates ensure transparency and peace of mind throughout your project. Plus, with our design fee refund policy, 50% of your BDT 40/sqft design fee is refunded after project completion when you execute your project with us!',
   },
 ]
 

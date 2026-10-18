@@ -18,7 +18,7 @@ const companyPillars = [
   {
     icon: 'icon-wallet',
     title: 'Design Fee Credit',
-    text: 'Our unique per-sqft 3D design fee acts as a security deposit and is credited back 100% as a discount when you execute the project with us.',
+    text: 'Our BDT 40/sqft 3D design fee acts as a security deposit, with 50% refunded after project completion when you execute the project with us.',
   },
   {
     icon: 'icon-house',
@@ -46,7 +46,7 @@ const historyItems = [
     year: '2024',
     badge: 'Innovation',
     title: '3D Merchandising &\nDesign Refund Policy',
-    text: 'To eliminate client uncertainty and elevate design quality, Plastid introduced transparent per-square-foot 3D concept design services paired with our signature 100% design-fee refund policy. Upon project execution contract signing, full design fees are credited back as a direct discount.',
+    text: 'To eliminate client uncertainty and elevate design quality, Plastid introduced transparent BDT 40 per-square-foot 3D concept design services paired with our signature 50% design-fee refund policy. Upon full project execution and completion, 50% of the design fee is refunded back to the client.',
     img: '/images/slides/v1-1.jpg',
   },
   {

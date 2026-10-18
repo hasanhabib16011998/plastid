@@ -39,25 +39,6 @@ const slides = [
   },
 ]
 
-// ─── Highlights Data ───────────────────────────────────────
-const highlights = [
-  {
-    icon: 'icon-concept',
-    title: 'Concept & 3D Design',
-    text: 'Immersive 3D renders and mood boards that define the aesthetic identity of your space.',
-  },
-  {
-    icon: 'icon-scheme',
-    title: 'Project Engineering',
-    text: 'Precise technical blueprints and material specifications for flawless site execution.',
-  },
-  {
-    icon: 'icon-cupboard',
-    title: 'Interior Renovations',
-    text: 'Transforming existing interiors with luxury finishes and custom bespoke styling.',
-  },
-]
-
 // ─── Working Areas Data ────────────────────────────────────
 const workingAreas = [
   {
@@ -76,7 +57,7 @@ const workingAreas = [
     img: '/images/resources/working-3.jpg',
     iconClass: 'icon-company',
     title: 'Industries',
-    text: 'Innovating industrial spaces with efficient and sustainable design solutions, optimizing workflows and maximizing operational effectiveness for long-term success.',
+    text: 'Innovating industrial spaces with efficient and sustainable design solutions, optimizing workflows and maximizing operational effectiveness.',
   },
 ]
 
@@ -1042,46 +1023,31 @@ function MissionCarousel() {
 const sectorMetrics = [
   {
     badge: 'Bespoke Living',
-    metric: '20+',
+    metric: '12+',
     label: 'Residential Turnkeys',
     desc: 'Bespoke interior design, luxury master suites, modular kitchens, and custom apartments.',
   },
   {
     badge: 'Workplace Design',
-    metric: '5+',
+    metric: '2+',
     label: 'Corporate Workspaces',
     desc: 'Ergonomic executive suites, tech hubs, conference facilities, and office renovations.',
   },
   {
     badge: 'Retail Experience',
-    metric: '4+',
+    metric: '2+',
     label: 'Commercial & Cafes',
     desc: 'High-conversion retail showrooms, boutique dining, and commercial merchandising.',
   },
   {
     badge: 'Landscape Harmony',
-    metric: '3+',
+    metric: '2+',
     label: 'Design Satisfaction',
     desc: 'Rooftop greening, architectural landscaping, and outdoor lifestyle spaces.',
   },
 ]
 
-const craftPills = [
-  'Italian Marble Finishes',
-  '3D Concept Merchandising',
-  'Custom Teak Woodwork',
-  'Acoustic Office Partitioning',
-  'Wrought Iron Crafting',
-  'Smart Architectural Lighting',
-  'Structural Glasswork',
-  'Full Site Engineering',
-  'Landscape Greening',
-  'Space Optimization',
-]
-
 function ProjectFootprint() {
-  const doublePills = [...craftPills, ...craftPills]
-
   return (
     <section className="brand-area" style={{ background: '#F5F3ED', padding: '90px 0 80px' }}>
       <div className="container">
@@ -1179,35 +1145,7 @@ function ProjectFootprint() {
           ))}
         </div>
 
-        {/* Infinite Craft Marquee */}
-        <div style={{ overflow: 'hidden', padding: '10px 0 30px' }}>
-          <div className="footprint-marquee-track">
-            {doublePills.map((pill, i) => (
-              <div
-                key={i}
-                style={{
-                  background: '#1F2E23',
-                  border: '1px solid #C49B5D',
-                  color: '#F5F3ED',
-                  padding: '10px 22px',
-                  borderRadius: '30px',
-                  fontSize: '13px',
-                  fontFamily: 'var(--font-primary)',
-                  fontWeight: 500,
-                  whiteSpace: 'nowrap',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
-                <span style={{ color: '#C49B5D', fontSize: '14px' }}>◆</span>
-                {pill}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 100% Refund Policy Highlight Banner */}
+        {/* 50% Refund Policy Highlight Banner */}
         <div
           style={{
             background: '#1F2E23',
@@ -1231,7 +1169,7 @@ function ProjectFootprint() {
                     fontWeight: 500,
                   }}
                 >
-                  100% 3D Design Fee Refund Policy
+                  50% 3D Design Fee Refund Policy
                 </h4>
               </div>
               <p
@@ -1244,7 +1182,7 @@ function ProjectFootprint() {
                   opacity: 0.9,
                 }}
               >
-                Our 20 BDT/sqft 3D design fee secures your project in our pipeline and is credited back 100% as a discount when you execute the project with us.
+                Our BDT 40/sqft 3D design fee secures your project in our pipeline, with 50% refunded after project completion when you execute the project with us.
               </p>
             </div>
             <div className="col-lg-3 col-md-4 text-md-right">
@@ -1418,29 +1356,8 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
         </div>
       </section>
 
-      {/* Highlights */}
-      <section className="highlights-area">
-        <div className="container">
-          <div className="row">
-            {highlights.map((h, i) => (
-              <div key={i} className="col-xl-4 col-lg-4">
-                <div className="single-highlight-box text-center">
-                  <div className="icon-holder">
-                    <span className={h.icon}></span>
-                  </div>
-                  <div className="inner-content">
-                    <div className="text">
-                      <h3>{h.title}</h3>
-                      <p>{h.text}</p>
-                    </div>
-                    <Link className="btn-one" href="/services">Learn More<span className="flaticon-next"></span></Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Project Footprint & Expertise */}
+      <ProjectFootprint />
 
       {/* About */}
       <section className="about-area">
@@ -1602,9 +1519,6 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
           </div>
         </div>
       </section>
-
-      {/* Project Footprint & Expertise */}
-      <ProjectFootprint />
 
       <Footer />
       <ScrollToTop />
