@@ -1,94 +1,92 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import './Header.css'
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import "./Header.css";
 
 const navItems = [
   {
-    label: 'Home',
-    to: '/',
+    label: "Home",
+    to: "/",
     dropdown: null,
   },
   {
-    label: 'About Us',
-    to: '/about',
+    label: "About Us",
+    to: "/about",
     dropdown: [
-      { label: 'About Company', to: '/about' },
-      { label: 'Testimonials', to: '/testimonials' },
-      { label: "FAQ's", to: '/faq' },
+      { label: "About Company", to: "/about" },
+      { label: "Testimonials", to: "/testimonials" },
+      { label: "FAQ's", to: "/faq" },
     ],
   },
   {
-    label: 'Services',
-    to: '/services',
+    label: "Services",
+    to: "/services",
     dropdown: [
-      { label: 'View All Services', to: '/services' },
-      { label: 'Concept Designs', to: '/services/concept-designs' },
-      { label: 'Project Designs', to: '/services/project-designs' },
-      { label: 'Make Overs', to: '/services/make-overs' },
-      { label: 'Consulting', to: '/services/consulting' },
-      { label: 'Glass & Wrought', to: '/services/glass-wrought' },
-      { label: 'Space Planning', to: '/services/space-planning' },
+      { label: "View All Services", to: "/services" },
+      { label: "Concept Designs", to: "/services/concept-designs" },
+      { label: "Project Designs", to: "/services/project-designs" },
+      { label: "Make Overs", to: "/services/make-overs" },
+      { label: "Consulting", to: "/services/consulting" },
+      { label: "Glass & Wrought", to: "/services/glass-wrought" },
+      { label: "Space Planning", to: "/services/space-planning" },
     ],
   },
   {
-    label: 'Projects',
-    to: '/projects',
-    dropdown: [
-      { label: 'All Projects', to: '/projects' },
-    ],
+    label: "Projects",
+    to: "/projects",
+    dropdown: [{ label: "All Projects", to: "/projects" }],
   },
   {
-    label: 'Contact',
-    to: '/contact',
+    label: "Contact",
+    to: "/contact",
     dropdown: null,
   },
-]
+];
 
 export default function Header() {
-  const pathname = usePathname()
-  const [drawerOpen, setDrawerOpen] = useState(false)
-  const [openDropdowns, setOpenDropdowns] = useState({})
-  const drawerRef = useRef(null)
+  const pathname = usePathname();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState({});
+  const drawerRef = useRef(null);
 
   /* ── Close drawer on route change ── */
   useEffect(() => {
-    closeDrawer()
-  }, [pathname])
+    closeDrawer();
+  }, [pathname]);
 
   /* ── Trap focus / close on Escape ── */
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === 'Escape') closeDrawer()
-    }
+      if (e.key === "Escape") closeDrawer();
+    };
     if (drawerOpen) {
-      document.addEventListener('keydown', handleKey)
-      document.body.classList.add('pia-drawer-open')
+      document.addEventListener("keydown", handleKey);
+      document.body.classList.add("pia-drawer-open");
     } else {
-      document.body.classList.remove('pia-drawer-open')
+      document.body.classList.remove("pia-drawer-open");
     }
     return () => {
-      document.removeEventListener('keydown', handleKey)
-      document.body.classList.remove('pia-drawer-open')
-    }
-  }, [drawerOpen])
+      document.removeEventListener("keydown", handleKey);
+      document.body.classList.remove("pia-drawer-open");
+    };
+  }, [drawerOpen]);
 
-  const openDrawer = () => setDrawerOpen(true)
+  const openDrawer = () => setDrawerOpen(true);
   const closeDrawer = () => {
-    setDrawerOpen(false)
-    setOpenDropdowns({})
-  }
+    setDrawerOpen(false);
+    setOpenDropdowns({});
+  };
 
   const toggleDropdown = (key) => {
-    setOpenDropdowns((prev) => ({ ...prev, [key]: !prev[key] }))
-  }
+    setOpenDropdowns((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const isActive = (to) => {
-    if (to === '/') return pathname === '/'
-    return pathname.startsWith(to)
-  }
+    if (to === "/") return pathname === "/";
+    return pathname.startsWith(to);
+  };
 
   return (
     <header className="main-header header-style1 fixed-header">
@@ -98,10 +96,13 @@ export default function Header() {
           <div className="row">
             <div className="col-xl-12">
               <div className="inner-container clearfix">
-
                 {/* Logo & Company Name */}
                 <div className="logo-box-style1 float-left">
-                  <Link href="/" className="pia-brand-link" aria-label="Plastid Interior and Architecture">
+                  <Link
+                    href="/"
+                    className="pia-brand-link"
+                    aria-label="Plastid Interior and Architecture"
+                  >
                     <img
                       src="/images/resources/logo.png"
                       className="pia-brand-logo"
@@ -110,7 +111,9 @@ export default function Header() {
                     <span className="pia-brand-divider" aria-hidden="true" />
                     <span className="pia-brand-text">
                       <span className="pia-brand-title">Plastid</span>
-                      <span className="pia-brand-subtitle">Interior and Architecture</span>
+                      <span className="pia-brand-subtitle">
+                        Interior and Architecture
+                      </span>
                     </span>
                   </Link>
                 </div>
@@ -123,12 +126,19 @@ export default function Header() {
                         {navItems.map((item) => (
                           <li
                             key={item.to}
-                            className={`${item.dropdown ? 'dropdown' : ''}${isActive(item.to) ? ' current' : ''}`}
+                            className={`${item.dropdown ? "dropdown" : ""}${isActive(item.to) ? " current" : ""}`}
                           >
                             <Link href={item.to}>
                               {item.label}
                               {item.dropdown && (
-                                <i className="fa fa-angle-down" style={{ fontSize: '11px', marginLeft: '5px', opacity: 0.8 }} />
+                                <i
+                                  className="fa fa-angle-down"
+                                  style={{
+                                    fontSize: "11px",
+                                    marginLeft: "5px",
+                                    opacity: 0.8,
+                                  }}
+                                />
                               )}
                             </Link>
                             {item.dropdown && (
@@ -146,7 +156,6 @@ export default function Header() {
                     </div>
                   </nav>
                 </div>
-
               </div>
             </div>
           </div>
@@ -155,9 +164,11 @@ export default function Header() {
 
       {/* Mobile hamburger */}
       <button
-        className={`pia-hamburger${drawerOpen ? ' is-open' : ''}`}
+        className={`pia-hamburger${drawerOpen ? " is-open" : ""}`}
         onClick={drawerOpen ? closeDrawer : openDrawer}
-        aria-label={drawerOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-label={
+          drawerOpen ? "Close navigation menu" : "Open navigation menu"
+        }
         aria-expanded={drawerOpen}
         aria-controls="pia-mobile-drawer"
       >
@@ -174,7 +185,7 @@ export default function Header() {
 
       {/* Overlay */}
       <div
-        className={`pia-mobile-overlay${drawerOpen ? ' visible' : ''}`}
+        className={`pia-mobile-overlay${drawerOpen ? " visible" : ""}`}
         onClick={closeDrawer}
         aria-hidden="true"
       />
@@ -183,7 +194,7 @@ export default function Header() {
       <div
         id="pia-mobile-drawer"
         ref={drawerRef}
-        className={`pia-mobile-drawer${drawerOpen ? ' slide-in' : ''}`}
+        className={`pia-mobile-drawer${drawerOpen ? " slide-in" : ""}`}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
@@ -191,12 +202,23 @@ export default function Header() {
         {/* Drawer header */}
         <div className="pia-drawer-header">
           <div className="pia-drawer-logo">
-            <Link href="/" onClick={closeDrawer} className="pia-brand-link" aria-label="Plastid Interior and Architecture">
-              <img src="/images/resources/logo.png" className="pia-brand-logo" alt="Plastid Interior and Architecture logo" />
+            <Link
+              href="/"
+              onClick={closeDrawer}
+              className="pia-brand-link"
+              aria-label="Plastid Interior and Architecture"
+            >
+              <img
+                src="/images/resources/logo.png"
+                className="pia-brand-logo"
+                alt="Plastid Interior and Architecture logo"
+              />
               <span className="pia-brand-divider" aria-hidden="true" />
               <span className="pia-brand-text">
                 <span className="pia-brand-title">Plastid</span>
-                <span className="pia-brand-subtitle">Interior and Architecture</span>
+                <span className="pia-brand-subtitle">
+                  Interior and Architecture
+                </span>
               </span>
             </Link>
           </div>
@@ -206,12 +228,12 @@ export default function Header() {
         <nav className="pia-drawer-nav" aria-label="Mobile navigation">
           <ul>
             {navItems.map((item) => {
-              const active = isActive(item.to)
-              const isOpen = openDropdowns[item.to]
+              const active = isActive(item.to);
+              const isOpen = openDropdowns[item.to];
               return (
                 <li
                   key={item.to}
-                  className={`${active ? 'current' : ''}${item.dropdown && isOpen ? ' dropdown-open' : ''}`}
+                  className={`${active ? "current" : ""}${item.dropdown && isOpen ? " dropdown-open" : ""}`}
                 >
                   {item.dropdown ? (
                     <div className="pia-drawer-item-row">
@@ -238,7 +260,9 @@ export default function Header() {
                   )}
 
                   {item.dropdown && (
-                    <ul className={`pia-drawer-submenu${isOpen ? ' open' : ''}`}>
+                    <ul
+                      className={`pia-drawer-submenu${isOpen ? " open" : ""}`}
+                    >
                       {item.dropdown.map((sub) => (
                         <li key={sub.to}>
                           <Link href={sub.to} onClick={closeDrawer}>
@@ -249,7 +273,7 @@ export default function Header() {
                     </ul>
                   )}
                 </li>
-              )
+              );
             })}
           </ul>
         </nav>
@@ -262,7 +286,10 @@ export default function Header() {
             </span>
             +880 1768834417
           </a>
-          <a href="mailto:plastidarchitecture@gmail.com" className="pia-drawer-contact-item">
+          <a
+            href="mailto:plastidarchitecture@gmail.com"
+            className="pia-drawer-contact-item"
+          >
             <span className="pia-drawer-contact-icon">
               <i className="fa fa-envelope" aria-hidden="true" />
             </span>
@@ -277,16 +304,24 @@ export default function Header() {
             >
               <i className="fa fa-facebook" aria-hidden="true" />
             </a>
-            <a href="#" aria-label="Skype">
-              <i className="fa fa-skype" aria-hidden="true" />
+            <a
+              href="https://www.instagram.com/plastid.interior.architecture/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+            >
+              <i className="fa fa-instagram" aria-hidden="true" />
             </a>
-            <a href="#" aria-label="LinkedIn">
-              <i className="fa fa-linkedin" aria-hidden="true" />
+            <a 
+              href="https://www.tiktok.com/@plastid.interiors"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="TikTok">
+              <i className="fa-tiktok" aria-hidden="true" />
             </a>
           </div>
         </div>
       </div>
-
     </header>
-  )
+  );
 }
