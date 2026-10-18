@@ -122,6 +122,7 @@ export function formatProject(doc) {
   return {
     id: doc.id,
     slug: doc.slug || String(doc.id),
+    order: typeof doc.order === 'number' && Number.isFinite(doc.order) ? doc.order : null,
     title: doc.title || 'Untitled Project',
     category: category,
     tag: tag,
@@ -150,7 +151,15 @@ export async function getPIAProjects() {
   if (!data?.docs || data.docs.length === 0) {
     return []
   }
-  return data.docs.map(formatProject).filter(Boolean)
+  const sortedDocs = [...data.docs].sort((a, b) => {
+    const aHasOrder = typeof a?.order === 'number' && Number.isFinite(a.order)
+    const bHasOrder = typeof b?.order === 'number' && Number.isFinite(b.order)
+    if (aHasOrder && bHasOrder) return a.order - b.order
+    if (aHasOrder) return -1
+    if (bHasOrder) return 1
+    return 0
+  })
+  return sortedDocs.map(formatProject).filter(Boolean)
 }
 
 /**
