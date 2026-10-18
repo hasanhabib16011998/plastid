@@ -15,47 +15,47 @@ gsap.registerPlugin(ScrollTrigger)
 const STAGES = [
   {
     time: 0,
-    chapter: 'Chapter I',
-    chapterSub: 'Origin',
-    title: 'Where It All',
-    titleEm: 'Begins',
-    desc: 'Every masterpiece starts with raw potential. Bare concrete, empty space — the blank canvas that holds a thousand possibilities.',
+    chapter: 'Step 01',
+    chapterSub: 'Raw Potential',
+    title: 'Your Space,',
+    titleEm: 'Our Canvas',
+    desc: 'Staring at an empty apartment or office space can feel overwhelming. So many choices, so many processes... We turn your bare space into a clear, stress-free architectural vision from day one.',
     timecode: '00:00',
   },
   {
     time: 2,
-    chapter: 'Chapter II',
-    chapterSub: 'Foundation',
-    title: 'Structure Takes',
-    titleEm: 'Shape',
-    desc: 'Bones emerge from the shell. Windows breathe light into the space, and the floor — laid plank by plank — begins to tell its own story.',
+    chapter: 'Step 02',
+    chapterSub: 'Zero Guesswork',
+    title: 'See It in 3D',
+    titleEm: 'Before We Build',
+    desc: 'No costly surprises or layout mistakes. We engineer photorealistic 3D renders and smart space plans so you experience every corner before construction begins.',
     timecode: '00:02',
   },
   {
     time: 4,
-    chapter: 'Chapter III',
-    chapterSub: 'Canvas',
-    title: 'The Walls',
-    titleEm: 'Listen',
-    desc: 'Smooth walls absorb the light. Recessed fixtures are placed with precision. The space breathes with the clarity of intention.',
+    chapter: 'Step 03',
+    chapterSub: 'Transparent BOQ',
+    title: 'Precision Engineering',
+    titleEm: '& Clear Pricing',
+    desc: 'Say goodbye to hidden costs and contractor delays. Our engineers and quantity surveyors manage lighting, acoustics, and premium finishes with itemized budgets and strict supervision.',
     timecode: '00:04',
   },
   {
     time: 6,
-    chapter: 'Chapter IV',
-    chapterSub: 'Soul',
-    title: 'Furniture Finds Its',
-    titleEm: 'Home',
-    desc: 'Piece by piece, the room gains its soul. Each element chosen not just for beauty, but for the feeling it creates in you.',
+    chapter: 'Step 04',
+    chapterSub: 'Custom Craft',
+    title: 'Bespoke Joinery',
+    titleEm: '& Styling',
+    desc: 'Off-the-shelf furniture rarely fits right. Our master craftsmen fabricate custom cabinetry, modular kitchens, and signature pieces tailored to your exact dimensions and lifestyle.',
     timecode: '00:06',
   },
   {
     time: 8,
-    chapter: 'Chapter V',
-    chapterSub: 'Revelation',
-    title: 'The Art of',
-    titleEm: 'Living',
-    desc: 'The transformation is complete. What was once concrete and silence is now warmth, luxury, and the quiet confidence of a life well-designed.',
+    chapter: 'Step 05',
+    chapterSub: '50% Fee Refund',
+    title: 'Move-In Ready.',
+    titleEm: 'On Time, On Budget.',
+    desc: 'We hand over your completed turnkey space ready to live or work in — and refund 50% of your design fee upon project completion. Ready to transform your space?',
     timecode: '00:08',
   },
 ]
@@ -286,8 +286,7 @@ export default function ApartmentStory() {
       updateTextContent(0, false)
 
       // ── Set initial states (GSAP owns these, not React) ─
-      gsap.set('.apt-story__slogan', { opacity: 0, y: 12 })
-      gsap.set('.apt-story__cta-group', { opacity: 0, y: 14 })
+      gsap.set('.apt-story__action-card', { opacity: 0, y: 18 })
       gsap.set('.apt-story__desc', { opacity: 0, y: 20 })
       gsap.set('.apt-story__chapter', { opacity: 0 })
       gsap.set('.apt-story__title-wrap', { opacity: 0 })
@@ -295,8 +294,7 @@ export default function ApartmentStory() {
       // ── Entrance content animation ──────────────
       const initTl = gsap.timeline({ delay: 0.6 })
       initTl
-        .to('.apt-story__slogan', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
-        .to('.apt-story__chapter', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3')
+        .to('.apt-story__chapter', { opacity: 1, duration: 0.5, ease: 'power2.out' })
         .call(() => animateCharsIn(
           titleRef.current,
           titleEmRef.current,
@@ -305,7 +303,7 @@ export default function ApartmentStory() {
         ))
         .to('.apt-story__title-wrap', { opacity: 1, duration: 0.01 }, '<')
         .to('.apt-story__desc', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.2')
-        .to('.apt-story__cta-group', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
+        .to('.apt-story__action-card', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.5')
         .to(scrollHintRef.current, { opacity: 1, duration: 0.4 }, '-=0.3')
 
       // ── Master ScrollTrigger ─────────────────────
@@ -349,7 +347,7 @@ export default function ApartmentStory() {
               linear-gradient(105deg,
                 rgba(5,5,5,${d}) 0%,
                 rgba(5,5,5,${d * 0.55}) 45%,
-                rgba(5,5,5,0.04) 100%),
+                rgba(5,5,5,0.22) 100%),
               linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 40%)`
           }
 
@@ -461,45 +459,53 @@ export default function ApartmentStory() {
       {/* ── Large stage number ── */}
       <div className="apt-story__stage-num" ref={stageNumRef}>01</div>
 
-      {/* ── Narrative content ── */}
+      {/* ── Split Hero Content (Left: Narrative | Right: Brand Slogan + CTAs) ── */}
       <div className="apt-story__content">
-        <div className="apt-story__slogan">
-          <span>Modern</span>
-          <span className="apt-story__slogan-dot">.</span>
-          <span>Elegant</span>
-          <span className="apt-story__slogan-dot">.</span>
-          <span>Timeless</span>
+        <div className="apt-story__narrative">
+          <div className="apt-story__chapter">
+            <span className="apt-story__chapter-line" />
+            <span className="apt-story__chapter-label" ref={chapterLabelRef} />
+            <span className="apt-story__chapter-sep">—</span>
+            <span className="apt-story__chapter-sub" ref={chapterSubRef} />
+          </div>
+
+          <div className="apt-story__title-wrap">
+            <h1 className="apt-story__title" ref={titleRef} />
+            <em className="apt-story__title-em" ref={titleEmRef} />
+          </div>
+
+          <p className="apt-story__desc" ref={descRef} />
         </div>
 
-        <div className="apt-story__chapter">
-          <span className="apt-story__chapter-line" />
-          <span className="apt-story__chapter-label" ref={chapterLabelRef} />
-          <span className="apt-story__chapter-sep">—</span>
-          <span className="apt-story__chapter-sub" ref={chapterSubRef} />
-        </div>
+        <div className="apt-story__action-card" ref={ctaGroupRef}>
+          <div className="apt-story__slogan">
+            <span>Modern</span>
+            <span className="apt-story__slogan-dot">.</span>
+            <span>Elegant</span>
+            <span className="apt-story__slogan-dot">.</span>
+            <span>Timeless</span>
+          </div>
 
-        <div className="apt-story__title-wrap">
-          <h1 className="apt-story__title" ref={titleRef} />
-          <em className="apt-story__title-em" ref={titleEmRef} />
-        </div>
+          <p className="apt-story__action-sub">
+            Turnkey Interior &amp; Architectural Execution
+          </p>
 
-        <p className="apt-story__desc" ref={descRef} />
-
-        <div className="apt-story__cta-group" ref={ctaGroupRef}>
-          <Link
-            href="/projects"
-            className="apt-story__cta apt-story__cta--primary"
-          >
-            <span className="apt-story__cta-label-text">View Our Works</span>
-            <span className="apt-story__cta-arrow" />
-          </Link>
-          <Link
-            href="/contact"
-            className="apt-story__cta apt-story__cta--secondary"
-          >
-            <span className="apt-story__cta-label-text">Free Consultation</span>
-            <span className="apt-story__cta-arrow" />
-          </Link>
+          <div className="apt-story__cta-group">
+            <Link
+              href="/projects"
+              className="apt-story__cta apt-story__cta--primary"
+            >
+              <span className="apt-story__cta-label-text">View Our Works</span>
+              <span className="apt-story__cta-arrow" />
+            </Link>
+            <Link
+              href="/contact"
+              className="apt-story__cta apt-story__cta--secondary"
+            >
+              <span className="apt-story__cta-label-text">Free Consultation</span>
+              <span className="apt-story__cta-arrow" />
+            </Link>
+          </div>
         </div>
       </div>
 
