@@ -6,7 +6,7 @@ Corrections:
 5. Update working Process: Intitial Consultation (1-5 hours), Concept Development(1-2 weeks), Space Planning(1-2 weeks), Design Development(3-4 weeks), Implementation (6-12 weeks), Project Handover.*
 6. Home banner > Explore Our Complete Projects > Statistics > Our Working Process > About Company > Working Areas > Our Services > Testimonials > Contact us *
 7. Social Media Icons*
-8. Use full black instead of dark olive
+8. Use full black instead of dark olive *
 9. Company founded in 2024 March
 10. Services: Residential Interior (sub services), Commercial Interior (Sub services), Restaurant Interior (sub services), Exterior Design, Furniture and Decor, 
 

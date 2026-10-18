@@ -20,7 +20,6 @@ const STAGES = [
     title: 'Where It All',
     titleEm: 'Begins',
     desc: 'Every masterpiece starts with raw potential. Bare concrete, empty space — the blank canvas that holds a thousand possibilities.',
-    cta: { label: 'Our Process', to: '/services' },
     timecode: '00:00',
   },
   {
@@ -30,7 +29,6 @@ const STAGES = [
     title: 'Structure Takes',
     titleEm: 'Shape',
     desc: 'Bones emerge from the shell. Windows breathe light into the space, and the floor — laid plank by plank — begins to tell its own story.',
-    cta: { label: 'See How We Build', to: '/services' },
     timecode: '00:02',
   },
   {
@@ -40,7 +38,6 @@ const STAGES = [
     title: 'The Walls',
     titleEm: 'Listen',
     desc: 'Smooth walls absorb the light. Recessed fixtures are placed with precision. The space breathes with the clarity of intention.',
-    cta: { label: 'Our Approach', to: '/about' },
     timecode: '00:04',
   },
   {
@@ -50,7 +47,6 @@ const STAGES = [
     title: 'Furniture Finds Its',
     titleEm: 'Home',
     desc: 'Piece by piece, the room gains its soul. Each element chosen not just for beauty, but for the feeling it creates in you.',
-    cta: { label: 'Explore Designs', to: '/projects' },
     timecode: '00:06',
   },
   {
@@ -60,7 +56,6 @@ const STAGES = [
     title: 'The Art of',
     titleEm: 'Living',
     desc: 'The transformation is complete. What was once concrete and silence is now warmth, luxury, and the quiet confidence of a life well-designed.',
-    cta: { label: 'Start Your Story', to: '/contact' },
     timecode: '00:08',
   },
 ]
@@ -101,7 +96,7 @@ export default function ApartmentStory() {
   const titleRef = useRef(null)
   const titleEmRef = useRef(null)
   const descRef = useRef(null)
-  const ctaRef = useRef(null)
+  const ctaGroupRef = useRef(null)
   const filmDotRefs = useRef([])
 
   const [activeStage, setActiveStage] = useState(0)
@@ -176,17 +171,12 @@ export default function ApartmentStory() {
     const titleEl = titleRef.current
     const titleEmEl = titleEmRef.current
     const descEl = descRef.current
-    const ctaEl = ctaRef.current
 
     if (chEl) chEl.textContent = stage.chapter
     if (chSubEl) chSubEl.textContent = stage.chapterSub
     if (titleEl) titleEl.textContent = stage.title
     if (titleEmEl) titleEmEl.textContent = stage.titleEm
     if (descEl) descEl.textContent = stage.desc
-    if (ctaEl) {
-      const span = ctaEl.querySelector('.apt-story__cta-label-text')
-      if (span) span.textContent = stage.cta.label
-    }
 
     if (animate) {
       animateCharsIn(titleEl, titleEmEl, chEl, chSubEl)
@@ -235,8 +225,9 @@ export default function ApartmentStory() {
   // consumes touch events before React Router's synthetic click fires.
   // Native touchend → window.location.href is the only reliable fix.
   useEffect(() => {
-    const cta = ctaRef.current
-    if (!cta) return
+    const group = ctaGroupRef.current
+    if (!group) return
+    const links = Array.from(group.querySelectorAll('a'))
 
     let touchStartX = 0
     let touchStartY = 0
@@ -254,22 +245,26 @@ export default function ApartmentStory() {
       if (dx > 8 || dy > 8) isTap = false
     }
 
-    const onTouchEnd = () => {
-      if (!isTap) return
-      const href = cta.getAttribute('href')
-      if (href && href !== '#') {
-        window.location.href = href
+    const handlers = links.map((link) => {
+      const onTouchEnd = () => {
+        if (!isTap) return
+        const href = link.getAttribute('href')
+        if (href && href !== '#') {
+          window.location.href = href
+        }
       }
-    }
-
-    cta.addEventListener('touchstart', onTouchStart, { passive: true })
-    cta.addEventListener('touchmove', onTouchMove, { passive: true })
-    cta.addEventListener('touchend', onTouchEnd, { passive: true })
+      link.addEventListener('touchstart', onTouchStart, { passive: true })
+      link.addEventListener('touchmove', onTouchMove, { passive: true })
+      link.addEventListener('touchend', onTouchEnd, { passive: true })
+      return { link, onTouchEnd }
+    })
 
     return () => {
-      cta.removeEventListener('touchstart', onTouchStart)
-      cta.removeEventListener('touchmove', onTouchMove)
-      cta.removeEventListener('touchend', onTouchEnd)
+      handlers.forEach(({ link, onTouchEnd }) => {
+        link.removeEventListener('touchstart', onTouchStart)
+        link.removeEventListener('touchmove', onTouchMove)
+        link.removeEventListener('touchend', onTouchEnd)
+      })
     }
   }, [])
 
@@ -291,7 +286,8 @@ export default function ApartmentStory() {
       updateTextContent(0, false)
 
       // ── Set initial states (GSAP owns these, not React) ─
-      gsap.set('.apt-story__cta', { opacity: 0 })
+      gsap.set('.apt-story__slogan', { opacity: 0, y: 12 })
+      gsap.set('.apt-story__cta-group', { opacity: 0, y: 14 })
       gsap.set('.apt-story__desc', { opacity: 0, y: 20 })
       gsap.set('.apt-story__chapter', { opacity: 0 })
       gsap.set('.apt-story__title-wrap', { opacity: 0 })
@@ -299,7 +295,8 @@ export default function ApartmentStory() {
       // ── Entrance content animation ──────────────
       const initTl = gsap.timeline({ delay: 0.6 })
       initTl
-        .to('.apt-story__chapter', { opacity: 1, duration: 0.5, ease: 'power2.out' })
+        .to('.apt-story__slogan', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
+        .to('.apt-story__chapter', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3')
         .call(() => animateCharsIn(
           titleRef.current,
           titleEmRef.current,
@@ -308,7 +305,7 @@ export default function ApartmentStory() {
         ))
         .to('.apt-story__title-wrap', { opacity: 1, duration: 0.01 }, '<')
         .to('.apt-story__desc', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.2')
-        .to('.apt-story__cta', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.4')
+        .to('.apt-story__cta-group', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
         .to(scrollHintRef.current, { opacity: 1, duration: 0.4 }, '-=0.3')
 
       // ── Master ScrollTrigger ─────────────────────
@@ -382,13 +379,12 @@ export default function ApartmentStory() {
 
             triggerGlitch()
 
-            // Fade out → swap text → fade in
+            // Fade out → swap text → fade in (CTAs & Slogan stay persistent!)
             gsap.to([
               chapterLabelRef.current,
               chapterSubRef.current,
               '.apt-story__title-wrap',
               descRef.current,
-              ctaRef.current,
             ], {
               opacity: 0,
               y: goingForward ? -10 : 10,
@@ -401,7 +397,6 @@ export default function ApartmentStory() {
                   chapterSubRef.current,
                   '.apt-story__title-wrap',
                   descRef.current,
-                  ctaRef.current,
                 ], {
                   opacity: 1,
                   y: 0,
@@ -468,6 +463,14 @@ export default function ApartmentStory() {
 
       {/* ── Narrative content ── */}
       <div className="apt-story__content">
+        <div className="apt-story__slogan">
+          <span>Modern</span>
+          <span className="apt-story__slogan-dot">.</span>
+          <span>Elegant</span>
+          <span className="apt-story__slogan-dot">.</span>
+          <span>Timeless</span>
+        </div>
+
         <div className="apt-story__chapter">
           <span className="apt-story__chapter-line" />
           <span className="apt-story__chapter-label" ref={chapterLabelRef} />
@@ -482,15 +485,22 @@ export default function ApartmentStory() {
 
         <p className="apt-story__desc" ref={descRef} />
 
-        <Link
-          href={STAGES[activeStage]?.cta.to || '/services'}
-          className="apt-story__cta"
-          ref={ctaRef}
-          style={{ alignSelf: 'flex-start' }}
-        >
-          <span className="apt-story__cta-label-text">{STAGES[activeStage]?.cta.label || 'Learn More'}</span>
-          <span className="apt-story__cta-arrow" />
-        </Link>
+        <div className="apt-story__cta-group" ref={ctaGroupRef}>
+          <Link
+            href="/projects"
+            className="apt-story__cta apt-story__cta--primary"
+          >
+            <span className="apt-story__cta-label-text">View Our Works</span>
+            <span className="apt-story__cta-arrow" />
+          </Link>
+          <Link
+            href="/contact"
+            className="apt-story__cta apt-story__cta--secondary"
+          >
+            <span className="apt-story__cta-label-text">Free Consultation</span>
+            <span className="apt-story__cta-arrow" />
+          </Link>
+        </div>
       </div>
 
       {/* ── Scroll hint ── */}
