@@ -60,7 +60,7 @@ export const PIAProjects: CollectionConfig = {
   admin: {
     group: GROUP,
     useAsTitle: 'title',
-    defaultColumns: ['title', 'category', 'year'],
+    defaultColumns: ['title', 'category', 'year', 'order'],
     preview: (doc) => {
       const domain = process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000'
       return `${domain}/preview?slug=${doc.slug}&collection=pia-projects`
@@ -75,6 +75,14 @@ export const PIAProjects: CollectionConfig = {
       required: true,
       unique: true,
       label: 'Slug',
+    },
+    {
+      name: 'order',
+      type: 'number',
+      label: 'Display Order',
+      admin: {
+        description: 'Optional display order (lower numbers appear first, e.g. 1, 2, 3). Leave blank to use default order.',
+      },
     },
     {
       name: 'thumbnail',

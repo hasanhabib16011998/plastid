@@ -1,5 +1,5 @@
 Corrections:
-1. At home page, 2 options:View projects and Free Consultation, in that order. Include Slogan
+1. At home page, 2 options:View projects and Free Consultation, in that order. Include Slogan *
 2. Company name beside Logo *
 3. Recent projects after hero section *
 4. Remove the Design Refund Policy 50% upon project completion Rate 40 taka sqft *

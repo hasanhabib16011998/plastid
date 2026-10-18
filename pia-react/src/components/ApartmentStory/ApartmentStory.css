@@ -223,7 +223,8 @@
   max-width: 340px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   padding: 28px 28px;
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.62);
@@ -248,8 +249,9 @@
 .apt-story__slogan {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
-  align-self: flex-start;
+  align-self: center;
   padding: 4px 12px;
   margin-bottom: 12px;
   border-radius: 20px;
@@ -276,6 +278,7 @@
   color: #F5F3ED;
   margin: 0 0 20px;
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 /* ── Chapter label ───────────────────────────────── */
@@ -711,10 +714,11 @@
   }
 
   .apt-story__action-card {
-    max-width: 100%;
-    width: auto;
+    max-width: 480px;
+    width: 100%;
     padding: 18px 20px;
     background: rgba(0, 0, 0, 0.65);
+    box-sizing: border-box;
   }
 
   .apt-story__action-sub {
@@ -722,14 +726,15 @@
   }
 
   .apt-story__cta-group {
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
     gap: 12px;
   }
 
   .apt-story__cta {
-    width: auto;
+    width: 100%;
+    justify-content: space-between;
   }
 }
 
@@ -737,14 +742,15 @@
   .apt-story__content {
     padding: 0 6vw;
     justify-content: flex-end;
-    padding-bottom: 75px;
+    padding-bottom: 72px;
     gap: 14px;
     pointer-events: none;
   }
 
   .apt-story__action-card {
-    padding: 14px 16px;
+    max-width: 100%;
     width: 100%;
+    padding: 14px 14px;
     box-sizing: border-box;
   }
 
@@ -768,19 +774,35 @@
   }
 
   .apt-story__cta-group {
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 8px;
     margin-bottom: 0;
   }
 
   .apt-story__cta {
-    padding: 12px 18px;
-    font-size: 10px;
-    letter-spacing: 1.8px;
+    width: 100%;
+    padding: 12px 11px;
+    font-size: 9.5px;
+    letter-spacing: 1.1px;
+    gap: 6px;
+    white-space: nowrap;
+    justify-content: space-between;
     pointer-events: auto !important;
     position: relative;
     z-index: 110;
     touch-action: manipulation;
     -webkit-tap-highlight-color: rgba(200, 169, 110, 0.3);
+  }
+
+  .apt-story__cta-arrow {
+    width: 12px;
+    flex-shrink: 0;
+  }
+
+  .apt-story__cta:hover .apt-story__cta-arrow {
+    width: 15px;
   }
 
   .apt-story__scroll-hint {
@@ -809,4 +831,17 @@
     height: 4px;
   }
 }
+
+@media (max-width: 380px) {
+  .apt-story__cta-group {
+    grid-template-columns: 1fr;
+  }
+
+  .apt-story__cta {
+    padding: 12px 16px;
+    font-size: 10px;
+    letter-spacing: 1.6px;
+  }
+}
+
 
