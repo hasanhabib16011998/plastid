@@ -280,7 +280,7 @@ export default function Projects({ initialProjects = [] }) {
                   <h3>Have a Project in Mind? Let's Discuss It.</h3>
                 </div>
                 <div className="button float-right">
-                  <Link className="btn-one" href="/contact">Contact Us<span className="flaticon-next"></span></Link>
+                  <Link className="btn-one" href="/contact">Book Appointment<span className="flaticon-next"></span></Link>
                 </div>
               </div>
             </div>

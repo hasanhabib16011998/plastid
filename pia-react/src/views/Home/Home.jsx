@@ -1443,15 +1443,20 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
             </div>
             <div className="col-xl-7 col-lg-7">
               <div className="about-text">
-                <div className="sec-title">
-                  <p>About Company</p>
-                  <div className="title">A premier interior<br />architecture <span>&amp; design studio</span></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', paddingBottom: '44px' }}>
+                  <div className="sec-title" style={{ paddingBottom: 0 }}>
+                    <p>About Company</p>
+                    <div className="title">A premier interior<br />architecture <span>&amp; design studio</span></div>
+                  </div>
                 </div>
                 <div className="inner-content">
                   <div className="text">
                     Plastid Interior and Architecture is not just a design firm; it's a visionary journey into the heart of spaces. With a passion for innovation and a commitment to excellence, we specialize in crafting bespoke interiors and architectural solutions that redefine living and working environments.
                     <br /><br />
                     From concept to completion, our team of seasoned designers and architects collaborate closely with clients to transform visions into tangible realities. With an unwavering dedication to quality craftsmanship and attention to detail, Plastid Interior and Architecture delivers timeless designs that inspire, captivate, and elevate every space.
+                  </div>
+                  <div className="more-project-button" style={{ marginTop: '24px', marginBottom: '24px' }}>
+                    <Link className="btn-two" href="/about">More About Us<span className="flaticon-next"></span></Link>
                   </div>
                   <MissionCarousel />
                 </div>
@@ -1570,8 +1575,8 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
                 </p>
               </div>
               <div className="col-lg-3 col-md-4 text-md-right">
-                <Link className="btn-one" href="/contact" style={{ width: '100%', justifyContent: 'center' }}>
-                  Book Consultation<span className="flaticon-next"></span>
+                <Link className="btn-one" href="/services" style={{ width: '100%', justifyContent: 'center' }}>
+                  See Our Services<span className="flaticon-next"></span>
                 </Link>
               </div>
             </div>
