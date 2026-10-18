@@ -66,21 +66,45 @@ const workingAreas = [
 const workingProcess = [
   {
     num: '01',
-    title: 'Discovery & Concept',
-    text: 'Understanding your spatial vision, lifestyle requirements, and aesthetic goals.',
+    title: 'Initial Consultation',
+    duration: '1-5 hours',
+    text: 'Understanding your spatial vision, lifestyle requirements, functional needs, and budget parameters.',
     icon: 'icon-productive',
   },
   {
     num: '02',
-    title: 'Design & Engineering',
-    text: 'Developing 3D visualizations, floor plans, material specs, and lighting layouts.',
-    icon: 'icon-document',
+    title: 'Concept Development',
+    duration: '1-2 weeks',
+    text: 'Curating mood boards, aesthetic direction, color palettes, and initial conceptual themes for your space.',
+    icon: 'icon-concept',
   },
   {
     num: '03',
-    title: 'Execution & Handover',
-    text: 'Over-seeing site construction, custom installation, and final turnkey styling.',
-    icon: 'icon-kitchen',
+    title: 'Space Planning',
+    duration: '1-2 weeks',
+    text: 'Optimizing floor plans, circulation flow, zoning, and furniture layouts for maximum spatial efficiency.',
+    icon: 'icon-floor',
+  },
+  {
+    num: '04',
+    title: 'Design Development',
+    duration: '3-4 weeks',
+    text: 'Crafting photorealistic 3D visualizations, detailed engineering drawings, lighting layouts, and material specs.',
+    icon: 'icon-sketch',
+  },
+  {
+    num: '05',
+    title: 'Implementation',
+    duration: '6-12 weeks',
+    text: 'Managing full-scale site construction, bespoke fabrication, quality control, and precision installation.',
+    icon: 'icon-architecture-and-city1',
+  },
+  {
+    num: '06',
+    title: 'Project Handover',
+    duration: null,
+    text: 'Conducting final quality walkthroughs, finishing touches, and delivering your completed turnkey space.',
+    icon: 'icon-guarantee-certificate1',
   },
 ]
 
@@ -1449,13 +1473,16 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
             <p>To Do good design</p>
             <div className="title">Our Working <span>process</span></div>
           </div>
-          <div className="row">
+          <div className="row d-flex flex-wrap">
             {workingProcess.map((p, i) => (
-              <div key={i} className="col-xl-4 col-lg-4">
+              <div key={i} className="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex">
                 <div className="single-working-process text-center">
                   <div className="top-box"><span>{p.num}</span></div>
                   <div className="inner">
                     <h3>{p.title}</h3>
+                    <div className="process-duration-slot">
+                      {p.duration && <span className="process-duration">({p.duration})</span>}
+                    </div>
                     <p>{p.text}</p>
                     <div className="icon-holder">
                       <span className={p.icon}></span>
