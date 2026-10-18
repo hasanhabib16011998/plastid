@@ -99,14 +99,19 @@ export default function Header() {
             <div className="col-xl-12">
               <div className="inner-container clearfix">
 
-                {/* Logo */}
+                {/* Logo & Company Name */}
                 <div className="logo-box-style1 float-left">
-                  <Link href="/">
+                  <Link href="/" className="pia-brand-link" aria-label="Plastid Interior and Architecture">
                     <img
                       src="/images/resources/logo.png"
-                      style={{ height: '70px', width: 'auto' , marginTop: '3px' }}
-                      alt="PIA logo"
+                      className="pia-brand-logo"
+                      alt="Plastid Interior and Architecture logo"
                     />
+                    <span className="pia-brand-divider" aria-hidden="true" />
+                    <span className="pia-brand-text">
+                      <span className="pia-brand-title">Plastid</span>
+                      <span className="pia-brand-subtitle">Interior and Architecture</span>
+                    </span>
                   </Link>
                 </div>
 
@@ -186,8 +191,13 @@ export default function Header() {
         {/* Drawer header */}
         <div className="pia-drawer-header">
           <div className="pia-drawer-logo">
-            <Link href="/" onClick={closeDrawer}>
-              <img src="/images/resources/logo.png" alt="PIA logo" />
+            <Link href="/" onClick={closeDrawer} className="pia-brand-link" aria-label="Plastid Interior and Architecture">
+              <img src="/images/resources/logo.png" className="pia-brand-logo" alt="Plastid Interior and Architecture logo" />
+              <span className="pia-brand-divider" aria-hidden="true" />
+              <span className="pia-brand-text">
+                <span className="pia-brand-title">Plastid</span>
+                <span className="pia-brand-subtitle">Interior and Architecture</span>
+              </span>
             </Link>
           </div>
         </div>

@@ -31,15 +31,93 @@
 .header-upper-style1 .inner-container {
   background: transparent !important;
   box-shadow: none !important;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: space-between;
   min-height: 80px;
 }
 
-.header-upper-style1 .logo-box-style1 img {
-  opacity: 0.95;
+.header-upper-style1 .inner-container::before,
+.header-upper-style1 .inner-container::after {
+  display: none !important;
+}
+
+/* ── BRAND LOGO & COMPANY NAME LOCKUP ────────────── */
+.logo-box-style1 {
+  float: none !important;
+  flex-shrink: 0;
+}
+
+.logo-box-style1 .pia-brand-link,
+.pia-drawer-logo .pia-brand-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none !important;
   transition: opacity 0.3s ease;
+}
+
+.pia-brand-logo {
+  height: 58px;
+  width: auto;
+  flex-shrink: 0;
+  opacity: 0.96;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.pia-brand-link:hover .pia-brand-logo {
+  opacity: 1;
+}
+
+.pia-brand-divider {
+  width: 1px;
+  height: 38px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(196, 155, 93, 0.08) 0%,
+    rgba(196, 155, 93, 0.65) 50%,
+    rgba(196, 155, 93, 0.08) 100%
+  );
+}
+
+.pia-brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  text-align: left;
+}
+
+.pia-brand-title {
+  color: #F5F3ED;
+  font-family: var(--font-serif, 'Cormorant Garamond', Georgia, serif);
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.pia-brand-subtitle {
+  color: #C49B5D;
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.pia-brand-link:hover .pia-brand-title {
+  color: #C49B5D;
+}
+
+.pia-brand-link:hover .pia-brand-subtitle {
+  color: #F5F3ED;
 }
 
 /* ── DESKTOP NAVIGATION STYLING (≥ 992px) ────────── */
@@ -278,7 +356,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px 16px;
+  padding: 18px 68px 16px 20px;
   border-bottom: 1px solid rgba(196, 155, 93, 0.2);
   flex-shrink: 0;
   background: #1F2E23;
@@ -287,10 +365,27 @@
   z-index: 1;
 }
 
-.pia-drawer-logo img {
-  height: 56px;
+.pia-drawer-logo .pia-brand-link {
+  gap: 10px;
+}
+
+.pia-drawer-logo .pia-brand-logo {
+  height: 44px;
   width: auto;
-  opacity: 0.92;
+  opacity: 0.94;
+}
+
+.pia-drawer-logo .pia-brand-divider {
+  height: 30px;
+}
+
+.pia-drawer-logo .pia-brand-title {
+  font-size: 19px;
+}
+
+.pia-drawer-logo .pia-brand-subtitle {
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
 }
 
 /* ── DRAWER NAV LIST ──────────────────────────── */
@@ -507,10 +602,43 @@
   transform: translateY(-2px);
 }
 
-/* ── MOBILE NAVBAR BREAKPOINT (≤ 991px) ────────────── */
+/* ── MEDIUM DESKTOP BREAKPOINT (992px – 1199px) ────── */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .header-upper-style1 .inner-container {
+    padding: 0 20px !important;
+  }
+
+  .main-menu .navigation {
+    gap: 22px;
+  }
+
+  .logo-box-style1 .pia-brand-link {
+    gap: 11px;
+  }
+
+  .pia-brand-logo {
+    height: 50px;
+  }
+
+  .pia-brand-divider {
+    height: 32px;
+  }
+
+  .pia-brand-title {
+    font-size: 21px;
+  }
+
+  .pia-brand-subtitle {
+    font-size: 9.5px;
+    letter-spacing: 0.09em;
+  }
+}
+
+/* ── MOBILE & TABLET NAVBAR BREAKPOINT (≤ 991px) ───── */
 @media only screen and (max-width: 991px) {
   .pia-hamburger {
     display: flex;
+    top: 13px;
   }
 
   .main-menu-box {
@@ -524,11 +652,97 @@
   }
 
   .logo-box-style1 {
-    position: absolute;
-    top: 50%;
-    left: 16px;
-    transform: translateY(-50%);
+    position: absolute !important;
+    top: 50% !important;
+    left: 16px !important;
+    transform: translateY(-50%) !important;
     float: none !important;
+    max-width: calc(100% - 76px);
+  }
+
+  .logo-box-style1 .pia-brand-link {
+    gap: 11px;
+  }
+
+  .pia-brand-logo {
+    height: 48px;
+  }
+
+  .pia-brand-divider {
+    height: 32px;
+  }
+
+  .pia-brand-title {
+    font-size: 20px;
+  }
+
+  .pia-brand-subtitle {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* ── SMALL MOBILE BREAKPOINT (≤ 480px) ─────────────── */
+@media only screen and (max-width: 480px) {
+  .header-upper-style1 .inner-container {
+    padding: 0 12px !important;
+    min-height: 66px;
+  }
+
+  .pia-hamburger {
+    top: 11px;
+    right: 12px;
+  }
+
+  .logo-box-style1 {
+    left: 12px !important;
+    max-width: calc(100% - 68px);
+  }
+
+  .logo-box-style1 .pia-brand-link {
+    gap: 9px;
+  }
+
+  .pia-brand-logo {
+    height: 42px;
+  }
+
+  .pia-brand-divider {
+    height: 28px;
+  }
+
+  .pia-brand-title {
+    font-size: 18px;
+    letter-spacing: 0.04em;
+  }
+
+  .pia-brand-subtitle {
+    font-size: 8px;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* ── EXTRA SMALL MOBILE BREAKPOINT (≤ 360px) ───────── */
+@media only screen and (max-width: 360px) {
+  .logo-box-style1 .pia-brand-link {
+    gap: 7px;
+  }
+
+  .pia-brand-logo {
+    height: 36px;
+  }
+
+  .pia-brand-divider {
+    height: 24px;
+  }
+
+  .pia-brand-title {
+    font-size: 16px;
+  }
+
+  .pia-brand-subtitle {
+    font-size: 7.5px;
+    letter-spacing: 0.04em;
   }
 }
 
