@@ -1071,156 +1071,6 @@ const sectorMetrics = [
   },
 ]
 
-function ProjectFootprint() {
-  return (
-    <section className="brand-area" style={{ background: '#F5F3ED', padding: '90px 0 80px' }}>
-      <div className="container">
-        {/* Section Header */}
-        <div className="sec-title text-center max-width" style={{ paddingBottom: '40px' }}>
-          <p>Proven Expertise Across Sectors</p>
-          <div className="title">
-            Trusted Spaces <span>Crafted to Inspire</span>
-          </div>
-        </div>
-
-        {/* 4 Sector Cards Grid */}
-        <div className="row d-flex flex-wrap" style={{ marginBottom: '30px' }}>
-          {sectorMetrics.map((s, i) => (
-            <div key={i} className="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex" style={{ marginBottom: '24px' }}>
-              <div
-                style={{
-                  width: '100%',
-                  background: '#ffffff',
-                  borderRadius: '8px',
-                  border: '1px solid rgba(196, 155, 93, 0.25)',
-                  padding: '28px 24px',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  transition: 'all 0.35s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-6px)'
-                  e.currentTarget.style.borderColor = '#C49B5D'
-                  e.currentTarget.style.boxShadow = '0 10px 28px rgba(196, 155, 93, 0.18)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.25)'
-                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                    <span
-                      style={{
-                        background: 'rgba(196, 155, 93, 0.12)',
-                        color: '#C49B5D',
-                        padding: '4px 12px',
-                        borderRadius: '20px',
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        letterSpacing: '1px',
-                        textTransform: 'uppercase',
-                        fontFamily: 'var(--font-primary)',
-                      }}
-                    >
-                      {s.badge}
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-serif)',
-                      fontSize: '42px',
-                      lineHeight: '1',
-                      fontWeight: 500,
-                      color: '#000000',
-                      marginBottom: '6px',
-                    }}
-                  >
-                    {s.metric}
-                  </div>
-                  <h4
-                    style={{
-                      fontFamily: 'var(--font-primary)',
-                      fontSize: '16px',
-                      fontWeight: 600,
-                      color: '#C49B5D',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    {s.label}
-                  </h4>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-primary)',
-                      fontSize: '13.5px',
-                      lineHeight: '1.65',
-                      color: 'rgba(0, 0, 0, 0.75)',
-                      margin: 0,
-                    }}
-                  >
-                    {s.desc}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 50% Refund Policy Highlight Banner */}
-        <div
-          style={{
-            background: '#000000',
-            borderRadius: '8px',
-            border: '1.5px solid #C49B5D',
-            padding: '28px 32px',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
-            marginTop: '10px',
-          }}
-        >
-          <div className="row align-items-center">
-            <div className="col-lg-9 col-md-8" style={{ marginBottom: '15px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '8px' }}>
-                <span style={{ color: '#C49B5D', fontSize: '20px' }}>★</span>
-                <h4
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: '22px',
-                    color: '#C49B5D',
-                    margin: 0,
-                    fontWeight: 500,
-                  }}
-                >
-                  50% 3D Design Fee Refund Policy
-                </h4>
-              </div>
-              <p
-                style={{
-                  fontFamily: 'var(--font-primary)',
-                  fontSize: '14.5px',
-                  lineHeight: '1.7',
-                  color: '#F5F3ED',
-                  margin: 0,
-                  opacity: 0.9,
-                }}
-              >
-                Our BDT 40/sqft 3D design fee secures your project in our pipeline, with 50% refunded after project completion when you execute the project with us.
-              </p>
-            </div>
-            <div className="col-lg-3 col-md-4 text-md-right">
-              <Link className="btn-one" href="/contact" style={{ width: '100%', justifyContent: 'center' }}>
-                Book Consultation<span className="flaticon-next"></span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 // ─── Appointment Form ───────────────────────────────────────
 function AppointmentForm() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' })
@@ -1259,7 +1109,7 @@ function AppointmentForm() {
   return (
     <div className="appointment-box">
       <div className="title-box">
-        <h2>Make Appointment</h2>
+        <h2>Book Consultation</h2>
         <span>Leave your information here and get reply from our expert in 24 hours, don't hesitate to ask.</span>
       </div>
       <div className="appointment">
@@ -1378,10 +1228,93 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
         <div className="container-fluid">
           <ProjectsCarousel initialProjects={initialProjects} />
         </div>
+        <div className="container" style={{ marginTop: '56px' }}>
+          <div className="row d-flex flex-wrap">
+            {sectorMetrics.map((s, i) => (
+              <div key={i} className="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex" style={{ marginBottom: '24px' }}>
+                <div
+                  style={{
+                    width: '100%',
+                    background: '#ffffff',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(196, 155, 93, 0.25)',
+                    padding: '28px 24px',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    transition: 'all 0.35s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-6px)'
+                    e.currentTarget.style.borderColor = '#C49B5D'
+                    e.currentTarget.style.boxShadow = '0 10px 28px rgba(196, 155, 93, 0.18)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.25)'
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'
+                  }}
+                >
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                      <span
+                        style={{
+                          background: 'rgba(196, 155, 93, 0.12)',
+                          color: '#C49B5D',
+                          padding: '4px 12px',
+                          borderRadius: '20px',
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          letterSpacing: '1px',
+                          textTransform: 'uppercase',
+                          fontFamily: 'var(--font-primary)',
+                        }}
+                      >
+                        {s.badge}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-serif)',
+                        fontSize: '42px',
+                        lineHeight: '1',
+                        fontWeight: 500,
+                        color: '#000000',
+                        marginBottom: '6px',
+                      }}
+                    >
+                      {s.metric}
+                    </div>
+                    <h4
+                      style={{
+                        fontFamily: 'var(--font-primary)',
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        color: '#C49B5D',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      {s.label}
+                    </h4>
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-primary)',
+                        fontSize: '13.5px',
+                        lineHeight: '1.65',
+                        color: 'rgba(0, 0, 0, 0.75)',
+                        margin: 0,
+                      }}
+                    >
+                      {s.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
-
-      {/* Project Footprint & Expertise */}
-      <ProjectFootprint />
 
       {/* About */}
       <section className="about-area">
@@ -1467,7 +1400,7 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
       </section>
 
       {/* Working Process */}
-      <section className="working-process-area">
+      <section className="working-process-area" style={{ paddingBottom: '90px' }}>
         <div className="container">
           <div className="sec-title text-center">
             <p>To Do good design</p>
@@ -1492,29 +1425,59 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Slogan CTA */}
-      <section className="slogan-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="inner-content flex-box-two fix">
-                <div className="title float-left">
-                  <h3>Wanna Work With Our Professional Team? Make an Appointment.</h3>
+          {/* 50% Refund Policy Highlight Banner */}
+          <div
+            style={{
+              background: '#000000',
+              borderRadius: '8px',
+              border: '1.5px solid #C49B5D',
+              padding: '28px 32px',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
+              marginTop: '10px',
+            }}
+          >
+            <div className="row align-items-center">
+              <div className="col-lg-9 col-md-8" style={{ marginBottom: '15px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '8px' }}>
+                  <span style={{ color: '#C49B5D', fontSize: '20px' }}>★</span>
+                  <h4
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '22px',
+                      color: '#C49B5D',
+                      margin: 0,
+                      fontWeight: 500,
+                    }}
+                  >
+                    50% 3D Design Fee Refund Policy
+                  </h4>
                 </div>
-                <div className="button float-right">
-                  <Link className="btn-one" href="/contact">Make an Appointment<span className="flaticon-next"></span></Link>
-                </div>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-primary)',
+                    fontSize: '14.5px',
+                    lineHeight: '1.7',
+                    color: '#F5F3ED',
+                    margin: 0,
+                    opacity: 0.9,
+                  }}
+                >
+                  Our BDT 40/sqft 3D design fee secures your project in our pipeline, with 50% refunded after project completion when you execute the project with us.
+                </p>
+              </div>
+              <div className="col-lg-3 col-md-4 text-md-right">
+                <Link className="btn-one" href="/contact" style={{ width: '100%', justifyContent: 'center' }}>
+                  Book Consultation<span className="flaticon-next"></span>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <TestimonialsSection initialList={initialTestimonials} />
+      
+
 
       {/* Appointment Area */}
       <section className="appointment-area" style={{ backgroundImage: 'url(/images/resources/appointment-bg.jpg)' }}>
@@ -1523,8 +1486,8 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
             <div className="col-xl-6 col-lg-6">
               <div className="map-content-box">
                 <div className="sec-title">
-                  <p>Contact Details</p>
-                  <div className="title">How Can We <span>Help You?</span></div>
+                  <p>Start Your Journey</p>
+                  <div className="title">Ready to Transform <span>Your Space?</span></div>
                 </div>
                 <div className="inner">
                   <img src="/images/resources/map.png" alt="Map" />
@@ -1546,6 +1509,9 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <TestimonialsSection initialList={initialTestimonials} />
 
       <Footer />
       <ScrollToTop />
