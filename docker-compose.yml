@@ -40,8 +40,10 @@ services:
 
   # ── MinIO bucket setup (runs once, then exits) ──────────────────────────────
   minio-setup:
-    image: quay.io/minio/mc:latest
+    image: bitnamilegacy/minio-client:latest
     container_name: plastid-minio-setup
+    environment:
+      MC_CONFIG_DIR: /tmp/.mc
     depends_on:
       minio:
         condition: service_healthy
