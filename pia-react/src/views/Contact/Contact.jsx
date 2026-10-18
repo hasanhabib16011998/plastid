@@ -246,7 +246,7 @@ export default function Contact() {
                   border: '1px solid rgba(31, 46, 35, 0.1)'
                 }}>
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.5773855994097!2d90.4356!3d23.7806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7cb2fd59f91%3A0x3be47af01c4efbc!2sAftab%20Nagar%2C%20Dhaka%201212!5e0!3m2!1sen!2sbd!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.4941539302285!2d90.43558017587414!3d23.76541148819882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70021dd78f7%3A0x8ac0dd7367642152!2sPlastid%20Interior%20%26%20Architecture!5e0!3m2!1sen!2sbd!4v1792351987658!5m2!1sen!2sbd"
                     width="100%"
                     height="340"
                     style={{ border: 0, display: 'block' }}
@@ -263,8 +263,8 @@ export default function Contact() {
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}>
                     {[
                       { icon: 'fa-facebook', href: 'https://www.facebook.com/profile.php?id=61555749343330' },
-                      { icon: 'fa-skype', href: '#' },
-                      { icon: 'fa-linkedin', href: '#' },
+                      { icon: 'fa-instagram', href: 'https://www.instagram.com/plastid.interior.architecture/' },
+                      { icon: 'fa-tiktok', href: 'https://www.tiktok.com/@plastid.interiors' },
                     ].map((s, i) => (
                       <a
                         key={i}
