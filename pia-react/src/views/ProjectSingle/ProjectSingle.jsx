@@ -152,175 +152,10 @@ export default function ProjectSingle({ project }) {
                   )}
                 </div>
               )}
-
-              {/* Project Gallery */}
-              {galleryList.length > 0 && (
-                <div style={{ marginBottom: '30px' }}>
-                  <h3 style={{ marginBottom: '16px', fontSize: '20px', color: '#000000', fontWeight: 700 }}>Project Gallery</h3>
-
-                  {/* Desktop View Grid (Click image to open Lightbox Frame) */}
-                  <div className="d-none d-md-flex row">
-                    {galleryList.map((item, i) => (
-                      <div key={i} className="col-md-6 col-12" style={{ marginBottom: '20px' }}>
-                        <div
-                          onClick={() => setLightboxIndex(i)}
-                          style={{
-                            borderRadius: '8px',
-                            overflow: 'hidden',
-                            height: '220px',
-                            background: '#000000',
-                            cursor: 'pointer',
-                            position: 'relative',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'scale(1.02)'
-                            e.currentTarget.style.boxShadow = '0 8px 20px rgba(196, 155, 93, 0.3)'
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'scale(1)'
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)'
-                          }}
-                        >
-                          <img
-                            src={typeof item === 'string' ? item : item.url}
-                            alt={item.caption || `Gallery Image ${i + 1}`}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          />
-                          <div
-                            style={{
-                              position: 'absolute',
-                              inset: 0,
-                              background: 'rgba(0, 0, 0, 0.4)',
-                              opacity: 0,
-                              transition: 'opacity 0.3s ease',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                            className="gallery-hover-overlay"
-                            onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                            onMouseLeave={(e) => (e.currentTarget.style.opacity = '0')}
-                          >
-                            <span style={{ color: '#fff', fontSize: '13px', background: 'rgba(0,0,0,0.6)', padding: '6px 14px', borderRadius: '20px', border: '1px solid #C49B5D' }}>
-                              🔍 Click to Enlarge
-                            </span>
-                          </div>
-                        </div>
-                        {item.caption && (
-                          <p style={{ marginTop: '6px', fontSize: '13px', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
-                            {item.caption}
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Mobile View Interactive Carousel (Slide through images) */}
-                  <div className="d-block d-md-none" style={{ position: 'relative', overflow: 'hidden', borderRadius: '10px' }}>
-                    <div
-                      onTouchStart={handleTouchStart}
-                      onTouchMove={handleTouchMove}
-                      onTouchEnd={handleTouchEnd}
-                      style={{
-                        display: 'flex',
-                        transition: 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
-                        transform: `translateX(-${mobileSlide * 100}%)`,
-                      }}
-                    >
-                      {galleryList.map((item, i) => (
-                        <div
-                          key={i}
-                          onClick={() => setLightboxIndex(i)}
-                          style={{
-                            minWidth: '100%',
-                            boxSizing: 'border-box',
-                            padding: '0 2px',
-                          }}
-                        >
-                          <div style={{ borderRadius: '8px', overflow: 'hidden', height: '240px', background: '#000000', position: 'relative' }}>
-                            <img
-                              src={typeof item === 'string' ? item : item.url}
-                              alt={item.caption || `Gallery Image ${i + 1}`}
-                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                            />
-                            <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', color: '#fff', fontSize: '11px', padding: '3px 8px', borderRadius: '10px' }}>
-                              {i + 1} / {galleryList.length}
-                            </div>
-                          </div>
-                          {item.caption && (
-                            <p style={{ marginTop: '8px', fontSize: '13px', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
-                              {item.caption}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Mobile Carousel Controls & Dots */}
-                    {galleryList.length > 1 && (
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '12px' }}>
-                        <button
-                          onClick={() => setMobileSlide((prev) => (prev > 0 ? prev - 1 : galleryList.length - 1))}
-                          style={{
-                            background: '#000000',
-                            color: '#C49B5D',
-                            border: '1px solid #C49B5D',
-                            borderRadius: '50%',
-                            width: '32px',
-                            height: '32px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          ‹
-                        </button>
-                        <div style={{ display: 'flex', gap: '6px' }}>
-                          {galleryList.map((_, i) => (
-                            <button
-                              key={i}
-                              onClick={() => setMobileSlide(i)}
-                              style={{
-                                width: mobileSlide === i ? '18px' : '8px',
-                                height: '8px',
-                                borderRadius: '4px',
-                                background: mobileSlide === i ? '#C49B5D' : '#ccc',
-                                border: 'none',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease',
-                              }}
-                            />
-                          ))}
-                        </div>
-                        <button
-                          onClick={() => setMobileSlide((prev) => (prev < galleryList.length - 1 ? prev + 1 : 0))}
-                          style={{
-                            background: '#000000',
-                            color: '#C49B5D',
-                            border: '1px solid #C49B5D',
-                            borderRadius: '50%',
-                            width: '32px',
-                            height: '32px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          ›
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
             </div>
 
             {/* Sidebar */}
-            <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12" style={{ marginBottom: '30px' }}>
               <div>
                 {/* Project Info */}
                 <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '8px', marginBottom: '24px', border: '1px solid rgba(196, 155, 93, 0.2)' }}>
@@ -360,6 +195,173 @@ export default function ProjectSingle({ project }) {
               </div>
             </div>
           </div>
+
+          {/* Full-Width Project Gallery */}
+          {galleryList.length > 0 && (
+            <div className="row">
+              <div className="col-12" style={{ marginBottom: '30px', paddingTop: '10px' }}>
+                <h3 style={{ marginBottom: '20px', fontSize: '22px', color: '#000000', fontWeight: 700 }}>Project Gallery</h3>
+
+                {/* Desktop View Grid (Click image to open Lightbox Frame) */}
+                <div className="d-none d-md-flex row">
+                  {galleryList.map((item, i) => (
+                    <div key={i} className="col-lg-4 col-md-6 col-12" style={{ marginBottom: '24px' }}>
+                      <div
+                        onClick={() => setLightboxIndex(i)}
+                        style={{
+                          borderRadius: '8px',
+                          overflow: 'hidden',
+                          height: '250px',
+                          background: '#000000',
+                          cursor: 'pointer',
+                          position: 'relative',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.02)'
+                          e.currentTarget.style.boxShadow = '0 8px 20px rgba(196, 155, 93, 0.3)'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)'
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)'
+                        }}
+                      >
+                        <img
+                          src={typeof item === 'string' ? item : item.url}
+                          alt={item.caption || `Gallery Image ${i + 1}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                        <div
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'rgba(0, 0, 0, 0.4)',
+                            opacity: 0,
+                            transition: 'opacity 0.3s ease',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                          className="gallery-hover-overlay"
+                          onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+                          onMouseLeave={(e) => (e.currentTarget.style.opacity = '0')}
+                        >
+                          <span style={{ color: '#fff', fontSize: '13px', background: 'rgba(0,0,0,0.6)', padding: '6px 14px', borderRadius: '20px', border: '1px solid #C49B5D' }}>
+                            🔍 Click to Enlarge
+                          </span>
+                        </div>
+                      </div>
+                      {item.caption && (
+                        <p style={{ marginTop: '6px', fontSize: '13px', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
+                          {item.caption}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Mobile View Interactive Carousel (Slide through images) */}
+                <div className="d-block d-md-none" style={{ position: 'relative', overflow: 'hidden', borderRadius: '10px' }}>
+                  <div
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    style={{
+                      display: 'flex',
+                      transition: 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
+                      transform: `translateX(-${mobileSlide * 100}%)`,
+                    }}
+                  >
+                    {galleryList.map((item, i) => (
+                      <div
+                        key={i}
+                        onClick={() => setLightboxIndex(i)}
+                        style={{
+                          minWidth: '100%',
+                          boxSizing: 'border-box',
+                          padding: '0 2px',
+                        }}
+                      >
+                        <div style={{ borderRadius: '8px', overflow: 'hidden', height: '240px', background: '#000000', position: 'relative' }}>
+                          <img
+                            src={typeof item === 'string' ? item : item.url}
+                            alt={item.caption || `Gallery Image ${i + 1}`}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                          <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', color: '#fff', fontSize: '11px', padding: '3px 8px', borderRadius: '10px' }}>
+                            {i + 1} / {galleryList.length}
+                          </div>
+                        </div>
+                        {item.caption && (
+                          <p style={{ marginTop: '8px', fontSize: '13px', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
+                            {item.caption}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Mobile Carousel Controls & Dots */}
+                  {galleryList.length > 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '12px' }}>
+                      <button
+                        onClick={() => setMobileSlide((prev) => (prev > 0 ? prev - 1 : galleryList.length - 1))}
+                        style={{
+                          background: '#000000',
+                          color: '#C49B5D',
+                          border: '1px solid #C49B5D',
+                          borderRadius: '50%',
+                          width: '32px',
+                          height: '32px',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        ‹
+                      </button>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        {galleryList.map((_, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setMobileSlide(i)}
+                            style={{
+                              width: mobileSlide === i ? '18px' : '8px',
+                              height: '8px',
+                              borderRadius: '4px',
+                              background: mobileSlide === i ? '#C49B5D' : '#ccc',
+                              border: 'none',
+                              cursor: 'pointer',
+                              transition: 'all 0.3s ease',
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => setMobileSlide((prev) => (prev < galleryList.length - 1 ? prev + 1 : 0))}
+                        style={{
+                          background: '#000000',
+                          color: '#C49B5D',
+                          border: '1px solid #C49B5D',
+                          borderRadius: '50%',
+                          width: '32px',
+                          height: '32px',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        ›
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
