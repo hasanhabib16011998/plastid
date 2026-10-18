@@ -1228,7 +1228,57 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
         <div className="container-fluid">
           <ProjectsCarousel initialProjects={initialProjects} />
         </div>
-        <div className="container" style={{ marginTop: '56px' }}>
+
+        {/* Visual Divider between Recently Completed Works and Statistics */}
+        <div className="container" style={{ marginTop: '56px', marginBottom: '36px' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '18px',
+            }}
+          >
+            <span
+              style={{
+                flex: 1,
+                height: '1px',
+                background: 'linear-gradient(90deg, transparent 0%, rgba(196, 155, 93, 0.55) 100%)',
+              }}
+            />
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '6px 18px',
+                borderRadius: '30px',
+                border: '1px solid rgba(196, 155, 93, 0.4)',
+                background: 'rgba(196, 155, 93, 0.08)',
+                color: '#C49B5D',
+                fontFamily: 'var(--font-primary)',
+                fontSize: '11px',
+                fontWeight: 600,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span style={{ fontSize: '10px' }}>◆</span>
+              Our Footprint
+              <span style={{ fontSize: '10px' }}>◆</span>
+            </span>
+            <span
+              style={{
+                flex: 1,
+                height: '1px',
+                background: 'linear-gradient(90deg, rgba(196, 155, 93, 0.55) 0%, transparent 100%)',
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="container">
           <div className="row d-flex flex-wrap">
             {sectorMetrics.map((s, i) => (
               <div key={i} className="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex" style={{ marginBottom: '24px' }}>
@@ -1316,8 +1366,61 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
         </div>
       </section>
 
+      {/* Architectural Section Divider between Recent Works/Stats and About Company */}
+      <div
+        style={{
+          position: 'relative',
+          background: 'linear-gradient(180deg, #F5F3ED 50%, #ffffff 50%)',
+          padding: '0 16px',
+        }}
+      >
+        <div
+          className="container"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <span
+            style={{
+              flex: 1,
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(196, 155, 93, 0.6) 100%)',
+            }}
+          />
+          <span
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              background: '#000000',
+              border: '1.5px solid #C49B5D',
+              color: '#C49B5D',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '12px',
+              margin: '0 16px',
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
+              flexShrink: 0,
+            }}
+            aria-hidden="true"
+          >
+            ◆
+          </span>
+          <span
+            style={{
+              flex: 1,
+              height: '1px',
+              background: 'linear-gradient(90deg, rgba(196, 155, 93, 0.6) 0%, transparent 100%)',
+            }}
+          />
+        </div>
+      </div>
+
       {/* About */}
-      <section className="about-area">
+      <section className="about-area" style={{ background: '#ffffff', paddingTop: '90px' }}>
         <div className="container">
           <div className="row">
             <div className="col-xl-5 col-lg-5">
