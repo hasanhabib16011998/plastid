@@ -81,7 +81,7 @@ export default function FAQ() {
                             height: '32px',
                             borderRadius: '50%',
                             background: openIndex === i ? '#C49B5D' : 'rgba(196, 155, 93, 0.12)',
-                            color: openIndex === i ? '#1F2E23' : '#C49B5D',
+                            color: openIndex === i ? '#000000' : '#C49B5D',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',

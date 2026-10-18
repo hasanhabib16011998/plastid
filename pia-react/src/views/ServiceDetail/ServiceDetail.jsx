@@ -142,8 +142,8 @@ export default function ServiceDetail() {
                     whiteSpace: 'nowrap',
                     fontSize: '13px',
                     fontWeight: 600,
-                    background: slug === s.slug ? '#C49B5D' : '#1F2E23',
-                    color: slug === s.slug ? '#1F2E23' : '#F5F3ED',
+                    background: slug === s.slug ? '#C49B5D' : '#000000',
+                    color: slug === s.slug ? '#000000' : '#F5F3ED',
                     border: '1px solid #C49B5D',
                     textDecoration: 'none',
                     transition: 'all 0.25s ease',
@@ -186,7 +186,7 @@ export default function ServiceDetail() {
                               <span className={adv.icon} style={{ fontSize: '36px', color: '#C49B5D' }}></span>
                             </div>
                             <div className="title">
-                              <h3 style={{ whiteSpace: 'pre-line', fontSize: '14px', lineHeight: '1.3', fontWeight: 600, color: '#1F2E23' }}>{adv.title}</h3>
+                              <h3 style={{ whiteSpace: 'pre-line', fontSize: '14px', lineHeight: '1.3', fontWeight: 600, color: '#000000' }}>{adv.title}</h3>
                             </div>
                           </div>
                           <div className="overlay-text">
@@ -205,7 +205,7 @@ export default function ServiceDetail() {
 
               {/* How We Work */}
               <div className="how-we-work" style={{ marginTop: '35px' }}>
-                <h3 style={{ marginBottom: '18px', fontSize: '22px', fontWeight: 700, color: '#1F2E23' }}>How We Work</h3>
+                <h3 style={{ marginBottom: '18px', fontSize: '22px', fontWeight: 700, color: '#000000' }}>How We Work</h3>
                 <div className="row align-items-center">
                   <div className="col-xl-6 col-lg-6 col-md-12" style={{ marginBottom: '20px' }}>
                     <img src="/images/services/service-single/how-work.jpg" alt="How We Work" style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }} />
@@ -218,7 +218,7 @@ export default function ServiceDetail() {
                       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                         {['Initial Consultation & Discovery', 'Concept Development', 'Design Refinement & Approval', 'Project Execution', 'Quality Review & Handover'].map((step, i) => (
                           <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 0', borderBottom: '1px solid #eee' }}>
-                            <span style={{ width: '26px', height: '26px', borderRadius: '50%', background: '#C49B5D', color: '#1F2E23', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '700', flexShrink: 0 }}>
+                            <span style={{ width: '26px', height: '26px', borderRadius: '50%', background: '#C49B5D', color: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '700', flexShrink: 0 }}>
                               {i + 1}
                             </span>
                             <span style={{ color: '#333', fontSize: '13.5px', fontWeight: 500 }}>{step}</span>

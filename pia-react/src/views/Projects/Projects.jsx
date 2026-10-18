@@ -79,8 +79,8 @@ export default function Projects({ initialProjects = [] }) {
                       padding: '10px 24px',
                       borderRadius: '30px',
                       border: isActive ? '2px solid #C49B5D' : '2px solid rgba(196, 155, 93, 0.3)',
-                      background: isActive ? '#C49B5D' : '#1F2E23',
-                      color: isActive ? '#1F2E23' : '#F5F3ED',
+                      background: isActive ? '#C49B5D' : '#000000',
+                      color: isActive ? '#000000' : '#F5F3ED',
                       fontSize: '14px',
                       fontWeight: '600',
                       cursor: 'pointer',
@@ -124,7 +124,7 @@ export default function Projects({ initialProjects = [] }) {
                         overflow: 'hidden',
                         borderRadius: '8px',
                         height: '260px',
-                        background: '#1F2E23',
+                        background: '#000000',
                       }}
                     >
                       <img
@@ -147,7 +147,7 @@ export default function Projects({ initialProjects = [] }) {
                           bottom: 0,
                           left: 0,
                           right: 0,
-                          background: 'linear-gradient(to top, rgba(31, 46, 35, 0.95) 0%, rgba(31, 46, 35, 0.6) 60%, transparent 100%)',
+                          background: 'linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 60%, transparent 100%)',
                           padding: '24px 14px 12px',
                           display: 'flex',
                           flexDirection: 'column',
@@ -171,7 +171,7 @@ export default function Projects({ initialProjects = [] }) {
                         style={{
                           position: 'absolute',
                           inset: 0,
-                          background: 'rgba(31, 46, 35, 0.92)',
+                          background: 'rgba(0, 0, 0, 0.92)',
                           backdropFilter: 'blur(6px)',
                           WebkitBackdropFilter: 'blur(6px)',
                           border: '1.5px solid #C49B5D',
@@ -246,7 +246,7 @@ export default function Projects({ initialProjects = [] }) {
                               justifyContent: 'center',
                               borderRadius: '20px',
                               background: '#C49B5D',
-                              color: '#1F2E23',
+                              color: '#000000',
                               border: 'none',
                               boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)',
                               cursor: 'pointer',
@@ -257,7 +257,7 @@ export default function Projects({ initialProjects = [] }) {
                               letterSpacing: '0.05em',
                             }}
                           >
-                            Details <span className="flaticon-next" style={{ fontSize: '11px', color: '#1F2E23' }} />
+                            Details <span className="flaticon-next" style={{ fontSize: '11px', color: '#000000' }} />
                           </button>
                         </div>
                       </div>

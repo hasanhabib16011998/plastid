@@ -54,7 +54,7 @@ export default function ProjectSingle({ project }) {
         />
         <section style={{ padding: '80px 0', textAlign: 'center' }}>
           <div className="container">
-            <h2 style={{ fontSize: '28px', color: '#1F2E23', marginBottom: '16px' }}>Project Not Found</h2>
+            <h2 style={{ fontSize: '28px', color: '#000000', marginBottom: '16px' }}>Project Not Found</h2>
             <p style={{ color: '#666', marginBottom: '24px' }}>The requested project could not be found.</p>
             <Link href="/projects" className="btn-one">
               Back to All Projects <span className="flaticon-next"></span>
@@ -123,7 +123,7 @@ export default function ProjectSingle({ project }) {
 
               {/* Description */}
               <div style={{ marginBottom: '25px' }}>
-                <h3 style={{ marginBottom: '12px', fontSize: '22px', color: '#1F2E23', fontWeight: 700 }}>Project Overview</h3>
+                <h3 style={{ marginBottom: '12px', fontSize: '22px', color: '#000000', fontWeight: 700 }}>Project Overview</h3>
                 <p style={{ color: '#555', lineHeight: 1.7, fontSize: '15px' }}>{project.description}</p>
               </div>
 
@@ -139,13 +139,13 @@ export default function ProjectSingle({ project }) {
                   }}
                 >
                   {project.challenge && (
-                    <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '8px', borderLeft: '4px solid #1F2E23', height: '100%' }}>
-                      <h4 style={{ color: '#1F2E23', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>The Challenge</h4>
+                    <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '8px', borderLeft: '4px solid #000000', height: '100%' }}>
+                      <h4 style={{ color: '#000000', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>The Challenge</h4>
                       <p style={{ color: '#555', lineHeight: 1.65, fontSize: '14.5px', margin: 0, whiteSpace: 'pre-line' }}>{project.challenge}</p>
                     </div>
                   )}
                   {project.solution && (
-                    <div style={{ background: '#1F2E23', padding: '24px', borderRadius: '8px', borderLeft: '4px solid #C49B5D', height: '100%' }}>
+                    <div style={{ background: '#000000', padding: '24px', borderRadius: '8px', borderLeft: '4px solid #C49B5D', height: '100%' }}>
                       <h4 style={{ color: '#C49B5D', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>Our Solution</h4>
                       <p style={{ color: '#F5F3ED', opacity: 0.9, lineHeight: 1.65, fontSize: '14.5px', margin: 0, whiteSpace: 'pre-line' }}>{project.solution}</p>
                     </div>
@@ -156,7 +156,7 @@ export default function ProjectSingle({ project }) {
               {/* Project Gallery */}
               {galleryList.length > 0 && (
                 <div style={{ marginBottom: '30px' }}>
-                  <h3 style={{ marginBottom: '16px', fontSize: '20px', color: '#1F2E23', fontWeight: 700 }}>Project Gallery</h3>
+                  <h3 style={{ marginBottom: '16px', fontSize: '20px', color: '#000000', fontWeight: 700 }}>Project Gallery</h3>
 
                   {/* Desktop View Grid (Click image to open Lightbox Frame) */}
                   <div className="d-none d-md-flex row">
@@ -168,7 +168,7 @@ export default function ProjectSingle({ project }) {
                             borderRadius: '8px',
                             overflow: 'hidden',
                             height: '220px',
-                            background: '#1F2E23',
+                            background: '#000000',
                             cursor: 'pointer',
                             position: 'relative',
                             boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
@@ -192,7 +192,7 @@ export default function ProjectSingle({ project }) {
                             style={{
                               position: 'absolute',
                               inset: 0,
-                              background: 'rgba(31, 46, 35, 0.4)',
+                              background: 'rgba(0, 0, 0, 0.4)',
                               opacity: 0,
                               transition: 'opacity 0.3s ease',
                               display: 'flex',
@@ -239,7 +239,7 @@ export default function ProjectSingle({ project }) {
                             padding: '0 2px',
                           }}
                         >
-                          <div style={{ borderRadius: '8px', overflow: 'hidden', height: '240px', background: '#1F2E23', position: 'relative' }}>
+                          <div style={{ borderRadius: '8px', overflow: 'hidden', height: '240px', background: '#000000', position: 'relative' }}>
                             <img
                               src={typeof item === 'string' ? item : item.url}
                               alt={item.caption || `Gallery Image ${i + 1}`}
@@ -264,7 +264,7 @@ export default function ProjectSingle({ project }) {
                         <button
                           onClick={() => setMobileSlide((prev) => (prev > 0 ? prev - 1 : galleryList.length - 1))}
                           style={{
-                            background: '#1F2E23',
+                            background: '#000000',
                             color: '#C49B5D',
                             border: '1px solid #C49B5D',
                             borderRadius: '50%',
@@ -298,7 +298,7 @@ export default function ProjectSingle({ project }) {
                         <button
                           onClick={() => setMobileSlide((prev) => (prev < galleryList.length - 1 ? prev + 1 : 0))}
                           style={{
-                            background: '#1F2E23',
+                            background: '#000000',
                             color: '#C49B5D',
                             border: '1px solid #C49B5D',
                             borderRadius: '50%',
@@ -324,7 +324,7 @@ export default function ProjectSingle({ project }) {
               <div>
                 {/* Project Info */}
                 <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '8px', marginBottom: '24px', border: '1px solid rgba(196, 155, 93, 0.2)' }}>
-                  <h4 style={{ marginBottom: '16px', paddingBottom: '10px', borderBottom: '2px solid #C49B5D', color: '#1F2E23', fontSize: '18px', fontWeight: 600 }}>Project Information</h4>
+                  <h4 style={{ marginBottom: '16px', paddingBottom: '10px', borderBottom: '2px solid #C49B5D', color: '#000000', fontSize: '18px', fontWeight: 600 }}>Project Information</h4>
                   {[
                     { label: 'Category', value: project.category },
                     { label: 'Client', value: project.client },
@@ -336,14 +336,14 @@ export default function ProjectSingle({ project }) {
                     .filter((info) => Boolean(info.value) && info.value !== 'N/A')
                     .map((info, i) => (
                       <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '9px 0', borderBottom: '1px solid #eee', fontSize: '14px' }}>
-                        <span style={{ fontWeight: '600', color: '#1F2E23' }}>{info.label}:</span>
+                        <span style={{ fontWeight: '600', color: '#000000' }}>{info.label}:</span>
                         <span style={{ color: '#555' }}>{info.value}</span>
                       </div>
                     ))}
                 </div>
 
                 {/* CTA */}
-                <div style={{ background: '#1F2E23', border: '1px solid #C49B5D', padding: '28px 24px', borderRadius: '8px', textAlign: 'center', marginBottom: '24px' }}>
+                <div style={{ background: '#000000', border: '1px solid #C49B5D', padding: '28px 24px', borderRadius: '8px', textAlign: 'center', marginBottom: '24px' }}>
                   <h4 style={{ color: '#C49B5D', marginBottom: '10px', fontSize: '20px', fontWeight: 600 }}>Start Your Project</h4>
                   <p style={{ color: '#F5F3ED', opacity: 0.9, marginBottom: '18px', fontSize: '14px' }}>Ready to transform your space?</p>
                   <Link className="btn-one" href="/contact" style={{ width: '100%', justifyContent: 'center' }}>
@@ -371,7 +371,7 @@ export default function ProjectSingle({ project }) {
             position: 'fixed',
             inset: 0,
             zIndex: 99999,
-            background: 'rgba(15, 23, 18, 0.92)',
+            background: 'rgba(0, 0, 0, 0.92)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
             display: 'flex',
@@ -387,7 +387,7 @@ export default function ProjectSingle({ project }) {
               position: 'relative',
               maxWidth: '900px',
               width: '100%',
-              background: '#1F2E23',
+              background: '#000000',
               borderRadius: '12px',
               border: '2px solid #C49B5D',
               boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7)',
@@ -422,7 +422,7 @@ export default function ProjectSingle({ project }) {
             </button>
 
             {/* Image Frame Container */}
-            <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#0d140f', padding: '16px' }}>
+            <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#000000', padding: '16px' }}>
               <img
                 src={typeof galleryList[lightboxIndex] === 'string' ? galleryList[lightboxIndex] : galleryList[lightboxIndex].url}
                 alt={galleryList[lightboxIndex].caption || 'Gallery preview'}
@@ -445,7 +445,7 @@ export default function ProjectSingle({ project }) {
                     style={{
                       position: 'absolute',
                       left: '20px',
-                      background: 'rgba(31, 46, 35, 0.85)',
+                      background: 'rgba(0, 0, 0, 0.85)',
                       color: '#C49B5D',
                       border: '1.5px solid #C49B5D',
                       borderRadius: '50%',
@@ -469,7 +469,7 @@ export default function ProjectSingle({ project }) {
                     style={{
                       position: 'absolute',
                       right: '20px',
-                      background: 'rgba(31, 46, 35, 0.85)',
+                      background: 'rgba(0, 0, 0, 0.85)',
                       color: '#C49B5D',
                       border: '1.5px solid #C49B5D',
                       borderRadius: '50%',
@@ -489,7 +489,7 @@ export default function ProjectSingle({ project }) {
             </div>
 
             {/* Caption & Counter Footer */}
-            <div style={{ width: '100%', padding: '14px 20px', background: '#1F2E23', color: '#F5F3ED', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(196, 155, 93, 0.3)' }}>
+            <div style={{ width: '100%', padding: '14px 20px', background: '#000000', color: '#F5F3ED', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(196, 155, 93, 0.3)' }}>
               <span style={{ fontSize: '14px', color: '#F5F3ED', fontWeight: 500 }}>
                 {galleryList[lightboxIndex].caption || project.title}
               </span>

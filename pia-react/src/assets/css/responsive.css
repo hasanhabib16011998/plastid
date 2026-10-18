@@ -932,7 +932,7 @@
 =============================================
 ***/
     .appointment-area {
-        background: #1F2E23;
+        background: #000000;
         background-position: unset;
         background-attachment: scroll;
         background-size: cover;
@@ -1885,7 +1885,7 @@
 =============================================
 ***/
     .appointment-area {
-        background: #1F2E23;
+        background: #000000;
         background-position: unset;
         background-attachment: scroll;
         background-size: cover;
@@ -3291,7 +3291,7 @@
     .main-menu .navbar-collapse .navigation li,
     .main-menu .navbar-collapse .navigation li ul li,
     .main-menu .navbar-collapse .navigation li ul li ul li {
-        background: #1F2E23;
+        background: #000000;
         border-top: 1px solid #151618;
         opacity: 1 !important;
         top: 0px !important;

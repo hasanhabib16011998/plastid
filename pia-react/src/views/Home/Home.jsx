@@ -525,7 +525,7 @@ function GSAPDots({ count, current, onChange }) {
         position: 'relative',
         display: 'inline-flex',
         alignItems: 'center',
-        background: 'rgba(31, 46, 35, 0.06)',
+        background: 'rgba(0, 0, 0, 0.06)',
         padding: '6px 12px',
         borderRadius: '30px',
         border: '1px solid rgba(196, 155, 93, 0.2)',
@@ -580,7 +580,7 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
     gsap.to(btnRef.current, {
       scale: 1.08,
       backgroundColor: '#C49B5D',
-      color: '#1F2E23',
+      color: '#000000',
       borderColor: '#C49B5D',
       boxShadow: '0 8px 24px rgba(196, 155, 93, 0.45)',
       duration: 0.25,
@@ -597,10 +597,10 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
     if (disabled) return
     gsap.to(btnRef.current, {
       scale: 1,
-      backgroundColor: '#1F2E23',
+      backgroundColor: '#000000',
       color: '#C49B5D',
       borderColor: '#C49B5D',
-      boxShadow: '0 4px 14px rgba(31, 46, 35, 0.25)',
+      boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)',
       duration: 0.25,
       ease: 'power2.out',
     })
@@ -635,10 +635,10 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
         width: '48px',
         height: '48px',
         borderRadius: '12px',
-        background: disabled ? 'rgba(31, 46, 35, 0.4)' : '#1F2E23',
+        background: disabled ? 'rgba(0, 0, 0, 0.4)' : '#000000',
         color: disabled ? '#777777' : '#C49B5D',
         border: disabled ? '1.5px solid rgba(196, 155, 93, 0.3)' : '1.5px solid #C49B5D',
-        boxShadow: disabled ? 'none' : '0 4px 14px rgba(31, 46, 35, 0.25)',
+        boxShadow: disabled ? 'none' : '0 4px 14px rgba(0, 0, 0, 0.25)',
         cursor: disabled ? 'default' : 'pointer',
         display: 'inline-flex',
         alignItems: 'center',
@@ -1135,7 +1135,7 @@ function ProjectFootprint() {
                       fontSize: '42px',
                       lineHeight: '1',
                       fontWeight: 500,
-                      color: '#1F2E23',
+                      color: '#000000',
                       marginBottom: '6px',
                     }}
                   >
@@ -1157,7 +1157,7 @@ function ProjectFootprint() {
                       fontFamily: 'var(--font-primary)',
                       fontSize: '13.5px',
                       lineHeight: '1.65',
-                      color: 'rgba(31, 46, 35, 0.75)',
+                      color: 'rgba(0, 0, 0, 0.75)',
                       margin: 0,
                     }}
                   >
@@ -1172,7 +1172,7 @@ function ProjectFootprint() {
         {/* 50% Refund Policy Highlight Banner */}
         <div
           style={{
-            background: '#1F2E23',
+            background: '#000000',
             borderRadius: '8px',
             border: '1.5px solid #C49B5D',
             padding: '28px 32px',
@@ -1265,7 +1265,7 @@ function AppointmentForm() {
       <div className="appointment">
         {submitted && (
           <div style={{
-            background: '#1F2E23', color: '#C49B5D', border: '1px solid #C49B5D', padding: '14px 20px',
+            background: '#000000', color: '#C49B5D', border: '1px solid #C49B5D', padding: '14px 20px',
             borderRadius: '4px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px',
             fontSize: '14px', fontFamily: 'var(--font-primary)'
           }}>

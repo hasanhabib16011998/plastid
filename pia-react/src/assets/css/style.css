@@ -46,9 +46,9 @@
    Color Palette & Typography — Deep Forest Velvet Theme
 ===============================================*/
 :root {
-    --color-deep-forest: #1F2E23;
+    --color-deep-forest: #000000;
     --color-aged-brass: #C49B5D;
-    --color-olive: #4B6047;
+    --color-olive: #000000;
     --color-smoked-ochre: #9F814D;
     --color-alabaster: #F5F3ED;
     --color-taupe-linen: #AF9F8A;
@@ -99,14 +99,14 @@ h3,
 h4,
 h5,
 h6 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 500;
     font-family: var(--font-serif);
     margin: 0;
 }
 
 h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 20px;
     line-height: 26px;
 }
@@ -249,7 +249,7 @@ li {
 
 /* ── Primary Button (.btn-one) ── */
 .btn-one {
-    background: #1F2E23;
+    background: #000000;
     color: #C49B5D !important;
     border: 1px solid #C49B5D;
 }
@@ -259,7 +259,7 @@ li {
 }
 
 .btn-one:hover {
-    color: #1F2E23 !important;
+    color: #000000 !important;
     border-color: #C49B5D;
 }
 
@@ -283,14 +283,14 @@ li {
 }
 
 .btn-two:hover {
-    color: #1F2E23 !important;
+    color: #000000 !important;
     border-color: #C49B5D;
 }
 
 /* ── Light Accent Button (.btn-three) ── */
 .btn-three {
     background: #F5F3ED;
-    color: #1F2E23 !important;
+    color: #000000 !important;
     border: 1px solid #C49B5D;
 }
 
@@ -299,7 +299,7 @@ li {
 }
 
 .btn-three:hover {
-    color: #1F2E23 !important;
+    color: #000000 !important;
     border-color: #C49B5D;
 }
 
@@ -336,7 +336,7 @@ li {
 .sec-title .title {
     position: relative;
     display: block;
-    color: #1F2E23;
+    color: #000000;
     font-size: 42px;
     line-height: 50px;
     font-weight: 400;
@@ -387,7 +387,7 @@ li {
 }
 
 .parallax-bg-one::before {
-    background: rgba(18, 32, 0, 0.90) none repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0.90) none repeat scroll 0 0;
     content: "";
     height: 100%;
     left: 0;
@@ -480,8 +480,8 @@ li {
 }
 
 .owl-nav-style-one.owl-theme .owl-nav [class*="owl-"]:hover {
-    border-color: #4B6047;
-    color: #4B6047;
+    border-color: #000000;
+    color: #000000;
 }
 
 .owl-nav-style-two {}
@@ -552,7 +552,7 @@ li {
 }
 
 .accordion-box .accordion .accord-btn h4 {
-    color: #1F2E23;
+    color: #000000;
     font-family: var(--font-serif);
     font-size: 20px;
     line-height: 28px;
@@ -567,7 +567,7 @@ li {
 }
 
 .accordion-box .accordion .accord-btn.active {
-    background: #1F2E23;
+    background: #000000;
 }
 
 .accordion-box .accordion .accord-btn.active h4 {
@@ -584,7 +584,7 @@ li {
     font-family: var(--font-primary);
     font-size: 15px;
     line-height: 1.8;
-    color: rgba(31, 46, 35, 0.82);
+    color: rgba(0, 0, 0, 0.82);
     padding: 20px 28px 26px;
 }
 
@@ -999,7 +999,7 @@ select:focus {
     display: block;
     width: 50px;
     height: 50px;
-    background: #4B6047;
+    background: #000000;
     border: 1px solid #31426c;
     border-radius: 50%;
     color: #ffffff;
@@ -1173,7 +1173,7 @@ select:focus {
 .main-menu .navigation>li>a {
     position: relative;
     display: block;
-    color: #1F2E23;
+    color: #000000;
     font-size: 14px;
     line-height: 14px;
     font-weight: 500;
@@ -1420,7 +1420,7 @@ select:focus {
 .outer-search-box .seach-toggle {
     position: relative;
     display: block;
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     line-height: 50px;
     cursor: pointer;
@@ -1443,7 +1443,7 @@ select:focus {
     position: absolute;
     top: 120%;
     right: 0%;
-    background: #1F2E23;
+    background: #000000;
     opacity: 0;
     padding: 20px;
     transition: all 500ms ease 0s;
@@ -1527,7 +1527,7 @@ select:focus {
     position: relative;
     display: inline-block;
     float: left;
-    color: #1F2E23;
+    color: #000000;
     font-size: 20px;
     line-height: 20px;
     padding-right: 6px;
@@ -1997,7 +1997,7 @@ select:focus {
 }
 
 .about-image-box .text-box h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
 }
@@ -2307,7 +2307,7 @@ select:focus {
 }
 
 .single-working-box .text-holder .outer-box .text h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 600;
     margin: 0 0 13px;
 }
@@ -2403,7 +2403,7 @@ select:focus {
 
 .single-project-style1 .overlay-content .inner-content .link-box a {
     background: #ffffff;
-    color: #1F2E23;
+    color: #000000;
     line-height: 55px;
     padding: 0 25px 0;
 }
@@ -2547,7 +2547,7 @@ select:focus {
 }
 
 .single-working-process .top-box span {
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     line-height: 30px;
     font-weight: 500;
@@ -2579,7 +2579,7 @@ select:focus {
 }
 
 .single-working-process .inner h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 600;
     margin: 0 0 8px;
 }
@@ -2661,9 +2661,9 @@ select:focus {
 }
 
 .slogan-area .button a {
-    background: #1F2E23;
+    background: #000000;
     color: #C49B5D !important;
-    border: 1px solid #1F2E23;
+    border: 1px solid #000000;
 }
 
 .slogan-area .button a::before {
@@ -2671,7 +2671,7 @@ select:focus {
 }
 
 .slogan-area .button a:hover {
-    color: #1F2E23 !important;
+    color: #000000 !important;
     border-color: #ffffff;
 }
 
@@ -2718,7 +2718,7 @@ select:focus {
 }
 
 .single-testimonial-item .inner-content .client-info h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 600;
     margin: 0 0 3px;
 }
@@ -2790,7 +2790,7 @@ select:focus {
 .appointment-area {
     position: relative;
     display: block;
-    background: #1F2E23;
+    background: #000000;
     background-position: top right;
     background-attachment: scroll;
     background-repeat: no-repeat;
@@ -2937,7 +2937,7 @@ select:focus {
 }
 
 .map-content-box .inner .overlay .location-info h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 700;
     margin: 0 0 13px;
 }
@@ -2963,7 +2963,7 @@ select:focus {
 }
 
 .appointment-box .title-box h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     line-height: 34px;
     font-weight: 600;
@@ -2994,9 +2994,9 @@ select,
 textarea {
     font-family: var(--font-primary) !important;
     font-size: 14px !important;
-    color: #1F2E23 !important;
+    color: #000000 !important;
     background-color: #F5F3ED !important;
-    border: 1px solid rgba(31, 46, 35, 0.15) !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
     border-radius: 4px !important;
     padding: 14px 18px !important;
     outline: none !important;
@@ -3021,28 +3021,28 @@ textarea:focus {
 
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
-    color: rgba(31, 46, 35, 0.45) !important;
+    color: rgba(0, 0, 0, 0.45) !important;
     font-family: var(--font-primary) !important;
     font-size: 14px !important;
 }
 
 input:-moz-placeholder,
 textarea:-moz-placeholder {
-    color: rgba(31, 46, 35, 0.45) !important;
+    color: rgba(0, 0, 0, 0.45) !important;
     font-family: var(--font-primary) !important;
     font-size: 14px !important;
 }
 
 input::-moz-placeholder,
 textarea::-moz-placeholder {
-    color: rgba(31, 46, 35, 0.45) !important;
+    color: rgba(0, 0, 0, 0.45) !important;
     font-family: var(--font-primary) !important;
     font-size: 14px !important;
 }
 
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
-    color: rgba(31, 46, 35, 0.45) !important;
+    color: rgba(0, 0, 0, 0.45) !important;
     font-family: var(--font-primary) !important;
     font-size: 14px !important;
 }
@@ -3270,7 +3270,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-blog-post .text-holder .post-date h3 span {
-    color: #1F2E23;
+    color: #000000;
     font-size: 14px;
 }
 
@@ -3339,7 +3339,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-blog-post .text-holder .blog-title a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -3498,7 +3498,7 @@ textarea:-ms-input-placeholder {
 .footer-area {
     position: relative;
     display: block;
-    background: #1F2E23;
+    background: #000000;
     padding-top: 110px;
     padding-bottom: 110px;
     z-index: 1;
@@ -3793,7 +3793,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-footer-widget .brochures-carousel-box .title-holder h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     line-height: 26px;
     font-weight: 600;
@@ -3878,7 +3878,7 @@ textarea:-ms-input-placeholder {
     display: inline-block;
     float: left;
     padding-right: 15px;
-    color: #1F2E23;
+    color: #000000;
     font-size: 14px;
     line-height: 30px;
     font-weight: 600;
@@ -4220,7 +4220,7 @@ textarea:-ms-input-placeholder {
 }
 
 .about-style2-text .authorised-info .name h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 600;
     margin: 0 0 5px;
 }
@@ -4756,7 +4756,7 @@ textarea:-ms-input-placeholder {
 .single-service-style1 .text-holder .bottom .title {}
 
 .single-service-style1 .text-holder .bottom .title h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 600;
 }
 
@@ -4885,7 +4885,7 @@ textarea:-ms-input-placeholder {
 .slogan-style2-area .inner-content .button {}
 
 .slogan-style2-area .inner-content .button a {
-    color: #1F2E23;
+    color: #000000;
     background: #ffffff;
     margin: 0 13px;
     padding: 0 40px 0;
@@ -4893,7 +4893,7 @@ textarea:-ms-input-placeholder {
 
 .slogan-style2-area .inner-content .button a:hover {
     color: #ffffff;
-    background: #1F2E23;
+    background: #000000;
 }
 
 .slogan-style2-area .inner-content .button a.call-us {
@@ -4932,7 +4932,7 @@ textarea:-ms-input-placeholder {
     position: relative;
     display: block;
     padding-bottom: 60px;
-    background: #1F2E23;
+    background: #000000;
     max-width: 390px;
     width: 100%;
 }
@@ -5055,7 +5055,7 @@ textarea:-ms-input-placeholder {
 }
 
 .why-choose-content .single-box.blackbg {
-    background: #1F2E23;
+    background: #000000;
 }
 
 .why-choose-content .single-box .icon-holder {
@@ -5387,7 +5387,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-working-process-style2 .inner h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 600;
     margin: 0 0 18px;
 }
@@ -5512,7 +5512,7 @@ textarea:-ms-input-placeholder {
 .single-testimonial-style2 .client-info .review-box ul li i {}
 
 .single-testimonial-style2 .client-info h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
     margin: 8px 0 0;
@@ -5749,7 +5749,7 @@ textarea:-ms-input-placeholder {
 }
 
 .content-info-box .inner-content .single-info-box.white-bg .text h3 {
-    color: #1F2E23;
+    color: #000000;
 }
 
 .content-info-box .inner-content .single-info-box.white-bg .text p {
@@ -5771,7 +5771,7 @@ textarea:-ms-input-placeholder {
 }
 
 .contact-details-form-box .title-box h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 30px;
     line-height: 36px;
     font-weight: 600;
@@ -6004,7 +6004,7 @@ textarea:-ms-input-placeholder {
 }
 
 .instagram-title a:hover {
-    color: #1F2E23;
+    color: #000000;
 }
 
 .instagram-items {
@@ -6294,7 +6294,7 @@ textarea:-ms-input-placeholder {
 .single-footer-widget .subscribe-form input[type="email"] {
     position: relative;
     display: block;
-    background: #1F2E23;
+    background: #000000;
     border: 1px solid #404043;
     color: #62656f;
     font-size: 15px;
@@ -6563,7 +6563,7 @@ textarea:-ms-input-placeholder {
 .mainmenu-style3-area {
     position: relative;
     display: block;
-    background: #1F2E23;
+    background: #000000;
 }
 
 .mainmenu-style3-area.stricky-fixed {
@@ -6572,7 +6572,7 @@ textarea:-ms-input-placeholder {
     left: 0;
     width: 100%;
     z-index: 99999999;
-    background: #1F2E23;
+    background: #000000;
     margin: 0;
     animation-name: menu_sticky;
     animation-duration: 0.60s;
@@ -6732,7 +6732,7 @@ textarea:-ms-input-placeholder {
     padding-left: 30px;
     padding-right: 30px;
     z-index: 3;
-    background: #1F2E23;
+    background: #000000;
     transition: all 300ms ease 100ms;
     opacity: 0;
     visibility: hidden;
@@ -6810,7 +6810,7 @@ textarea:-ms-input-placeholder {
 }
 
 .about-style3-content .button a.black {
-    background: #1F2E23;
+    background: #000000;
 }
 
 .about-style3-bg {
@@ -7001,7 +7001,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-service-style2 .text-holder .inner h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 600;
     margin: 0 0 18px;
 }
@@ -7017,7 +7017,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-service-style2 .text-holder .inner .read-more a {
-    color: #1F2E23;
+    color: #000000;
     background: #f6f6f6;
     display: block;
 }
@@ -7110,7 +7110,7 @@ textarea:-ms-input-placeholder {
 .latest-projects-area {
     position: relative;
     display: block;
-    background: #1F2E23;
+    background: #000000;
     width: 100%;
     padding: 110px 60px 104px;
 }
@@ -7297,7 +7297,7 @@ textarea:-ms-input-placeholder {
     top: 0;
     left: 0;
     right: 0;
-    border-top: 4px solid #1F2E23;
+    border-top: 4px solid #000000;
     text-align: center;
     transition: all 900ms ease 100ms;
     transform-style: preserve-3d;
@@ -7423,7 +7423,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-team-member .name h3 {
-    color: #1F2E23;
+    color: #000000;
     font-weight: 600;
     margin: 8px 0 0;
 }
@@ -7504,7 +7504,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-testimonial-style3 .client-info .title h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
     margin: 0 0 2px;
@@ -8059,7 +8059,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-history-content .text-box .inner .title h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     line-height: 32px;
     font-weight: 600;
@@ -8175,7 +8175,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-fact-counter .count-box h1 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 48px;
     line-height: 40px;
     font-weight: 400;
@@ -8204,7 +8204,7 @@ textarea:-ms-input-placeholder {
 }
 
 .single-fact-counter .title h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     line-height: 28px;
     font-weight: 600;
@@ -8305,7 +8305,7 @@ li .single-footer-contact-info .text p {
 }
 
 li .single-footer-contact-info .text p span {
-    color: #1F2E23;
+    color: #000000;
 }
 
 
@@ -8608,7 +8608,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-service-top .text h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 30px;
     line-height: 40px;
     font-weight: 700;
@@ -8679,7 +8679,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-advantages-box .title h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     line-height: 24px;
     font-weight: 600;
@@ -8744,7 +8744,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .how-work-box .how-works-content h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     font-weight: 700;
     margin-top: -5px;
@@ -8794,7 +8794,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .how-work-box .how-works-content ul li .text h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 20px;
     line-height: 28px;
     font-weight: 600;
@@ -8818,7 +8818,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .concept-design-pricing-box .title h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     line-height: 32px;
     font-weight: 700;
@@ -9016,7 +9016,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .additional-information-box .title h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     line-height: 32px;
     font-weight: 700;
@@ -9107,7 +9107,7 @@ li .single-footer-contact-info .text p span {
     position: relative;
     display: block;
     padding-left: 30px;
-    color: #1F2E23;
+    color: #000000;
     font-size: 15px;
     font-weight: 600;
     text-transform: capitalize;
@@ -9166,7 +9166,7 @@ li .single-footer-contact-info .text p span {
     position: relative;
     display: block;
     padding: 48px 40px 50px;
-    background: #1F2E23;
+    background: #000000;
     z-index: 1;
 }
 
@@ -9293,7 +9293,7 @@ li .single-footer-contact-info .text p span {
 .project-filter li+li {}
 
 .project-filter li .filter-text {
-    color: #1F2E23;
+    color: #000000;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
@@ -9396,8 +9396,8 @@ li .single-footer-contact-info .text p span {
 .single-project-style4 .img-holder:before {
     transform: scale(0, 1);
     transform-origin: bottom center;
-    border-top: 3px solid #1F2E23;
-    border-bottom: 3px solid #1F2E23;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
 }
 
 .single-project-style4:hover .img-holder:before {
@@ -9407,8 +9407,8 @@ li .single-footer-contact-info .text p span {
 .single-project-style4 .img-holder:after {
     transform: scale(1, 0);
     transform-origin: left center;
-    border-left: 3px solid #1F2E23;
-    border-right: 3px solid #1F2E23;
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
 }
 
 .single-project-style4:hover .img-holder:after {
@@ -9505,7 +9505,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-project-style4 .img-holder .overlay-content .title h3 a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -9616,7 +9616,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-project-style5 .title h3 a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -9869,7 +9869,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-project-style7 .title h3 a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -10216,7 +10216,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-project-style9 .title h3 a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -10362,7 +10362,7 @@ li .single-footer-contact-info .text p span {
     position: relative;
     display: block;
     padding-left: 20px;
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     line-height: 30px;
     font-weight: 700;
@@ -10400,7 +10400,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .project-info-content .inner-content ul li .icon span:before {
-    color: #1F2E23;
+    color: #000000;
     font-size: 30px;
     line-height: 30px;
 }
@@ -10416,7 +10416,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .project-info-content .inner-content ul li .title h4 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     line-height: 20px;
     font-weight: 600;
@@ -10571,7 +10571,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .similar-project-title h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 30px;
     line-height: 38px;
     font-weight: 700;
@@ -10648,7 +10648,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-similar-project .title-holder h3 a {
-    color: #1F2E23;
+    color: #000000;
 }
 
 
@@ -10888,7 +10888,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .sidebar-title .title {
-    color: #1F2E23;
+    color: #000000;
     font-size: 20px;
     line-height: 24px;
     font-weight: 600;
@@ -11133,7 +11133,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-sidebar .recent-post li .title-holder .post-title a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -11258,7 +11258,7 @@ li .single-footer-contact-info .text p span {
 
 .single-sidebar .popular-tag li a:hover {
     color: #ffffff;
-    background: #1F2E23;
+    background: #000000;
 }
 
 
@@ -11399,7 +11399,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-blog-post .top-text-box h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 20px;
     font-weight: 600;
     margin: 27px 0 28px;
@@ -11409,7 +11409,7 @@ li .single-footer-contact-info .text p span {
     position: relative;
     display: block;
     padding: 33px 40px 33px;
-    background: #1F2E23;
+    background: #000000;
     margin-top: 36px;
     margin-bottom: 54px;
 }
@@ -11504,7 +11504,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .blog-single-bottom-content-box h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     line-height: 32px;
     font-weight: 700;
@@ -11562,7 +11562,7 @@ li .single-footer-contact-info .text p span {
     position: relative;
     display: inline-block;
     float: left;
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     line-height: 30px;
     font-weight: 500;
@@ -11612,7 +11612,7 @@ li .single-footer-contact-info .text p span {
     position: relative;
     display: inline-block;
     float: left;
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     line-height: 30px;
     font-weight: 500;
@@ -11771,7 +11771,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .blog-prev-next-option .single .title a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -11851,7 +11851,7 @@ li .single-footer-contact-info .text p span {
     display: inline-block;
     float: left;
     padding-right: 10px;
-    color: #1F2E23;
+    color: #000000;
     font-size: 15px;
     font-weight: 500;
     line-height: 30px;
@@ -11914,7 +11914,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-blog-title-box h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 24px;
     line-height: 32px;
     font-weight: 700;
@@ -11979,7 +11979,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .blog-single-area .inner-comment-box .single-comment-box .text-box .top .name h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 20px;
     font-weight: 600;
     margin: 0 0 3px;
@@ -12187,7 +12187,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-product-item .title-holder .title a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -12273,7 +12273,7 @@ li .single-footer-contact-info .text p span {
     visibility: hidden;
     padding: 0;
     text-align: center;
-    background-color: #1F2E23;
+    background-color: #000000;
     transition: all 300ms ease 100ms;
     z-index: 999;
     min-width: 130px;
@@ -12286,7 +12286,7 @@ li .single-footer-contact-info .text p span {
     bottom: -8px;
     right: 0;
     content: "\f0d7";
-    color: #1F2E23;
+    color: #000000;
     font-size: 25px;
     text-align: center;
     line-height: 10px;
@@ -12356,7 +12356,7 @@ li .single-footer-contact-info .text p span {
     bottom: 0;
     display: block;
     background: #f6f6f6;
-    color: #1F2E23;
+    color: #000000;
     font-size: 14px;
     height: 50px;
     width: 50px;
@@ -12520,7 +12520,7 @@ li .single-footer-contact-info .text p span {
     text-align: center;
     width: 90px;
     border: none;
-    color: #1F2E23;
+    color: #000000;
     font-size: 15px;
     font-weight: 500;
     margin-top: 0;
@@ -12652,7 +12652,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .shop-sidebar-wrapper .products-post li .title-holder .post-title a {
-    color: #1F2E23;
+    color: #000000;
     transition: all 500ms ease;
 }
 
@@ -12697,7 +12697,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-shop-content .content-box h2 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 30px;
     font-weight: 600;
     margin: 6px 0 7px;
@@ -12766,7 +12766,7 @@ li .single-footer-contact-info .text p span {
     float: left;
     background: #f6f6f6;
     border: none;
-    color: #1F2E23;
+    color: #000000;
     font-size: 15px;
     font-weight: 500;
     line-height: 52px;
@@ -12871,7 +12871,7 @@ li .single-footer-contact-info .text p span {
     position: relative;
     display: inline-block;
     float: left;
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     line-height: 40px;
     font-weight: 600;
@@ -12979,7 +12979,7 @@ li .single-footer-contact-info .text p span {
     cursor: pointer;
     margin: 0;
     padding: 15px 20px 13px;
-    color: #1F2E23;
+    color: #000000;
     font-size: 20px;
     font-weight: 600;
     text-transform: capitalize;
@@ -13066,7 +13066,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .review-box-holder .single-review-box .text-holder .top .name h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
     margin: 0 0 6px;
@@ -13281,7 +13281,7 @@ li .single-footer-contact-info .text p span {
 .cart-area .cart-table .cart-header {
     position: relative;
     background: #f6f6f6;
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 600;
     text-transform: capitalize;
@@ -13310,7 +13310,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .cart-area .cart-table tbody tr td {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
     line-height: 24px;
@@ -13349,7 +13349,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .cart-area .cart-table tbody tr .prod-column .column-box .title h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
     line-height: 20px;
@@ -13503,7 +13503,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .cart-middle .apply-coupon .apply-coupon-button button {
-    color: #1F2E23;
+    color: #000000;
     background: #f6f6f6;
 }
 
@@ -13607,7 +13607,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .cart-bottom .calculate-shipping button {
-    color: #1F2E23;
+    color: #000000;
     background: #f6f6f6;
 }
 
@@ -13617,7 +13617,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .cart-bottom button.checkout-btn {
-    color: #1F2E23;
+    color: #000000;
     background: #f6f6f6;
     margin-top: 30px;
 }
@@ -13660,7 +13660,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .checkout-area .exisitng-customer h5 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 500;
 }
@@ -13692,7 +13692,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .checkout-area .coupon h5 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 500;
 }
@@ -13709,7 +13709,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .checkout-area .form form .field-label {
-    color: #1F2E23;
+    color: #000000;
     font-size: 15px;
     font-weight: 400;
     margin: 0 0 2px;
@@ -13739,7 +13739,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .checkout-area .create-acc .checkbox label {
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 500;
     margin: 0;
@@ -13808,7 +13808,7 @@ li .single-footer-contact-info .text p span {
 .checkout-area .table .cart-table .cart-header {
     position: relative;
     background: #f6f6f6;
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 600;
     text-transform: capitalize;
@@ -13872,7 +13872,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .checkout-area .table .cart-table tbody tr .product-column .column-box .product-title h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
     text-transform: capitalize;
@@ -13987,7 +13987,7 @@ li .single-footer-contact-info .text p span {
     display: block;
     float: left;
     border-right: 1px solid #ededed;
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 600;
     line-height: 28px;
@@ -14041,7 +14041,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .cart-total .payment-options .option-block .checkbox label span {
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 600;
     padding-left: 10px;
@@ -14049,7 +14049,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .cart-total .payment-options .option-block .checkbox label span b {
-    color: #1F2E23;
+    color: #000000;
     display: inline-block;
     font-size: 15px;
     font-weight: 400;
@@ -14139,7 +14139,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .login-register-area .form .remember-text .checkbox label {
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 600;
     margin: 0;
@@ -14152,7 +14152,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .login-register-area .form .remember-text .checkbox span {
-    color: #1F2E23;
+    color: #000000;
     font-size: 16px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
@@ -14292,7 +14292,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .single-contact-address-box h3 {
-    color: #1F2E23;
+    color: #000000;
     font-size: 20px;
     line-height: 28px;
     font-weight: 600;
@@ -14536,7 +14536,7 @@ li .single-footer-contact-info .text p span {
 }
 
 .job-career-brochures-box .overlay-content .innner .box a {
-    color: #1F2E23;
+    color: #000000;
     padding: 0 50px 0;
     background: #ffffff;
 }
@@ -14670,7 +14670,7 @@ li .single-footer-contact-info .text p span {
     background: #ffffff;
     width: 100px;
     height: 100px;
-    color: #1F2E23;
+    color: #000000;
     font-size: 48px;
     line-height: 100px;
     font-weight: 500;
@@ -14750,7 +14750,7 @@ li .single-footer-contact-info .text p span {
     position: absolute;
     top: 0;
     right: 0;
-    color: #1F2E23;
+    color: #000000;
     background: #ffffff;
     border-left: 1px solid #ededed;
     padding: 0;
@@ -14792,7 +14792,7 @@ li .single-footer-contact-info .text p span {
     position: absolute;
     bottom: -20px;
     right: 0;
-    background: #1F2E23;
+    background: #000000;
     border: 1.5px solid #C49B5D;
     border-radius: 6px;
     padding: 20px 24px;

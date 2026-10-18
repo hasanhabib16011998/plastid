@@ -5,7 +5,7 @@ import { gsap } from 'gsap'
 
 // ── Brand colors ──────────────────────────────────────────────────────────────
 const colors = {
-  forest: '#1F2E23',
+  forest: '#000000',
   brass: '#C49B5D',
   alabaster: '#F5F3ED',
 }

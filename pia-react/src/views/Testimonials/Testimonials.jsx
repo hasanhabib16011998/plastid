@@ -79,7 +79,7 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
                           top: '15px',
                           right: '15px',
                           background: '#C49B5D',
-                          color: '#1F2E23',
+                          color: '#000000',
                           fontSize: '11px',
                           fontWeight: '700',
                           padding: '4px 10px',
@@ -125,7 +125,7 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
                     </div>
 
                     <div className="client-info" style={{ marginTop: '25px', borderTop: '1px dashed #eee', paddingTop: '15px' }}>
-                      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1F2E23', marginBottom: '4px' }}>{t.name}</h3>
+                      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#000000', marginBottom: '4px' }}>{t.name}</h3>
                       <span style={{ fontSize: '13px', color: '#C49B5D', fontWeight: '500' }}>{t.location}</span>
                     </div>
                   </div>

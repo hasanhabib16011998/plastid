@@ -126,7 +126,7 @@ export default function Contact() {
 
                 {submitted && (
                   <div style={{
-                    background: '#1F2E23', color: '#C49B5D', border: '1px solid #C49B5D', padding: '15px 20px',
+                    background: '#000000', color: '#C49B5D', border: '1px solid #C49B5D', padding: '15px 20px',
                     borderRadius: '4px', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '10px',
                     fontSize: '14px', fontFamily: 'var(--font-primary)'
                   }}>
@@ -243,7 +243,7 @@ export default function Contact() {
                   marginBottom: '25px',
                   height: '340px',
                   boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-                  border: '1px solid rgba(31, 46, 35, 0.1)'
+                  border: '1px solid rgba(0, 0, 0, 0.1)'
                 }}>
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.4941539302285!2d90.43558017587414!3d23.76541148819882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70021dd78f7%3A0x8ac0dd7367642152!2sPlastid%20Interior%20%26%20Architecture!5e0!3m2!1sen!2sbd!4v1792351987658!5m2!1sen!2sbd"
@@ -258,8 +258,8 @@ export default function Contact() {
                 </div>
 
                 {/* Social Links */}
-                <div style={{ textAlign: 'center', background: '#F5F3ED', padding: '20px', borderRadius: '6px', border: '1px solid rgba(31, 46, 35, 0.1)' }}>
-                  <p style={{ marginBottom: '12px', color: '#1F2E23', fontWeight: 500, fontFamily: 'var(--font-primary)', fontSize: '14px' }}>Follow us on social media</p>
+                <div style={{ textAlign: 'center', background: '#F5F3ED', padding: '20px', borderRadius: '6px', border: '1px solid rgba(0, 0, 0, 0.1)' }}>
+                  <p style={{ marginBottom: '12px', color: '#000000', fontWeight: 500, fontFamily: 'var(--font-primary)', fontSize: '14px' }}>Follow us on social media</p>
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}>
                     {[
                       { icon: 'fa-facebook', href: 'https://www.facebook.com/profile.php?id=61555749343330' },
@@ -273,7 +273,7 @@ export default function Contact() {
                         rel="noreferrer"
                         style={{
                           width: '40px', height: '40px', borderRadius: '50%',
-                          background: '#1F2E23', color: '#C49B5D',
+                          background: '#000000', color: '#C49B5D',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           fontSize: '16px', transition: 'all 0.3s ease',
                           textDecoration: 'none',
@@ -281,10 +281,10 @@ export default function Contact() {
                         }}
                         onMouseEnter={e => {
                           e.currentTarget.style.background = '#C49B5D'
-                          e.currentTarget.style.color = '#1F2E23'
+                          e.currentTarget.style.color = '#000000'
                         }}
                         onMouseLeave={e => {
-                          e.currentTarget.style.background = '#1F2E23'
+                          e.currentTarget.style.background = '#000000'
                           e.currentTarget.style.color = '#C49B5D'
                         }}
                       >

@@ -124,7 +124,7 @@ function CompanyTimeline() {
                   width: isActive ? '42px' : '30px',
                   height: isActive ? '42px' : '30px',
                   borderRadius: '50%',
-                  backgroundColor: isActive ? '#1F2E23' : '#ffffff',
+                  backgroundColor: isActive ? '#000000' : '#ffffff',
                   border: isActive ? '2.5px solid #C49B5D' : '2px solid rgba(196, 155, 93, 0.4)',
                   boxShadow: isActive ? '0 0 0 4px rgba(196, 155, 93, 0.25)' : 'none',
                   display: 'flex',
@@ -149,7 +149,7 @@ function CompanyTimeline() {
                   fontFamily: 'var(--font-primary)',
                   fontSize: isActive ? '13px' : '12px',
                   fontWeight: isActive ? 600 : 500,
-                  color: isActive ? '#C49B5D' : 'rgba(31, 46, 35, 0.6)',
+                  color: isActive ? '#C49B5D' : 'rgba(0, 0, 0, 0.6)',
                   transition: 'color 0.3s ease',
                 }}
               >
@@ -200,7 +200,7 @@ function CompanyTimeline() {
                   position: 'absolute',
                   top: '16px',
                   left: '16px',
-                  background: '#1F2E23',
+                  background: '#000000',
                   color: '#C49B5D',
                   padding: '6px 14px',
                   borderRadius: '30px',
@@ -237,7 +237,7 @@ function CompanyTimeline() {
                   fontFamily: 'var(--font-serif)',
                   fontSize: '28px',
                   lineHeight: '1.25',
-                  color: '#1F2E23',
+                  color: '#000000',
                   marginBottom: '18px',
                   whiteSpace: 'pre-line',
                   fontWeight: 500,
@@ -250,7 +250,7 @@ function CompanyTimeline() {
                   fontFamily: 'var(--font-primary)',
                   fontSize: '15px',
                   lineHeight: '1.8',
-                  color: 'rgba(31, 46, 35, 0.8)',
+                  color: 'rgba(0, 0, 0, 0.8)',
                   margin: 0,
                 }}
               >
@@ -349,7 +349,7 @@ export default function About({ initialTeam = [] }) {
                     fontFamily: 'var(--font-primary)',
                     fontSize: '15.5px',
                     lineHeight: '1.82',
-                    color: 'rgba(31, 46, 35, 0.85)',
+                    color: 'rgba(0, 0, 0, 0.85)',
                     marginBottom: '24px',
                   }}
                 >
@@ -360,7 +360,7 @@ export default function About({ initialTeam = [] }) {
                     fontFamily: 'var(--font-primary)',
                     fontSize: '15px',
                     lineHeight: '1.8',
-                    color: 'rgba(31, 46, 35, 0.75)',
+                    color: 'rgba(0, 0, 0, 0.75)',
                     marginBottom: '30px',
                   }}
                 >
@@ -384,7 +384,7 @@ export default function About({ initialTeam = [] }) {
                           style={{
                             fontFamily: 'var(--font-serif)',
                             fontSize: '17px',
-                            color: '#1F2E23',
+                            color: '#000000',
                             marginBottom: '8px',
                             fontWeight: 500,
                           }}
@@ -396,7 +396,7 @@ export default function About({ initialTeam = [] }) {
                             fontFamily: 'var(--font-primary)',
                             fontSize: '12.5px',
                             lineHeight: '1.6',
-                            color: 'rgba(31, 46, 35, 0.7)',
+                            color: 'rgba(0, 0, 0, 0.7)',
                             margin: 0,
                           }}
                         >
@@ -490,7 +490,7 @@ export default function About({ initialTeam = [] }) {
                       style={{
                         fontFamily: 'var(--font-serif)',
                         fontSize: '19px',
-                        color: '#1F2E23',
+                        color: '#000000',
                         fontWeight: 500,
                         margin: 0,
                       }}
