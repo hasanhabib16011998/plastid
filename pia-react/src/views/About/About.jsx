@@ -29,31 +29,24 @@ const companyPillars = [
 
 const historyItems = [
   {
-    year: '2022',
+    year: 'Mar 2024',
     badge: 'Foundation',
     title: 'Plastid Interior and Architecture\nFounded in Dhaka',
-    text: 'Plastid Interior and Architecture was established in Dhaka with a singular vision — to revolutionize living and working environments through bespoke, human-centered design. Starting with custom residential turnkeys, we built a foundation based on quality craftsmanship, structural precision, and transparent client collaboration.',
+    text: 'Plastid Interior and Architecture was established in March 2024 in Dhaka with a singular vision — to revolutionize living and working environments through bespoke, human-centered design. Starting with custom residential turnkeys, we built a foundation based on quality craftsmanship, structural precision, and transparent client collaboration.',
     img: '/images/resources/history-1.jpg',
   },
   {
-    year: '2023',
+    year: '2025',
     badge: 'Expansion',
     title: 'Nationwide Expansion &\nCorporate Workspaces',
     text: 'Building on early residential successes, Plastid expanded studio operations across major divisions in Bangladesh. We launched specialized commercial & corporate design divisions, delivering high-impact corporate headquarters, retail environments, and luxury residential projects.',
     img: '/images/resources/history-2.jpg',
   },
   {
-    year: '2024',
-    badge: 'Innovation',
-    title: '3D Merchandising &\nDesign Refund Policy',
-    text: 'To eliminate client uncertainty and elevate design quality, Plastid introduced transparent BDT 40 per-square-foot 3D concept design services paired with our signature 50% design-fee refund policy. Upon full project execution and completion, 50% of the design fee is refunded back to the client.',
-    img: '/images/slides/v1-1.jpg',
-  },
-  {
-    year: '2025-26',
+    year: '2026',
     badge: 'Excellence',
     title: 'Architectural Mastery &\n100+ Completed Works',
-    text: 'Today, Plastid Interior and Architecture stands as a leading full-service design-build firm in Bangladesh with over 2,000 completed works. Our multi-disciplinary team of 3D designers, quantity surveyors, procurement experts, and site engineers delivers seamless end-to-end luxury turnkeys.',
+    text: 'Today, Plastid Interior and Architecture stands as a leading full-service design-build firm in Bangladesh with over 20 completed works. Our multi-disciplinary team of 3D designers, quantity surveyors, procurement experts, and site engineers delivers seamless end-to-end luxury turnkeys.',
     img: '/images/services/service-single/how-work.jpg',
   },
 ]
