@@ -1,6 +1,6 @@
 Corrections:
 1. At home page, 2 options:View projects and Free Consultation, in that order. Include Slogan
-2. Company name beside Logo
+2. Company name beside Logo *
 3. Recent projects after hero section
 4. Remove the Design Refund Policy 50% upon project completion Rate 40 taka sqft
 5. Update working Process: Intitial Consultation (1-5 hours), Concept Development(1-2 weeks), Space Planning(1-2 weeks), Design Development(3-4 weeks), Implementation (6-12 weeks), Project Handover.

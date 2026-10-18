@@ -1398,6 +1398,26 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
       {/* Hero — Scroll-Driven Apartment Transformation */}
       <ApartmentStory />
 
+      {/* Recent Projects */}
+      <section className="recently-project-area">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-12">
+              <div className="sec-title float-left">
+                <p>Projects</p>
+                <div className="title">Recently Completed <span>Works</span></div>
+              </div>
+              <div className="more-project-button float-right">
+                <Link className="btn-two" href="/projects">More Projects<span className="flaticon-next"></span></Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container-fluid">
+          <ProjectsCarousel initialProjects={initialProjects} />
+        </div>
+      </section>
+
       {/* Highlights */}
       <section className="highlights-area">
         <div className="container">
@@ -1502,26 +1522,6 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Recent Projects */}
-      <section className="recently-project-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="sec-title float-left">
-                <p>Projects</p>
-                <div className="title">Recently Completed <span>Works</span></div>
-              </div>
-              <div className="more-project-button float-right">
-                <Link className="btn-two" href="/projects">More Projects<span className="flaticon-next"></span></Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="container-fluid">
-          <ProjectsCarousel initialProjects={initialProjects} />
         </div>
       </section>
 
