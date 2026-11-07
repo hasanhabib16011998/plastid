@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
@@ -9,7 +9,7 @@ import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
 import { submitPIALead } from '../../lib/payload'
-import { serviceFormOptions } from '../../data/servicesData'
+import { serviceFormOptions, resolveServiceFormOption } from '../../data/servicesData'
 import { ChevronRight } from 'lucide-react'
 
 const contactInfo = [
@@ -35,6 +35,19 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      const serviceParam = params.get('service')
+      if (serviceParam) {
+        const matchedOption = resolveServiceFormOption(serviceParam)
+        if (matchedOption) {
+          setFormData((prev) => ({ ...prev, service: matchedOption }))
+        }
+      }
+    }
+  }, [])
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
   const handleSubmit = async (e) => {

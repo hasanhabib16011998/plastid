@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Header from '../../components/Header/Header'
@@ -15,7 +15,7 @@ import {
   allServicesList,
 } from '../../data/servicesData'
 
-export default function ServiceDetail({ slugProp }) {
+export default function ServiceDetail({ slugProp, initialProjects = [] }) {
   const params = useParams()
   const rawSlug = slugProp || params?.slug
   const service = getServiceBySlug(rawSlug) || serviceData['residential-interior']
@@ -30,17 +30,46 @@ export default function ServiceDetail({ slugProp }) {
       ? currentBranch.children.map((c) => serviceData[c.slug]).filter(Boolean)
       : []
 
+  // Sibling services if viewing a child service
+  const siblingServices =
+    service.parentSlug && currentBranch?.children
+      ? currentBranch.children
+          .map((c) => serviceData[c.slug])
+          .filter((s) => s && s.slug !== activeSlug)
+      : []
+
   // Keep the relevant tree branch expanded in the sidebar
   const [expandedBranches, setExpandedBranches] = useState({
     'residential-interior': true,
     'commercial-interior': true,
   })
 
+  // Interactive FAQ accordion state (first item open by default)
+  const [openFaqIndex, setOpenFaqIndex] = useState(0)
+
+  // Ref to auto-scroll active mobile pill into view
+  const activePillRef = useRef(null)
+
   useEffect(() => {
+    setOpenFaqIndex(0)
     if (service.parentSlug) {
       setExpandedBranches((prev) => ({ ...prev, [service.parentSlug]: true }))
-    } else if (activeSlug === 'residential-interior' || activeSlug === 'commercial-interior') {
+    } else if (
+      activeSlug === 'residential-interior' ||
+      activeSlug === 'commercial-interior'
+    ) {
       setExpandedBranches((prev) => ({ ...prev, [activeSlug]: true }))
+    }
+
+    // Center the active pill in the mobile horizontal scroll bar
+    if (activePillRef.current) {
+      try {
+        activePillRef.current.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'center',
+          block: 'nearest',
+        })
+      } catch (_) {}
     }
   }, [activeSlug, service.parentSlug])
 
@@ -49,6 +78,34 @@ export default function ServiceDetail({ slugProp }) {
     e.stopPropagation()
     setExpandedBranches((prev) => ({ ...prev, [branchSlug]: !prev[branchSlug] }))
   }
+
+  // Filter relevant portfolio projects for this service
+  const relatedProjects = (() => {
+    if (!Array.isArray(initialProjects) || initialProjects.length === 0) return []
+    const catLower = (service.category || '').toLowerCase()
+    const matched = initialProjects.filter((p) => {
+      const pCat = (p.category || '').toLowerCase()
+      if (!catLower) return false
+      if (catLower === 'residential') {
+        return pCat.includes('residential') || pCat.includes('apartment') || pCat.includes('home')
+      }
+      if (catLower === 'commercial') {
+        return pCat.includes('commercial') || pCat.includes('office') || pCat.includes('retail') || pCat.includes('restaurant')
+      }
+      return pCat.includes(catLower)
+    })
+    return (matched.length > 0 ? matched : initialProjects).slice(0, 3)
+  })()
+
+  // Specs with sensible defaults
+  const specs = service.specs || {
+    timeline: '4–10 Weeks Execution',
+    designRate: 'BDT 40 / sq.ft (3D)',
+    rebate: '50% Fee Refund on Build',
+    scope: '100% Turnkey Execution',
+  }
+
+  const contactHref = `/contact?service=${encodeURIComponent(service.slug)}`
 
   // Breadcrumb trail reflecting tree hierarchy
   const crumbs = [
@@ -74,65 +131,209 @@ export default function ServiceDetail({ slugProp }) {
       />
 
       {/* Single Service Area */}
-      <section className="single-service-area">
+      <section className="single-service-area" style={{ padding: '80px 0 90px', background: '#F5F3ED' }}>
         <div className="container">
           {/* Mobile Quick Service Selector Pill Bar (< 992px) */}
           <div
             className="d-block d-lg-none"
             style={{
-              marginBottom: '24px',
+              marginBottom: '26px',
               overflowX: 'auto',
               WebkitOverflowScrolling: 'touch',
-              paddingBottom: '6px',
+              paddingBottom: '8px',
             }}
           >
             <div style={{ display: 'flex', gap: '8px' }}>
-              {allServicesList.map((s) => (
-                <Link
-                  key={s.slug}
-                  href={`/services/${s.slug}`}
-                  style={{
-                    padding: '8px 18px',
-                    borderRadius: '24px',
-                    whiteSpace: 'nowrap',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    background: activeSlug === s.slug ? '#C49B5D' : '#000000',
-                    color: activeSlug === s.slug ? '#000000' : '#F5F3ED',
-                    border: '1px solid #C49B5D',
-                    textDecoration: 'none',
-                    transition: 'all 0.25s ease',
-                    flexShrink: 0,
-                    boxShadow:
-                      activeSlug === s.slug
+              {allServicesList.map((s) => {
+                const isSelected = activeSlug === s.slug
+                return (
+                  <Link
+                    key={s.slug}
+                    ref={isSelected ? activePillRef : null}
+                    href={`/services/${s.slug}`}
+                    style={{
+                      padding: '9px 18px',
+                      borderRadius: '24px',
+                      whiteSpace: 'nowrap',
+                      fontSize: '13px',
+                      fontWeight: 600,
+                      background: isSelected ? '#C49B5D' : '#000000',
+                      color: isSelected ? '#000000' : '#F5F3ED',
+                      border: '1px solid #C49B5D',
+                      textDecoration: 'none',
+                      transition: 'all 0.25s ease',
+                      flexShrink: 0,
+                      boxShadow: isSelected
                         ? '0 4px 12px rgba(196, 155, 93, 0.35)'
                         : 'none',
-                  }}
-                >
-                  {s.title}
-                </Link>
-              ))}
+                    }}
+                  >
+                    {s.title}
+                  </Link>
+                )
+              })}
             </div>
           </div>
 
           <div className="row">
             {/* Main Content (Appears FIRST on mobile, SECOND on desktop) */}
             <article className="col-xl-8 col-lg-7 col-md-12 col-sm-12 order-1 order-lg-2">
-              {/* Service Image + Description */}
-              <div className="single-service-top">
+              {/* Hero Image + At-a-Glance Commercial Specs Card */}
+              <div
+                className="single-service-top"
+                style={{
+                  background: '#ffffff',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(196, 155, 93, 0.28)',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 28px rgba(0, 0, 0, 0.05)',
+                  marginBottom: '32px',
+                }}
+              >
+                {/* Dedicated Service Hero Image */}
                 <div
                   className="single-service-image-box"
-                  style={{ borderRadius: '8px', overflow: 'hidden', position: 'relative' }}
+                  style={{
+                    position: 'relative',
+                    height: '380px',
+                    overflow: 'hidden',
+                    background: '#000000',
+                  }}
                 >
                   <img
                     src={service.mainImg}
-                    alt={`${service.heroTitle} - Plastid Interior & Architecture`}
-                    style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                    alt={`${service.heroTitle} - Plastid Interior & Architecture Dhaka`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
                   />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background:
+                        'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 50%, rgba(0,0,0,0.72) 100%)',
+                    }}
+                  />
+
+                  {/* Category / Parent Breadcrumb Pill Overlay */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '18px',
+                      left: '20px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '6px 14px',
+                      borderRadius: '24px',
+                      background: 'rgba(0, 0, 0, 0.78)',
+                      backdropFilter: 'blur(8px)',
+                      border: '1px solid rgba(196, 155, 93, 0.5)',
+                      fontSize: '11.5px',
+                      fontWeight: 600,
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      color: '#C49B5D',
+                    }}
+                  >
+                    <span className={service.icon} style={{ fontSize: '14px' }} />
+                    <span>{parentService ? parentService.title : service.subtitle}</span>
+                  </div>
+
+                  {/* Direct Quick-Consult Button on Hero Image */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '18px',
+                      right: '20px',
+                    }}
+                  >
+                    <Link
+                      href={contactHref}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '10px 18px',
+                        borderRadius: '6px',
+                        background: '#C49B5D',
+                        color: '#000000',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.08em',
+                        textDecoration: 'none',
+                        boxShadow: '0 6px 20px rgba(0, 0, 0, 0.4)',
+                      }}
+                    >
+                      <span>Book Consultation for {service.title}</span>
+                      <span>→</span>
+                    </Link>
+                  </div>
                 </div>
-                <div className="text">
+
+                {/* At-a-Glance Commercial Specs Strip */}
+                <div
+                  style={{
+                    background: '#000000',
+                    borderTop: '2px solid #C49B5D',
+                    borderBottom: '1px solid rgba(196, 155, 93, 0.25)',
+                    padding: '16px 22px',
+                  }}
+                >
+                  <div className="row">
+                    {[
+                      { label: 'Typical Timeline', value: specs.timeline },
+                      { label: '3D Design Rate', value: specs.designRate },
+                      { label: 'Turnkey Benefit', value: specs.rebate },
+                      { label: 'Execution Scope', value: specs.scope },
+                    ].map((item, i) => (
+                      <div
+                        key={i}
+                        className="col-xl-3 col-lg-6 col-md-6 col-6"
+                        style={{
+                          paddingTop: '6px',
+                          paddingBottom: '6px',
+                          borderRight:
+                            i < 3 ? '1px solid rgba(196, 155, 93, 0.18)' : 'none',
+                        }}
+                      >
+                        <span
+                          style={{
+                            display: 'block',
+                            fontSize: '10px',
+                            fontWeight: 600,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.12em',
+                            color: 'rgba(245, 243, 237, 0.6)',
+                            marginBottom: '3px',
+                          }}
+                        >
+                          {item.label}
+                        </span>
+                        <span
+                          style={{
+                            display: 'block',
+                            fontSize: '13.5px',
+                            fontWeight: 700,
+                            color: '#C49B5D',
+                          }}
+                        >
+                          {item.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Editorial Overview Copy */}
+                <div className="text" style={{ padding: '32px 30px 30px' }}>
                   {parentService && (
-                    <div style={{ marginBottom: '8px' }}>
+                    <div style={{ marginBottom: '10px' }}>
                       <Link
                         href={`/services/${parentService.slug}`}
                         style={{
@@ -140,26 +341,38 @@ export default function ServiceDetail({ slugProp }) {
                           alignItems: 'center',
                           gap: '6px',
                           fontSize: '12px',
-                          fontWeight: 600,
+                          fontWeight: 700,
                           textTransform: 'uppercase',
                           letterSpacing: '0.1em',
-                          color: '#C49B5D',
+                          color: '#9F7838',
                           textDecoration: 'none',
                         }}
                       >
-                        <span>{parentService.title}</span>
-                        <span>›</span>
-                        <span style={{ color: '#666' }}>{service.title}</span>
+                        <span>← Back to {parentService.title}</span>
                       </Link>
                     </div>
                   )}
-                  <h2>{service.heroTitle}</h2>
-                  <div className="inner">
+
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                      fontSize: 'clamp(26px, 3vw, 34px)',
+                      lineHeight: 1.22,
+                      fontWeight: 600,
+                      color: '#000000',
+                      textTransform: 'none',
+                      marginBottom: '16px',
+                    }}
+                  >
+                    {service.h2Title || service.heroTitle}
+                  </h2>
+
+                  <div className="inner" style={{ paddingTop: 0 }}>
                     <p
                       style={{
-                        lineHeight: '1.75',
-                        color: '#444',
-                        marginBottom: '14px',
+                        lineHeight: '1.8',
+                        color: '#333',
+                        marginBottom: '16px',
                         fontSize: '15.5px',
                       }}
                     >
@@ -167,9 +380,10 @@ export default function ServiceDetail({ slugProp }) {
                     </p>
                     <p
                       style={{
-                        lineHeight: '1.75',
-                        color: '#555',
+                        lineHeight: '1.8',
+                        color: '#4A4A4A',
                         fontSize: '15px',
+                        marginBottom: 0,
                       }}
                     >
                       {service.description2}
@@ -182,21 +396,21 @@ export default function ServiceDetail({ slugProp }) {
               {subServices.length > 0 && (
                 <div
                   style={{
-                    marginTop: '30px',
-                    marginBottom: '30px',
-                    padding: '26px',
-                    background: '#FAF8F4',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(196, 155, 93, 0.3)',
+                    marginBottom: '32px',
+                    padding: '28px 28px 14px',
+                    background: '#ffffff',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(196, 155, 93, 0.32)',
+                    boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
                   }}
                 >
-                  <div style={{ marginBottom: '18px' }}>
+                  <div style={{ marginBottom: '20px' }}>
                     <span
                       style={{
                         fontSize: '11px',
                         fontWeight: 700,
                         textTransform: 'uppercase',
-                        letterSpacing: '0.12em',
+                        letterSpacing: '0.14em',
                         color: '#C49B5D',
                         display: 'block',
                         marginBottom: '4px',
@@ -206,8 +420,9 @@ export default function ServiceDetail({ slugProp }) {
                     </span>
                     <h3
                       style={{
-                        fontSize: '21px',
-                        fontWeight: 700,
+                        fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                        fontSize: '26px',
+                        fontWeight: 600,
                         color: '#000000',
                         margin: 0,
                       }}
@@ -215,27 +430,36 @@ export default function ServiceDetail({ slugProp }) {
                       Explore {service.title} Categories
                     </h3>
                   </div>
-                  <div className="row">
+                  <div className="row d-flex flex-wrap">
                     {subServices.map((sub) => (
                       <div
                         key={sub.slug}
-                        className="col-xl-6 col-lg-6 col-md-6 col-sm-12"
+                        className="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex"
                         style={{ marginBottom: '16px' }}
                       >
                         <Link
                           href={`/services/${sub.slug}`}
                           style={{
+                            width: '100%',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-between',
-                            height: '100%',
-                            padding: '18px 20px',
-                            background: '#ffffff',
-                            borderRadius: '6px',
-                            border: '1px solid rgba(196, 155, 93, 0.25)',
+                            padding: '20px 22px',
+                            background: '#FAF8F4',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(196, 155, 93, 0.28)',
                             textDecoration: 'none',
                             transition: 'all 0.25s ease',
-                            boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = '#C49B5D'
+                            e.currentTarget.style.transform = 'translateY(-3px)'
+                            e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.07)'
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.28)'
+                            e.currentTarget.style.transform = 'translateY(0)'
+                            e.currentTarget.style.boxShadow = 'none'
                           }}
                         >
                           <div>
@@ -249,8 +473,9 @@ export default function ServiceDetail({ slugProp }) {
                             >
                               <h4
                                 style={{
-                                  fontSize: '16px',
-                                  fontWeight: 700,
+                                  fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                                  fontSize: '21px',
+                                  fontWeight: 600,
                                   color: '#000000',
                                   margin: 0,
                                 }}
@@ -264,26 +489,41 @@ export default function ServiceDetail({ slugProp }) {
                             </div>
                             <p
                               style={{
-                                fontSize: '13px',
-                                lineHeight: '1.55',
-                                color: '#666',
-                                margin: '0 0 10px',
+                                fontSize: '13.5px',
+                                lineHeight: '1.6',
+                                color: '#555',
+                                margin: '0 0 12px',
                               }}
                             >
                               {sub.shortText}
                             </p>
                           </div>
-                          <span
+                          <div
                             style={{
-                              fontSize: '12px',
-                              fontWeight: 600,
-                              color: '#C49B5D',
-                              textTransform: 'uppercase',
-                              letterSpacing: '0.06em',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              paddingTop: '10px',
+                              borderTop: '1px solid rgba(196, 155, 93, 0.18)',
                             }}
                           >
-                            Explore Service →
-                          </span>
+                            <span
+                              style={{
+                                fontSize: '11.5px',
+                                fontWeight: 700,
+                                color: '#9F7838',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.08em',
+                              }}
+                            >
+                              View Scope &amp; Process →
+                            </span>
+                            {sub.specs?.timeline && (
+                              <span style={{ fontSize: '11px', color: '#777' }}>
+                                {sub.specs.timeline}
+                              </span>
+                            )}
+                          </div>
                         </Link>
                       </div>
                     ))}
@@ -291,25 +531,38 @@ export default function ServiceDetail({ slugProp }) {
                 </div>
               )}
 
-              {/* What's Included / Key Deliverables */}
+              {/* What We Deliver / Key Deliverables Checklist */}
               {service.highlights && service.highlights.length > 0 && (
                 <div
                   style={{
-                    marginTop: '24px',
-                    marginBottom: '26px',
-                    padding: '24px 26px',
+                    marginBottom: '32px',
+                    padding: '28px 30px',
                     background: '#ffffff',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(196, 155, 93, 0.25)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.03)',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(196, 155, 93, 0.28)',
+                    boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
                   }}
                 >
+                  <span
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.14em',
+                      color: '#C49B5D',
+                      display: 'block',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    Scope of Work
+                  </span>
                   <h3
                     style={{
-                      fontSize: '19px',
-                      fontWeight: 700,
+                      fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                      fontSize: '26px',
+                      fontWeight: 600,
                       color: '#000000',
-                      marginBottom: '14px',
+                      marginBottom: '18px',
                     }}
                   >
                     What We Deliver in {service.title}
@@ -319,22 +572,34 @@ export default function ServiceDetail({ slugProp }) {
                       <div
                         key={idx}
                         className="col-xl-6 col-lg-6 col-md-6 col-12"
-                        style={{ marginBottom: '10px' }}
+                        style={{ marginBottom: '12px' }}
                       >
                         <div
                           style={{
                             display: 'flex',
                             alignItems: 'flex-start',
-                            gap: '10px',
+                            gap: '12px',
+                            padding: '12px 14px',
+                            borderRadius: '6px',
+                            background: '#FAF8F4',
+                            border: '1px solid rgba(196, 155, 93, 0.2)',
+                            height: '100%',
                           }}
                         >
                           <span
                             style={{
-                              color: '#C49B5D',
+                              width: '22px',
+                              height: '22px',
+                              borderRadius: '50%',
+                              background: 'rgba(196, 155, 93, 0.18)',
+                              color: '#9F7838',
                               fontWeight: 700,
-                              fontSize: '14px',
-                              lineHeight: '1.5',
+                              fontSize: '12px',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
                               flexShrink: 0,
+                              marginTop: '1px',
                             }}
                           >
                             ✓
@@ -342,8 +607,8 @@ export default function ServiceDetail({ slugProp }) {
                           <span
                             style={{
                               fontSize: '14px',
-                              lineHeight: '1.55',
-                              color: '#333',
+                              lineHeight: '1.5',
+                              color: '#222',
                               fontWeight: 500,
                             }}
                           >
@@ -356,206 +621,641 @@ export default function ServiceDetail({ slugProp }) {
                 </div>
               )}
 
-              {/* Advantages Boxes (2 cols on mobile, 4 cols on desktop) */}
-              <div className="advantages-content" style={{ marginTop: '20px' }}>
-                <div className="row">
-                  {service.advantages.map((adv, i) => (
-                    <div
-                      key={i}
-                      className="col-xl-3 col-lg-6 col-md-6 col-6"
-                      style={{ marginBottom: '15px' }}
+              {/* Always-Visible Architectural Advantage Cards (Fixes Hover-Only Mobile Bug) */}
+              {service.advantages && service.advantages.length > 0 && (
+                <div style={{ marginBottom: '32px' }}>
+                  <div style={{ marginBottom: '16px' }}>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.14em',
+                        color: '#C49B5D',
+                        display: 'block',
+                        marginBottom: '4px',
+                      }}
                     >
+                      The Plastid Advantage
+                    </span>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                        fontSize: '26px',
+                        fontWeight: 600,
+                        color: '#000000',
+                        margin: 0,
+                      }}
+                    >
+                      Why Clients Trust Us for {service.title}
+                    </h3>
+                  </div>
+
+                  <div className="row d-flex flex-wrap">
+                    {service.advantages.map((adv, i) => (
                       <div
-                        className="single-advantages-box"
-                        style={{
-                          height: '100%',
-                          borderRadius: '6px',
-                          background: '#fff',
-                          border: '1px solid rgba(196, 155, 93, 0.25)',
-                        }}
+                        key={i}
+                        className="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex"
+                        style={{ marginBottom: '16px' }}
                       >
-                        <div className="inner" style={{ padding: '20px 10px' }}>
-                          <div className="static-content">
-                            <div
-                              className="icon-holder"
-                              style={{ marginBottom: '10px' }}
-                            >
-                              <span
-                                className={adv.icon}
-                                style={{ fontSize: '36px', color: '#C49B5D' }}
-                              />
-                            </div>
-                            <div className="title">
-                              <h3
-                                style={{
-                                  whiteSpace: 'pre-line',
-                                  fontSize: '14px',
-                                  lineHeight: '1.3',
-                                  fontWeight: 600,
-                                  color: '#000000',
-                                }}
-                              >
-                                {adv.title}
-                              </h3>
-                            </div>
+                        <div
+                          style={{
+                            width: '100%',
+                            padding: '22px 22px',
+                            borderRadius: '8px',
+                            background: '#ffffff',
+                            border: '1px solid rgba(196, 155, 93, 0.28)',
+                            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '16px',
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: '48px',
+                              height: '48px',
+                              borderRadius: '10px',
+                              background: '#000000',
+                              border: '1px solid #C49B5D',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0,
+                            }}
+                          >
+                            <span
+                              className={adv.icon}
+                              style={{ fontSize: '24px', color: '#C49B5D', lineHeight: 1 }}
+                            />
                           </div>
-                          <div className="overlay-text">
-                            <div className="box">
-                              <div className="inner-text">
-                                <p style={{ fontSize: '12px', lineHeight: '1.4' }}>
-                                  {adv.text}
-                                </p>
-                              </div>
-                            </div>
+                          <div>
+                            <h4
+                              style={{
+                                fontSize: '16px',
+                                fontWeight: 700,
+                                color: '#000000',
+                                marginBottom: '6px',
+                                lineHeight: 1.3,
+                              }}
+                            >
+                              {String(adv.title).replace(/\n/g, ' ')}
+                            </h4>
+                            <p
+                              style={{
+                                fontSize: '13.5px',
+                                lineHeight: '1.6',
+                                color: '#555',
+                                margin: 0,
+                              }}
+                            >
+                              {adv.text}
+                            </p>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* How We Work */}
-              <div className="how-we-work" style={{ marginTop: '35px' }}>
+              {/* Architectural 5-Step Execution Timeline (Replaces Generic Stock Photo) */}
+              <div
+                className="how-we-work"
+                style={{
+                  marginBottom: '32px',
+                  padding: '30px 30px',
+                  background: '#ffffff',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(196, 155, 93, 0.28)',
+                  boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.14em',
+                    color: '#C49B5D',
+                    display: 'block',
+                    marginBottom: '4px',
+                  }}
+                >
+                  Step-by-Step Methodology
+                </span>
                 <h3
                   style={{
-                    marginBottom: '18px',
-                    fontSize: '22px',
-                    fontWeight: 700,
+                    fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                    marginBottom: '8px',
+                    fontSize: '26px',
+                    fontWeight: 600,
                     color: '#000000',
                   }}
                 >
                   How We Execute {service.title}
                 </h3>
-                <div className="row align-items-center">
-                  <div
-                    className="col-xl-6 col-lg-6 col-md-12"
-                    style={{ marginBottom: '20px' }}
-                  >
-                    <img
-                      src="/images/services/service-single/how-work.jpg"
-                      alt={`How We Work - ${service.title}`}
-                      style={{
-                        width: '100%',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-                      }}
-                    />
-                  </div>
-                  <div className="col-xl-6 col-lg-6 col-md-12">
-                    <div>
-                      <p
+                <p
+                  style={{
+                    color: '#555',
+                    lineHeight: 1.7,
+                    marginBottom: '22px',
+                    fontSize: '14.5px',
+                  }}
+                >
+                  Our milestone-driven turnkey workflow ensures your{' '}
+                  {service.title.toLowerCase()} project is engineered with zero guesswork,
+                  itemized cost control, and on-schedule delivery.
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {(service.processSteps || []).map((step, i) => {
+                    const isObj = typeof step === 'object' && step !== null
+                    const stepTitle = isObj ? step.title : step
+                    const stepDuration = isObj ? step.duration : null
+                    const stepDesc = isObj ? step.desc : null
+
+                    return (
+                      <div
+                        key={i}
                         style={{
-                          color: '#666',
-                          lineHeight: 1.7,
-                          marginBottom: '15px',
-                          fontSize: '14px',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '16px',
+                          padding: '16px 18px',
+                          borderRadius: '8px',
+                          background: '#FAF8F4',
+                          border: '1px solid rgba(196, 155, 93, 0.22)',
                         }}
                       >
-                        Our structured turnkey process guarantees your{' '}
-                        {service.title.toLowerCase()} project is delivered on
-                        schedule, within budget, and to uncompromising architectural
-                        standards.
-                      </p>
-                      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                        {(
-                          service.processSteps || [
-                            'Initial Consultation & Discovery',
-                            'Concept Development',
-                            'Design Refinement & Approval',
-                            'Project Execution',
-                            'Quality Review & Handover',
-                          ]
-                        ).map((step, i) => (
-                          <li
-                            key={i}
+                        <div
+                          style={{
+                            width: '36px',
+                            height: '36px',
+                            borderRadius: '8px',
+                            background: '#000000',
+                            border: '1px solid #C49B5D',
+                            color: '#C49B5D',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                            fontSize: '18px',
+                            fontWeight: 600,
+                            flexShrink: 0,
+                          }}
+                        >
+                          0{i + 1}
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <div
                             style={{
                               display: 'flex',
+                              flexWrap: 'wrap',
                               alignItems: 'center',
-                              gap: '12px',
-                              padding: '10px 0',
-                              borderBottom: '1px solid #eee',
+                              justifyContent: 'space-between',
+                              gap: '8px',
+                              marginBottom: stepDesc ? '4px' : 0,
                             }}
                           >
-                            <span
+                            <h4
                               style={{
-                                width: '26px',
-                                height: '26px',
-                                borderRadius: '50%',
-                                background: '#C49B5D',
+                                fontSize: '15.5px',
+                                fontWeight: 700,
                                 color: '#000000',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '12px',
-                                fontWeight: '700',
-                                flexShrink: 0,
+                                margin: 0,
                               }}
                             >
-                              {i + 1}
-                            </span>
-                            <span
+                              {stepTitle}
+                            </h4>
+                            {stepDuration && (
+                              <span
+                                style={{
+                                  fontSize: '11px',
+                                  fontWeight: 600,
+                                  textTransform: 'uppercase',
+                                  letterSpacing: '0.08em',
+                                  color: '#9F7838',
+                                  background: 'rgba(196, 155, 93, 0.15)',
+                                  padding: '3px 10px',
+                                  borderRadius: '14px',
+                                }}
+                              >
+                                {stepDuration}
+                              </span>
+                            )}
+                          </div>
+                          {stepDesc && (
+                            <p
                               style={{
-                                color: '#333',
                                 fontSize: '13.5px',
-                                fontWeight: 500,
+                                lineHeight: '1.6',
+                                color: '#555',
+                                margin: 0,
                               }}
                             >
-                              {step}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                              {stepDesc}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                {/* 50% 3D Design Fee Rebate Commercial Highlight Box */}
+                <div
+                  style={{
+                    marginTop: '20px',
+                    padding: '20px 22px',
+                    borderRadius: '8px',
+                    background: '#000000',
+                    border: '1px solid #C49B5D',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '16px',
+                  }}
+                >
+                  <div style={{ flex: '1 1 320px' }}>
+                    <span
+                      style={{
+                        fontSize: '10.5px',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.14em',
+                        color: '#C49B5D',
+                        display: 'block',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      ★ Commercial Guarantee
+                    </span>
+                    <h4
+                      style={{
+                        fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                        fontSize: '20px',
+                        fontWeight: 600,
+                        color: '#F5F3ED',
+                        margin: '0 0 4px',
+                      }}
+                    >
+                      Start with 3D Visualization at BDT 40/sq.ft — Get 50% Refunded on Build
+                    </h4>
+                    <p
+                      style={{
+                        fontSize: '13px',
+                        lineHeight: '1.6',
+                        color: 'rgba(245, 243, 237, 0.8)',
+                        margin: 0,
+                      }}
+                    >
+                      See every detail of your {service.title.toLowerCase()} in photorealistic 3D
+                      before committing to construction.{' '}
+                      {activeSlug !== '3d-and-design-consultancy' && (
+                        <Link
+                          href="/services/3d-and-design-consultancy"
+                          style={{ color: '#C49B5D', textDecoration: 'underline' }}
+                        >
+                          Learn about 3D Consultancy →
+                        </Link>
+                      )}
+                    </p>
                   </div>
+                  <Link
+                    href={contactHref}
+                    style={{
+                      padding: '11px 20px',
+                      borderRadius: '6px',
+                      background: '#C49B5D',
+                      color: '#000000',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      textDecoration: 'none',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Book Site Visit →
+                  </Link>
                 </div>
               </div>
 
-              {/* Service-Specific FAQ Section (Boosts SEO & Answers Client Questions) */}
+              {/* Related Portfolio Projects Section (Connects Service to Real Proof) */}
+              {relatedProjects.length > 0 && (
+                <div
+                  style={{
+                    marginBottom: '32px',
+                    padding: '28px 30px',
+                    background: '#ffffff',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(196, 155, 93, 0.28)',
+                    boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '12px',
+                      marginBottom: '20px',
+                    }}
+                  >
+                    <div>
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.14em',
+                          color: '#C49B5D',
+                          display: 'block',
+                          marginBottom: '4px',
+                        }}
+                      >
+                        Executed Portfolio
+                      </span>
+                      <h3
+                        style={{
+                          fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                          fontSize: '26px',
+                          fontWeight: 600,
+                          color: '#000000',
+                          margin: 0,
+                        }}
+                      >
+                        Featured Completed Works
+                      </h3>
+                    </div>
+                    <Link
+                      href="/projects"
+                      style={{
+                        fontSize: '12.5px',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.08em',
+                        color: '#9F7838',
+                        textDecoration: 'none',
+                      }}
+                    >
+                      View All Projects →
+                    </Link>
+                  </div>
+
+                  <div className="row d-flex flex-wrap">
+                    {relatedProjects.map((proj, idx) => (
+                      <div
+                        key={proj.id || idx}
+                        className="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex"
+                        style={{ marginBottom: '16px' }}
+                      >
+                        <Link
+                          href={`/projects/${proj.slug || proj.id}`}
+                          style={{
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            background: '#FAF8F4',
+                            borderRadius: '8px',
+                            overflow: 'hidden',
+                            border: '1px solid rgba(196, 155, 93, 0.25)',
+                            textDecoration: 'none',
+                            transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-4px)'
+                            e.currentTarget.style.boxShadow = '0 10px 24px rgba(0,0,0,0.08)'
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)'
+                            e.currentTarget.style.boxShadow = 'none'
+                          }}
+                        >
+                          <div style={{ height: '160px', overflow: 'hidden', background: '#000' }}>
+                            <img
+                              src={proj.img}
+                              alt={proj.title}
+                              loading="lazy"
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                display: 'block',
+                              }}
+                            />
+                          </div>
+                          <div style={{ padding: '14px 16px' }}>
+                            <span
+                              style={{
+                                display: 'block',
+                                fontSize: '10.5px',
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                color: '#C49B5D',
+                                marginBottom: '4px',
+                              }}
+                            >
+                              {proj.category}
+                            </span>
+                            <h4
+                              style={{
+                                fontSize: '15px',
+                                fontWeight: 700,
+                                color: '#000000',
+                                margin: '0 0 6px',
+                                lineHeight: 1.35,
+                              }}
+                            >
+                              {proj.title}
+                            </h4>
+                            <span
+                              style={{
+                                fontSize: '12px',
+                                fontWeight: 600,
+                                color: '#9F7838',
+                              }}
+                            >
+                              View Case Study →
+                            </span>
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Interactive Accessible FAQ Accordion (SEO-Friendly DOM Rendering) */}
               {service.faqs && service.faqs.length > 0 && (
-                <div style={{ marginTop: '38px' }}>
+                <div
+                  style={{
+                    marginBottom: '28px',
+                    padding: '28px 30px',
+                    background: '#ffffff',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(196, 155, 93, 0.28)',
+                    boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.14em',
+                      color: '#C49B5D',
+                      display: 'block',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    Client Questions Answered
+                  </span>
                   <h3
                     style={{
+                      fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
                       marginBottom: '18px',
-                      fontSize: '21px',
-                      fontWeight: 700,
+                      fontSize: '26px',
+                      fontWeight: 600,
                       color: '#000000',
                     }}
                   >
-                    Frequently Asked Questions
+                    Frequently Asked Questions About {service.title}
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {service.faqs.map((faq, idx) => (
-                      <div
-                        key={idx}
+                    {service.faqs.map((faq, idx) => {
+                      const isOpen = openFaqIndex === idx
+                      return (
+                        <div
+                          key={idx}
+                          style={{
+                            borderRadius: '8px',
+                            background: isOpen ? '#FAF8F4' : '#ffffff',
+                            border: isOpen
+                              ? '1px solid #C49B5D'
+                              : '1px solid rgba(196, 155, 93, 0.25)',
+                            overflow: 'hidden',
+                            transition: 'all 0.25s ease',
+                          }}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => setOpenFaqIndex(isOpen ? -1 : idx)}
+                            aria-expanded={isOpen}
+                            style={{
+                              width: '100%',
+                              padding: '16px 20px',
+                              background: 'transparent',
+                              border: 'none',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              gap: '14px',
+                              textAlign: 'left',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <h4
+                              style={{
+                                fontSize: '15.5px',
+                                fontWeight: 700,
+                                color: '#000000',
+                                margin: 0,
+                                lineHeight: 1.4,
+                              }}
+                            >
+                              {faq.q}
+                            </h4>
+                            <span
+                              style={{
+                                width: '28px',
+                                height: '28px',
+                                borderRadius: '50%',
+                                background: isOpen ? '#000000' : 'rgba(196, 155, 93, 0.14)',
+                                color: isOpen ? '#C49B5D' : '#000000',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '16px',
+                                fontWeight: 700,
+                                flexShrink: 0,
+                                transition: 'all 0.2s ease',
+                              }}
+                            >
+                              {isOpen ? '−' : '+'}
+                            </span>
+                          </button>
+                          <div
+                            style={{
+                              display: isOpen ? 'block' : 'none',
+                              padding: '0 20px 18px',
+                              borderTop: '1px solid rgba(196, 155, 93, 0.15)',
+                              paddingTop: '12px',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '14px',
+                                lineHeight: '1.7',
+                                color: '#4A4A4A',
+                                margin: 0,
+                              }}
+                            >
+                              {faq.a}
+                            </p>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Related Sibling Services Links (If viewing a Child Sub-Service) */}
+              {siblingServices.length > 0 && (
+                <div
+                  style={{
+                    padding: '22px 26px',
+                    background: '#ffffff',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(196, 155, 93, 0.25)',
+                  }}
+                >
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      color: '#9F7838',
+                      marginBottom: '12px',
+                    }}
+                  >
+                    More in {parentService?.title}:
+                  </span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {siblingServices.map((sib) => (
+                      <Link
+                        key={sib.slug}
+                        href={`/services/${sib.slug}`}
                         style={{
-                          padding: '18px 22px',
-                          borderRadius: '8px',
+                          padding: '8px 14px',
+                          borderRadius: '6px',
                           background: '#FAF8F4',
-                          border: '1px solid rgba(196, 155, 93, 0.25)',
+                          border: '1px solid rgba(196, 155, 93, 0.3)',
+                          color: '#000000',
+                          fontSize: '13px',
+                          fontWeight: 600,
+                          textDecoration: 'none',
                         }}
                       >
-                        <h4
-                          style={{
-                            fontSize: '15.5px',
-                            fontWeight: 700,
-                            color: '#000000',
-                            marginBottom: '6px',
-                          }}
-                        >
-                          {faq.q}
-                        </h4>
-                        <p
-                          style={{
-                            fontSize: '14px',
-                            lineHeight: '1.65',
-                            color: '#555',
-                            margin: 0,
-                          }}
-                        >
-                          {faq.a}
-                        </p>
-                      </div>
+                        {sib.title} →
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -565,7 +1265,6 @@ export default function ServiceDetail({ slugProp }) {
             {/* Sidebar (Appears SECOND on mobile, FIRST on desktop) */}
             <aside
               className="col-xl-4 col-lg-5 col-md-12 col-sm-12 order-2 order-lg-1"
-              style={{ marginTop: '25px' }}
             >
               <div className="single-service-sidebar">
                 {/* Hierarchical Tree Services Navigation */}
@@ -573,10 +1272,11 @@ export default function ServiceDetail({ slugProp }) {
                   className="single-sidebar"
                   style={{
                     background: '#000000',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(196, 155, 93, 0.35)',
-                    padding: '22px 18px',
-                    marginBottom: '30px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(196, 155, 93, 0.38)',
+                    padding: '24px 20px',
+                    marginBottom: '28px',
+                    boxShadow: '0 8px 28px rgba(0, 0, 0, 0.08)',
                   }}
                 >
                   <div
@@ -585,31 +1285,31 @@ export default function ServiceDetail({ slugProp }) {
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       paddingBottom: '14px',
-                      marginBottom: '12px',
+                      marginBottom: '14px',
                       borderBottom: '1px solid rgba(196, 155, 93, 0.25)',
                     }}
                   >
                     <h3
                       style={{
-                        fontSize: '16px',
+                        fontSize: '15px',
                         fontWeight: 700,
                         textTransform: 'uppercase',
-                        letterSpacing: '0.08em',
+                        letterSpacing: '0.1em',
                         color: '#C49B5D',
                         margin: 0,
                       }}
                     >
-                      Our Services
+                      All Services
                     </h3>
                     <Link
                       href="/services"
                       style={{
                         fontSize: '12px',
-                        color: 'rgba(245, 243, 237, 0.7)',
+                        color: 'rgba(245, 243, 237, 0.75)',
                         textDecoration: 'none',
                       }}
                     >
-                      View All
+                      Overview →
                     </Link>
                   </div>
 
@@ -628,7 +1328,7 @@ export default function ServiceDetail({ slugProp }) {
                         <li
                           key={branch.slug}
                           style={{
-                            marginBottom: '6px',
+                            marginBottom: '7px',
                           }}
                         >
                           <div
@@ -645,7 +1345,7 @@ export default function ServiceDetail({ slugProp }) {
                               border:
                                 isBranchActive || isChildActive
                                   ? '1px solid rgba(196, 155, 93, 0.6)'
-                                  : '1px solid rgba(255, 255, 255, 0.07)',
+                                  : '1px solid rgba(255, 255, 255, 0.08)',
                               transition: 'all 0.2s ease',
                             }}
                           >
@@ -745,28 +1445,44 @@ export default function ServiceDetail({ slugProp }) {
                   </ul>
                 </div>
 
-                {/* Contact Box */}
+                {/* Direct Architect Consultation Card */}
                 <div
                   className="sidebar-contact-box text-center"
-                  style={{ borderRadius: '8px', overflow: 'hidden' }}
+                  style={{
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    border: '1px solid rgba(196, 155, 93, 0.38)',
+                    paddingBottom: 0,
+                    marginBottom: '24px',
+                  }}
                 >
-                  <div className="inner-content">
-                    <div className="icon-holder">
+                  <div className="inner-content" style={{ padding: '38px 28px 36px' }}>
+                    <div className="icon-holder" style={{ paddingBottom: '16px' }}>
                       <span className="icon-support1" />
                     </div>
-                    <h3>
-                      Consult with expert &<br /> Start today
+                    <h3 style={{ fontSize: '20px', lineHeight: '28px', marginBottom: '16px' }}>
+                      Plan Your {service.title} <br /> With Our Architects
                     </h3>
-                    <div className="bottom-box">
+                    <p
+                      style={{
+                        fontSize: '13px',
+                        lineHeight: '1.6',
+                        color: 'rgba(245, 243, 237, 0.78)',
+                        marginBottom: '18px',
+                      }}
+                    >
+                      Get a free initial site discussion, space layout advice, and an itemized budget estimate.
+                    </p>
+                    <div className="bottom-box" style={{ paddingTop: '20px' }}>
                       <h2>
                         <a
                           href="tel:+8801768834417"
-                          style={{ color: 'inherit', textDecoration: 'none' }}
+                          style={{ color: '#C49B5D', textDecoration: 'none' }}
                         >
                           +880 1768834417
                         </a>
                       </h2>
-                      <span>
+                      <span style={{ fontSize: '13px', opacity: 0.85 }}>
                         Email:{' '}
                         <a
                           href="mailto:plastidarchitecture@gmail.com"
@@ -776,29 +1492,82 @@ export default function ServiceDetail({ slugProp }) {
                         </a>
                       </span>
                     </div>
-                    <div className="button">
-                      <Link className="btn-one" href="/contact">
-                        Make Appointment
+                    <div className="button" style={{ paddingTop: '24px' }}>
+                      <Link className="btn-one" href={contactHref}>
+                        Book Free Consultation
                         <span className="flaticon-next" />
                       </Link>
                     </div>
                   </div>
                 </div>
 
-                {/* Download Brochure */}
-                <div className="single-sidebar">
-                  <ul className="service-pack-download">
-                    <li className="clearfix">
-                      <div className="title-holder">
-                        <a href="/contact">
-                          Request Portfolio.PDF <span>(Brochure)</span>
-                        </a>
-                      </div>
-                      <div className="icon-holder">
-                        <i className="fa fa-download" aria-hidden="true" />
-                      </div>
-                    </li>
-                  </ul>
+                {/* Honest Rate Card & Sample BOQ Request Card (Replaces Fake PDF Download) */}
+                <div
+                  className="single-sidebar"
+                  style={{
+                    background: '#ffffff',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(196, 155, 93, 0.38)',
+                    padding: '20px 22px',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
+                  }}
+                >
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: '10.5px',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      color: '#9F7838',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    Transparent Pricing
+                  </span>
+                  <h4
+                    style={{
+                      fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
+                      fontSize: '20px',
+                      fontWeight: 600,
+                      color: '#000000',
+                      margin: '0 0 8px',
+                    }}
+                  >
+                    Request a Sample BOQ &amp; Rate Card
+                  </h4>
+                  <p
+                    style={{
+                      fontSize: '13px',
+                      lineHeight: '1.55',
+                      color: '#555',
+                      margin: '0 0 14px',
+                    }}
+                  >
+                    Want to compare material tiers (HPL, Acrylic, Veneer, PU) for your{' '}
+                    {service.title.toLowerCase()}? Request a tailored cost breakdown.
+                  </p>
+                  <Link
+                    href={contactHref}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 16px',
+                      borderRadius: '6px',
+                      background: '#000000',
+                      border: '1px solid #C49B5D',
+                      color: '#C49B5D',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <span>Request Estimate &amp; BOQ</span>
+                    <span>→</span>
+                  </Link>
                 </div>
               </div>
             </aside>
@@ -806,7 +1575,7 @@ export default function ServiceDetail({ slugProp }) {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Bottom CTA */}
       <section className="slogan-area">
         <div className="container">
           <div className="row">
@@ -819,8 +1588,8 @@ export default function ServiceDetail({ slugProp }) {
                   </h3>
                 </div>
                 <div className="button float-right">
-                  <Link className="btn-one" href="/contact">
-                    Make an Appointment
+                  <Link className="btn-one" href={contactHref}>
+                    Book Free Consultation
                     <span className="flaticon-next" />
                   </Link>
                 </div>

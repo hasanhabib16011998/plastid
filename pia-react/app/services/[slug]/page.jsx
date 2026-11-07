@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import ServiceDetail from '../../../src/views/ServiceDetail/ServiceDetail'
 import {
   SITE_URL,
@@ -6,6 +6,7 @@ import {
   allServicesList,
   getServiceBySlug,
 } from '../../../src/data/servicesData'
+import { getPIAProjects } from '../../../src/lib/payload'
 
 // Pre-render all 15 dedicated service pages at build time for fast SEO indexing
 export async function generateStaticParams() {
@@ -84,6 +85,13 @@ export default async function ServiceDetailPage({ params }) {
     notFound()
   }
 
+  // Redirect legacy slugs (e.g. /services/make-overs) to their canonical service URL
+  if (slug !== service.slug) {
+    permanentRedirect(`/services/${service.slug}`)
+  }
+
+  const projects = await getPIAProjects()
+
   const parentService = service.parentSlug
     ? serviceData[service.parentSlug]
     : null
@@ -115,6 +123,14 @@ export default async function ServiceDetailPage({ params }) {
             postalCode: '1212',
             addressCountry: 'BD',
           },
+        },
+        offers: {
+          '@type': 'Offer',
+          name: '3D Architectural Visualization & Turnkey Execution',
+          price: '40',
+          priceCurrency: 'BDT',
+          description:
+            'BDT 40 / sq.ft for 3D visualization, with a 50% design fee rebate upon turnkey project execution.',
         },
         areaServed: [
           { '@type': 'City', name: 'Dhaka' },
@@ -187,7 +203,7 @@ export default async function ServiceDetailPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ServiceDetail slugProp={service.slug} />
+      <ServiceDetail slugProp={service.slug} initialProjects={projects} />
     </>
   )
 }
