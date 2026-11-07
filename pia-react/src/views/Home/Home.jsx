@@ -10,6 +10,7 @@ import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
 import { submitPIALead } from '../../lib/payload'
+import { ChevronRight } from 'lucide-react'
 
 // ─── Hero Slider Data ─────────────────────────────────────
 const slides = [
@@ -158,7 +159,7 @@ function TestimonialsSection({ initialList = [] }) {
           </div>
           <div className="col-xl-4 col-lg-4 col-md-4 col-12 text-md-right mt-3 mt-md-0">
             <div className="more-reviews-button">
-              <Link className="btn-two" href="/testimonials">View All Reviews<span className="flaticon-next"></span></Link>
+              <Link className="btn-two" href="/testimonials">View All Reviews <ChevronRight size={14}/></Link>
             </div>
           </div>
         </div>
@@ -978,7 +979,7 @@ function ProjectsCarousel({ initialProjects = [] }) {
                   href={`/projects/${p.slug || p.id}`}
                   className="title-box__mobile-btn"
                 >
-                  View Details <span className="flaticon-next"></span>
+                  View Details <ChevronRight size={14}/>
                 </Link>
               </div>
             </div>
@@ -1201,7 +1202,7 @@ function AppointmentForm() {
             <div className="col-xl-12">
               <div className="single-box">
                 <button className="btn-one" type="submit" disabled={isSubmitting} style={{ width: '100%', opacity: isSubmitting ? 0.7 : 1 }}>
-                  {isSubmitting ? 'Submitting...' : 'Submit Here'}<span className="flaticon-next"></span>
+                  {isSubmitting ? 'Submitting...' : 'Submit Here'} <ChevronRight size={14}/>
                 </button>
               </div>
             </div>
@@ -1232,7 +1233,7 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
                 <div className="title">Recently Completed <span>Works</span></div>
               </div>
               <div className="more-project-button float-right">
-                <Link className="btn-two" href="/projects">More Projects<span className="flaticon-next"></span></Link>
+                <Link className="btn-two" href="/projects">More Projects <ChevronRight size={14}/></Link>
               </div>
             </div>
           </div>
@@ -1468,7 +1469,7 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
                     From concept to completion, our team of seasoned designers and architects collaborate closely with clients to transform visions into tangible realities. With an unwavering dedication to quality craftsmanship and attention to detail, Plastid Interior and Architecture delivers timeless designs that inspire, captivate, and elevate every space.
                   </div>
                   <div className="more-project-button" style={{ marginTop: '24px', marginBottom: '24px' }}>
-                    <Link className="btn-two" href="/about">More About Us<span className="flaticon-next"></span></Link>
+                    <Link className="btn-two" href="/about">More About Us <ChevronRight size={14}/></Link>
                   </div>
                   <MissionCarousel />
                 </div>
@@ -1588,7 +1589,7 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
               </div>
               <div className="col-lg-3 col-md-4 text-md-right">
                 <Link className="btn-one" href="/services" style={{ width: '100%', justifyContent: 'center' }}>
-                  See Our Services<span className="flaticon-next"></span>
+                  See Our Services <ChevronRight size={14}/>
                 </Link>
               </div>
             </div>

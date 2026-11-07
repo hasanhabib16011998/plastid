@@ -7,6 +7,7 @@ import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function ProjectSingle({ project }) {
   // Lightbox Frame state for Desktop & Full Preview
@@ -182,14 +183,14 @@ export default function ProjectSingle({ project }) {
                   <h4 style={{ color: '#C49B5D', marginBottom: '10px', fontSize: '20px', fontWeight: 600 }}>Start Your Project</h4>
                   <p style={{ color: '#F5F3ED', opacity: 0.9, marginBottom: '18px', fontSize: '14px' }}>Ready to transform your space?</p>
                   <Link className="btn-one" href="/contact" style={{ width: '100%', justifyContent: 'center' }}>
-                    Contact Us<span className="flaticon-next"></span>
+                    Contact Us <ChevronRight/> 
                   </Link>
                 </div>
 
                 {/* Navigation */}
                 <div style={{ display: 'flex' }}>
                   <Link href="/projects" className="btn-two" style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}>
-                    ← Back to All Projects
+                    <ChevronLeft/> Back to All Projects
                   </Link>
                 </div>
               </div>

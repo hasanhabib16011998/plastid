@@ -1,5 +1,6 @@
 'use client'
 
+import { Download } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -66,7 +67,7 @@ export default function Footer() {
                   </div>
                   <div className="title-holder">
                     <h3>Our Interior Design<br /> Brochure</h3>
-                    <a className="btn-two" href="#">Download Now<span className="flaticon-next"></span></a>
+                    <a className="btn-two" href="#">Download Our Brochure <Download size={14}/></a>
                   </div>
                 </div>
               </div>

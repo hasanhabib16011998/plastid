@@ -8,6 +8,7 @@ import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import { ChevronRight, ChevronsRight } from 'lucide-react';
 
 export default function Projects({ initialProjects = [] }) {
   const [projects, setProjects] = useState(initialProjects)
@@ -257,7 +258,7 @@ export default function Projects({ initialProjects = [] }) {
                               letterSpacing: '0.05em',
                             }}
                           >
-                            Details <span className="flaticon-next" style={{ fontSize: '11px', color: '#000000' }} />
+                            Details <ChevronRight size={11}/>
                           </button>
                         </div>
                       </div>
@@ -280,7 +281,7 @@ export default function Projects({ initialProjects = [] }) {
                   <h3>Have a Project in Mind? Let's Discuss It.</h3>
                 </div>
                 <div className="button float-right">
-                  <Link className="btn-one" href="/contact">Book Appointment<span className="flaticon-next"></span></Link>
+                  <Link className="btn-one" href="/contact">Book Appointment <ChevronRight size={11}/></Link>
                 </div>
               </div>
             </div>

@@ -9,6 +9,7 @@ import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
 import { submitPIALead } from '../../lib/payload'
+import { ChevronRight } from 'lucide-react'
 
 const contactInfo = [
   {
@@ -222,7 +223,7 @@ export default function Contact() {
                     />
                   </div>
                   <button className="btn-one" type="submit" disabled={isSubmitting} style={{ width: '100%', opacity: isSubmitting ? 0.7 : 1 }}>
-                    {isSubmitting ? 'Sending Message...' : 'Send Message'}<span className="flaticon-next"></span>
+                    {isSubmitting ? 'Sending Message...' : 'Send Message'}<ChevronRight size={14}/>
                   </button>
                 </form>
               </div>
