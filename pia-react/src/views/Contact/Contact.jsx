@@ -9,6 +9,7 @@ import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
 import { submitPIALead } from '../../lib/payload'
+import { serviceFormOptions } from '../../data/servicesData'
 import { ChevronRight } from 'lucide-react'
 
 const contactInfo = [
@@ -198,14 +199,7 @@ export default function Contact() {
                           onChange={handleChange}
                           placeholder="Select Service"
                           disabled={isSubmitting}
-                          options={[
-                            'Concept Designs',
-                            'Project Designs',
-                            'Make Overs',
-                            'Consulting',
-                            'Glass & Wrought',
-                            'Space Planning',
-                          ]}
+                          options={serviceFormOptions}
                         />
                       </div>
                     </div>

@@ -10,6 +10,7 @@ import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import ApartmentStory from '../../components/ApartmentStory/ApartmentStory'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
 import { submitPIALead } from '../../lib/payload'
+import { serviceFormOptions } from '../../data/servicesData'
 import { ChevronRight } from 'lucide-react'
 
 // ─── Hero Slider Data ─────────────────────────────────────
@@ -1170,14 +1171,7 @@ function AppointmentForm() {
                   onChange={handleChange}
                   placeholder="Select Service"
                   disabled={isSubmitting}
-                  options={[
-                    'Concept Designs',
-                    'Project Designs',
-                    'Make Overs',
-                    'Consulting',
-                    'Glass & Wrought',
-                    'Space Planning',
-                  ]}
+                  options={serviceFormOptions}
                 />
               </div>
             </div>

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { serviceTree } from "../../data/servicesData";
 import "./Header.css";
 
 const navItems = [
@@ -25,12 +26,7 @@ const navItems = [
     to: "/services",
     dropdown: [
       { label: "View All Services", to: "/services" },
-      { label: "Concept Designs", to: "/services/concept-designs" },
-      { label: "Project Designs", to: "/services/project-designs" },
-      { label: "Make Overs", to: "/services/make-overs" },
-      { label: "Consulting", to: "/services/consulting" },
-      { label: "Glass & Wrought", to: "/services/glass-wrought" },
-      { label: "Space Planning", to: "/services/space-planning" },
+      ...serviceTree,
     ],
   },
   {
@@ -143,11 +139,51 @@ export default function Header() {
                             </Link>
                             {item.dropdown && (
                               <ul>
-                                {item.dropdown.map((sub) => (
-                                  <li key={sub.to}>
-                                    <Link href={sub.to}>{sub.label}</Link>
-                                  </li>
-                                ))}
+                                {item.dropdown.map((sub) => {
+                                  const hasChildren =
+                                    Array.isArray(sub.children) &&
+                                    sub.children.length > 0;
+                                  const isSubActive =
+                                    pathname === sub.to ||
+                                    (hasChildren &&
+                                      sub.children.some(
+                                        (child) => pathname === child.to
+                                      ));
+                                  return (
+                                    <li
+                                      key={sub.to}
+                                      className={`${hasChildren ? "has-flyout" : ""}${isSubActive ? " active-branch" : ""}`}
+                                    >
+                                      <Link href={sub.to}>
+                                        <span>{sub.label}</span>
+                                        {hasChildren && (
+                                          <i
+                                            className="fa fa-angle-right pia-flyout-arrow"
+                                            aria-hidden="true"
+                                          />
+                                        )}
+                                      </Link>
+                                      {hasChildren && (
+                                        <ul className="pia-flyout-submenu">
+                                          {sub.children.map((child) => (
+                                            <li
+                                              key={child.to}
+                                              className={
+                                                pathname === child.to
+                                                  ? "active-leaf"
+                                                  : ""
+                                              }
+                                            >
+                                              <Link href={child.to}>
+                                                {child.label}
+                                              </Link>
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      )}
+                                    </li>
+                                  );
+                                })}
                               </ul>
                             )}
                           </li>
@@ -263,13 +299,62 @@ export default function Header() {
                     <ul
                       className={`pia-drawer-submenu${isOpen ? " open" : ""}`}
                     >
-                      {item.dropdown.map((sub) => (
-                        <li key={sub.to}>
-                          <Link href={sub.to} onClick={closeDrawer}>
-                            {sub.label}
-                          </Link>
-                        </li>
-                      ))}
+                      {item.dropdown.map((sub) => {
+                        const hasChildren =
+                          Array.isArray(sub.children) &&
+                          sub.children.length > 0;
+                        const subOpen = !!openDropdowns[sub.to];
+                        return (
+                          <li
+                            key={sub.to}
+                            className={`${hasChildren ? "has-nested-submenu" : ""}${subOpen ? " nested-open" : ""}`}
+                          >
+                            {hasChildren ? (
+                              <>
+                                <div className="pia-drawer-subitem-row">
+                                  <Link
+                                    href={sub.to}
+                                    onClick={closeDrawer}
+                                    className="pia-drawer-subitem-link"
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                  <button
+                                    type="button"
+                                    className={`pia-drawer-subchevron${subOpen ? " open" : ""}`}
+                                    onClick={() => toggleDropdown(sub.to)}
+                                    aria-expanded={subOpen}
+                                    aria-label={`Toggle ${sub.label} sub-items`}
+                                  >
+                                    <i
+                                      className="fa fa-chevron-down"
+                                      aria-hidden="true"
+                                    />
+                                  </button>
+                                </div>
+                                <ul
+                                  className={`pia-drawer-nested-submenu${subOpen ? " open" : ""}`}
+                                >
+                                  {sub.children.map((child) => (
+                                    <li key={child.to}>
+                                      <Link
+                                        href={child.to}
+                                        onClick={closeDrawer}
+                                      >
+                                        {child.label}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </>
+                            ) : (
+                              <Link href={sub.to} onClick={closeDrawer}>
+                                {sub.label}
+                              </Link>
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </li>

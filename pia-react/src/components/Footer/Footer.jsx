@@ -47,12 +47,12 @@ export default function Footer() {
                 </div>
                 <div className="services-links">
                   <ul>
-                    <li><Link href="/services/concept-designs">Concept Designs</Link></li>
-                    <li><Link href="/services/project-designs">Project Designs</Link></li>
-                    <li><Link href="/services/make-overs">Make Overs</Link></li>
-                    <li><Link href="/services/consulting">Consulting</Link></li>
-                    <li><Link href="/services/glass-wrought">Glass &amp; Wrought</Link></li>
-                    <li><Link href="/services/space-planning">Space Planning</Link></li>
+                    <li><Link href="/services/residential-interior">Residential Interior</Link></li>
+                    <li><Link href="/services/commercial-interior">Commercial Interior</Link></li>
+                    <li><Link href="/services/restaurant-interior">Restaurant Interior</Link></li>
+                    <li><Link href="/services/exterior-design">Exterior Design</Link></li>
+                    <li><Link href="/services/furniture-and-decor">Furniture and Decor</Link></li>
+                    <li><Link href="/services/3d-and-design-consultancy">3D &amp; Design Consultancy</Link></li>
                   </ul>
                 </div>
               </div>
