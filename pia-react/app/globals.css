@@ -2,6 +2,7 @@
 
 @theme {
   --color-obsidian: #141312;
+  --color-heading: #181715;
   --color-charcoal: #1E1C1A;
   --color-brass: #C5A46D;
   --color-bronze: #9A7B4F;
@@ -27,6 +28,18 @@
     min-height: 100vh;
     background-color: #F6F4EF;
     color: #5A534A;
+    font-family: var(--font-sans);
+    font-size: 15.5px;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.025em;
   }
 }
 

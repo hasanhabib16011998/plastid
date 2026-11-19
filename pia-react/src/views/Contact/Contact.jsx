@@ -130,11 +130,11 @@ export default function Contact() {
               {/* Contact Form */}
               <div className="lg:col-span-7">
                 <div className="mb-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                     Get In Touch
                   </p>
-                  <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
-                    Send Us a <span className="text-bronze">Message</span>
+                  <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-heading m-0">
+                    Send Us a <span className="italic font-normal text-bronze">Message</span>
                   </h2>
                 </div>
 
@@ -220,11 +220,11 @@ export default function Contact() {
               {/* Map & Social */}
               <div className="lg:col-span-5">
                 <div className="mb-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                     Our Location
                   </p>
-                  <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
-                    Find Us On <span className="text-bronze">Map</span>
+                  <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-heading m-0">
+                    Find Us On <span className="italic font-normal text-bronze">Map</span>
                   </h2>
                 </div>
 

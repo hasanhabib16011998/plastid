@@ -28,7 +28,7 @@ export default function Breadcrumb({ title, subtitle, crumbs = [], bgImage, styl
                 {subtitle}
               </span>
             )}
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-alabaster leading-tight m-0">
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal tracking-[-0.025em] text-alabaster leading-tight m-0">
               {title}
             </h1>
           </div>
@@ -67,7 +67,7 @@ export default function Breadcrumb({ title, subtitle, crumbs = [], bgImage, styl
       <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/85" />
       <div className="container-pia relative z-10">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-alabaster leading-tight m-0">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-[-0.025em] text-alabaster leading-tight m-0">
             {title}
           </h1>
           {crumbs.length > 0 && (

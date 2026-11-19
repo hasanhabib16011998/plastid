@@ -121,10 +121,10 @@ export default function ProjectSingle({ project }) {
 
                 {/* Description */}
                 <div className="mb-7">
-                  <h2 className="font-serif text-2xl sm:text-3xl text-obsidian font-semibold mb-3">
+                  <h2 className="font-serif text-2xl sm:text-3xl text-heading font-medium tracking-[-0.025em] mb-3">
                     Project Overview
                   </h2>
-                  <p className="text-ink leading-relaxed text-[15px] m-0">{project.description}</p>
+                  <p className="text-ink leading-[1.7] text-[15.5px] m-0">{project.description}</p>
                 </div>
 
                 {/* Challenge & Solution */}
@@ -207,7 +207,7 @@ export default function ProjectSingle({ project }) {
             {/* Full-Width Project Gallery */}
             {galleryList.length > 0 && (
               <div className="mt-10 pt-4">
-                <h2 className="font-serif text-2xl sm:text-3xl text-obsidian font-semibold mb-5">
+                <h2 className="font-serif text-2xl sm:text-3xl text-heading font-medium tracking-[-0.025em] mb-5">
                   Project Gallery
                 </h2>
 

@@ -59,13 +59,13 @@ export default function Services() {
           <div className="container-pia">
             {/* Editorial Section Header */}
             <div className="text-center max-w-3xl mx-auto mb-11">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-bronze mb-2">
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-bronze mb-2">
                 Architecture &bull; Interior &bull; Bespoke Execution
               </p>
-              <h2 className="font-serif text-3xl sm:text-5xl font-semibold leading-tight text-obsidian mb-4">
-                Explore Our Services <span className="text-bronze italic">by Your Space</span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-[-0.025em] leading-tight text-heading mb-4">
+                Explore Our Services <span className="text-bronze italic font-normal">by Your Space</span>
               </h2>
-              <p className="text-ink text-[15.5px] leading-relaxed m-0">
+              <p className="text-ink text-[15.5px] leading-[1.68] m-0">
                 From newly handed-over residential apartments and multi-level villas to fast-track
                 corporate headquarters, retail showrooms, and building facades—every Plastid project
                 is engineered with photorealistic 3D clarity and itemized turnkey precision.

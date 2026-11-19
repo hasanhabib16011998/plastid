@@ -34,13 +34,13 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
         <section className="py-20 bg-alabaster">
           <div className="container-pia">
             <div className="text-center max-w-2xl mx-auto mb-14">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-2">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                 Real Experiences &amp; Feedback
               </p>
-              <h2 className="font-serif text-4xl sm:text-5xl font-semibold text-obsidian mb-4">
-                Client <span className="text-bronze">Reviews</span>
+              <h2 className="font-serif text-4xl sm:text-5xl font-medium tracking-[-0.025em] text-heading mb-4">
+                Client <span className="italic font-normal text-bronze">Reviews</span>
               </h2>
-              <p className="text-sm sm:text-base text-ink leading-relaxed m-0">
+              <p className="text-[15.5px] text-ink leading-[1.68] m-0">
                 Discover how we&apos;ve helped homeowners, business owners, and developers transform
                 their spaces into architectural masterpieces.
               </p>

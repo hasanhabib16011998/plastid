@@ -153,11 +153,11 @@ function TestimonialsSection({ initialList = [] }) {
       <div className="container-pia">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
               Testimonials
             </p>
-            <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-              Our Customer <span className="text-bronze">Words</span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-[-0.025em] text-heading m-0">
+              Our Customer <span className="italic font-normal text-bronze">Words</span>
             </h2>
           </div>
           <Link className="btn-two self-start md:self-auto" href="/testimonials">
@@ -1101,10 +1101,10 @@ function AppointmentForm() {
   return (
     <div className="bg-white rounded-xl border border-brass/35 shadow-2xl p-6 sm:p-9">
       <div className="mb-6">
-        <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian mb-2">
+        <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-heading mb-2">
           Book Consultation
         </h2>
-        <p className="text-sm text-ink m-0">
+        <p className="text-[15px] leading-[1.65] text-ink m-0">
           Leave your information here and get reply from our expert in 24 hours, don&apos;t hesitate
           to ask.
         </p>
@@ -1202,11 +1202,11 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
           <div className="container-pia">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                   Projects
                 </p>
-                <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-                  Recently Completed <span className="text-bronze">Works</span>
+                <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-[-0.025em] text-heading m-0">
+                  Recently Completed <span className="italic font-normal text-bronze">Works</span>
                 </h2>
               </div>
               <Link className="btn-two self-start md:self-auto" href="/projects">
@@ -1297,22 +1297,22 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
 
               <div className="lg:col-span-7">
                 <div className="mb-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                     About Company
                   </p>
-                  <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian leading-tight m-0">
+                  <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-[-0.025em] text-heading leading-tight m-0">
                     A premier interior
                     <br />
-                    architecture <span className="text-bronze">&amp; design studio</span>
+                    architecture <span className="italic font-normal text-bronze">&amp; design studio</span>
                   </h2>
                 </div>
-                <p className="text-[15px] text-ink leading-relaxed mb-4">
+                <p className="text-[15.5px] text-ink leading-[1.7] mb-5">
                   Plastid Interior and Architecture is not just a design firm; it&apos;s a visionary
                   journey into the heart of spaces. With a passion for innovation and a commitment to
                   excellence, we specialize in crafting bespoke interiors and architectural solutions
                   that redefine living and working environments.
                 </p>
-                <p className="text-[15px] text-ink leading-relaxed mb-6">
+                <p className="text-[15.5px] text-ink leading-[1.7] mb-7">
                   From concept to completion, our team of seasoned designers and architects
                   collaborate closely with clients to transform visions into tangible realities. With
                   an unwavering dedication to quality craftsmanship and attention to detail, Plastid
@@ -1338,13 +1338,13 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
           <div className="absolute inset-0 bg-obsidian/80" />
           <div className="container-pia relative z-10">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brass mb-1.5">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass mb-2">
                 Working Areas
               </p>
-              <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-alabaster mb-3">
-                Covered <span className="text-brass">Industries</span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal tracking-[-0.025em] text-alabaster mb-3">
+                Covered <span className="italic font-normal text-brass">Industries</span>
               </h2>
-              <p className="text-sm sm:text-base text-alabaster/80 leading-relaxed m-0">
+              <p className="text-[15.5px] text-alabaster/80 leading-[1.65] m-0">
                 We create inspiring environments through uncompromising quality, functional
                 innovation, and timeless architectural elegance.
               </p>
@@ -1385,11 +1385,11 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
         <section className="py-20 bg-alabaster">
           <div className="container-pia">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                 To Do Good Design
               </p>
-              <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-                Our Working <span className="text-bronze">Process</span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-[-0.025em] text-heading m-0">
+                Our Working <span className="italic font-normal text-bronze">Process</span>
               </h2>
             </div>
 
@@ -1457,11 +1457,11 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-6">
                 <div className="mb-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brass mb-1.5">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass mb-2">
                     Start Your Journey
                   </p>
-                  <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-alabaster m-0">
-                    Ready to Transform <span className="text-brass">Your Space?</span>
+                  <h2 className="font-serif text-3xl sm:text-5xl font-normal tracking-[-0.025em] text-alabaster m-0">
+                    Ready to Transform <span className="italic font-normal text-brass">Your Space?</span>
                   </h2>
                 </div>
                 <div className="relative rounded-xl overflow-hidden border border-brass/35 bg-charcoal/95 p-6">

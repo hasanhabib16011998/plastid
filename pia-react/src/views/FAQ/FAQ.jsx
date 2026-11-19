@@ -47,7 +47,7 @@ export default function FAQ() {
                       onClick={() => setOpenIndex(isOpen ? -1 : i)}
                       className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-transparent border-0 cursor-pointer"
                     >
-                      <h2 className="font-serif text-xl sm:text-2xl font-semibold text-obsidian m-0 leading-snug">
+                      <h2 className="font-serif text-xl sm:text-2xl font-medium tracking-[-0.02em] text-heading m-0 leading-snug">
                         {item.question}
                       </h2>
                       <span

@@ -193,20 +193,20 @@ export default function About({ initialTeam = [] }) {
 
               <div className="lg:col-span-7 lg:pl-6">
                 <div className="mb-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                     About Company
                   </p>
-                  <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
-                    Crafting Bespoke <span className="text-bronze">Architectural Realities</span>
+                  <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-heading m-0">
+                    Crafting Bespoke <span className="italic font-normal text-bronze">Architectural Realities</span>
                   </h2>
                 </div>
-                <p className="text-[15.5px] leading-[1.82] text-obsidian/85 mb-5">
+                <p className="text-[15.5px] leading-[1.7] text-ink mb-5">
                   Plastid Interior and Architecture is a premier full-service interior design and
                   architectural execution firm based in Dhaka, Bangladesh. With a passion for
                   structural innovation and a commitment to precision, we craft bespoke living and
                   working environments across Bangladesh.
                 </p>
-                <p className="text-[15px] leading-[1.8] text-ink mb-7">
+                <p className="text-[15.5px] leading-[1.7] text-ink mb-7">
                   From 3D concept merchandising to full turnkey site engineering, our
                   multi-disciplinary team collaborates closely with clients to deliver timeless
                   spaces. Our signature design-fee credit policy ensures complete financial
@@ -236,11 +236,11 @@ export default function About({ initialTeam = [] }) {
         <section className="py-20 bg-chalk border-y border-stone-border">
           <div className="container-pia">
             <div className="text-center max-w-2xl mx-auto mb-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                 Our Journey
               </p>
-              <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-                Company Timeline &amp; <span className="text-bronze">Milestones</span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-[-0.025em] text-heading m-0">
+                Company Timeline &amp; <span className="italic font-normal text-bronze">Milestones</span>
               </h2>
             </div>
             <CompanyTimeline />
@@ -251,11 +251,11 @@ export default function About({ initialTeam = [] }) {
         <section ref={teamRef} className="py-20 bg-alabaster">
           <div className="container-pia">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-bronze mb-2">
                 Behind Our Success
               </p>
-              <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-                Expert &amp; Dedicated <span className="text-bronze">Team</span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-[-0.025em] text-heading m-0">
+                Expert &amp; Dedicated <span className="italic font-normal text-bronze">Team</span>
               </h2>
             </div>
 
