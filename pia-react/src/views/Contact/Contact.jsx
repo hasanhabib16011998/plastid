@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { ChevronRight, MapPin, Phone, Mail, Check } from 'lucide-react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -10,25 +10,27 @@ import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import PIADropdown from '../../components/PIADropdown/PIADropdown'
 import { submitPIALead } from '../../lib/payload'
 import { serviceFormOptions, resolveServiceFormOption } from '../../data/servicesData'
-import { ChevronRight } from 'lucide-react'
 
 const contactInfo = [
   {
-    icon: 'icon-maps-and-location',
+    Icon: MapPin,
     title: 'Our Location',
     lines: ['House-11 (2nd Floor), Block-E,', 'Sector-1, Aftab Nagar Main Rd,', 'Dhaka 1212, Bangladesh'],
   },
   {
-    icon: 'icon-phone',
+    Icon: Phone,
     title: 'Phone Number',
     lines: ['+880 1768834417', 'Saturday - Thursday: 9am - 6pm'],
   },
   {
-    icon: 'icon-mail',
+    Icon: Mail,
     title: 'Email Address',
     lines: ['plastidarchitecture@gmail.com'],
   },
 ]
+
+const inputClasses =
+  'w-full px-4 py-3.5 rounded bg-alabaster border border-black/15 text-obsidian text-sm font-sans placeholder:text-black/45 focus:bg-white focus:border-brass focus:ring-2 focus:ring-brass/20 outline-none transition-all disabled:opacity-60'
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '', service: '' })
@@ -50,6 +52,7 @@ export default function Contact() {
   }, [])
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -70,7 +73,7 @@ export default function Contact() {
       } else {
         setError('Something went wrong. Please try again.')
       }
-    } catch (err) {
+    } catch {
       setError('Failed to send message. Please try again.')
     } finally {
       setIsSubmitting(false)
@@ -78,186 +81,159 @@ export default function Contact() {
   }
 
   return (
-    <div className="boxed_wrapper">
+    <div className="min-h-screen flex flex-col bg-alabaster">
       <PIALoader />
       <Header />
 
-      <Breadcrumb
-        title={<>Contact <br />Plastid Interior</>}
-        crumbs={[
-          { label: 'Home', to: '/' },
-          { label: 'Contact' },
-        ]}
-      />
+      <main className="flex-1">
+        <Breadcrumb
+          title={
+            <>
+              Contact <br />
+              Plastid Interior
+            </>
+          }
+          crumbs={[
+            { label: 'Home', to: '/' },
+            { label: 'Contact' },
+          ]}
+        />
 
-      {/* Contact Info Cards */}
-      <section style={{ padding: '80px 0 50px', background: '#f9f9f9' }}>
-        <div className="container">
-          <div className="row">
-            {contactInfo.map((info, i) => (
-              <div key={i} className="col-xl-4 col-lg-4 col-md-6 col-sm-12" style={{ marginBottom: '30px' }}>
-                <div style={{
-                  background: '#fff',
-                  padding: '35px 30px',
-                  borderRadius: '4px',
-                  textAlign: 'center',
-                  boxShadow: '0 5px 30px rgba(0,0,0,0.06)',
-                  transition: 'transform 0.3s',
-                  height: '100%',
-                }}
-                  onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-5px)'}
-                  onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+        {/* Contact Info Cards */}
+        <section className="py-16 sm:py-20 bg-[#f9f9f9]">
+          <div className="container-pia">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+              {contactInfo.map(({ Icon, title, lines }, i) => (
+                <div
+                  key={i}
+                  className="bg-white px-7 py-9 rounded border border-brass/20 text-center shadow-sm hover:-translate-y-1.5 transition-transform duration-300"
                 >
-                  <div style={{
-                    width: '70px', height: '70px', borderRadius: '50%',
-                    background: 'rgba(200,169,110,0.1)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    margin: '0 auto 20px',
-                  }}>
-                    <span className={info.icon} style={{ fontSize: '30px', color: '#c8a96e' }}></span>
+                  <div className="w-17 h-17 rounded-full bg-brass/15 flex items-center justify-center mx-auto mb-5 text-brass">
+                    <Icon size={28} />
                   </div>
-                  <h4 style={{ marginBottom: '12px', color: '#1a1a2e' }}>{info.title}</h4>
-                  {info.lines.map((line, j) => (
-                    <p key={j} style={{ color: '#666', margin: '3px 0' }}>{line}</p>
+                  <h2 className="font-serif text-2xl font-semibold text-obsidian mb-3">{title}</h2>
+                  {lines.map((line, j) => (
+                    <p key={j} className="text-ink text-sm my-1 leading-relaxed">
+                      {line}
+                    </p>
                   ))}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Form + Map */}
-      <section style={{ padding: '80px 0', background: '#ffffff' }}>
-        <div className="container">
-          <div className="row align-items-start">
-            {/* Contact Form ("Get In Touch") */}
-            <div className="col-xl-7 col-lg-7 col-md-12 col-12" style={{ marginBottom: '45px' }}>
-              <div className="contact-form-wrapper" style={{ paddingRight: '15px' }}>
-                <div className="sec-title" style={{ marginBottom: '25px', paddingBottom: '0' }}>
-                  <p style={{ margin: '0 0 5px' }}>Get In Touch</p>
-                  <div className="title">Send Us a <span>Message</span></div>
+        {/* Contact Form + Map */}
+        <section className="py-20 bg-white">
+          <div className="container-pia">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+              {/* Contact Form */}
+              <div className="lg:col-span-7">
+                <div className="mb-7">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                    Get In Touch
+                  </p>
+                  <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
+                    Send Us a <span className="text-brass">Message</span>
+                  </h2>
                 </div>
 
                 {submitted && (
-                  <div style={{
-                    background: '#000000', color: '#C49B5D', border: '1px solid #C49B5D', padding: '15px 20px',
-                    borderRadius: '4px', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '10px',
-                    fontSize: '14px', fontFamily: 'var(--font-primary)'
-                  }}>
-                    <span style={{ fontWeight: 'bold' }}>✓</span>
-                    Thank you for reaching out! We'll get back to you within 24 hours.
+                  <div className="bg-obsidian text-brass border border-brass px-5 py-4 rounded mb-6 flex items-center gap-2.5 text-sm">
+                    <Check size={16} className="shrink-0" />
+                    <span>
+                      Thank you for reaching out! We&apos;ll get back to you within 24 hours.
+                    </span>
                   </div>
                 )}
 
                 {error && (
-                  <div style={{
-                    background: '#2e1f1f', color: '#e57373', border: '1px solid #e57373', padding: '15px 20px',
-                    borderRadius: '4px', marginBottom: '25px', fontSize: '14px', fontFamily: 'var(--font-primary)'
-                  }}>
+                  <div className="bg-[#2e1f1f] text-[#e57373] border border-[#e57373] px-5 py-4 rounded mb-6 text-sm">
                     {error}
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit}>
-                  <div className="row">
-                    <div className="col-xl-6 col-md-6 col-12">
-                      <div className="single-box" style={{ marginBottom: '14px' }}>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          placeholder="Your Name *"
-                          required
-                          disabled={isSubmitting}
-                          style={{ margin: 0 }}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xl-6 col-md-6 col-12">
-                      <div className="single-box" style={{ marginBottom: '14px' }}>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          placeholder="Email Address *"
-                          required
-                          disabled={isSubmitting}
-                          style={{ margin: 0 }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-xl-6 col-md-6 col-12">
-                      <div className="single-box" style={{ marginBottom: '14px' }}>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="Phone Number"
-                          disabled={isSubmitting}
-                          style={{ margin: 0 }}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xl-6 col-md-6 col-12">
-                      <div style={{ marginBottom: '14px' }}>
-                        <PIADropdown
-                          name="service"
-                          value={formData.service}
-                          onChange={handleChange}
-                          placeholder="Select Service"
-                          disabled={isSubmitting}
-                          options={serviceFormOptions}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="single-box" style={{ marginBottom: '18px' }}>
-                    <textarea
-                      name="message"
-                      value={formData.message}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
                       onChange={handleChange}
-                      placeholder="Your Message *"
+                      placeholder="Your Name *"
                       required
                       disabled={isSubmitting}
-                      rows="3"
-                      style={{ resize: 'vertical', margin: 0, minHeight: '80px' }}
+                      className={inputClasses}
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email Address *"
+                      required
+                      disabled={isSubmitting}
+                      className={inputClasses}
                     />
                   </div>
-                  <button className="btn-one" type="submit" disabled={isSubmitting} style={{ width: '100%', opacity: isSubmitting ? 0.7 : 1 }}>
-                    {isSubmitting ? 'Sending Message...' : 'Send Message'}<ChevronRight size={14}/>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Phone Number"
+                      disabled={isSubmitting}
+                      className={inputClasses}
+                    />
+                    <div className="[&>.relative]:mb-0">
+                      <PIADropdown
+                        name="service"
+                        value={formData.service}
+                        onChange={handleChange}
+                        placeholder="Select Service"
+                        options={serviceFormOptions}
+                      />
+                    </div>
+                  </div>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Your Message *"
+                    required
+                    disabled={isSubmitting}
+                    rows={4}
+                    className={`${inputClasses} resize-y min-h-[100px]`}
+                  />
+                  <button
+                    className="btn-one w-full disabled:opacity-70"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending Message...' : 'Send Message'}{' '}
+                    <ChevronRight size={14} />
                   </button>
                 </form>
               </div>
-            </div>
 
-            {/* Map & Info ("Our Location") */}
-            <div className="col-xl-5 col-lg-5 col-md-12 col-12">
-              <div className="location-map-wrapper" style={{ paddingLeft: '15px' }}>
-                <div className="sec-title" style={{ marginBottom: '25px', paddingBottom: '0' }}>
-                  <p style={{ margin: '0 0 5px' }}>Our Location</p>
-                  <div className="title">Find Us On <span>Map</span></div>
+              {/* Map & Social */}
+              <div className="lg:col-span-5">
+                <div className="mb-7">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                    Our Location
+                  </p>
+                  <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
+                    Find Us On <span className="text-brass">Map</span>
+                  </h2>
                 </div>
 
-                {/* Embedded Map */}
-                <div style={{
-                  borderRadius: '6px',
-                  overflow: 'hidden',
-                  marginBottom: '25px',
-                  height: '340px',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-                  border: '1px solid rgba(0, 0, 0, 0.1)'
-                }}>
+                <div className="rounded-md overflow-hidden mb-6 h-[340px] shadow-md border border-black/10">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.4941539302285!2d90.43558017587414!3d23.76541148819882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70021dd78f7%3A0x8ac0dd7367642152!2sPlastid%20Interior%20%26%20Architecture!5e0!3m2!1sen!2sbd!4v1792351987658!5m2!1sen!2sbd"
                     width="100%"
                     height="340"
-                    style={{ border: 0, display: 'block' }}
+                    className="border-0 block w-full h-full"
                     allowFullScreen=""
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -265,38 +241,37 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* Social Links */}
-                <div style={{ textAlign: 'center', background: '#F5F3ED', padding: '20px', borderRadius: '6px', border: '1px solid rgba(0, 0, 0, 0.1)' }}>
-                  <p style={{ marginBottom: '12px', color: '#000000', fontWeight: 500, fontFamily: 'var(--font-primary)', fontSize: '14px' }}>Follow us on social media</p>
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}>
+                <div className="text-center bg-alabaster p-5 rounded-md border border-black/10">
+                  <p className="mb-3 text-obsidian font-medium text-sm">
+                    Follow us on social media
+                  </p>
+                  <div className="flex justify-center gap-3">
                     {[
-                      { icon: 'fa-facebook', href: 'https://www.facebook.com/profile.php?id=61555749343330' },
-                      { icon: 'fa-instagram', href: 'https://www.instagram.com/plastid.interior.architecture/' },
-                      { icon: 'fa-tiktok', href: 'https://www.tiktok.com/@plastid.interiors' },
+                      {
+                        label: 'Facebook',
+                        icon: 'fa-facebook',
+                        href: 'https://www.facebook.com/profile.php?id=61555749343330',
+                      },
+                      {
+                        label: 'Instagram',
+                        icon: 'fa-instagram',
+                        href: 'https://www.instagram.com/plastid.interior.architecture/',
+                      },
+                      {
+                        label: 'TikTok',
+                        icon: 'fa-music',
+                        href: 'https://www.tiktok.com/@plastid.interiors',
+                      },
                     ].map((s, i) => (
                       <a
                         key={i}
                         href={s.href}
                         target="_blank"
                         rel="noreferrer"
-                        style={{
-                          width: '40px', height: '40px', borderRadius: '50%',
-                          background: '#000000', color: '#C49B5D',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontSize: '16px', transition: 'all 0.3s ease',
-                          textDecoration: 'none',
-                          border: '1px solid #C49B5D',
-                        }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.background = '#C49B5D'
-                          e.currentTarget.style.color = '#000000'
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.background = '#000000'
-                          e.currentTarget.style.color = '#C49B5D'
-                        }}
+                        aria-label={s.label}
+                        className="w-10 h-10 rounded-full bg-obsidian text-brass border border-brass flex items-center justify-center text-base hover:bg-brass hover:text-obsidian transition-colors no-underline"
                       >
-                        <i className={`fa ${s.icon}`} aria-hidden="true"></i>
+                        <i className={`fa ${s.icon}`} aria-hidden="true" />
                       </a>
                     ))}
                   </div>
@@ -304,12 +279,11 @@ export default function Contact() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
       <ScrollToTop />
     </div>
   )
 }
-

@@ -9,18 +9,22 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <section className="error-page-area" style={{ padding: '120px 0', textAlign: 'center' }}>
-        <div className="container">
-          <h1 style={{ fontSize: '72px', color: '#C49B5D', fontWeight: 700, marginBottom: '20px' }}>404</h1>
-          <h2 style={{ fontSize: '28px', color: '#000000', marginBottom: '16px' }}>Page Not Found</h2>
-          <p style={{ color: '#666', marginBottom: '30px' }}>
+      <main className="min-h-[70vh] flex items-center justify-center bg-alabaster pt-32 pb-24 text-center">
+        <div className="container-pia max-w-xl">
+          <h1 className="font-serif text-7xl sm:text-8xl font-bold text-brass mb-4 leading-none">
+            404
+          </h1>
+          <h2 className="font-serif text-3xl font-semibold text-obsidian mb-4">
+            Page Not Found
+          </h2>
+          <p className="text-ink text-base mb-8">
             The page you are looking for does not exist or has been moved.
           </p>
           <Link href="/" className="btn-one">
-            Back to Home<ChevronRight size={14} />
+            Back to Home <ChevronRight size={14} />
           </Link>
         </div>
-      </section>
+      </main>
       <Footer />
     </>
   )

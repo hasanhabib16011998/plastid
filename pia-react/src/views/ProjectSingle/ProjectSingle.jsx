@@ -2,23 +2,19 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { ChevronLeft, ChevronRight, X, Search } from 'lucide-react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PIALoader from '../../components/PIALoader/PIALoader'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function ProjectSingle({ project }) {
-  // Lightbox Frame state for Desktop & Full Preview
   const [lightboxIndex, setLightboxIndex] = useState(null)
-
-  // Mobile Carousel state
   const [mobileSlide, setMobileSlide] = useState(0)
   const touchStartXRef = useRef(null)
   const touchEndXRef = useRef(null)
 
-  // Keyboard navigation for Lightbox Frame
   useEffect(() => {
     function handleKeyDown(e) {
       if (lightboxIndex === null) return
@@ -37,58 +33,54 @@ export default function ProjectSingle({ project }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [lightboxIndex, project])
 
-
   if (!project) {
     return (
-      <div className="boxed_wrapper">
+      <div className="min-h-screen flex flex-col bg-alabaster">
         <Header />
-        <Breadcrumb
-          style="style2"
-          title="Project Not Found"
-          subtitle="Project Detail"
-          bgImage="/images/resources/breadcrumb-bg-2.jpg"
-          crumbs={[
-            { label: 'Home', to: '/' },
-            { label: 'Projects', to: '/projects' },
-            { label: 'Not Found' },
-          ]}
-        />
-        <section style={{ padding: '80px 0', textAlign: 'center' }}>
-          <div className="container">
-            <h2 style={{ fontSize: '28px', color: '#000000', marginBottom: '16px' }}>Project Not Found</h2>
-            <p style={{ color: '#666', marginBottom: '24px' }}>The requested project could not be found.</p>
-            <Link href="/projects" className="btn-one">
-              Back to All Projects <ChevronRight size={14} />
-            </Link>
-          </div>
-        </section>
+        <main className="flex-1">
+          <Breadcrumb
+            style="style2"
+            title="Project Not Found"
+            subtitle="Project Detail"
+            bgImage="/images/resources/breadcrumb-bg-2.jpg"
+            crumbs={[
+              { label: 'Home', to: '/' },
+              { label: 'Projects', to: '/projects' },
+              { label: 'Not Found' },
+            ]}
+          />
+          <section className="py-20 text-center">
+            <div className="container-pia">
+              <h2 className="font-serif text-3xl text-obsidian mb-4">Project Not Found</h2>
+              <p className="text-ink mb-6">The requested project could not be found.</p>
+              <Link href="/projects" className="btn-one">
+                Back to All Projects <ChevronRight size={14} />
+              </Link>
+            </div>
+          </section>
+        </main>
         <Footer />
       </div>
     )
   }
 
-  const galleryList = (project.galleryItems && project.galleryItems.length > 0)
-    ? project.galleryItems
-    : (project.galleryImgs || []).map((url) => ({ url, caption: '' }))
+  const galleryList =
+    project.galleryItems && project.galleryItems.length > 0
+      ? project.galleryItems
+      : (project.galleryImgs || []).map((url) => ({ url, caption: '' }))
 
-  // Mobile swipe handlers
   const handleTouchStart = (e) => {
     touchStartXRef.current = e.targetTouches[0].clientX
   }
-
   const handleTouchMove = (e) => {
     touchEndXRef.current = e.targetTouches[0].clientX
   }
-
   const handleTouchEnd = () => {
     if (!touchStartXRef.current || !touchEndXRef.current) return
     const distance = touchStartXRef.current - touchEndXRef.current
-    const minSwipeDistance = 40
-    if (distance > minSwipeDistance) {
-      // Swipe Left -> Next slide
+    if (distance > 40) {
       setMobileSlide((prev) => (prev < galleryList.length - 1 ? prev + 1 : 0))
-    } else if (distance < -minSwipeDistance) {
-      // Swipe Right -> Prev slide
+    } else if (distance < -40) {
       setMobileSlide((prev) => (prev > 0 ? prev - 1 : galleryList.length - 1))
     }
     touchStartXRef.current = null
@@ -96,165 +88,150 @@ export default function ProjectSingle({ project }) {
   }
 
   return (
-    <div className="boxed_wrapper">
+    <div className="min-h-screen flex flex-col bg-alabaster">
       <PIALoader />
       <Header />
 
-      <Breadcrumb
-        style="style2"
-        title={project.title}
-        subtitle="Project Detail"
-        bgImage="/images/resources/breadcrumb-bg-2.jpg"
-        crumbs={[
-          { label: 'Home', to: '/' },
-          { label: 'Projects', to: '/projects' },
-          { label: project.title },
-        ]}
-      />
+      <main className="flex-1">
+        <Breadcrumb
+          style="style2"
+          title={project.title}
+          subtitle="Project Detail"
+          bgImage="/images/resources/breadcrumb-bg-2.jpg"
+          crumbs={[
+            { label: 'Home', to: '/' },
+            { label: 'Projects', to: '/projects' },
+            { label: project.title },
+          ]}
+        />
 
-      <section className="single-project-details-area" style={{ padding: '50px 0 40px' }}>
-        <div className="container">
-          <div className="row">
-            {/* Main Content */}
-            <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12" style={{ marginBottom: '30px' }}>
-              {/* Hero Image */}
-              <div style={{ marginBottom: '24px', borderRadius: '8px', overflow: 'hidden' }}>
-                <img src={project.mainImg} alt={project.title} style={{ width: '100%', height: 'auto', display: 'block' }} />
-              </div>
-
-              {/* Description */}
-              <div style={{ marginBottom: '25px' }}>
-                <h3 style={{ marginBottom: '12px', fontSize: '22px', color: '#000000', fontWeight: 700 }}>Project Overview</h3>
-                <p style={{ color: '#555', lineHeight: 1.7, fontSize: '15px' }}>{project.description}</p>
-              </div>
-
-              {/* Challenge & Solution */}
-              {(project.challenge || project.solution) && (
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: project.challenge && project.solution ? 'repeat(auto-fit, minmax(280px, 1fr))' : '1fr',
-                    gap: '20px',
-                    marginBottom: '30px',
-                    clear: 'both',
-                  }}
-                >
-                  {project.challenge && (
-                    <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '8px', borderLeft: '4px solid #000000', height: '100%' }}>
-                      <h4 style={{ color: '#000000', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>The Challenge</h4>
-                      <p style={{ color: '#555', lineHeight: 1.65, fontSize: '14.5px', margin: 0, whiteSpace: 'pre-line' }}>{project.challenge}</p>
-                    </div>
-                  )}
-                  {project.solution && (
-                    <div style={{ background: '#000000', padding: '24px', borderRadius: '8px', borderLeft: '4px solid #C49B5D', height: '100%' }}>
-                      <h4 style={{ color: '#C49B5D', marginBottom: '10px', fontSize: '18px', fontWeight: 600 }}>Our Solution</h4>
-                      <p style={{ color: '#F5F3ED', opacity: 0.9, lineHeight: 1.65, fontSize: '14.5px', margin: 0, whiteSpace: 'pre-line' }}>{project.solution}</p>
-                    </div>
-                  )}
+        <section className="py-12 sm:py-16 bg-white">
+          <div className="container-pia">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-8">
+                {/* Hero Image */}
+                <div className="mb-6 rounded-lg overflow-hidden shadow-sm">
+                  <img
+                    src={project.mainImg}
+                    alt={project.title}
+                    className="w-full h-auto block"
+                  />
                 </div>
-              )}
-            </div>
 
-            {/* Sidebar */}
-            <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12" style={{ marginBottom: '30px' }}>
-              <div>
-                {/* Project Info */}
-                <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '8px', marginBottom: '24px', border: '1px solid rgba(196, 155, 93, 0.2)' }}>
-                  <h4 style={{ marginBottom: '16px', paddingBottom: '10px', borderBottom: '2px solid #C49B5D', color: '#000000', fontSize: '18px', fontWeight: 600 }}>Project Information</h4>
-                  {[
-                    { label: 'Category', value: project.category },
-                    { label: 'Client', value: project.client },
-                    { label: 'Location', value: project.location },
-                    { label: 'Project Area', value: project.area },
-                    { label: 'Duration', value: project.duration },
-                    { label: 'Year Completed', value: project.year },
-                  ]
-                    .filter((info) => Boolean(info.value) && info.value !== 'N/A')
-                    .map((info, i) => (
-                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '9px 0', borderBottom: '1px solid #eee', fontSize: '14px' }}>
-                        <span style={{ fontWeight: '600', color: '#000000' }}>{info.label}:</span>
-                        <span style={{ color: '#555' }}>{info.value}</span>
+                {/* Description */}
+                <div className="mb-7">
+                  <h2 className="font-serif text-2xl sm:text-3xl text-obsidian font-semibold mb-3">
+                    Project Overview
+                  </h2>
+                  <p className="text-ink leading-relaxed text-[15px] m-0">{project.description}</p>
+                </div>
+
+                {/* Challenge & Solution */}
+                {(project.challenge || project.solution) && (
+                  <div
+                    className={`grid gap-5 mb-8 ${
+                      project.challenge && project.solution ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'
+                    }`}
+                  >
+                    {project.challenge && (
+                      <div className="bg-[#f9f9f9] p-6 rounded-lg border-l-4 border-obsidian h-full">
+                        <h3 className="font-serif text-xl text-obsidian font-semibold mb-2.5">
+                          The Challenge
+                        </h3>
+                        <p className="text-ink leading-relaxed text-sm m-0 whitespace-pre-line">
+                          {project.challenge}
+                        </p>
                       </div>
-                    ))}
+                    )}
+                    {project.solution && (
+                      <div className="bg-obsidian p-6 rounded-lg border-l-4 border-brass h-full">
+                        <h3 className="font-serif text-xl text-brass font-semibold mb-2.5">
+                          Our Solution
+                        </h3>
+                        <p className="text-alabaster/90 leading-relaxed text-sm m-0 whitespace-pre-line">
+                          {project.solution}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Sidebar */}
+              <aside className="lg:col-span-4 space-y-6">
+                {/* Project Info */}
+                <div className="bg-[#f9f9f9] p-6 rounded-lg border border-brass/20">
+                  <h3 className="font-serif text-xl text-obsidian font-semibold mb-4 pb-2.5 border-b-2 border-brass">
+                    Project Information
+                  </h3>
+                  <div className="divide-y divide-neutral-200">
+                    {[
+                      { label: 'Category', value: project.category },
+                      { label: 'Client', value: project.client },
+                      { label: 'Location', value: project.location },
+                      { label: 'Project Area', value: project.area },
+                      { label: 'Duration', value: project.duration },
+                      { label: 'Year Completed', value: project.year },
+                    ]
+                      .filter((info) => Boolean(info.value) && info.value !== 'N/A')
+                      .map((info, i) => (
+                        <div key={i} className="flex justify-between gap-4 py-2.5 text-sm">
+                          <span className="font-semibold text-obsidian">{info.label}:</span>
+                          <span className="text-ink text-right">{info.value}</span>
+                        </div>
+                      ))}
+                  </div>
                 </div>
 
                 {/* CTA */}
-                <div style={{ background: '#000000', border: '1px solid #C49B5D', padding: '28px 24px', borderRadius: '8px', textAlign: 'center', marginBottom: '24px' }}>
-                  <h4 style={{ color: '#C49B5D', marginBottom: '10px', fontSize: '20px', fontWeight: 600 }}>Start Your Project</h4>
-                  <p style={{ color: '#F5F3ED', opacity: 0.9, marginBottom: '18px', fontSize: '14px' }}>Ready to transform your space?</p>
-                  <Link className="btn-one" href="/contact" style={{ width: '100%', justifyContent: 'center' }}>
-                    Contact Us <ChevronRight/> 
+                <div className="bg-obsidian border border-brass p-7 rounded-lg text-center">
+                  <h3 className="font-serif text-2xl text-brass font-semibold mb-2.5">
+                    Start Your Project
+                  </h3>
+                  <p className="text-alabaster/90 mb-5 text-sm">
+                    Ready to transform your space?
+                  </p>
+                  <Link className="btn-one w-full" href="/contact">
+                    Contact Us <ChevronRight size={14} />
                   </Link>
                 </div>
 
-                {/* Navigation */}
-                <div style={{ display: 'flex' }}>
-                  <Link href="/projects" className="btn-two" style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}>
-                    <ChevronLeft/> Back to All Projects
-                  </Link>
-                </div>
-              </div>
+                {/* Back Navigation */}
+                <Link href="/projects" className="btn-two w-full">
+                  <ChevronLeft size={14} /> Back to All Projects
+                </Link>
+              </aside>
             </div>
-          </div>
 
-          {/* Full-Width Project Gallery */}
-          {galleryList.length > 0 && (
-            <div className="row">
-              <div className="col-12" style={{ marginBottom: '30px', paddingTop: '10px' }}>
-                <h3 style={{ marginBottom: '20px', fontSize: '22px', color: '#000000', fontWeight: 700 }}>Project Gallery</h3>
+            {/* Full-Width Project Gallery */}
+            {galleryList.length > 0 && (
+              <div className="mt-10 pt-4">
+                <h2 className="font-serif text-2xl sm:text-3xl text-obsidian font-semibold mb-5">
+                  Project Gallery
+                </h2>
 
-                {/* Desktop View Grid (Click image to open Lightbox Frame) */}
-                <div className="d-none d-md-flex row">
+                {/* Desktop Grid */}
+                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {galleryList.map((item, i) => (
-                    <div key={i} className="col-lg-4 col-md-6 col-12" style={{ marginBottom: '24px' }}>
+                    <div key={i}>
                       <div
                         onClick={() => setLightboxIndex(i)}
-                        style={{
-                          borderRadius: '8px',
-                          overflow: 'hidden',
-                          height: '250px',
-                          background: '#000000',
-                          cursor: 'pointer',
-                          position: 'relative',
-                          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = 'scale(1.02)'
-                          e.currentTarget.style.boxShadow = '0 8px 20px rgba(196, 155, 93, 0.3)'
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = 'scale(1)'
-                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)'
-                        }}
+                        className="group relative rounded-lg overflow-hidden h-[250px] bg-obsidian cursor-pointer shadow-sm hover:scale-[1.02] hover:shadow-lg transition-all duration-300"
                       >
                         <img
                           src={typeof item === 'string' ? item : item.url}
                           alt={item.caption || `Gallery Image ${i + 1}`}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          className="w-full h-full object-cover block"
                         />
-                        <div
-                          style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background: 'rgba(0, 0, 0, 0.4)',
-                            opacity: 0,
-                            transition: 'opacity 0.3s ease',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}
-                          className="gallery-hover-overlay"
-                          onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                          onMouseLeave={(e) => (e.currentTarget.style.opacity = '0')}
-                        >
-                          <span style={{ color: '#fff', fontSize: '13px', background: 'rgba(0,0,0,0.6)', padding: '6px 14px', borderRadius: '20px', border: '1px solid #C49B5D' }}>
-                            🔍 Click to Enlarge
+                        <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <span className="inline-flex items-center gap-1.5 text-white text-xs bg-black/65 px-3.5 py-1.5 rounded-full border border-brass">
+                            <Search size={13} className="text-brass" /> Click to Enlarge
                           </span>
                         </div>
                       </div>
                       {item.caption && (
-                        <p style={{ marginTop: '6px', fontSize: '13px', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
+                        <p className="mt-1.5 text-[13px] text-ink italic text-center">
                           {item.caption}
                         </p>
                       )}
@@ -262,40 +239,33 @@ export default function ProjectSingle({ project }) {
                   ))}
                 </div>
 
-                {/* Mobile View Interactive Carousel (Slide through images) */}
-                <div className="d-block d-md-none" style={{ position: 'relative', overflow: 'hidden', borderRadius: '10px' }}>
+                {/* Mobile Carousel */}
+                <div className="md:hidden relative overflow-hidden rounded-lg">
                   <div
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
-                    style={{
-                      display: 'flex',
-                      transition: 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
-                      transform: `translateX(-${mobileSlide * 100}%)`,
-                    }}
+                    className="flex transition-transform duration-300"
+                    style={{ transform: `translateX(-${mobileSlide * 100}%)` }}
                   >
                     {galleryList.map((item, i) => (
                       <div
                         key={i}
                         onClick={() => setLightboxIndex(i)}
-                        style={{
-                          minWidth: '100%',
-                          boxSizing: 'border-box',
-                          padding: '0 2px',
-                        }}
+                        className="min-w-full px-0.5"
                       >
-                        <div style={{ borderRadius: '8px', overflow: 'hidden', height: '240px', background: '#000000', position: 'relative' }}>
+                        <div className="relative rounded-lg overflow-hidden h-[240px] bg-obsidian">
                           <img
                             src={typeof item === 'string' ? item : item.url}
                             alt={item.caption || `Gallery Image ${i + 1}`}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            className="w-full h-full object-cover block"
                           />
-                          <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', color: '#fff', fontSize: '11px', padding: '3px 8px', borderRadius: '10px' }}>
+                          <div className="absolute top-2.5 right-2.5 bg-black/65 text-white text-[11px] px-2 py-0.5 rounded-full">
                             {i + 1} / {galleryList.length}
                           </div>
                         </div>
                         {item.caption && (
-                          <p style={{ marginTop: '8px', fontSize: '13px', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
+                          <p className="mt-2 text-[13px] text-ink italic text-center">
                             {item.caption}
                           </p>
                         )}
@@ -303,200 +273,113 @@ export default function ProjectSingle({ project }) {
                     ))}
                   </div>
 
-                  {/* Mobile Carousel Controls & Dots */}
                   {galleryList.length > 1 && (
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '12px' }}>
+                    <div className="flex justify-center items-center gap-2 mt-3">
                       <button
-                        onClick={() => setMobileSlide((prev) => (prev > 0 ? prev - 1 : galleryList.length - 1))}
-                        style={{
-                          background: '#000000',
-                          color: '#C49B5D',
-                          border: '1px solid #C49B5D',
-                          borderRadius: '50%',
-                          width: '32px',
-                          height: '32px',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
+                        type="button"
+                        aria-label="Previous slide"
+                        onClick={() =>
+                          setMobileSlide((prev) => (prev > 0 ? prev - 1 : galleryList.length - 1))
+                        }
+                        className="w-8 h-8 rounded-full bg-obsidian text-brass border border-brass flex items-center justify-center cursor-pointer"
                       >
-                        ‹
+                        <ChevronLeft size={16} />
                       </button>
-                      <div style={{ display: 'flex', gap: '6px' }}>
+                      <div className="flex gap-1.5">
                         {galleryList.map((_, i) => (
                           <button
                             key={i}
+                            type="button"
+                            aria-label={`Slide ${i + 1}`}
                             onClick={() => setMobileSlide(i)}
-                            style={{
-                              width: mobileSlide === i ? '18px' : '8px',
-                              height: '8px',
-                              borderRadius: '4px',
-                              background: mobileSlide === i ? '#C49B5D' : '#ccc',
-                              border: 'none',
-                              cursor: 'pointer',
-                              transition: 'all 0.3s ease',
-                            }}
+                            className={`h-2 rounded-full border-0 cursor-pointer transition-all ${
+                              mobileSlide === i ? 'w-4.5 bg-brass' : 'w-2 bg-neutral-300'
+                            }`}
                           />
                         ))}
                       </div>
                       <button
-                        onClick={() => setMobileSlide((prev) => (prev < galleryList.length - 1 ? prev + 1 : 0))}
-                        style={{
-                          background: '#000000',
-                          color: '#C49B5D',
-                          border: '1px solid #C49B5D',
-                          borderRadius: '50%',
-                          width: '32px',
-                          height: '32px',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
+                        type="button"
+                        aria-label="Next slide"
+                        onClick={() =>
+                          setMobileSlide((prev) => (prev < galleryList.length - 1 ? prev + 1 : 0))
+                        }
+                        className="w-8 h-8 rounded-full bg-obsidian text-brass border border-brass flex items-center justify-center cursor-pointer"
                       >
-                        ›
+                        <ChevronRight size={16} />
                       </button>
                     </div>
                   )}
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      </section>
+            )}
+          </div>
+        </section>
+      </main>
 
-      {/* Desktop Lightbox Frame Modal */}
+      {/* Lightbox Modal */}
       {lightboxIndex !== null && galleryList[lightboxIndex] && (
         <div
           onClick={() => setLightboxIndex(null)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 99999,
-            background: 'rgba(0, 0, 0, 0.92)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px',
-          }}
+          className="fixed inset-0 z-[99999] bg-black/92 backdrop-blur-md flex items-center justify-center p-5"
         >
-          {/* Main Frame Box */}
           <div
             onClick={(e) => e.stopPropagation()}
-            style={{
-              position: 'relative',
-              maxWidth: '900px',
-              width: '100%',
-              background: '#000000',
-              borderRadius: '12px',
-              border: '2px solid #C49B5D',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7)',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
+            className="relative max-w-4xl w-full bg-obsidian rounded-xl border-2 border-brass shadow-2xl overflow-hidden flex flex-col items-center"
           >
-            {/* Close Button */}
             <button
+              type="button"
+              aria-label="Close lightbox"
               onClick={() => setLightboxIndex(null)}
-              style={{
-                position: 'absolute',
-                top: '15px',
-                right: '15px',
-                background: 'rgba(0,0,0,0.6)',
-                color: '#C49B5D',
-                border: '1px solid #C49B5D',
-                borderRadius: '50%',
-                width: '36px',
-                height: '36px',
-                fontSize: '20px',
-                cursor: 'pointer',
-                zIndex: 10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+              className="absolute top-3.5 right-3.5 bg-black/65 text-brass border border-brass rounded-full w-9 h-9 cursor-pointer z-10 flex items-center justify-center hover:bg-brass hover:text-obsidian transition-colors"
             >
-              ✕
+              <X size={18} />
             </button>
 
-            {/* Image Frame Container */}
-            <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#000000', padding: '16px' }}>
+            <div className="relative w-full flex justify-center items-center bg-obsidian p-4">
               <img
-                src={typeof galleryList[lightboxIndex] === 'string' ? galleryList[lightboxIndex] : galleryList[lightboxIndex].url}
+                src={
+                  typeof galleryList[lightboxIndex] === 'string'
+                    ? galleryList[lightboxIndex]
+                    : galleryList[lightboxIndex].url
+                }
                 alt={galleryList[lightboxIndex].caption || 'Gallery preview'}
-                style={{
-                  maxHeight: '70vh',
-                  maxWidth: '100%',
-                  objectFit: 'contain',
-                  borderRadius: '6px',
-                }}
+                className="max-h-[70vh] max-w-full object-contain rounded-md"
               />
 
-              {/* Lightbox Nav Buttons */}
               {galleryList.length > 1 && (
                 <>
                   <button
+                    type="button"
+                    aria-label="Previous image"
                     onClick={(e) => {
                       e.stopPropagation()
                       setLightboxIndex((prev) => (prev > 0 ? prev - 1 : galleryList.length - 1))
                     }}
-                    style={{
-                      position: 'absolute',
-                      left: '20px',
-                      background: 'rgba(0, 0, 0, 0.85)',
-                      color: '#C49B5D',
-                      border: '1.5px solid #C49B5D',
-                      borderRadius: '50%',
-                      width: '44px',
-                      height: '44px',
-                      fontSize: '22px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                    className="absolute left-5 bg-obsidian/85 text-brass border-[1.5px] border-brass rounded-full w-11 h-11 cursor-pointer flex items-center justify-center hover:bg-brass hover:text-obsidian transition-colors"
                   >
-                    ‹
+                    <ChevronLeft size={20} />
                   </button>
-
                   <button
+                    type="button"
+                    aria-label="Next image"
                     onClick={(e) => {
                       e.stopPropagation()
                       setLightboxIndex((prev) => (prev < galleryList.length - 1 ? prev + 1 : 0))
                     }}
-                    style={{
-                      position: 'absolute',
-                      right: '20px',
-                      background: 'rgba(0, 0, 0, 0.85)',
-                      color: '#C49B5D',
-                      border: '1.5px solid #C49B5D',
-                      borderRadius: '50%',
-                      width: '44px',
-                      height: '44px',
-                      fontSize: '22px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                    className="absolute right-5 bg-obsidian/85 text-brass border-[1.5px] border-brass rounded-full w-11 h-11 cursor-pointer flex items-center justify-center hover:bg-brass hover:text-obsidian transition-colors"
                   >
-                    ›
+                    <ChevronRight size={20} />
                   </button>
                 </>
               )}
             </div>
 
-            {/* Caption & Counter Footer */}
-            <div style={{ width: '100%', padding: '14px 20px', background: '#000000', color: '#F5F3ED', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(196, 155, 93, 0.3)' }}>
-              <span style={{ fontSize: '14px', color: '#F5F3ED', fontWeight: 500 }}>
+            <div className="w-full px-5 py-3.5 bg-obsidian text-alabaster flex justify-between items-center border-t border-brass/30">
+              <span className="text-sm font-medium">
                 {galleryList[lightboxIndex].caption || project.title}
               </span>
-              <span style={{ fontSize: '12px', color: '#C49B5D', fontWeight: 600, background: 'rgba(196, 155, 93, 0.15)', padding: '3px 10px', borderRadius: '10px' }}>
+              <span className="text-xs text-brass font-semibold bg-brass/15 px-2.5 py-0.5 rounded-full">
                 {lightboxIndex + 1} / {galleryList.length}
               </span>
             </div>

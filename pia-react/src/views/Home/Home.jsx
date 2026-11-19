@@ -149,51 +149,89 @@ function TestimonialsSection({ initialList = [] }) {
   }
 
   return (
-    <section className="testimonial-area" style={{ overflow: 'hidden' }}>
-      <div className="container">
-        <div className="row align-items-center" style={{ marginBottom: '30px' }}>
-          <div className="col-xl-8 col-lg-8 col-md-8 col-12">
-            <div className="sec-title float-left">
-              <p>Testimonials</p>
-              <div className="title">Our Customer <span>Words</span></div>
-            </div>
+    <section className="py-20 bg-alabaster overflow-hidden">
+      <div className="container-pia">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+              Testimonials
+            </p>
+            <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
+              Our Customer <span className="text-brass">Words</span>
+            </h2>
           </div>
-          <div className="col-xl-4 col-lg-4 col-md-4 col-12 text-md-right mt-3 mt-md-0">
-            <div className="more-reviews-button">
-              <Link className="btn-two" href="/testimonials">View All Reviews <ChevronRight size={14}/></Link>
-            </div>
-          </div>
+          <Link className="btn-two self-start md:self-auto" href="/testimonials">
+            View All Reviews <ChevronRight size={14} />
+          </Link>
         </div>
 
         {error || list.length === 0 ? (
-          <div
-            style={{
-              textAlign: 'center',
-              padding: '40px 20px',
-              backgroundColor: '#F9F8F3',
-              borderRadius: '8px',
-              border: '1px solid #EAE6DF',
-              color: '#666',
-              fontSize: '15px',
-              fontFamily: 'var(--font-primary)',
-            }}
-          >
-            {error ? 'Something went wrong fetching the testimonials.' : 'No featured testimonials available at the moment.'}
+          <div className="text-center py-10 px-5 bg-[#F9F8F3] rounded-lg border border-[#EAE6DF] text-ink text-[15px]">
+            {error
+              ? 'Something went wrong fetching the testimonials.'
+              : 'No featured testimonials available at the moment.'}
           </div>
         ) : !isMobile ? (
-          <div className="row">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {list.map((t, i) => (
-              <div key={t.id || i} className="col-xl-4 col-lg-4 col-md-6" style={{ marginBottom: '30px' }}>
-                <div className="single-testimonial-item text-center">
-                  <div className="quote-icon">
-                    <span className="icon-quote1"></span>
+              <div
+                key={t.id || i}
+                className="bg-white rounded-lg border border-brass/25 shadow-sm p-8 text-center flex flex-col justify-between hover:-translate-y-1 hover:border-brass transition-all duration-300"
+              >
+                <div>
+                  <div className="mb-4 text-brass text-3xl leading-none">
+                    <span className="icon-quote1" />
                   </div>
-                  <div className="inner-content">
-                    <div className="client-info">
-                      <h3>{t.name}</h3>
-                      <span>{t.location}</span>
+                  <div className="mb-4">
+                    <h3 className="font-serif text-xl font-semibold text-obsidian mb-0.5">
+                      {t.name}
+                    </h3>
+                    <span className="text-xs text-brass font-medium uppercase tracking-wider">
+                      {t.location}
+                    </span>
+                  </div>
+                  <div className="flex justify-center mb-5">
+                    <img
+                      src={t.img || '/images/testimonial/user-placeholder.png'}
+                      alt={t.name}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null
+                        e.currentTarget.src = '/images/testimonial/user-placeholder.png'
+                      }}
+                      className="w-20 h-20 object-cover rounded-full border-2 border-brass block"
+                    />
+                  </div>
+                  <p className="text-sm text-ink leading-relaxed italic m-0">&ldquo;{t.text}&rdquo;</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            className="relative overflow-hidden w-full"
+          >
+            <div
+              className="flex w-full transition-transform duration-400"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
+              {list.map((t, i) => (
+                <div key={t.id || i} className="flex-none w-full px-2">
+                  <div className="bg-white rounded-lg border border-brass/25 shadow-sm p-7 text-center">
+                    <div className="mb-3 text-brass text-3xl leading-none">
+                      <span className="icon-quote1" />
                     </div>
-                    <div className="img-box" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div className="mb-4">
+                      <h3 className="font-serif text-xl font-semibold text-obsidian mb-0.5">
+                        {t.name}
+                      </h3>
+                      <span className="text-xs text-brass font-medium uppercase tracking-wider">
+                        {t.location}
+                      </span>
+                    </div>
+                    <div className="flex justify-center mb-4">
                       <img
                         src={t.img || '/images/testimonial/user-placeholder.png'}
                         alt={t.name}
@@ -201,81 +239,26 @@ function TestimonialsSection({ initialList = [] }) {
                           e.currentTarget.onerror = null
                           e.currentTarget.src = '/images/testimonial/user-placeholder.png'
                         }}
-                        style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '50%', display: 'block', margin: '0 auto' }}
+                        className="w-20 h-20 object-cover rounded-full border-2 border-brass block"
                       />
                     </div>
-                    <div className="text-box">
-                      <p>{t.text}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div
-            className="testimonial-carousel-mobile"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            style={{ position: 'relative', overflow: 'hidden', width: '100%' }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                transform: `translateX(-${activeIndex * 100}%)`,
-                transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
-                width: '100%',
-              }}
-            >
-              {list.map((t, i) => (
-                <div key={t.id || i} style={{ flex: '0 0 100%', minWidth: '100%', padding: '0 10px', boxSizing: 'border-box' }}>
-                  <div className="single-testimonial-item text-center">
-                    <div className="quote-icon">
-                      <span className="icon-quote1"></span>
-                    </div>
-                    <div className="inner-content">
-                      <div className="client-info">
-                        <h3>{t.name}</h3>
-                        <span>{t.location}</span>
-                      </div>
-                      <div className="img-box" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <img
-                          src={t.img || '/images/testimonial/user-placeholder.png'}
-                          alt={t.name}
-                          onError={(e) => {
-                            e.currentTarget.onerror = null
-                            e.currentTarget.src = '/images/testimonial/user-placeholder.png'
-                          }}
-                          style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '50%', display: 'block', margin: '0 auto' }}
-                        />
-                      </div>
-                      <div className="text-box">
-                        <p>{t.text}</p>
-                      </div>
-                    </div>
+                    <p className="text-sm text-ink leading-relaxed italic m-0">&ldquo;{t.text}&rdquo;</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {list.length > 1 && (
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '20px' }}>
+              <div className="flex justify-center items-center gap-2 mt-5">
                 {list.map((_, i) => (
                   <button
                     key={i}
+                    type="button"
                     onClick={() => setActiveIndex(i)}
                     aria-label={`Go to testimonial ${i + 1}`}
-                    style={{
-                      width: i === activeIndex ? '26px' : '10px',
-                      height: '10px',
-                      borderRadius: '5px',
-                      background: i === activeIndex ? '#c8a96e' : '#ddd',
-                      border: 'none',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      padding: 0,
-                    }}
+                    className={`h-2.5 rounded-full border-0 cursor-pointer transition-all p-0 ${
+                      i === activeIndex ? 'w-6.5 bg-brass' : 'w-2.5 bg-neutral-300'
+                    }`}
                   />
                 ))}
               </div>
@@ -945,42 +928,40 @@ function ProjectsCarousel({ initialProjects = [] }) {
         onMouseDown={handleMouseDown}
       >
         {recentProjects.map((p, i) => (
-          <div key={i} className="single-project-style1" style={cardStyle}>
-            <div className="img-holder" style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
+          <div key={i} className="group" style={cardStyle}>
+            <div className="relative rounded-lg overflow-hidden bg-obsidian h-[300px]">
               <img
                 src={p.img}
                 alt={p.title}
                 draggable={false}
-                style={{
-                  width: '100%',
-                  height: '300px',
-                  objectFit: 'cover',
-                  pointerEvents: 'none',
-                  userSelect: 'none',
-                  WebkitUserDrag: 'none',
-                }}
+                className="w-full h-full object-cover pointer-events-none select-none group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="overlay-content">
-                <div className="inner-content">
-                  <div className="link-box">
-                    <Link className="btn-one" href={`/projects/${p.slug || p.id}`}>View Details<ChevronRight size={14} /></Link>
-                  </div>
-                </div>
+              {/* Desktop Hover Overlay */}
+              <div className="hidden md:flex absolute inset-0 bg-obsidian/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 items-center justify-center z-10">
+                <Link className="btn-one" href={`/projects/${p.slug || p.id}`}>
+                  View Details <ChevronRight size={14} />
+                </Link>
               </div>
-              <div className="title-box">
-                <div className="title-box__info">
-                  <span>{p.category}</span>
-                  <h3>
-                    <Link href={`/projects/${p.slug || p.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+              {/* Bottom Title Bar */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/65 to-transparent pt-8 pb-4 px-4 flex items-end justify-between gap-2 z-20">
+                <div className="min-w-0">
+                  <span className="block text-[11px] font-semibold uppercase tracking-widest text-brass mb-0.5">
+                    {p.category}
+                  </span>
+                  <h3 className="font-serif text-lg font-semibold text-alabaster m-0 leading-snug truncate">
+                    <Link
+                      href={`/projects/${p.slug || p.id}`}
+                      className="text-inherit no-underline hover:text-brass transition-colors"
+                    >
                       {p.title}
                     </Link>
                   </h3>
                 </div>
                 <Link
                   href={`/projects/${p.slug || p.id}`}
-                  className="title-box__mobile-btn"
+                  className="md:hidden shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-brass text-obsidian text-[11px] font-bold uppercase tracking-wider no-underline"
                 >
-                  View Details <ChevronRight size={14}/>
+                  View Details <ChevronRight size={13} />
                 </Link>
               </div>
             </div>
@@ -1024,31 +1005,25 @@ function MissionCarousel() {
   const m = missions[index]
 
   return (
-    <div className="about-carousel-box">
-      <div className="single-box">
-        <div className="icon-holder">
-          <span className="icon-target"></span>
+    <div className="bg-alabaster border border-brass/30 rounded-lg p-6">
+      <div className="flex items-start gap-4">
+        <div className="w-12 h-12 rounded-full bg-obsidian text-brass border border-brass/50 flex items-center justify-center shrink-0 text-xl">
+          <span className="icon-target" />
         </div>
-        <div className="text-holder">
-          <h3>{m.title}</h3>
-          <p>{m.text}</p>
+        <div>
+          <h3 className="font-serif text-xl font-semibold text-obsidian mb-1.5">{m.title}</h3>
+          <p className="text-sm text-ink leading-relaxed m-0">{m.text}</p>
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '8px', marginTop: '15px' }}>
+      <div className="flex gap-2 mt-4">
         {missions.map((_, i) => (
           <button
             key={i}
+            type="button"
             onClick={() => setIndex(i)}
-            style={{
-              width: i === index ? '24px' : '10px',
-              height: '10px',
-              borderRadius: '5px',
-              background: i === index ? '#c8a96e' : '#ddd',
-              border: 'none',
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              padding: 0,
-            }}
+            className={`h-2.5 rounded-full border-0 cursor-pointer transition-all p-0 ${
+              i === index ? 'w-6 bg-brass' : 'w-2.5 bg-neutral-300'
+            }`}
             aria-label={`Mission ${i + 1}`}
           />
         ))}
@@ -1120,87 +1095,91 @@ function AppointmentForm() {
     }
   }
 
+  const inputClass =
+    'w-full px-4 py-3.5 rounded bg-alabaster border border-black/15 text-obsidian text-sm font-sans placeholder:text-black/45 focus:bg-white focus:border-brass focus:ring-2 focus:ring-brass/20 outline-none transition-all disabled:opacity-60'
+
   return (
-    <div className="appointment-box">
-      <div className="title-box">
-        <h2>Book Consultation</h2>
-        <span>Leave your information here and get reply from our expert in 24 hours, don't hesitate to ask.</span>
+    <div className="bg-white rounded-xl border border-brass/35 shadow-2xl p-6 sm:p-9">
+      <div className="mb-6">
+        <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian mb-2">
+          Book Consultation
+        </h2>
+        <p className="text-sm text-ink m-0">
+          Leave your information here and get reply from our expert in 24 hours, don&apos;t hesitate
+          to ask.
+        </p>
       </div>
-      <div className="appointment">
+      <div>
         {submitted && (
-          <div style={{
-            background: '#000000', color: '#C49B5D', border: '1px solid #C49B5D', padding: '14px 20px',
-            borderRadius: '4px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px',
-            fontSize: '14px', fontFamily: 'var(--font-primary)'
-          }}>
-            <span style={{ fontWeight: 'bold' }}>✓</span> Thank you! We'll be in touch within 24 hours.
+          <div className="bg-obsidian text-brass border border-brass px-5 py-3.5 rounded mb-5 flex items-center gap-2.5 text-sm">
+            <span className="font-bold">✓</span> Thank you! We&apos;ll be in touch within 24 hours.
           </div>
         )}
         {error && (
-          <div style={{
-            background: '#2e1f1f', color: '#e57373', border: '1px solid #e57373', padding: '14px 20px',
-            borderRadius: '4px', marginBottom: '20px', fontSize: '14px', fontFamily: 'var(--font-primary)'
-          }}>
+          <div className="bg-[#2e1f1f] text-[#e57373] border border-[#e57373] px-5 py-3.5 rounded mb-5 text-sm">
             {error}
           </div>
         )}
-        <form className="appointment-form" onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col-xl-6 col-md-6 col-12">
-              <div className="single-box" style={{ marginBottom: '12px' }}>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name *" required disabled={isSubmitting} style={{ margin: 0 }} />
-              </div>
-            </div>
-            <div className="col-xl-6 col-md-6 col-12">
-              <div className="single-box" style={{ marginBottom: '12px' }}>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address *" required disabled={isSubmitting} style={{ margin: 0 }} />
-              </div>
+        <form className="space-y-3.5" onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name *"
+              required
+              disabled={isSubmitting}
+              className={inputClass}
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email Address *"
+              required
+              disabled={isSubmitting}
+              className={inputClass}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 items-start">
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Phone Number"
+              disabled={isSubmitting}
+              className={inputClass}
+            />
+            <div className="[&>.relative]:mb-0">
+              <PIADropdown
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                placeholder="Select Service"
+                options={serviceFormOptions}
+              />
             </div>
           </div>
-          <div className="row">
-            <div className="col-xl-6 col-md-6 col-12">
-              <div className="single-box" style={{ marginBottom: '12px' }}>
-                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" disabled={isSubmitting} style={{ margin: 0 }} />
-              </div>
-            </div>
-            <div className="col-xl-6 col-md-6 col-12">
-              <div style={{ marginBottom: '12px' }}>
-                <PIADropdown
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  placeholder="Select Service"
-                  disabled={isSubmitting}
-                  options={serviceFormOptions}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="single-box" style={{ marginBottom: '16px' }}>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Your Message *"
-                  required
-                  disabled={isSubmitting}
-                  rows="2"
-                  style={{ resize: 'vertical', margin: 0, minHeight: '65px' }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="single-box">
-                <button className="btn-one" type="submit" disabled={isSubmitting} style={{ width: '100%', opacity: isSubmitting ? 0.7 : 1 }}>
-                  {isSubmitting ? 'Submitting...' : 'Submit Here'} <ChevronRight size={14}/>
-                </button>
-              </div>
-            </div>
-          </div>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Your Message *"
+            required
+            disabled={isSubmitting}
+            rows={3}
+            className={`${inputClass} resize-y min-h-[75px]`}
+          />
+          <button
+            className="btn-one w-full disabled:opacity-70"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit Here'} <ChevronRight size={14} />
+          </button>
         </form>
       </div>
     </div>
@@ -1210,423 +1189,316 @@ function AppointmentForm() {
 // ─── Main Home Page ─────────────────────────────────────────
 export default function Home({ initialProjects = [], initialTestimonials = [] }) {
   return (
-    <div className="boxed_wrapper">
+    <div className="min-h-screen flex flex-col bg-alabaster">
       <PIALoader />
       <Header />
 
-      {/* Hero — Scroll-Driven Apartment Transformation */}
-      <ApartmentStory />
+      <main className="flex-1">
+        {/* Hero — Scroll-Driven Apartment Transformation */}
+        <ApartmentStory />
 
-      {/* Recent Projects */}
-      <section className="recently-project-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="sec-title float-left">
-                <p>Projects</p>
-                <div className="title">Recently Completed <span>Works</span></div>
+        {/* Recent Projects */}
+        <section className="py-20 bg-alabaster">
+          <div className="container-pia">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                  Projects
+                </p>
+                <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
+                  Recently Completed <span className="text-brass">Works</span>
+                </h2>
               </div>
-              <div className="more-project-button float-right">
-                <Link className="btn-two" href="/projects">More Projects <ChevronRight size={14}/></Link>
-              </div>
+              <Link className="btn-two self-start md:self-auto" href="/projects">
+                More Projects <ChevronRight size={14} />
+              </Link>
             </div>
           </div>
-        </div>
-        <div className="container-fluid">
-          <ProjectsCarousel initialProjects={initialProjects} />
-        </div>
 
-        {/* Visual Divider between Recently Completed Works and Statistics */}
-        <div className="container" style={{ marginTop: '56px', marginBottom: '36px' }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '18px',
-            }}
-          >
-            <span
-              style={{
-                flex: 1,
-                height: '1px',
-                background: 'linear-gradient(90deg, transparent 0%, rgba(196, 155, 93, 0.55) 100%)',
-              }}
-            />
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '6px 18px',
-                borderRadius: '30px',
-                border: '1px solid rgba(196, 155, 93, 0.4)',
-                background: 'rgba(196, 155, 93, 0.08)',
-                color: '#C49B5D',
-                fontFamily: 'var(--font-primary)',
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '0.16em',
-                textTransform: 'uppercase',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <span style={{ fontSize: '10px' }}>◆</span>
-              Our Footprint
-              <span style={{ fontSize: '10px' }}>◆</span>
-            </span>
-            <span
-              style={{
-                flex: 1,
-                height: '1px',
-                background: 'linear-gradient(90deg, rgba(196, 155, 93, 0.55) 0%, transparent 100%)',
-              }}
-            />
+          <div className="w-full px-4 sm:px-6 lg:px-10">
+            <ProjectsCarousel initialProjects={initialProjects} />
           </div>
-        </div>
 
-        <div className="container">
-          <div className="row d-flex flex-wrap">
-            {sectorMetrics.map((s, i) => (
-              <div key={i} className="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex" style={{ marginBottom: '24px' }}>
+          {/* Visual Divider between Recently Completed Works and Statistics */}
+          <div className="container-pia mt-14 mb-9">
+            <div className="flex items-center justify-center gap-4">
+              <span className="flex-1 h-px bg-gradient-to-r from-transparent to-brass/55" />
+              <span className="inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full border border-brass/40 bg-brass/10 text-brass text-[11px] font-semibold tracking-[0.16em] uppercase whitespace-nowrap">
+                <span className="text-[10px]">◆</span>
+                Our Footprint
+                <span className="text-[10px]">◆</span>
+              </span>
+              <span className="flex-1 h-px bg-gradient-to-l from-transparent to-brass/55" />
+            </div>
+          </div>
+
+          <div className="container-pia">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+              {sectorMetrics.map((s, i) => (
                 <div
-                  style={{
-                    width: '100%',
-                    background: '#ffffff',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(196, 155, 93, 0.25)',
-                    padding: '28px 24px',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    transition: 'all 0.35s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-6px)'
-                    e.currentTarget.style.borderColor = '#C49B5D'
-                    e.currentTarget.style.boxShadow = '0 10px 28px rgba(196, 155, 93, 0.18)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.25)'
-                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'
-                  }}
+                  key={i}
+                  className="bg-white rounded-lg border border-brass/25 p-6 shadow-xs flex flex-col justify-between hover:-translate-y-1.5 hover:border-brass hover:shadow-lg transition-all duration-300"
                 >
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                      <span
-                        style={{
-                          background: 'rgba(196, 155, 93, 0.12)',
-                          color: '#C49B5D',
-                          padding: '4px 12px',
-                          borderRadius: '20px',
-                          fontSize: '11px',
-                          fontWeight: 600,
-                          letterSpacing: '1px',
-                          textTransform: 'uppercase',
-                          fontFamily: 'var(--font-primary)',
-                        }}
-                      >
-                        {s.badge}
-                      </span>
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: '42px',
-                        lineHeight: '1',
-                        fontWeight: 500,
-                        color: '#000000',
-                        marginBottom: '6px',
-                      }}
-                    >
+                    <span className="inline-block bg-brass/12 text-brass px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase mb-3.5">
+                      {s.badge}
+                    </span>
+                    <div className="font-serif text-4xl leading-none font-medium text-obsidian mb-1.5">
                       {s.metric}
                     </div>
-                    <h4
-                      style={{
-                        fontFamily: 'var(--font-primary)',
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        color: '#C49B5D',
-                        marginBottom: '10px',
-                      }}
-                    >
-                      {s.label}
-                    </h4>
-                    <p
-                      style={{
-                        fontFamily: 'var(--font-primary)',
-                        fontSize: '13.5px',
-                        lineHeight: '1.65',
-                        color: 'rgba(0, 0, 0, 0.75)',
-                        margin: 0,
-                      }}
-                    >
-                      {s.desc}
-                    </p>
+                    <h3 className="text-base font-semibold text-brass mb-2.5">{s.label}</h3>
+                    <p className="text-[13.5px] leading-relaxed text-black/75 m-0">{s.desc}</p>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Architectural Section Divider between Recent Works/Stats and About Company */}
-      <div
-        style={{
-          position: 'relative',
-          background: 'linear-gradient(180deg, #F5F3ED 50%, #ffffff 50%)',
-          padding: '0 16px',
-        }}
-      >
+        {/* Architectural Section Divider */}
         <div
-          className="container"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+          className="relative px-4"
+          style={{ background: 'linear-gradient(180deg, #F5F3ED 50%, #ffffff 50%)' }}
         >
-          <span
-            style={{
-              flex: 1,
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent 0%, rgba(196, 155, 93, 0.6) 100%)',
-            }}
-          />
-          <span
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              background: '#000000',
-              border: '1.5px solid #C49B5D',
-              color: '#C49B5D',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '12px',
-              margin: '0 16px',
-              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
-              flexShrink: 0,
-            }}
-            aria-hidden="true"
-          >
-            ◆
-          </span>
-          <span
-            style={{
-              flex: 1,
-              height: '1px',
-              background: 'linear-gradient(90deg, rgba(196, 155, 93, 0.6) 0%, transparent 100%)',
-            }}
-          />
-        </div>
-      </div>
-
-      {/* About */}
-      <section className="about-area" style={{ background: '#ffffff', paddingTop: '90px' }}>
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-5 col-lg-5">
-              <div className="about-image-box">
-                <div className="inner-box">
-                  <img src="/images/resources/about-image.jpg" alt="Awesome Image" />
-                  {/* <div className="overlay">
-                    <div className="box">
-                      <div className="icon">
-                        <img src="/images/icon/home.png" alt="Home Icon" />
-                      </div>
-                    </div>
-                  </div> */}
-                </div>
-                <div className="text-box">
-                  <p>Where Vision Meets Reality</p>
-                  <h3>Md. Mozammel Hossain, <span>CEO &amp; Founder</span></h3>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-7 col-lg-7">
-              <div className="about-text">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', paddingBottom: '44px' }}>
-                  <div className="sec-title" style={{ paddingBottom: 0 }}>
-                    <p>About Company</p>
-                    <div className="title">A premier interior<br />architecture <span>&amp; design studio</span></div>
-                  </div>
-                </div>
-                <div className="inner-content">
-                  <div className="text">
-                    Plastid Interior and Architecture is not just a design firm; it's a visionary journey into the heart of spaces. With a passion for innovation and a commitment to excellence, we specialize in crafting bespoke interiors and architectural solutions that redefine living and working environments.
-                    <br /><br />
-                    From concept to completion, our team of seasoned designers and architects collaborate closely with clients to transform visions into tangible realities. With an unwavering dedication to quality craftsmanship and attention to detail, Plastid Interior and Architecture delivers timeless designs that inspire, captivate, and elevate every space.
-                  </div>
-                  <div className="more-project-button" style={{ marginTop: '24px', marginBottom: '24px' }}>
-                    <Link className="btn-two" href="/about">More About Us <ChevronRight size={14}/></Link>
-                  </div>
-                  <MissionCarousel />
-                </div>
-              </div>
-            </div>
+          <div className="container-pia flex items-center justify-center">
+            <span className="flex-1 h-px bg-gradient-to-r from-transparent to-brass/60" />
+            <span
+              className="w-9 h-9 rounded-full bg-obsidian border-[1.5px] border-brass text-brass inline-flex items-center justify-center text-xs mx-4 shadow-md shrink-0"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+            <span className="flex-1 h-px bg-gradient-to-l from-transparent to-brass/60" />
           </div>
         </div>
-      </section>
 
-      {/* Working Areas */}
-      <section className="working-area" style={{ backgroundImage: 'url(/images/parallax-background/working-bg.jpg)' }}>
-        <div className="container">
-          <div className="sec-title with-text max-width text-center">
-            <p>Working Areas</p>
-            <div className="title clr-white">Covered <span>Industries</span></div>
-            <p className="bottom-text">We create inspiring environments through uncompromising quality, functional innovation, and timeless architectural elegance.</p>
-          </div>
-          <div className="row">
-            {workingAreas.map((w, i) => (
-              <div key={i} className="col-xl-4 col-lg-4">
-                <div className="single-working-box">
-                  <div className="img-holder">
-                    <div className="inner">
-                      <img src={w.img} alt={w.title} />
-                      <div className="overlay-style-one"></div>
-                    </div>
-                  </div>
-                  <div className="text-holder">
-                    <div className="plus-icon-box"><span className="icon-plus"></span></div>
-                    <div className="outer-box">
-                      <div className="icon">
-                        <div className="inner">
-                          <div className="box">
-                            <span className={w.iconClass}></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text">
-                        <h3>{w.title}</h3>
-                        <p>{w.text}</p>
-                      </div>
-                    </div>
+        {/* About */}
+        <section className="py-20 bg-white">
+          <div className="container-pia">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+              <div className="lg:col-span-5">
+                <div className="relative rounded-lg overflow-hidden shadow-xl">
+                  <img
+                    src="/images/resources/about-image.jpg"
+                    alt="Plastid Interior & Architecture Founder"
+                    className="w-full h-auto block"
+                  />
+                  <div className="bg-obsidian/95 border-t-2 border-brass px-6 py-4">
+                    <p className="font-serif italic text-alabaster text-base mb-1">
+                      Where Vision Meets Reality
+                    </p>
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-brass m-0">
+                      Md. Mozammel Hossain,{' '}
+                      <span className="text-alabaster/75 font-normal">CEO &amp; Founder</span>
+                    </h3>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Working Process */}
-      <section className="working-process-area" style={{ paddingBottom: '90px' }}>
-        <div className="container">
-          <div className="sec-title text-center">
-            <p>To Do good design</p>
-            <div className="title">Our Working <span>process</span></div>
-          </div>
-          <div className="row d-flex flex-wrap">
-            {workingProcess.map((p, i) => (
-              <div key={i} className="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex">
-                <div className="single-working-process text-center">
-                  <div className="top-box"><span>{p.num}</span></div>
-                  <div className="inner">
-                    <h3>{p.title}</h3>
-                    <div className="process-duration-slot">
-                      {p.duration && <span className="process-duration">({p.duration})</span>}
-                    </div>
-                    <p>{p.text}</p>
-                    <div className="icon-holder">
-                      <span className={p.icon}></span>
-                    </div>
-                  </div>
+              <div className="lg:col-span-7">
+                <div className="mb-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                    About Company
+                  </p>
+                  <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian leading-tight m-0">
+                    A premier interior
+                    <br />
+                    architecture <span className="text-brass">&amp; design studio</span>
+                  </h2>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* 50% Refund Policy Highlight Banner */}
-          <div
-            style={{
-              background: '#000000',
-              borderRadius: '8px',
-              border: '1.5px solid #C49B5D',
-              padding: '28px 32px',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
-              marginTop: '10px',
-            }}
-          >
-            <div className="row align-items-center">
-              <div className="col-lg-9 col-md-8" style={{ marginBottom: '15px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '8px' }}>
-                  <span style={{ color: '#C49B5D', fontSize: '20px' }}>★</span>
-                  <h4
-                    style={{
-                      fontFamily: 'var(--font-serif)',
-                      fontSize: '22px',
-                      color: '#C49B5D',
-                      margin: 0,
-                      fontWeight: 500,
-                    }}
-                  >
-                    50% 3D Design Fee Refund Policy
-                  </h4>
-                </div>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-primary)',
-                    fontSize: '14.5px',
-                    lineHeight: '1.7',
-                    color: '#F5F3ED',
-                    margin: 0,
-                    opacity: 0.9,
-                  }}
-                >
-                  Our BDT 40/sqft 3D design fee secures your project in our pipeline, with 50% refunded after project completion when you execute the project with us.
+                <p className="text-[15px] text-ink leading-relaxed mb-4">
+                  Plastid Interior and Architecture is not just a design firm; it&apos;s a visionary
+                  journey into the heart of spaces. With a passion for innovation and a commitment to
+                  excellence, we specialize in crafting bespoke interiors and architectural solutions
+                  that redefine living and working environments.
                 </p>
-              </div>
-              <div className="col-lg-3 col-md-4 text-md-right">
-                <Link className="btn-one" href="/services" style={{ width: '100%', justifyContent: 'center' }}>
-                  See Our Services <ChevronRight size={14}/>
-                </Link>
+                <p className="text-[15px] text-ink leading-relaxed mb-6">
+                  From concept to completion, our team of seasoned designers and architects
+                  collaborate closely with clients to transform visions into tangible realities. With
+                  an unwavering dedication to quality craftsmanship and attention to detail, Plastid
+                  Interior and Architecture delivers timeless designs that inspire, captivate, and
+                  elevate every space.
+                </p>
+                <div className="mb-7">
+                  <Link className="btn-two" href="/about">
+                    More About Us <ChevronRight size={14} />
+                  </Link>
+                </div>
+                <MissionCarousel />
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      
+        {/* Working Areas */}
+        <section
+          className="relative py-20 bg-obsidian bg-cover bg-center overflow-hidden"
+          style={{ backgroundImage: 'url(/images/parallax-background/working-bg.jpg)' }}
+        >
+          <div className="absolute inset-0 bg-obsidian/80" />
+          <div className="container-pia relative z-10">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brass mb-1.5">
+                Working Areas
+              </p>
+              <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-alabaster mb-3">
+                Covered <span className="text-brass">Industries</span>
+              </h2>
+              <p className="text-sm sm:text-base text-alabaster/80 leading-relaxed m-0">
+                We create inspiring environments through uncompromising quality, functional
+                innovation, and timeless architectural elegance.
+              </p>
+            </div>
 
-
-      {/* Appointment Area */}
-      <section className="appointment-area" style={{ backgroundImage: 'url(/images/resources/appointment-bg.jpg)' }}>
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-6 col-lg-6">
-              <div className="map-content-box">
-                <div className="sec-title">
-                  <p>Start Your Journey</p>
-                  <div className="title">Ready to Transform <span>Your Space?</span></div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-7">
+              {workingAreas.map((w, i) => (
+                <div
+                  key={i}
+                  className="group bg-obsidian/90 border border-brass/30 rounded-lg overflow-hidden shadow-xl hover:-translate-y-1.5 hover:border-brass transition-all duration-300 flex flex-col"
+                >
+                  <div className="relative h-56 overflow-hidden">
+                    <img
+                      src={w.img}
+                      alt={w.title}
+                      className="w-full h-full object-cover block group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent" />
+                  </div>
+                  <div className="p-6 flex items-start gap-4 flex-1">
+                    <div className="w-12 h-12 rounded-lg bg-brass/15 border border-brass/40 text-brass flex items-center justify-center shrink-0 text-2xl">
+                      <span className={w.iconClass} />
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-2xl font-semibold text-alabaster mb-2">
+                        {w.title}
+                      </h3>
+                      <p className="text-sm text-alabaster/75 leading-relaxed m-0">{w.text}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="inner">
-                  <img src="/images/resources/map.png" alt="Map" />
-                  <div className="overlay">
-                    <div className="single-location-box one">
-                      <div className="marker-box"><span className="icon-pin"></span></div>
-                      <div className="location-info">
-                        <h3>Dhaka</h3>
-                        <p>House-11 (2nd Floor), Block-E,<br />Sector-1, Aftab Nagar,<br />Dhaka 1212<br />+880 1768834417<br />plastidarchitecture@gmail.com</p>
-                      </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Working Process */}
+        <section className="py-20 bg-alabaster">
+          <div className="container-pia">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                To Do Good Design
+              </p>
+              <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
+                Our Working <span className="text-brass">Process</span>
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {workingProcess.map((p, i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-lg border border-brass/25 p-7 text-center shadow-xs hover:-translate-y-1.5 hover:border-brass hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-obsidian text-brass border border-brass font-serif text-lg font-semibold mb-4">
+                      {p.num}
+                    </div>
+                    <h3 className="font-serif text-2xl font-semibold text-obsidian mb-1.5">
+                      {p.title}
+                    </h3>
+                    <div className="min-h-[22px] mb-2">
+                      {p.duration && (
+                        <span className="text-xs font-semibold text-ochre-dark uppercase tracking-wider">
+                          ({p.duration})
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-ink leading-relaxed mb-5">{p.text}</p>
+                  </div>
+                  <div className="text-3xl text-brass pt-3 border-t border-brass/15">
+                    <span className={p.icon} />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* 50% Refund Policy Highlight Banner */}
+            <div className="bg-obsidian rounded-lg border-[1.5px] border-brass p-7 sm:p-8 shadow-xl">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div className="md:col-span-8 lg:col-span-9">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-brass text-xl">★</span>
+                    <h3 className="font-serif text-2xl text-brass font-medium m-0">
+                      50% 3D Design Fee Refund Policy
+                    </h3>
+                  </div>
+                  <p className="text-sm sm:text-[15px] leading-relaxed text-alabaster/90 m-0">
+                    Our BDT 40/sqft 3D design fee secures your project in our pipeline, with 50%
+                    refunded after project completion when you execute the project with us.
+                  </p>
+                </div>
+                <div className="md:col-span-4 lg:col-span-3">
+                  <Link className="btn-one w-full" href="/services">
+                    See Our Services <ChevronRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Appointment Area */}
+        <section
+          className="relative py-20 bg-obsidian bg-cover bg-center"
+          style={{ backgroundImage: 'url(/images/resources/appointment-bg.jpg)' }}
+        >
+          <div className="absolute inset-0 bg-obsidian/80" />
+          <div className="container-pia relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-6">
+                <div className="mb-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brass mb-1.5">
+                    Start Your Journey
+                  </p>
+                  <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-alabaster m-0">
+                    Ready to Transform <span className="text-brass">Your Space?</span>
+                  </h2>
+                </div>
+                <div className="relative rounded-xl overflow-hidden border border-brass/35 bg-obsidian/85 p-6 shadow-xl">
+                  <img
+                    src="/images/resources/map.png"
+                    alt="Dhaka Studio Map"
+                    className="w-full h-auto opacity-35 block mb-4"
+                  />
+                  <div className="flex items-start gap-4">
+                    <div className="w-11 h-11 rounded-full bg-brass text-obsidian flex items-center justify-center shrink-0 text-lg">
+                      <span className="icon-pin" />
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-2xl text-brass font-semibold mb-1.5">
+                        Dhaka Studio
+                      </h3>
+                      <p className="text-sm text-alabaster/85 leading-relaxed m-0">
+                        House-11 (2nd Floor), Block-E, Sector-1, Aftab Nagar, Dhaka 1212
+                        <br />
+                        +880 1768834417
+                        <br />
+                        plastidarchitecture@gmail.com
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-xl-6 col-lg-6">
-              <AppointmentForm />
+              <div className="lg:col-span-6">
+                <AppointmentForm />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Testimonials */}
-      <TestimonialsSection initialList={initialTestimonials} />
+        {/* Testimonials */}
+        <TestimonialsSection initialList={initialTestimonials} />
+      </main>
 
       <Footer />
       <ScrollToTop />

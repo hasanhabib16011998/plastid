@@ -119,10 +119,11 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
   ]
 
   return (
-    <div className="boxed_wrapper">
+    <div className="min-h-screen flex flex-col bg-alabaster">
       <PIALoader />
       <Header />
 
+      <main className="flex-1">
       <Breadcrumb
         style="style2"
         title={service.heroTitle}
@@ -132,16 +133,13 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
       />
 
       {/* Single Service Area */}
-      <section className="single-service-area" style={{ padding: '80px 0 90px', background: '#F5F3ED' }}>
-        <div className="container">
-          {/* Mobile Quick Service Selector Pill Bar (< 992px) */}
+      <section className="py-20 bg-alabaster">
+        <div className="container-pia">
+          {/* Mobile Quick Service Selector Pill Bar (< 1024px) */}
           <div
-            className="d-block d-lg-none"
+            className="block lg:hidden mb-6 overflow-x-auto pb-2"
             style={{
-              marginBottom: '26px',
-              overflowX: 'auto',
               WebkitOverflowScrolling: 'touch',
-              paddingBottom: '8px',
             }}
           >
             <div style={{ display: 'flex', gap: '8px' }}>
@@ -176,9 +174,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
             </div>
           </div>
 
-          <div className="row">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Main Content (Appears FIRST on mobile, SECOND on desktop) */}
-            <article className="col-xl-8 col-lg-7 col-md-12 col-sm-12 order-1 order-lg-2">
+            <article className="lg:col-span-7 xl:col-span-8 order-1 lg:order-2">
               {/* Hero Image + At-a-Glance Commercial Specs Card */}
               <div
                 className="single-service-top"
@@ -286,7 +284,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     padding: '16px 22px',
                   }}
                 >
-                  <div className="row">
+                  <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
                     {[
                       { label: 'Typical Timeline', value: specs.timeline },
                       { label: '3D Design Rate', value: specs.designRate },
@@ -295,10 +293,8 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     ].map((item, i) => (
                       <div
                         key={i}
-                        className="col-xl-3 col-lg-6 col-md-6 col-6"
+                        className="py-1.5"
                         style={{
-                          paddingTop: '6px',
-                          paddingBottom: '6px',
                           borderRight:
                             i < 3 ? '1px solid rgba(196, 155, 93, 0.18)' : 'none',
                         }}
@@ -431,13 +427,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       Explore {service.title} Categories
                     </h3>
                   </div>
-                  <div className="row d-flex flex-wrap">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {subServices.map((sub) => (
-                      <div
-                        key={sub.slug}
-                        className="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex"
-                        style={{ marginBottom: '16px' }}
-                      >
+                      <div key={sub.slug} className="flex">
                         <Link
                           href={`/services/${sub.slug}`}
                           style={{
@@ -571,13 +563,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                   >
                     What We Deliver in {service.title}
                   </h3>
-                  <div className="row">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {service.highlights.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="col-xl-6 col-lg-6 col-md-6 col-12"
-                        style={{ marginBottom: '12px' }}
-                      >
+                      <div key={idx}>
                         <div
                           style={{
                             display: 'flex',
@@ -655,13 +643,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     </h3>
                   </div>
 
-                  <div className="row d-flex flex-wrap">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {service.advantages.map((adv, i) => (
-                      <div
-                        key={i}
-                        className="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex"
-                        style={{ marginBottom: '16px' }}
-                      >
+                      <div key={i} className="flex">
                         <div
                           style={{
                             width: '100%',
@@ -1022,13 +1006,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     </Link>
                   </div>
 
-                  <div className="row d-flex flex-wrap">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {relatedProjects.map((proj, idx) => (
-                      <div
-                        key={proj.id || idx}
-                        className="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex"
-                        style={{ marginBottom: '16px' }}
-                      >
+                      <div key={proj.id || idx} className="flex">
                         <Link
                           href={`/projects/${proj.slug || proj.id}`}
                           style={{
@@ -1285,9 +1265,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
             </article>
 
             {/* Sidebar (Appears SECOND on mobile, FIRST on desktop) */}
-            <aside
-              className="col-xl-4 col-lg-5 col-md-12 col-sm-12 order-2 order-lg-1"
-            >
+            <aside className="lg:col-span-5 xl:col-span-4 order-2 lg:order-1">
               <div className="single-service-sidebar">
                 {/* Hierarchical Tree Services Navigation */}
                 <div
@@ -1601,28 +1579,20 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
       </section>
 
       {/* Bottom CTA */}
-      <section className="slogan-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="inner-content flex-box-two fix">
-                <div className="title float-left">
-                  <h3>
-                    Ready to Start Your {service.title} Project? Book a Free
-                    Consultation.
-                  </h3>
-                </div>
-                <div className="button float-right">
-                  <Link className="btn-one" href={contactHref}>
-                    Book Free Consultation
-                    <ChevronRight size={14} />
-                  </Link>
-                </div>
-              </div>
-            </div>
+      <section className="bg-obsidian py-14 border-y border-brass/30">
+        <div className="container-pia">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-alabaster m-0">
+              Ready to Start Your {service.title} Project? Book a Free Consultation.
+            </h3>
+            <Link className="btn-one shrink-0" href={contactHref}>
+              Book Free Consultation
+              <ChevronRight size={14} />
+            </Link>
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
       <ScrollToTop />

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
 import { gsap } from 'gsap'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
@@ -11,17 +10,14 @@ import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 
 const companyPillars = [
   {
-    icon: 'icon-target',
     title: 'Bespoke Vision',
     text: 'Every project begins with understanding your unique lifestyle or business goals, translating visions into timeless architectural realities.',
   },
   {
-    icon: 'icon-wallet',
     title: 'Design Fee Credit',
     text: 'Our BDT 40/sqft 3D design fee acts as a security deposit, with 50% refunded after project completion when you execute the project with us.',
   },
   {
-    icon: 'icon-house',
     title: 'Full Turnkey Execution',
     text: 'From initial 3D blueprints to site engineering, quantity surveying, and final handover, we manage every detail seamlessly.',
   },
@@ -56,38 +52,14 @@ function CompanyTimeline() {
   const item = historyItems[index]
 
   return (
-    <div style={{ position: 'relative', marginTop: '20px' }}>
+    <div className="relative mt-5">
       {/* Year Navigation Bar */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          position: 'relative',
-          marginBottom: '50px',
-          padding: '0 20px',
-        }}
-      >
+      <div className="relative flex items-center justify-between mb-12 px-5">
         {/* Connecting Gold Line */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '40px',
-            right: '40px',
-            height: '2px',
-            background: 'rgba(196, 155, 93, 0.25)',
-            transform: 'translateY(-50%)',
-            zIndex: 0,
-          }}
-        >
+        <div className="absolute top-1/2 left-10 right-10 h-0.5 bg-brass/25 -translate-y-1/2 z-0">
           <div
-            style={{
-              height: '100%',
-              background: '#C49B5D',
-              width: `${(index / (historyItems.length - 1)) * 100}%`,
-              transition: 'width 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
+            className="h-full bg-brass transition-all duration-500"
+            style={{ width: `${(index / (historyItems.length - 1)) * 100}%` }}
           />
         </div>
 
@@ -97,54 +69,30 @@ function CompanyTimeline() {
           return (
             <button
               key={i}
+              type="button"
               onClick={() => setIndex(i)}
-              style={{
-                position: 'relative',
-                zIndex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                outline: 'none',
-                padding: 0,
-              }}
               aria-label={`Milestone ${h.year}`}
+              className="relative z-10 flex flex-col items-center bg-transparent border-0 cursor-pointer outline-none p-0"
             >
               <div
-                style={{
-                  width: isActive ? '42px' : '30px',
-                  height: isActive ? '42px' : '30px',
-                  borderRadius: '50%',
-                  backgroundColor: isActive ? '#000000' : '#ffffff',
-                  border: isActive ? '2.5px solid #C49B5D' : '2px solid rgba(196, 155, 93, 0.4)',
-                  boxShadow: isActive ? '0 0 0 4px rgba(196, 155, 93, 0.25)' : 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.35s ease',
-                  marginBottom: '10px',
-                }}
+                className={`rounded-full flex items-center justify-center transition-all duration-300 mb-2.5 ${
+                  isActive
+                    ? 'w-10.5 h-10.5 bg-obsidian border-[2.5px] border-brass shadow-[0_0_0_4px_rgba(196,155,93,0.25)]'
+                    : 'w-7.5 h-7.5 bg-white border-2 border-brass/40'
+                }`}
               >
                 <div
-                  style={{
-                    width: isActive ? '12px' : '8px',
-                    height: isActive ? '12px' : '8px',
-                    borderRadius: '50%',
-                    backgroundColor: '#C49B5D',
-                    transition: 'all 0.35s ease',
-                  }}
+                  className={`rounded-full bg-brass transition-all duration-300 ${
+                    isActive ? 'w-3 h-3' : 'w-2 h-2'
+                  }`}
                 />
               </div>
               <span
-                style={{
-                  fontFamily: 'var(--font-primary)',
-                  fontSize: isActive ? '13px' : '12px',
-                  fontWeight: isActive ? 600 : 500,
-                  color: isActive ? '#C49B5D' : 'rgba(0, 0, 0, 0.6)',
-                  transition: 'color 0.3s ease',
-                }}
+                className={`font-sans transition-colors duration-300 ${
+                  isActive
+                    ? 'text-[13px] font-semibold text-brass'
+                    : 'text-xs font-medium text-black/60'
+                }`}
               >
                 {h.year}
               </span>
@@ -154,102 +102,27 @@ function CompanyTimeline() {
       </div>
 
       {/* Active Milestone Details Card */}
-      <div
-        className="company-timeline-card"
-        style={{
-          background: '#ffffff',
-          borderRadius: '8px',
-          border: '1px solid rgba(196, 155, 93, 0.3)',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
-          overflow: 'hidden',
-          padding: '40px',
-          transition: 'all 0.4s ease',
-        }}
-      >
-        <div className="row align-items-center">
-          <div className="col-lg-6 col-md-12" style={{ marginBottom: '20px' }}>
-            <div
-              style={{
-                position: 'relative',
-                borderRadius: '6px',
-                overflow: 'hidden',
-                maxHeight: '360px',
-                boxShadow: '0 6px 20px rgba(0,0,0,0.1)',
-              }}
-            >
-              <img
-                src={item.img}
-                alt={item.title}
-                style={{
-                  width: '100%',
-                  height: '340px',
-                  objectFit: 'cover',
-                  display: 'block',
-                  transition: 'transform 0.5s ease',
-                }}
-              />
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '16px',
-                  left: '16px',
-                  background: '#000000',
-                  color: '#C49B5D',
-                  padding: '6px 14px',
-                  borderRadius: '30px',
-                  border: '1px solid #C49B5D',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '1.5px',
-                  textTransform: 'uppercase',
-                  fontFamily: 'var(--font-primary)',
-                }}
-              >
-                {item.badge}
-              </div>
+      <div className="bg-white rounded-lg border border-brass/30 shadow-md overflow-hidden p-6 sm:p-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="relative rounded-md overflow-hidden max-h-[360px] shadow-md">
+            <img
+              src={item.img}
+              alt={item.title}
+              className="w-full h-[300px] sm:h-[340px] object-cover block"
+            />
+            <div className="absolute top-4 left-4 bg-obsidian text-brass px-3.5 py-1.5 rounded-full border border-brass text-[11px] font-semibold tracking-[0.15em] uppercase">
+              {item.badge}
             </div>
           </div>
 
-          <div className="col-lg-6 col-md-12">
-            <div style={{ paddingLeft: '15px' }}>
-              <div
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: '64px',
-                  lineHeight: '1',
-                  fontWeight: 300,
-                  color: '#C49B5D',
-                  marginBottom: '10px',
-                  letterSpacing: '-1px',
-                }}
-              >
-                {item.year}
-              </div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: '28px',
-                  lineHeight: '1.25',
-                  color: '#000000',
-                  marginBottom: '18px',
-                  whiteSpace: 'pre-line',
-                  fontWeight: 500,
-                }}
-              >
-                {item.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--font-primary)',
-                  fontSize: '15px',
-                  lineHeight: '1.8',
-                  color: 'rgba(0, 0, 0, 0.8)',
-                  margin: 0,
-                }}
-              >
-                {item.text}
-              </p>
+          <div className="lg:pl-4">
+            <div className="font-serif text-5xl sm:text-6xl leading-none font-light text-brass mb-2.5 tracking-tight">
+              {item.year}
             </div>
+            <h3 className="font-serif text-2xl sm:text-[28px] leading-snug text-obsidian mb-4 whitespace-pre-line font-medium">
+              {item.title}
+            </h3>
+            <p className="text-[15px] leading-[1.8] text-black/80 m-0">{item.text}</p>
           </div>
         </div>
       </div>
@@ -273,231 +146,152 @@ export default function About({ initialTeam = [] }) {
   }, [teamList])
 
   return (
-    <div className="boxed_wrapper">
+    <div className="min-h-screen flex flex-col bg-alabaster">
       <PIALoader />
       <Header />
 
-      <Breadcrumb
-        title={<>Crafting Timeless<br /> Architecture &amp; Interiors.</>}
-        subtitle="About Plastid Interior"
-        crumbs={[
-          { label: 'Home', to: '/' },
-          { label: 'About Us' },
-        ]}
-      />
+      <main className="flex-1">
+        <Breadcrumb
+          title={
+            <>
+              Crafting Timeless
+              <br /> Architecture &amp; Interiors.
+            </>
+          }
+          subtitle="About Plastid Interior"
+          crumbs={[
+            { label: 'Home', to: '/' },
+            { label: 'About Us' },
+          ]}
+        />
 
-      {/* Company Overview & Founders */}
-      <section className="about-style2-area" style={{ padding: '90px 0 60px', background: '#F5F3ED' }}>
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-xl-5 col-lg-5" style={{ marginBottom: '30px' }}>
-              <div style={{ position: 'relative' }}>
-                <div style={{ borderRadius: '6px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
-                  <img
-                    src="/images/resources/about-image.jpg"
-                    alt="Plastid Leadership"
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                  />
-                </div>
-                {/* Founder Quote Card */}
-                <div className="about-founder-quote">
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-serif)',
-                      fontStyle: 'italic',
-                      color: '#F5F3ED',
-                      fontSize: '15px',
-                      lineHeight: '1.5',
-                      margin: '0 0 8px',
-                    }}
-                  >
-                    "Design is not just what it looks like, but how it transforms everyday life."
-                  </p>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-primary)',
-                      color: '#C49B5D',
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      letterSpacing: '1.5px',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    Md. Mozammel Hossain
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-xl-7 col-lg-7">
-              <div className="about-content-col" style={{ paddingLeft: '30px' }}>
-                <div className="sec-title" style={{ paddingBottom: '20px' }}>
-                  <p>About Company</p>
-                  <div className="title">
-                    Crafting Bespoke <span>Architectural Realities</span>
+        {/* Company Overview & Founders */}
+        <section className="py-20 bg-alabaster">
+          <div className="container-pia">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+              <div className="lg:col-span-5">
+                <div className="relative">
+                  <div className="rounded-md overflow-hidden shadow-lg">
+                    <img
+                      src="/images/resources/about-image.jpg"
+                      alt="Plastid Leadership"
+                      className="w-full h-auto block"
+                    />
+                  </div>
+                  {/* Founder Quote Card */}
+                  <div className="mt-4 sm:mt-0 sm:absolute sm:-bottom-6 sm:-right-4 sm:max-w-[300px] bg-obsidian border border-brass/50 rounded-md p-5 shadow-xl">
+                    <p className="font-serif italic text-alabaster text-[15px] leading-snug mb-2">
+                      &ldquo;Design is not just what it looks like, but how it transforms everyday
+                      life.&rdquo;
+                    </p>
+                    <span className="text-brass text-[11px] font-semibold tracking-[0.15em] uppercase">
+                      Md. Mozammel Hossain
+                    </span>
                   </div>
                 </div>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-primary)',
-                    fontSize: '15.5px',
-                    lineHeight: '1.82',
-                    color: 'rgba(0, 0, 0, 0.85)',
-                    marginBottom: '24px',
-                  }}
-                >
-                  Plastid Interior and Architecture is a premier full-service interior design and architectural execution firm based in Dhaka, Bangladesh. With a passion for structural innovation and a commitment to precision, we craft bespoke living and working environments across Bangladesh.
+              </div>
+
+              <div className="lg:col-span-7 lg:pl-6">
+                <div className="mb-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                    About Company
+                  </p>
+                  <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
+                    Crafting Bespoke <span className="text-brass">Architectural Realities</span>
+                  </h2>
+                </div>
+                <p className="text-[15.5px] leading-[1.82] text-black/85 mb-5">
+                  Plastid Interior and Architecture is a premier full-service interior design and
+                  architectural execution firm based in Dhaka, Bangladesh. With a passion for
+                  structural innovation and a commitment to precision, we craft bespoke living and
+                  working environments across Bangladesh.
                 </p>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-primary)',
-                    fontSize: '15px',
-                    lineHeight: '1.8',
-                    color: 'rgba(0, 0, 0, 0.75)',
-                    marginBottom: '30px',
-                  }}
-                >
-                  From 3D concept merchandising to full turnkey site engineering, our multi-disciplinary team collaborates closely with clients to deliver timeless spaces. Our signature design-fee credit policy ensures complete financial transparency from start to finish.
+                <p className="text-[15px] leading-[1.8] text-black/75 mb-7">
+                  From 3D concept merchandising to full turnkey site engineering, our
+                  multi-disciplinary team collaborates closely with clients to deliver timeless
+                  spaces. Our signature design-fee credit policy ensures complete financial
+                  transparency from start to finish.
                 </p>
 
                 {/* Company Pillars Mini Grid */}
-                <div className="row" style={{ marginTop: '10px' }}>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {companyPillars.map((p, i) => (
-                    <div key={i} className="col-md-4" style={{ marginBottom: '20px' }}>
-                      <div
-                        style={{
-                          background: '#ffffff',
-                          border: '1px solid rgba(196, 155, 93, 0.25)',
-                          borderRadius: '6px',
-                          padding: '18px 16px',
-                          height: '100%',
-                        }}
-                      >
-                        <h4
-                          style={{
-                            fontFamily: 'var(--font-serif)',
-                            fontSize: '17px',
-                            color: '#000000',
-                            marginBottom: '8px',
-                            fontWeight: 500,
-                          }}
-                        >
-                          {p.title}
-                        </h4>
-                        <p
-                          style={{
-                            fontFamily: 'var(--font-primary)',
-                            fontSize: '12.5px',
-                            lineHeight: '1.6',
-                            color: 'rgba(0, 0, 0, 0.7)',
-                            margin: 0,
-                          }}
-                        >
-                          {p.text}
-                        </p>
-                      </div>
+                    <div
+                      key={i}
+                      className="bg-white border border-brass/25 rounded-md p-4 h-full"
+                    >
+                      <h3 className="font-serif text-lg text-obsidian mb-2 font-medium">
+                        {p.title}
+                      </h3>
+                      <p className="text-xs leading-relaxed text-black/70 m-0">{p.text}</p>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Interactive Timeline Section */}
-      <section className="company-overview-area" style={{ padding: '80px 0 90px', background: '#ffffff' }}>
-        <div className="container">
-          <div className="sec-title text-center max-width" style={{ paddingBottom: '30px' }}>
-            <p>Our Journey</p>
-            <div className="title">Company Timeline &amp; <span>Milestones</span></div>
+        {/* Interactive Timeline Section */}
+        <section className="py-20 bg-white">
+          <div className="container-pia">
+            <div className="text-center max-w-2xl mx-auto mb-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                Our Journey
+              </p>
+              <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
+                Company Timeline &amp; <span className="text-brass">Milestones</span>
+              </h2>
+            </div>
+            <CompanyTimeline />
           </div>
-          <CompanyTimeline />
-        </div>
-      </section>
+        </section>
 
-      {/* Team Section */}
-      <section className="team-area" ref={teamRef} style={{ padding: '90px 0 80px', background: '#F5F3ED' }}>
-        <div className="container">
-          <div className="sec-title text-center max-width" style={{ paddingBottom: '40px' }}>
-            <p>Behind Our Success</p>
-            <div className="title">Expert &amp; Dedicated <span>Team</span></div>
-          </div>
+        {/* Team Section */}
+        <section ref={teamRef} className="py-20 bg-alabaster">
+          <div className="container-pia">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                Behind Our Success
+              </p>
+              <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
+                Expert &amp; Dedicated <span className="text-brass">Team</span>
+              </h2>
+            </div>
 
-          <div className="row d-flex flex-wrap">
             {teamList.length === 0 ? (
-              <div className="col-12 text-center" style={{ color: '#888', padding: '30px 0' }}>
-                <p style={{ fontSize: '15px', fontStyle: 'italic' }}>No team members added yet.</p>
+              <div className="text-center text-neutral-500 py-8">
+                <p className="text-[15px] italic">No team members added yet.</p>
               </div>
             ) : (
-              teamList.map((m, i) => (
-              <div key={i} className="col-xl-3 col-lg-4 col-md-6 col-6 team-card-col d-flex" style={{ marginBottom: '30px' }}>
-                <div
-                  className="single-team-member"
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    background: '#ffffff',
-                    borderRadius: '6px',
-                    overflow: 'hidden',
-                    border: '1px solid rgba(196, 155, 93, 0.25)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-                    transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-6px)'
-                    e.currentTarget.style.borderColor = '#C49B5D'
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(196, 155, 93, 0.18)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.25)'
-                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'
-                  }}
-                >
-                  <div className="img-holder" style={{ overflow: 'hidden', height: '260px', flexShrink: 0 }}>
-                    <img
-                      src={m.img}
-                      alt={m.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                  </div>
-                  <div className="name text-center" style={{ padding: '20px 16px', flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <p style={{ margin: '0 0 6px' }}>
-                      <span
-                        style={{
-                          color: '#C49B5D',
-                          fontSize: '11px',
-                          fontWeight: 600,
-                          letterSpacing: '1.5px',
-                          textTransform: 'uppercase',
-                          fontFamily: 'var(--font-primary)',
-                        }}
-                      >
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-7">
+                {teamList.map((m, i) => (
+                  <div
+                    key={i}
+                    className="single-team-member flex flex-col justify-between bg-white rounded-md overflow-hidden border border-brass/25 shadow-xs hover:-translate-y-1.5 hover:border-brass hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="overflow-hidden h-[240px] sm:h-[260px] shrink-0">
+                      <img
+                        src={m.img}
+                        alt={m.name}
+                        className="w-full h-full object-cover block"
+                      />
+                    </div>
+                    <div className="text-center px-4 py-5 flex-1 flex flex-col justify-center items-center">
+                      <span className="text-brass text-[11px] font-semibold tracking-[0.15em] uppercase mb-1.5">
                         {m.role}
                       </span>
-                    </p>
-                    <h3
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: '19px',
-                        color: '#000000',
-                        fontWeight: 500,
-                        margin: 0,
-                      }}
-                    >
-                      {m.name}
-                    </h3>
+                      <h3 className="font-serif text-lg sm:text-xl text-obsidian font-medium m-0">
+                        {m.name}
+                      </h3>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))
-          )}
+            )}
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
       <ScrollToTop />

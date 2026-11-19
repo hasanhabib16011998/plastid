@@ -1,7 +1,23 @@
+import { Inter, Cormorant_Garamond } from 'next/font/google'
 import './globals.css'
-import '../src/assets/css/style.css'
-import '../src/assets/css/responsive.css'
+import '../src/assets/css/icomoon.css'
+import '../src/assets/css/font-awesome.min.css'
 import { SITE_URL } from '../src/data/servicesData'
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-primary',
+  display: 'swap',
+})
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif-google',
+  display: 'swap',
+})
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -99,8 +115,8 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
+      <body className="font-sans bg-alabaster text-ink antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

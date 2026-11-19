@@ -1,18 +1,125 @@
-/* Global resets and base styles */
-* {
-  box-sizing: border-box;
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #000000;
+  --color-brass: #C49B5D;
+  --color-ochre: #9F814D;
+  --color-ochre-dark: #9F7838;
+  --color-alabaster: #F5F3ED;
+  --color-cream: #FAF8F4;
+  --color-taupe: #AF9F8A;
+  --color-ink: #6B5E4E;
+
+  --font-sans: var(--font-primary, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  --font-serif: var(--font-serif-google, "Cormorant Garamond", Georgia, serif);
 }
 
-body {
-  min-height: 100vh;
-  background-color: #F5F3ED; /* Alabaster White */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: #F5F3ED;
+    color: #6B5E4E;
+  }
 }
 
-/* Fix .collapse utility class conflict with Bootstrap/theme navigation menu */
-/* The desktop nav (.main-menu-box) always stays visible on ≥ 992px.
-   On mobile (< 992px) the entire .main-menu-box is hidden via Header.css
-   and replaced by the slide-in drawer. */
-.main-menu .navbar-collapse {
-  visibility: visible !important;
-  display: block !important;
+/* Reusable Architectural Container & Button System */
+@layer components {
+  .container-pia {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .btn-one,
+  .btn-two,
+  .btn-three {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px 28px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.35s ease, border-color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease;
+    touch-action: manipulation;
+    line-height: 1.2;
+    border-radius: 0px;
+  }
+
+  .btn-one::before,
+  .btn-two::before,
+  .btn-three::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-101%);
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+  }
+
+  .btn-one:hover::before,
+  .btn-two:hover::before,
+  .btn-three:hover::before {
+    transform: translateX(0);
+  }
+
+  .btn-one {
+    background: #000000;
+    color: #C49B5D;
+    border: 1px solid #C49B5D;
+  }
+
+  .btn-one::before {
+    background: #C49B5D;
+  }
+
+  .btn-one:hover {
+    color: #000000;
+    border-color: #C49B5D;
+  }
+
+  .btn-two {
+    background: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+  }
+
+  .btn-two::before {
+    background: #000000;
+  }
+
+  .btn-two:hover {
+    color: #C49B5D;
+    border-color: #000000;
+  }
+
+  .btn-three {
+    background: #C49B5D;
+    color: #000000;
+    border: 1px solid #C49B5D;
+  }
+
+  .btn-three::before {
+    background: #000000;
+  }
+
+  .btn-three:hover {
+    color: #C49B5D;
+    border-color: #C49B5D;
+  }
 }

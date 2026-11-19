@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ChevronUp } from 'lucide-react'
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false)
@@ -40,13 +41,16 @@ export default function ScrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  if (!visible) return null
+
   return (
-    <div
-      className={`scroll-to-top-style2 scroll-to-target${visible ? ' open' : ''}`}
-      style={{ display: visible ? 'block' : 'none' }}
+    <button
+      type="button"
+      aria-label="Scroll to top"
       onClick={handleClick}
+      className="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-obsidian text-brass border border-brass/70 shadow-lg flex items-center justify-center cursor-pointer hover:bg-brass hover:text-obsidian transition-colors"
     >
-      <span className="fa fa-angle-up"></span>
-    </div>
+      <ChevronUp size={20} />
+    </button>
   )
 }

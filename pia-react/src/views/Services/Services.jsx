@@ -38,463 +38,162 @@ const commercialPillars = [
 
 export default function Services() {
   return (
-    <div className="boxed_wrapper">
+    <div className="min-h-screen flex flex-col bg-alabaster">
       <PIALoader />
       <Header />
 
-      <Breadcrumb
-        style="style2"
-        title="Interior Design & Architectural Services"
-        subtitle="Turnkey Solutions Tailored by Space"
-        bgImage="/images/resources/breadcrumb-bg-2.jpg"
-        crumbs={[
-          { label: 'Home', to: '/' },
-          { label: 'Services' },
-        ]}
-      />
+      <main className="flex-1">
+        <Breadcrumb
+          style="style2"
+          title="Interior Design & Architectural Services"
+          subtitle="Turnkey Solutions Tailored by Space"
+          bgImage="/images/resources/breadcrumb-bg-2.jpg"
+          crumbs={[
+            { label: 'Home', to: '/' },
+            { label: 'Services' },
+          ]}
+        />
 
-      {/* Services Overview Section */}
-      <section className="services-area" style={{ padding: '85px 0 70px', background: '#F5F3ED' }}>
-        <div className="container">
-          {/* Editorial Section Header */}
-          <div
-            className="sec-title text-center"
-            style={{ maxWidth: '780px', margin: '0 auto 44px' }}
-          >
-            <p style={{ letterSpacing: '0.16em', color: '#C49B5D', fontWeight: 600 }}>
-              Architecture • Interior • Bespoke Execution
-            </p>
-            <h2
-              className="title"
-              style={{
-                fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
-                fontSize: 'clamp(32px, 4vw, 46px)',
-                fontWeight: 600,
-                lineHeight: 1.15,
-                color: '#000000',
-                textTransform: 'none',
-                marginBottom: '16px',
-              }}
-            >
-              Explore Our Services <span style={{ color: '#C49B5D', fontStyle: 'italic' }}>by Your Space</span>
-            </h2>
-            <p
-              style={{
-                marginTop: '12px',
-                color: '#4A4A4A',
-                fontSize: '15.5px',
-                lineHeight: '1.75',
-                textTransform: 'none',
-                fontWeight: 400,
-              }}
-            >
-              From newly handed-over residential apartments and multi-level villas to
-              fast-track corporate headquarters, retail showrooms, and building facades—every
-              Plastid project is engineered with photorealistic 3D clarity and itemized turnkey precision.
-            </p>
-          </div>
+        {/* Services Overview Section */}
+        <section className="py-20 bg-alabaster">
+          <div className="container-pia">
+            {/* Editorial Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-11">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brass mb-2">
+                Architecture &bull; Interior &bull; Bespoke Execution
+              </p>
+              <h2 className="font-serif text-3xl sm:text-5xl font-semibold leading-tight text-obsidian mb-4">
+                Explore Our Services <span className="text-brass italic">by Your Space</span>
+              </h2>
+              <p className="text-[#4A4A4A] text-[15.5px] leading-relaxed m-0">
+                From newly handed-over residential apartments and multi-level villas to fast-track
+                corporate headquarters, retail showrooms, and building facades—every Plastid project
+                is engineered with photorealistic 3D clarity and itemized turnkey precision.
+              </p>
+            </div>
 
-          {/* 4-Pillar Commercial Value Bar */}
-          <div className="row d-flex flex-wrap" style={{ marginBottom: '48px' }}>
-            {commercialPillars.map((pillar, idx) => (
-              <div
-                key={idx}
-                className="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex"
-                style={{ marginBottom: '20px' }}
-              >
+            {/* 4-Pillar Commercial Value Bar */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-12">
+              {commercialPillars.map((pillar, idx) => (
                 <div
-                  style={{
-                    width: '100%',
-                    background: '#000000',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(196, 155, 93, 0.38)',
-                    padding: '22px 20px',
-                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
+                  key={idx}
+                  className="bg-obsidian rounded-lg border border-brass/40 p-5 shadow-md flex flex-col justify-between"
                 >
                   <div>
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        fontSize: '10px',
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.14em',
-                        color: '#C49B5D',
-                        background: 'rgba(196, 155, 93, 0.14)',
-                        border: '1px solid rgba(196, 155, 93, 0.3)',
-                        padding: '3px 10px',
-                        borderRadius: '20px',
-                        marginBottom: '12px',
-                      }}
-                    >
+                    <span className="inline-block text-[10px] font-semibold uppercase tracking-[0.14em] text-brass bg-brass/15 border border-brass/30 px-2.5 py-0.5 rounded-full mb-3">
                       {pillar.badge}
                     </span>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
-                        fontSize: '30px',
-                        fontWeight: 600,
-                        color: '#F5F3ED',
-                        lineHeight: 1.1,
-                        marginBottom: '4px',
-                      }}
-                    >
+                    <div className="font-serif text-3xl font-semibold text-alabaster leading-tight mb-1">
                       {pillar.value}
                     </div>
-                    <h3
-                      style={{
-                        fontSize: '14px',
-                        fontWeight: 600,
-                        color: '#C49B5D',
-                        marginBottom: '8px',
-                      }}
-                    >
-                      {pillar.label}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: '12.5px',
-                        lineHeight: '1.6',
-                        color: 'rgba(245, 243, 237, 0.78)',
-                        margin: 0,
-                      }}
-                    >
-                      {pillar.desc}
-                    </p>
+                    <h3 className="text-sm font-semibold text-brass mb-2">{pillar.label}</h3>
+                    <p className="text-xs leading-relaxed text-alabaster/80 m-0">{pillar.desc}</p>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* 6 Main Service Category Cards */}
-          <div className="row d-flex flex-wrap">
-            {serviceTree.map((branch, idx) => {
-              const s = serviceData[branch.slug]
-              if (!s) return null
-              const hasChildren =
-                Array.isArray(branch.children) && branch.children.length > 0
-              const cardHighlights = !hasChildren && Array.isArray(s.highlights)
-                ? s.highlights.slice(0, 4)
-                : []
+            {/* 6 Main Service Category Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
+              {serviceTree.map((branch, idx) => {
+                const s = serviceData[branch.slug]
+                if (!s) return null
+                const hasChildren = Array.isArray(branch.children) && branch.children.length > 0
+                const cardHighlights =
+                  !hasChildren && Array.isArray(s.highlights) ? s.highlights.slice(0, 4) : []
 
-              return (
-                <div
-                  key={branch.slug}
-                  className="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex"
-                  style={{ marginBottom: '34px' }}
-                >
+                return (
                   <article
-                    className="single-service-style1"
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      background: '#ffffff',
-                      borderRadius: '10px',
-                      border: '1px solid rgba(196, 155, 93, 0.3)',
-                      overflow: 'hidden',
-                      boxShadow: '0 8px 28px rgba(0, 0, 0, 0.06)',
-                      marginBottom: 0,
-                      transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-6px)'
-                      e.currentTarget.style.borderColor = '#C49B5D'
-                      e.currentTarget.style.boxShadow = '0 16px 38px rgba(0, 0, 0, 0.12)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.3)'
-                      e.currentTarget.style.boxShadow = '0 8px 28px rgba(0, 0, 0, 0.06)'
-                    }}
+                    key={branch.slug}
+                    className="flex flex-col justify-between bg-white rounded-xl border border-brass/30 overflow-hidden shadow-md hover:-translate-y-1.5 hover:border-brass hover:shadow-xl transition-all duration-300"
                   >
                     <div>
-                      {/* Editorial Image Header with Badge & Icon Lockup */}
+                      {/* Editorial Image Header */}
                       <Link
                         href={branch.to}
                         aria-label={`Explore ${s.title}`}
-                        style={{
-                          display: 'block',
-                          position: 'relative',
-                          height: '220px',
-                          overflow: 'hidden',
-                          background: '#000000',
-                          borderBottom: '2px solid #C49B5D',
-                        }}
+                        className="group block relative h-[220px] overflow-hidden bg-obsidian border-b-2 border-brass"
                       >
                         <img
                           src={s.cardImg || s.mainImg}
                           alt={`${s.heroTitle} - Plastid Interior & Architecture`}
                           loading={idx < 3 ? 'eager' : 'lazy'}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            display: 'block',
-                            filter: 'brightness(0.88) contrast(1.04)',
-                            transition: 'transform 0.55s ease',
-                          }}
+                          className="w-full h-full object-cover block brightness-90 contrast-105 group-hover:scale-105 transition-transform duration-500"
                         />
-
-                        {/* Dark Vignette Overlay */}
-                        <div
-                          style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background:
-                              'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.12) 45%, rgba(0,0,0,0.78) 100%)',
-                          }}
-                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-black/80" />
 
                         {/* Top-Left Scope Badge */}
-                        <span
-                          style={{
-                            position: 'absolute',
-                            top: '14px',
-                            left: '16px',
-                            padding: '4px 12px',
-                            borderRadius: '20px',
-                            background: 'rgba(0, 0, 0, 0.75)',
-                            backdropFilter: 'blur(8px)',
-                            border: '1px solid rgba(196, 155, 93, 0.5)',
-                            color: '#F5F3ED',
-                            fontSize: '10.5px',
-                            fontWeight: 600,
-                            letterSpacing: '0.1em',
-                            textTransform: 'uppercase',
-                          }}
-                        >
+                        <span className="absolute top-3.5 left-4 px-3 py-1 rounded-full bg-black/75 backdrop-blur-xs border border-brass/50 text-alabaster text-[10.5px] font-semibold tracking-widest uppercase">
                           {hasChildren
                             ? `${branch.children.length} Specialized Spaces`
                             : s.subtitle || 'Turnkey Specialty'}
                         </span>
 
                         {/* Top-Right Editorial Number */}
-                        <span
-                          style={{
-                            position: 'absolute',
-                            top: '10px',
-                            right: '16px',
-                            fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
-                            fontSize: '32px',
-                            fontWeight: 600,
-                            lineHeight: 1,
-                            color: 'rgba(245, 243, 237, 0.55)',
-                          }}
-                        >
+                        <span className="absolute top-2.5 right-4 font-serif text-3xl font-semibold leading-none text-alabaster/55">
                           {String(idx + 1).padStart(2, '0')}
                         </span>
 
                         {/* Bottom-Left Timeline Pill */}
                         {s.specs?.timeline && (
-                          <span
-                            style={{
-                              position: 'absolute',
-                              bottom: '14px',
-                              left: '16px',
-                              color: '#F5F3ED',
-                              fontSize: '11.5px',
-                              fontWeight: 500,
-                              letterSpacing: '0.03em',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '6px',
-                            }}
-                          >
-                            <span
-                              style={{
-                                width: '7px',
-                                height: '7px',
-                                borderRadius: '50%',
-                                background: '#C49B5D',
-                                display: 'inline-block',
-                              }}
-                            />
+                          <span className="absolute bottom-3.5 left-4 text-alabaster text-[11.5px] font-medium tracking-wide inline-flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-brass inline-block" />
                             {s.specs.timeline}
                           </span>
                         )}
 
                         {/* Bottom-Right Floating Glass Brass Icon Badge */}
-                        <div
-                          style={{
-                            position: 'absolute',
-                            bottom: '12px',
-                            right: '16px',
-                            width: '46px',
-                            height: '46px',
-                            borderRadius: '10px',
-                            background: 'rgba(0, 0, 0, 0.85)',
-                            border: '1px solid #C49B5D',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 4px 14px rgba(0,0,0,0.35)',
-                          }}
-                        >
-                          <span
-                            className={s.icon}
-                            style={{ fontSize: '24px', color: '#C49B5D', lineHeight: 1 }}
-                          />
+                        <div className="absolute bottom-3 right-4 w-11.5 h-11.5 rounded-lg bg-black/85 border border-brass flex items-center justify-center shadow-lg">
+                          <span className={`${s.icon} text-2xl text-brass leading-none`} />
                         </div>
                       </Link>
 
                       {/* Card Body */}
-                      <div
-                        className="text-holder"
-                        style={{ padding: '24px 24px 16px' }}
-                      >
-                        <h3
-                          style={{
-                            marginBottom: '10px',
-                            fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
-                            fontSize: '26px',
-                            fontWeight: 600,
-                            lineHeight: 1.2,
-                          }}
-                        >
+                      <div className="px-6 pt-6 pb-4">
+                        <h3 className="font-serif text-[26px] font-semibold leading-tight mb-2.5">
                           <Link
                             href={branch.to}
-                            style={{ color: '#000000', textDecoration: 'none' }}
+                            className="text-obsidian hover:text-ochre-dark transition-colors no-underline"
                           >
                             {s.title}
                           </Link>
                         </h3>
-                        <p
-                          style={{
-                            marginBottom: '16px',
-                            color: '#555',
-                            fontSize: '14px',
-                            lineHeight: '1.65',
-                          }}
-                        >
-                          {s.shortText}
-                        </p>
+                        <p className="text-[#555] text-sm leading-relaxed mb-4">{s.shortText}</p>
 
-                        {/* Sub-Services Tree Links (for Residential & Commercial) */}
+                        {/* Sub-Services Tree Links */}
                         {hasChildren && (
-                          <div
-                            style={{
-                              marginTop: '14px',
-                              paddingTop: '14px',
-                              borderTop: '1px solid rgba(196, 155, 93, 0.22)',
-                            }}
-                          >
-                            <span
-                              style={{
-                                display: 'block',
-                                fontSize: '11px',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.1em',
-                                color: '#9F7838',
-                                marginBottom: '10px',
-                              }}
-                            >
+                          <div className="mt-3.5 pt-3.5 border-t border-brass/25">
+                            <span className="block text-[11px] font-bold uppercase tracking-widest text-ochre-dark mb-2.5">
                               Select Specialized Space:
                             </span>
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                gap: '7px',
-                              }}
-                            >
+                            <div className="flex flex-wrap gap-1.5">
                               {branch.children.map((child) => (
                                 <Link
                                   key={child.slug}
                                   href={child.to}
-                                  style={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: '6px',
-                                    padding: '6px 11px',
-                                    borderRadius: '6px',
-                                    background: '#FAF8F4',
-                                    border: '1px solid rgba(196, 155, 93, 0.32)',
-                                    fontSize: '12.5px',
-                                    fontWeight: 600,
-                                    color: '#1a1a1a',
-                                    textDecoration: 'none',
-                                    transition: 'all 0.2s ease',
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = '#000000'
-                                    e.currentTarget.style.color = '#C49B5D'
-                                    e.currentTarget.style.borderColor = '#000000'
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = '#FAF8F4'
-                                    e.currentTarget.style.color = '#1a1a1a'
-                                    e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.32)'
-                                  }}
+                                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-cream border border-brass/35 text-xs font-semibold text-neutral-900 no-underline hover:bg-obsidian hover:text-brass hover:border-obsidian transition-colors"
                                 >
                                   <span>{child.label}</span>
-                                  <ChevronRight color='#C49B5D' size={14}/>
+                                  <ChevronRight className="text-brass" size={14} />
                                 </Link>
                               ))}
                             </div>
                           </div>
                         )}
 
-                        {/* Core Deliverables List (for Standalone Specialties so all cards match in height & depth) */}
+                        {/* Core Deliverables List */}
                         {!hasChildren && cardHighlights.length > 0 && (
-                          <div
-                            style={{
-                              marginTop: '14px',
-                              paddingTop: '14px',
-                              borderTop: '1px solid rgba(196, 155, 93, 0.22)',
-                            }}
-                          >
-                            <span
-                              style={{
-                                display: 'block',
-                                fontSize: '11px',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.1em',
-                                color: '#9F7838',
-                                marginBottom: '8px',
-                              }}
-                            >
+                          <div className="mt-3.5 pt-3.5 border-t border-brass/25">
+                            <span className="block text-[11px] font-bold uppercase tracking-widest text-ochre-dark mb-2">
                               Key Deliverables:
                             </span>
-                            <ul
-                              style={{
-                                listStyle: 'none',
-                                padding: 0,
-                                margin: 0,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '6px',
-                              }}
-                            >
+                            <ul className="list-none p-0 m-0 space-y-1.5">
                               {cardHighlights.map((item, i) => (
                                 <li
                                   key={i}
-                                  style={{
-                                    display: 'flex',
-                                    alignItems: 'flex-start',
-                                    gap: '8px',
-                                    fontSize: '12.5px',
-                                    lineHeight: '1.45',
-                                    color: '#333',
-                                  }}
+                                  className="flex items-start gap-2 text-xs leading-snug text-neutral-700"
                                 >
-                                  <span
-                                    style={{
-                                      color: '#C49B5D',
-                                      fontWeight: 700,
-                                      flexShrink: 0,
-                                    }}
-                                  >
-                                    ✓
-                                  </span>
+                                  <span className="text-brass font-bold shrink-0">✓</span>
                                   <span>{item}</span>
                                 </li>
                               ))}
@@ -505,186 +204,77 @@ export default function Services() {
                     </div>
 
                     {/* Card Footer Actions */}
-                    <div style={{ padding: '12px 24px 24px' }}>
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          gap: '10px',
-                          paddingTop: '12px',
-                          borderTop: '1px solid #f0ece3',
-                        }}
-                      >
+                    <div className="px-6 pt-3 pb-6">
+                      <div className="pt-3 border-t border-[#f0ece3]">
                         <Link
-                          className="btn-one"
+                          className="btn-one w-full min-h-[46px] px-3.5 py-3 text-[11px] tracking-[1.2px] gap-2 leading-tight text-center"
                           href={branch.to}
-                          style={{
-                            flex: 1,
-                            width: '100%',
-                            minHeight: '46px',
-                            textAlign: 'center',
-                            padding: '12px 14px',
-                            fontSize: '11px',
-                            letterSpacing: '1.2px',
-                            gap: '8px',
-                            lineHeight: 1.25,
-                          }}
                         >
                           Explore {s.title}
-                          <ChevronRight size={14} style={{ flexShrink: 0 }} />
+                          <ChevronRight size={14} className="shrink-0" />
                         </Link>
                       </div>
                     </div>
                   </article>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Complete 15-Service Directory for Fast Navigation & Internal SEO Linking */}
-          <div
-            style={{
-              marginTop: '30px',
-              padding: '32px 30px',
-              background: '#ffffff',
-              borderRadius: '10px',
-              border: '1px solid rgba(196, 155, 93, 0.32)',
-              boxShadow: '0 6px 24px rgba(0, 0, 0, 0.04)',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '12px',
-                marginBottom: '20px',
-                paddingBottom: '14px',
-                borderBottom: '1px solid rgba(196, 155, 93, 0.2)',
-              }}
-            >
-              <div>
-                <span
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.14em',
-                    color: '#C49B5D',
-                    display: 'block',
-                    marginBottom: '4px',
-                  }}
-                >
-                  Complete Service Index
-                </span>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
-                    fontSize: '26px',
-                    fontWeight: 600,
-                    color: '#000000',
-                    margin: 0,
-                  }}
-                >
-                  All 15 Specialized Design &amp; Execution Services
-                </h3>
-              </div>
-              <Link
-                href="/contact"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: '#9F7838',
-                  textDecoration: 'none',
-                }}
-              >
-                Need help choosing? Speak with an Architect <ChevronRight size={14} />
-              </Link>
+                )
+              })}
             </div>
 
-            <div className="row">
-              {allServicesList.map((svc, i) => (
-                <div
-                  key={svc.slug}
-                  className="col-xl-4 col-lg-4 col-md-6 col-sm-12"
-                  style={{ marginBottom: '10px' }}
+            {/* Complete 15-Service Directory */}
+            <div className="mt-10 p-6 sm:p-8 bg-white rounded-xl border border-brass/35 shadow-xs">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-3.5 border-b border-brass/20">
+                <div>
+                  <span className="block text-[11px] font-bold uppercase tracking-[0.14em] text-brass mb-1">
+                    Complete Service Index
+                  </span>
+                  <h3 className="font-serif text-2xl sm:text-[26px] font-semibold text-obsidian m-0">
+                    All 15 Specialized Design &amp; Execution Services
+                  </h3>
+                </div>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-1 text-[13px] font-semibold text-ochre-dark hover:text-obsidian no-underline transition-colors"
                 >
+                  Need help choosing? Speak with an Architect <ChevronRight size={14} />
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                {allServicesList.map((svc, i) => (
                   <Link
+                    key={svc.slug}
                     href={`/services/${svc.slug}`}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '10px 14px',
-                      borderRadius: '6px',
-                      background: '#FAF8F4',
-                      border: '1px solid rgba(196, 155, 93, 0.22)',
-                      textDecoration: 'none',
-                      color: '#111',
-                      fontSize: '13.5px',
-                      fontWeight: 500,
-                      transition: 'all 0.2s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#000000'
-                      e.currentTarget.style.color = '#F5F3ED'
-                      e.currentTarget.style.borderColor = '#C49B5D'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#FAF8F4'
-                      e.currentTarget.style.color = '#111'
-                      e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.22)'
-                    }}
+                    className="flex items-center justify-between px-3.5 py-2.5 rounded-md bg-cream border border-brass/25 text-neutral-900 text-[13.5px] font-medium no-underline hover:bg-obsidian hover:text-alabaster hover:border-brass transition-colors"
                   >
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span
-                        style={{
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          color: '#C49B5D',
-                          minWidth: '20px',
-                        }}
-                      >
+                    <span className="flex items-center gap-2.5">
+                      <span className="text-[11px] font-bold text-brass min-w-[20px]">
                         {String(i + 1).padStart(2, '0')}.
                       </span>
                       <span>{svc.heroTitle}</span>
                     </span>
-                    <ChevronRight color="#C49B5D" size={14} />
+                    <ChevronRight className="text-brass shrink-0" size={14} />
                   </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Refined Architectural CTA Banner */}
-      <section className="slogan-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="inner-content flex-box-two fix">
-                <div className="title float-left">
-                  <h3>
-                    Planning a Residential or Commercial Project? Book a Free Architectural Consultation.
-                  </h3>
-                </div>
-                <div className="button float-right">
-                  <Link className="btn-one" href="/contact">
-                    Book Free Consultation
-                    <ChevronRight size={14} />
-                  </Link>
-                </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Architectural CTA Banner */}
+        <section className="bg-obsidian py-14 border-y border-brass/30">
+          <div className="container-pia">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+              <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-alabaster m-0">
+                Planning a Residential or Commercial Project? Book a Free Architectural
+                Consultation.
+              </h3>
+              <Link className="btn-one shrink-0" href="/contact">
+                Book Free Consultation <ChevronRight size={14} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
       <ScrollToTop />

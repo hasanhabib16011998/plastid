@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { ChevronDown } from 'lucide-react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -12,73 +13,71 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <div className="boxed_wrapper">
+    <div className="min-h-screen flex flex-col bg-alabaster">
       <PIALoader />
       <Header />
 
-      <Breadcrumb
-        style="style2"
-        title="Find Answers to Your Queries"
-        subtitle="Customers FAQ's"
-        bgImage="/images/resources/breadcrumb-bg-2.jpg"
-        crumbs={[
-          { label: 'Home', to: '/' },
-          { label: "FAQ's" },
-        ]}
-      />
+      <main className="flex-1">
+        <Breadcrumb
+          style="style2"
+          title="Find Answers to Your Queries"
+          subtitle="Customers FAQ's"
+          bgImage="/images/resources/breadcrumb-bg-2.jpg"
+          crumbs={[
+            { label: 'Home', to: '/' },
+            { label: "FAQ's" },
+          ]}
+        />
 
-      <section className="faq-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="faq-content-box">
-                <div className="accordion-box">
-                  {faqItems.map((item, i) => (
-                    <div key={i} className="accordion accordion-block">
-                      <div
-                        className={`accord-btn${openIndex === i ? ' active' : ''}`}
-                        onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
+        <section className="py-20 bg-alabaster">
+          <div className="container-pia max-w-4xl">
+            <div className="space-y-4">
+              {faqItems.map((item, i) => {
+                const isOpen = openIndex === i
+                return (
+                  <div
+                    key={i}
+                    className={`rounded-lg bg-white border transition-colors overflow-hidden shadow-xs ${
+                      isOpen ? 'border-brass' : 'border-brass/25'
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenIndex(isOpen ? -1 : i)}
+                      className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-transparent border-0 cursor-pointer"
+                    >
+                      <h2 className="font-serif text-xl sm:text-2xl font-semibold text-obsidian m-0 leading-snug">
+                        {item.question}
+                      </h2>
+                      <span
+                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                          isOpen
+                            ? 'bg-brass text-obsidian rotate-180'
+                            : 'bg-brass/15 text-brass rotate-0'
+                        }`}
                       >
-                        <h4>{item.question}</h4>
-                        <div
-                          style={{
-                            width: '32px',
-                            height: '32px',
-                            borderRadius: '50%',
-                            background: openIndex === i ? '#C49B5D' : 'rgba(196, 155, 93, 0.12)',
-                            color: openIndex === i ? '#000000' : '#C49B5D',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0,
-                            marginLeft: '16px',
-                            transform: openIndex === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                            transition: 'transform 0.35s ease, background 0.35s ease, color 0.35s ease',
-                          }}
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="6 9 12 15 18 9" />
-                          </svg>
-                        </div>
-                      </div>
-                      <div
-                        className="accord-content"
-                        style={{
-                          maxHeight: openIndex === i ? '500px' : '0',
-                          overflow: 'hidden',
-                          transition: 'max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                        }}
-                      >
-                        <p>{item.answer}</p>
+                        <ChevronDown size={15} />
+                      </span>
+                    </button>
+                    <div
+                      className={`grid transition-all duration-300 ${
+                        isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="px-6 pb-6 pt-0 text-sm sm:text-[15px] text-ink leading-relaxed m-0 border-t border-brass/15 pt-4">
+                          {item.answer}
+                        </p>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
       <ScrollToTop />
