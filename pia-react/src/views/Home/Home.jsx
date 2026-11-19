@@ -423,7 +423,7 @@ function HeroSlider() {
             </div>
             <div className="btn-box">
               <Link className="btn-one" href={slide.btnTo}>
-                {slide.btnLabel}<span className="flaticon-next"></span>
+                {slide.btnLabel}<ChevronRight size={14} />
               </Link>
             </div>
           </div>
@@ -963,7 +963,7 @@ function ProjectsCarousel({ initialProjects = [] }) {
               <div className="overlay-content">
                 <div className="inner-content">
                   <div className="link-box">
-                    <Link className="btn-one" href={`/projects/${p.slug || p.id}`}>View Details<span className="flaticon-next"></span></Link>
+                    <Link className="btn-one" href={`/projects/${p.slug || p.id}`}>View Details<ChevronRight size={14} /></Link>
                   </div>
                 </div>
               </div>

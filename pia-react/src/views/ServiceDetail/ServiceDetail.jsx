@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -271,7 +272,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       }}
                     >
                       <span>Book Consultation for {service.title}</span>
-                      <span>→</span>
+                      <ChevronRight size={14} />
                     </Link>
                   </div>
                 </div>
@@ -509,6 +510,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           >
                             <span
                               style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
                                 fontSize: '11.5px',
                                 fontWeight: 700,
                                 color: '#9F7838',
@@ -516,7 +520,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                 letterSpacing: '0.08em',
                               }}
                             >
-                              View Scope &amp; Process →
+                              View Scope &amp; Process <ChevronRight size={14} />
                             </span>
                             {sub.specs?.timeline && (
                               <span style={{ fontSize: '11px', color: '#777' }}>
@@ -916,9 +920,15 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       {activeSlug !== '3d-and-design-consultancy' && (
                         <Link
                           href="/services/3d-and-design-consultancy"
-                          style={{ color: '#C49B5D', textDecoration: 'underline' }}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '2px',
+                            color: '#C49B5D',
+                            textDecoration: 'underline',
+                          }}
                         >
-                          Learn about 3D Consultancy →
+                          Learn about 3D Consultancy <ChevronRight size={14} />
                         </Link>
                       )}
                     </p>
@@ -926,6 +936,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                   <Link
                     href={contactHref}
                     style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
                       padding: '11px 20px',
                       borderRadius: '6px',
                       background: '#C49B5D',
@@ -938,7 +951,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    Book Site Visit →
+                    Book Site Visit <ChevronRight size={14} />
                   </Link>
                 </div>
               </div>
@@ -994,6 +1007,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     <Link
                       href="/projects"
                       style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
                         fontSize: '12.5px',
                         fontWeight: 700,
                         textTransform: 'uppercase',
@@ -1002,7 +1018,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         textDecoration: 'none',
                       }}
                     >
-                      View All Projects →
+                      View All Projects <ChevronRight size={14} />
                     </Link>
                   </div>
 
@@ -1075,12 +1091,15 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                             </h4>
                             <span
                               style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
                                 fontSize: '12px',
                                 fontWeight: 600,
                                 color: '#9F7838',
                               }}
                             >
-                              View Case Study →
+                              View Case Study <ChevronRight size={14} />
                             </span>
                           </div>
                         </Link>
@@ -1244,6 +1263,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         key={sib.slug}
                         href={`/services/${sib.slug}`}
                         style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
                           padding: '8px 14px',
                           borderRadius: '6px',
                           background: '#FAF8F4',
@@ -1254,7 +1276,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           textDecoration: 'none',
                         }}
                       >
-                        {sib.title} →
+                        {sib.title} <ChevronRight size={14} />
                       </Link>
                     ))}
                   </div>
@@ -1304,12 +1326,15 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     <Link
                       href="/services"
                       style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
                         fontSize: '12px',
                         color: 'rgba(245, 243, 237, 0.75)',
                         textDecoration: 'none',
                       }}
                     >
-                      Overview →
+                      Overview <ChevronRight size={14} />
                     </Link>
                   </div>
 
@@ -1495,7 +1520,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     <div className="button" style={{ paddingTop: '24px' }}>
                       <Link className="btn-one" href={contactHref}>
                         Book Free Consultation
-                        <span className="flaticon-next" />
+                        <ChevronRight size={14} />
                       </Link>
                     </div>
                   </div>
@@ -1566,7 +1591,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     }}
                   >
                     <span>Request Estimate &amp; BOQ</span>
-                    <span>→</span>
+                    <ChevronRight size={14} />
                   </Link>
                 </div>
               </div>
@@ -1590,7 +1615,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                 <div className="button float-right">
                   <Link className="btn-one" href={contactHref}>
                     Book Free Consultation
-                    <span className="flaticon-next" />
+                    <ChevronRight size={14} />
                   </Link>
                 </div>
               </div>

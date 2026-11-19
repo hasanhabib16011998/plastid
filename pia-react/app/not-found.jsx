@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
 import Header from '../src/components/Header/Header'
 import Footer from '../src/components/Footer/Footer'
 
@@ -16,7 +17,7 @@ export default function NotFound() {
             The page you are looking for does not exist or has been moved.
           </p>
           <Link href="/" className="btn-one">
-            Back to Home<span className="flaticon-next"></span>
+            Back to Home<ChevronRight size={14} />
           </Link>
         </div>
       </section>

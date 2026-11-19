@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -147,7 +148,7 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
                 </div>
                 <div className="button float-right">
                   <Link className="btn-one" href="/contact">
-                    Book a Consultation<span className="flaticon-next"></span>
+                    Book a Consultation<ChevronRight size={14} />
                   </Link>
                 </div>
               </div>

@@ -58,7 +58,7 @@ export default function ProjectSingle({ project }) {
             <h2 style={{ fontSize: '28px', color: '#000000', marginBottom: '16px' }}>Project Not Found</h2>
             <p style={{ color: '#666', marginBottom: '24px' }}>The requested project could not be found.</p>
             <Link href="/projects" className="btn-one">
-              Back to All Projects <span className="flaticon-next"></span>
+              Back to All Projects <ChevronRight size={14} />
             </Link>
           </div>
         </section>

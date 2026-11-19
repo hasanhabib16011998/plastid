@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
@@ -434,7 +435,7 @@ export default function Services() {
                                   }}
                                 >
                                   <span>{child.label}</span>
-                                  <span style={{ color: '#C49B5D', fontSize: '12px' }}>→</span>
+                                  <ChevronRight color='#C49B5D' size={14}/>
                                 </Link>
                               ))}
                             </div>
@@ -520,40 +521,18 @@ export default function Services() {
                           href={branch.to}
                           style={{
                             flex: 1,
+                            width: '100%',
+                            minHeight: '46px',
                             textAlign: 'center',
-                            padding: '11px 16px',
-                            fontSize: '12px',
+                            padding: '12px 14px',
+                            fontSize: '11px',
+                            letterSpacing: '1.2px',
+                            gap: '8px',
+                            lineHeight: 1.25,
                           }}
                         >
                           Explore {s.title}
-                          <span className="flaticon-next" />
-                        </Link>
-                        <Link
-                          href={`/contact?service=${encodeURIComponent(s.slug)}`}
-                          style={{
-                            padding: '11px 14px',
-                            borderRadius: '4px',
-                            border: '1px solid rgba(196, 155, 93, 0.55)',
-                            background: '#FAF8F4',
-                            color: '#000000',
-                            fontSize: '11.5px',
-                            fontWeight: 700,
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.06em',
-                            textDecoration: 'none',
-                            whiteSpace: 'nowrap',
-                            transition: 'all 0.25s ease',
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = '#C49B5D'
-                            e.currentTarget.style.borderColor = '#C49B5D'
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = '#FAF8F4'
-                            e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.55)'
-                          }}
-                        >
-                          Get Quote
+                          <ChevronRight size={14} style={{ flexShrink: 0 }} />
                         </Link>
                       </div>
                     </div>
@@ -615,13 +594,16 @@ export default function Services() {
               <Link
                 href="/contact"
                 style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
                   fontSize: '13px',
                   fontWeight: 600,
                   color: '#9F7838',
                   textDecoration: 'none',
                 }}
               >
-                Need help choosing? Speak with an Architect →
+                Need help choosing? Speak with an Architect <ChevronRight size={14} />
               </Link>
             </div>
 
@@ -672,7 +654,7 @@ export default function Services() {
                       </span>
                       <span>{svc.heroTitle}</span>
                     </span>
-                    <span style={{ color: '#C49B5D', fontSize: '13px' }}>→</span>
+                    <ChevronRight color="#C49B5D" size={14} />
                   </Link>
                 </div>
               ))}
@@ -695,7 +677,7 @@ export default function Services() {
                 <div className="button float-right">
                   <Link className="btn-one" href="/contact">
                     Book Free Consultation
-                    <span className="flaticon-next" />
+                    <ChevronRight size={14} />
                   </Link>
                 </div>
               </div>
