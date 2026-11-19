@@ -156,9 +156,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       whiteSpace: 'nowrap',
                       fontSize: '13px',
                       fontWeight: 600,
-                      background: isSelected ? '#C49B5D' : '#000000',
-                      color: isSelected ? '#000000' : '#F5F3ED',
-                      border: '1px solid #C49B5D',
+                      background: isSelected ? '#C5A46D' : '#141312',
+                      color: isSelected ? '#141312' : '#F6F4EF',
+                      border: '1px solid #C5A46D',
                       textDecoration: 'none',
                       transition: 'all 0.25s ease',
                       flexShrink: 0,
@@ -181,11 +181,11 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
               <div
                 className="single-service-top"
                 style={{
-                  background: '#ffffff',
+                  background: '#FCFBF9',
                   borderRadius: '10px',
-                  border: '1px solid rgba(196, 155, 93, 0.28)',
+                  border: '1px solid #E2DDD5',
                   overflow: 'hidden',
-                  boxShadow: '0 8px 28px rgba(0, 0, 0, 0.05)',
+                  boxShadow: 'none',
                   marginBottom: '32px',
                 }}
               >
@@ -196,7 +196,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     position: 'relative',
                     height: '380px',
                     overflow: 'hidden',
-                    background: '#000000',
+                    background: '#141312',
                   }}
                 >
                   <img
@@ -236,7 +236,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       fontWeight: 600,
                       letterSpacing: '0.08em',
                       textTransform: 'uppercase',
-                      color: '#C49B5D',
+                      color: '#C5A46D',
                     }}
                   >
                     <span className={service.icon} style={{ fontSize: '14px' }} />
@@ -259,8 +259,8 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         gap: '8px',
                         padding: '10px 18px',
                         borderRadius: '6px',
-                        background: '#C49B5D',
-                        color: '#000000',
+                        background: '#C5A46D',
+                        color: '#141312',
                         fontSize: '12px',
                         fontWeight: 700,
                         textTransform: 'uppercase',
@@ -278,9 +278,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                 {/* At-a-Glance Commercial Specs Strip */}
                 <div
                   style={{
-                    background: '#000000',
-                    borderTop: '2px solid #C49B5D',
-                    borderBottom: '1px solid rgba(196, 155, 93, 0.25)',
+                    background: '#141312',
+                    borderTop: '2px solid #C5A46D',
+                    borderBottom: '1px solid #E2DDD5',
                     padding: '16px 22px',
                   }}
                 >
@@ -317,7 +317,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                             display: 'block',
                             fontSize: '13.5px',
                             fontWeight: 700,
-                            color: '#C49B5D',
+                            color: '#C5A46D',
                           }}
                         >
                           {item.value}
@@ -341,7 +341,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           fontWeight: 700,
                           textTransform: 'uppercase',
                           letterSpacing: '0.1em',
-                          color: '#9F7838',
+                          color: '#9A7B4F',
                           textDecoration: 'none',
                         }}
                       >
@@ -356,7 +356,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       fontSize: 'clamp(26px, 3vw, 34px)',
                       lineHeight: 1.22,
                       fontWeight: 600,
-                      color: '#000000',
+                      color: '#141312',
                       textTransform: 'none',
                       marginBottom: '16px',
                     }}
@@ -395,7 +395,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                   style={{
                     marginBottom: '32px',
                     padding: '28px 28px 14px',
-                    background: '#ffffff',
+                    background: '#FCFBF9',
                     borderRadius: '10px',
                     border: '1px solid rgba(196, 155, 93, 0.32)',
                     boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
@@ -408,7 +408,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.14em',
-                        color: '#C49B5D',
+                        color: '#C5A46D',
                         display: 'block',
                         marginBottom: '4px',
                       }}
@@ -420,7 +420,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
                         fontSize: '26px',
                         fontWeight: 600,
-                        color: '#000000',
+                        color: '#141312',
                         margin: 0,
                       }}
                     >
@@ -438,19 +438,19 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                             flexDirection: 'column',
                             justifyContent: 'space-between',
                             padding: '20px 22px',
-                            background: '#FAF8F4',
+                            background: '#FCFBF9',
                             borderRadius: '8px',
-                            border: '1px solid rgba(196, 155, 93, 0.28)',
+                            border: '1px solid #E2DDD5',
                             textDecoration: 'none',
                             transition: 'all 0.25s ease',
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.borderColor = '#C49B5D'
+                            e.currentTarget.style.borderColor = '#C5A46D'
                             e.currentTarget.style.transform = 'translateY(-3px)'
                             e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.07)'
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.borderColor = 'rgba(196, 155, 93, 0.28)'
+                            e.currentTarget.style.borderColor = '#E2DDD5'
                             e.currentTarget.style.transform = 'translateY(0)'
                             e.currentTarget.style.boxShadow = 'none'
                           }}
@@ -469,7 +469,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                   fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
                                   fontSize: '21px',
                                   fontWeight: 600,
-                                  color: '#000000',
+                                  color: '#141312',
                                   margin: 0,
                                 }}
                               >
@@ -477,7 +477,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               </h4>
                               <span
                                 className={sub.icon}
-                                style={{ fontSize: '22px', color: '#C49B5D' }}
+                                style={{ fontSize: '22px', color: '#C5A46D' }}
                               />
                             </div>
                             <p
@@ -507,7 +507,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                 gap: '4px',
                                 fontSize: '11.5px',
                                 fontWeight: 700,
-                                color: '#9F7838',
+                                color: '#9A7B4F',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.08em',
                               }}
@@ -533,9 +533,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                   style={{
                     marginBottom: '32px',
                     padding: '28px 30px',
-                    background: '#ffffff',
+                    background: '#FCFBF9',
                     borderRadius: '10px',
-                    border: '1px solid rgba(196, 155, 93, 0.28)',
+                    border: '1px solid #E2DDD5',
                     boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
                   }}
                 >
@@ -545,7 +545,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       letterSpacing: '0.14em',
-                      color: '#C49B5D',
+                      color: '#C5A46D',
                       display: 'block',
                       marginBottom: '4px',
                     }}
@@ -557,7 +557,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
                       fontSize: '26px',
                       fontWeight: 600,
-                      color: '#000000',
+                      color: '#141312',
                       marginBottom: '18px',
                     }}
                   >
@@ -573,8 +573,8 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                             gap: '12px',
                             padding: '12px 14px',
                             borderRadius: '6px',
-                            background: '#FAF8F4',
-                            border: '1px solid rgba(196, 155, 93, 0.2)',
+                            background: '#FCFBF9',
+                            border: '1px solid #E2DDD5',
                             height: '100%',
                           }}
                         >
@@ -584,7 +584,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               height: '22px',
                               borderRadius: '50%',
                               background: 'rgba(196, 155, 93, 0.18)',
-                              color: '#9F7838',
+                              color: '#9A7B4F',
                               fontWeight: 700,
                               fontSize: '12px',
                               display: 'inline-flex',
@@ -623,7 +623,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.14em',
-                        color: '#C49B5D',
+                        color: '#C5A46D',
                         display: 'block',
                         marginBottom: '4px',
                       }}
@@ -635,7 +635,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
                         fontSize: '26px',
                         fontWeight: 600,
-                        color: '#000000',
+                        color: '#141312',
                         margin: 0,
                       }}
                     >
@@ -651,9 +651,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                             width: '100%',
                             padding: '22px 22px',
                             borderRadius: '8px',
-                            background: '#ffffff',
-                            border: '1px solid rgba(196, 155, 93, 0.28)',
-                            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
+                            background: '#FCFBF9',
+                            border: '1px solid #E2DDD5',
+                            boxShadow: 'none',
                             display: 'flex',
                             alignItems: 'flex-start',
                             gap: '16px',
@@ -664,8 +664,8 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               width: '48px',
                               height: '48px',
                               borderRadius: '10px',
-                              background: '#000000',
-                              border: '1px solid #C49B5D',
+                              background: '#141312',
+                              border: '1px solid #C5A46D',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -674,7 +674,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           >
                             <span
                               className={adv.icon}
-                              style={{ fontSize: '24px', color: '#C49B5D', lineHeight: 1 }}
+                              style={{ fontSize: '24px', color: '#C5A46D', lineHeight: 1 }}
                             />
                           </div>
                           <div>
@@ -682,7 +682,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               style={{
                                 fontSize: '16px',
                                 fontWeight: 700,
-                                color: '#000000',
+                                color: '#141312',
                                 marginBottom: '6px',
                                 lineHeight: 1.3,
                               }}
@@ -713,9 +713,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                 style={{
                   marginBottom: '32px',
                   padding: '30px 30px',
-                  background: '#ffffff',
+                  background: '#FCFBF9',
                   borderRadius: '10px',
-                  border: '1px solid rgba(196, 155, 93, 0.28)',
+                  border: '1px solid #E2DDD5',
                   boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
                 }}
               >
@@ -725,7 +725,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.14em',
-                    color: '#C49B5D',
+                    color: '#C5A46D',
                     display: 'block',
                     marginBottom: '4px',
                   }}
@@ -738,7 +738,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     marginBottom: '8px',
                     fontSize: '26px',
                     fontWeight: 600,
-                    color: '#000000',
+                    color: '#141312',
                   }}
                 >
                   How We Execute {service.title}
@@ -772,7 +772,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           gap: '16px',
                           padding: '16px 18px',
                           borderRadius: '8px',
-                          background: '#FAF8F4',
+                          background: '#FCFBF9',
                           border: '1px solid rgba(196, 155, 93, 0.22)',
                         }}
                       >
@@ -781,9 +781,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                             width: '36px',
                             height: '36px',
                             borderRadius: '8px',
-                            background: '#000000',
-                            border: '1px solid #C49B5D',
-                            color: '#C49B5D',
+                            background: '#141312',
+                            border: '1px solid #C5A46D',
+                            color: '#C5A46D',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -810,7 +810,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               style={{
                                 fontSize: '15.5px',
                                 fontWeight: 700,
-                                color: '#000000',
+                                color: '#141312',
                                 margin: 0,
                               }}
                             >
@@ -823,7 +823,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                   fontWeight: 600,
                                   textTransform: 'uppercase',
                                   letterSpacing: '0.08em',
-                                  color: '#9F7838',
+                                  color: '#9A7B4F',
                                   background: 'rgba(196, 155, 93, 0.15)',
                                   padding: '3px 10px',
                                   borderRadius: '14px',
@@ -857,8 +857,8 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                     marginTop: '20px',
                     padding: '20px 22px',
                     borderRadius: '8px',
-                    background: '#000000',
-                    border: '1px solid #C49B5D',
+                    background: '#141312',
+                    border: '1px solid #C5A46D',
                     display: 'flex',
                     flexWrap: 'wrap',
                     alignItems: 'center',
@@ -873,7 +873,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.14em',
-                        color: '#C49B5D',
+                        color: '#C5A46D',
                         display: 'block',
                         marginBottom: '4px',
                       }}
@@ -885,7 +885,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
                         fontSize: '20px',
                         fontWeight: 600,
-                        color: '#F5F3ED',
+                        color: '#F6F4EF',
                         margin: '0 0 4px',
                       }}
                     >
@@ -908,7 +908,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '2px',
-                            color: '#C49B5D',
+                            color: '#C5A46D',
                             textDecoration: 'underline',
                           }}
                         >
@@ -925,8 +925,8 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       gap: '6px',
                       padding: '11px 20px',
                       borderRadius: '6px',
-                      background: '#C49B5D',
-                      color: '#000000',
+                      background: '#C5A46D',
+                      color: '#141312',
                       fontSize: '12px',
                       fontWeight: 700,
                       textTransform: 'uppercase',
@@ -946,9 +946,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                   style={{
                     marginBottom: '32px',
                     padding: '28px 30px',
-                    background: '#ffffff',
+                    background: '#FCFBF9',
                     borderRadius: '10px',
-                    border: '1px solid rgba(196, 155, 93, 0.28)',
+                    border: '1px solid #E2DDD5',
                     boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
                   }}
                 >
@@ -969,7 +969,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           fontWeight: 700,
                           textTransform: 'uppercase',
                           letterSpacing: '0.14em',
-                          color: '#C49B5D',
+                          color: '#C5A46D',
                           display: 'block',
                           marginBottom: '4px',
                         }}
@@ -981,7 +981,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
                           fontSize: '26px',
                           fontWeight: 600,
-                          color: '#000000',
+                          color: '#141312',
                           margin: 0,
                         }}
                       >
@@ -998,7 +998,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.08em',
-                        color: '#9F7838',
+                        color: '#9A7B4F',
                         textDecoration: 'none',
                       }}
                     >
@@ -1015,10 +1015,10 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                             width: '100%',
                             display: 'flex',
                             flexDirection: 'column',
-                            background: '#FAF8F4',
+                            background: '#FCFBF9',
                             borderRadius: '8px',
                             overflow: 'hidden',
-                            border: '1px solid rgba(196, 155, 93, 0.25)',
+                            border: '1px solid #E2DDD5',
                             textDecoration: 'none',
                             transition: 'transform 0.25s ease, box-shadow 0.25s ease',
                           }}
@@ -1052,7 +1052,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
-                                color: '#C49B5D',
+                                color: '#C5A46D',
                                 marginBottom: '4px',
                               }}
                             >
@@ -1062,7 +1062,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               style={{
                                 fontSize: '15px',
                                 fontWeight: 700,
-                                color: '#000000',
+                                color: '#141312',
                                 margin: '0 0 6px',
                                 lineHeight: 1.35,
                               }}
@@ -1076,7 +1076,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                 gap: '4px',
                                 fontSize: '12px',
                                 fontWeight: 600,
-                                color: '#9F7838',
+                                color: '#9A7B4F',
                               }}
                             >
                               View Case Study <ChevronRight size={14} />
@@ -1095,9 +1095,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                   style={{
                     marginBottom: '28px',
                     padding: '28px 30px',
-                    background: '#ffffff',
+                    background: '#FCFBF9',
                     borderRadius: '10px',
-                    border: '1px solid rgba(196, 155, 93, 0.28)',
+                    border: '1px solid #E2DDD5',
                     boxShadow: '0 6px 24px rgba(0,0,0,0.04)',
                   }}
                 >
@@ -1107,7 +1107,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       letterSpacing: '0.14em',
-                      color: '#C49B5D',
+                      color: '#C5A46D',
                       display: 'block',
                       marginBottom: '4px',
                     }}
@@ -1120,7 +1120,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       marginBottom: '18px',
                       fontSize: '26px',
                       fontWeight: 600,
-                      color: '#000000',
+                      color: '#141312',
                     }}
                   >
                     Frequently Asked Questions About {service.title}
@@ -1133,10 +1133,10 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           key={idx}
                           style={{
                             borderRadius: '8px',
-                            background: isOpen ? '#FAF8F4' : '#ffffff',
+                            background: isOpen ? '#FCFBF9' : '#ffffff',
                             border: isOpen
-                              ? '1px solid #C49B5D'
-                              : '1px solid rgba(196, 155, 93, 0.25)',
+                              ? '1px solid #C5A46D'
+                              : '1px solid #E2DDD5',
                             overflow: 'hidden',
                             transition: 'all 0.25s ease',
                           }}
@@ -1162,7 +1162,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               style={{
                                 fontSize: '15.5px',
                                 fontWeight: 700,
-                                color: '#000000',
+                                color: '#141312',
                                 margin: 0,
                                 lineHeight: 1.4,
                               }}
@@ -1174,8 +1174,8 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                 width: '28px',
                                 height: '28px',
                                 borderRadius: '50%',
-                                background: isOpen ? '#000000' : 'rgba(196, 155, 93, 0.14)',
-                                color: isOpen ? '#C49B5D' : '#000000',
+                                background: isOpen ? '#141312' : 'rgba(196, 155, 93, 0.14)',
+                                color: isOpen ? '#C5A46D' : '#141312',
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -1219,9 +1219,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                 <div
                   style={{
                     padding: '22px 26px',
-                    background: '#ffffff',
+                    background: '#FCFBF9',
                     borderRadius: '10px',
-                    border: '1px solid rgba(196, 155, 93, 0.25)',
+                    border: '1px solid #E2DDD5',
                   }}
                 >
                   <span
@@ -1231,7 +1231,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       letterSpacing: '0.12em',
-                      color: '#9F7838',
+                      color: '#9A7B4F',
                       marginBottom: '12px',
                     }}
                   >
@@ -1248,9 +1248,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                           gap: '4px',
                           padding: '8px 14px',
                           borderRadius: '6px',
-                          background: '#FAF8F4',
+                          background: '#FCFBF9',
                           border: '1px solid rgba(196, 155, 93, 0.3)',
-                          color: '#000000',
+                          color: '#141312',
                           fontSize: '13px',
                           fontWeight: 600,
                           textDecoration: 'none',
@@ -1271,7 +1271,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                 <div
                   className="single-sidebar"
                   style={{
-                    background: '#000000',
+                    background: '#141312',
                     borderRadius: '10px',
                     border: '1px solid rgba(196, 155, 93, 0.38)',
                     padding: '24px 20px',
@@ -1286,7 +1286,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       justifyContent: 'space-between',
                       paddingBottom: '14px',
                       marginBottom: '14px',
-                      borderBottom: '1px solid rgba(196, 155, 93, 0.25)',
+                      borderBottom: '1px solid #E2DDD5',
                     }}
                   >
                     <h3
@@ -1295,7 +1295,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em',
-                        color: '#C49B5D',
+                        color: '#C5A46D',
                         margin: 0,
                       }}
                     >
@@ -1341,7 +1341,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               justifyContent: 'space-between',
                               borderRadius: '6px',
                               background: isBranchActive
-                                ? '#C49B5D'
+                                ? '#C5A46D'
                                 : isChildActive
                                   ? 'rgba(196, 155, 93, 0.16)'
                                   : 'rgba(255, 255, 255, 0.04)',
@@ -1357,7 +1357,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                               style={{
                                 flex: 1,
                                 padding: '11px 14px',
-                                color: isBranchActive ? '#000000' : '#F5F3ED',
+                                color: isBranchActive ? '#141312' : '#F6F4EF',
                                 fontWeight: isBranchActive || isChildActive ? 700 : 500,
                                 fontSize: '14px',
                                 textDecoration: 'none',
@@ -1374,7 +1374,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                 style={{
                                   background: 'transparent',
                                   border: 'none',
-                                  color: isBranchActive ? '#000000' : '#C49B5D',
+                                  color: isBranchActive ? '#141312' : '#C5A46D',
                                   padding: '10px 14px',
                                   cursor: 'pointer',
                                   fontSize: '12px',
@@ -1415,10 +1415,10 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                         fontSize: '13px',
                                         fontWeight: isSubSelected ? 700 : 400,
                                         background: isSubSelected
-                                          ? '#C49B5D'
+                                          ? '#C5A46D'
                                           : 'transparent',
                                         color: isSubSelected
-                                          ? '#000000'
+                                          ? '#141312'
                                           : 'rgba(245, 243, 237, 0.82)',
                                         textDecoration: 'none',
                                         transition: 'all 0.2s ease',
@@ -1430,8 +1430,8 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                                           height: '5px',
                                           borderRadius: '50%',
                                           background: isSubSelected
-                                            ? '#000000'
-                                            : '#C49B5D',
+                                            ? '#141312'
+                                            : '#C5A46D',
                                           flexShrink: 0,
                                         }}
                                       />
@@ -1480,7 +1480,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       <h2>
                         <a
                           href="tel:+8801768834417"
-                          style={{ color: '#C49B5D', textDecoration: 'none' }}
+                          style={{ color: '#C5A46D', textDecoration: 'none' }}
                         >
                           +880 1768834417
                         </a>
@@ -1508,7 +1508,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                 <div
                   className="single-sidebar"
                   style={{
-                    background: '#ffffff',
+                    background: '#FCFBF9',
                     borderRadius: '10px',
                     border: '1px solid rgba(196, 155, 93, 0.38)',
                     padding: '20px 22px',
@@ -1522,7 +1522,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       letterSpacing: '0.12em',
-                      color: '#9F7838',
+                      color: '#9A7B4F',
                       marginBottom: '4px',
                     }}
                   >
@@ -1533,7 +1533,7 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       fontFamily: "var(--font-serif, 'Cormorant Garamond', Georgia, serif)",
                       fontSize: '20px',
                       fontWeight: 600,
-                      color: '#000000',
+                      color: '#141312',
                       margin: '0 0 8px',
                     }}
                   >
@@ -1558,9 +1558,9 @@ export default function ServiceDetail({ slugProp, initialProjects = [] }) {
                       justifyContent: 'space-between',
                       padding: '12px 16px',
                       borderRadius: '6px',
-                      background: '#000000',
-                      border: '1px solid #C49B5D',
-                      color: '#C49B5D',
+                      background: '#141312',
+                      border: '1px solid #C5A46D',
+                      color: '#C5A46D',
                       fontSize: '12px',
                       fontWeight: 700,
                       textTransform: 'uppercase',

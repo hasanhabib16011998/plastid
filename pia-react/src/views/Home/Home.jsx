@@ -153,11 +153,11 @@ function TestimonialsSection({ initialList = [] }) {
       <div className="container-pia">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
               Testimonials
             </p>
             <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-              Our Customer <span className="text-brass">Words</span>
+              Our Customer <span className="text-bronze">Words</span>
             </h2>
           </div>
           <Link className="btn-two self-start md:self-auto" href="/testimonials">
@@ -166,7 +166,7 @@ function TestimonialsSection({ initialList = [] }) {
         </div>
 
         {error || list.length === 0 ? (
-          <div className="text-center py-10 px-5 bg-[#F9F8F3] rounded-lg border border-[#EAE6DF] text-ink text-[15px]">
+          <div className="text-center py-10 px-5 bg-chalk rounded-lg border border-stone-border text-ink text-[15px]">
             {error
               ? 'Something went wrong fetching the testimonials.'
               : 'No featured testimonials available at the moment.'}
@@ -176,17 +176,17 @@ function TestimonialsSection({ initialList = [] }) {
             {list.map((t, i) => (
               <div
                 key={t.id || i}
-                className="bg-white rounded-lg border border-brass/25 shadow-sm p-8 text-center flex flex-col justify-between hover:-translate-y-1 hover:border-brass transition-all duration-300"
+                className="bg-chalk rounded-lg border border-stone-border p-8 text-center flex flex-col justify-between hover:-translate-y-1 hover:border-bronze transition-all duration-300"
               >
                 <div>
-                  <div className="mb-4 text-brass text-3xl leading-none">
+                  <div className="mb-4 text-bronze text-3xl leading-none">
                     <span className="icon-quote1" />
                   </div>
                   <div className="mb-4">
                     <h3 className="font-serif text-xl font-semibold text-obsidian mb-0.5">
                       {t.name}
                     </h3>
-                    <span className="text-xs text-brass font-medium uppercase tracking-wider">
+                    <span className="text-xs text-bronze font-medium uppercase tracking-wider">
                       {t.location}
                     </span>
                   </div>
@@ -198,7 +198,7 @@ function TestimonialsSection({ initialList = [] }) {
                         e.currentTarget.onerror = null
                         e.currentTarget.src = '/images/testimonial/user-placeholder.png'
                       }}
-                      className="w-20 h-20 object-cover rounded-full border-2 border-brass block"
+                      className="w-20 h-20 object-cover rounded-full border-2 border-bronze block"
                     />
                   </div>
                   <p className="text-sm text-ink leading-relaxed italic m-0">&ldquo;{t.text}&rdquo;</p>
@@ -219,15 +219,15 @@ function TestimonialsSection({ initialList = [] }) {
             >
               {list.map((t, i) => (
                 <div key={t.id || i} className="flex-none w-full px-2">
-                  <div className="bg-white rounded-lg border border-brass/25 shadow-sm p-7 text-center">
-                    <div className="mb-3 text-brass text-3xl leading-none">
+                  <div className="bg-chalk rounded-lg border border-stone-border p-7 text-center">
+                    <div className="mb-3 text-bronze text-3xl leading-none">
                       <span className="icon-quote1" />
                     </div>
                     <div className="mb-4">
                       <h3 className="font-serif text-xl font-semibold text-obsidian mb-0.5">
                         {t.name}
                       </h3>
-                      <span className="text-xs text-brass font-medium uppercase tracking-wider">
+                      <span className="text-xs text-bronze font-medium uppercase tracking-wider">
                         {t.location}
                       </span>
                     </div>
@@ -239,7 +239,7 @@ function TestimonialsSection({ initialList = [] }) {
                           e.currentTarget.onerror = null
                           e.currentTarget.src = '/images/testimonial/user-placeholder.png'
                         }}
-                        className="w-20 h-20 object-cover rounded-full border-2 border-brass block"
+                        className="w-20 h-20 object-cover rounded-full border-2 border-bronze block"
                       />
                     </div>
                     <p className="text-sm text-ink leading-relaxed italic m-0">&ldquo;{t.text}&rdquo;</p>
@@ -257,7 +257,7 @@ function TestimonialsSection({ initialList = [] }) {
                     onClick={() => setActiveIndex(i)}
                     aria-label={`Go to testimonial ${i + 1}`}
                     className={`h-2.5 rounded-full border-0 cursor-pointer transition-all p-0 ${
-                      i === activeIndex ? 'w-6.5 bg-brass' : 'w-2.5 bg-neutral-300'
+                      i === activeIndex ? 'w-6.5 bg-bronze' : 'w-2.5 bg-stone-border'
                     }`}
                   />
                 ))}
@@ -526,7 +526,7 @@ function GSAPDots({ count, current, onChange }) {
           left: 0,
           height: '10px',
           borderRadius: '5px',
-          background: 'linear-gradient(135deg, #C49B5D 0%, #9F814D 100%)',
+          background: 'linear-gradient(135deg, #C5A46D 0%, #9A7B4F 100%)',
           boxShadow: '0 2px 8px rgba(196, 155, 93, 0.4)',
           pointerEvents: 'none',
         }}
@@ -564,9 +564,9 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
     if (disabled) return
     gsap.to(btnRef.current, {
       scale: 1.08,
-      backgroundColor: '#C49B5D',
-      color: '#000000',
-      borderColor: '#C49B5D',
+      backgroundColor: '#C5A46D',
+      color: '#141312',
+      borderColor: '#C5A46D',
       boxShadow: '0 8px 24px rgba(196, 155, 93, 0.45)',
       duration: 0.25,
       ease: 'power2.out',
@@ -582,9 +582,9 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
     if (disabled) return
     gsap.to(btnRef.current, {
       scale: 1,
-      backgroundColor: '#000000',
-      color: '#C49B5D',
-      borderColor: '#C49B5D',
+      backgroundColor: '#141312',
+      color: '#C5A46D',
+      borderColor: '#C5A46D',
       boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)',
       duration: 0.25,
       ease: 'power2.out',
@@ -620,9 +620,9 @@ function CarouselArrowButton({ direction, disabled, onClick }) {
         width: '48px',
         height: '48px',
         borderRadius: '12px',
-        background: disabled ? 'rgba(0, 0, 0, 0.4)' : '#000000',
-        color: disabled ? '#777777' : '#C49B5D',
-        border: disabled ? '1.5px solid rgba(196, 155, 93, 0.3)' : '1.5px solid #C49B5D',
+        background: disabled ? 'rgba(20, 19, 18, 0.4)' : '#141312',
+        color: disabled ? '#777777' : '#C5A46D',
+        border: disabled ? '1.5px solid rgba(197, 164, 109, 0.3)' : '1.5px solid #C5A46D',
         boxShadow: disabled ? 'none' : '0 4px 14px rgba(0, 0, 0, 0.25)',
         cursor: disabled ? 'default' : 'pointer',
         display: 'inline-flex',
@@ -1202,11 +1202,11 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
           <div className="container-pia">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
                   Projects
                 </p>
                 <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-                  Recently Completed <span className="text-brass">Works</span>
+                  Recently Completed <span className="text-bronze">Works</span>
                 </h2>
               </div>
               <Link className="btn-two self-start md:self-auto" href="/projects">
@@ -1222,13 +1222,13 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
           {/* Visual Divider between Recently Completed Works and Statistics */}
           <div className="container-pia mt-14 mb-9">
             <div className="flex items-center justify-center gap-4">
-              <span className="flex-1 h-px bg-gradient-to-r from-transparent to-brass/55" />
-              <span className="inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full border border-brass/40 bg-brass/10 text-brass text-[11px] font-semibold tracking-[0.16em] uppercase whitespace-nowrap">
+              <span className="flex-1 h-px bg-gradient-to-r from-transparent to-stone-border" />
+              <span className="inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full border border-stone-border bg-chalk text-bronze text-[11px] font-semibold tracking-[0.16em] uppercase whitespace-nowrap">
                 <span className="text-[10px]">◆</span>
                 Our Footprint
                 <span className="text-[10px]">◆</span>
               </span>
-              <span className="flex-1 h-px bg-gradient-to-l from-transparent to-brass/55" />
+              <span className="flex-1 h-px bg-gradient-to-l from-transparent to-stone-border" />
             </div>
           </div>
 
@@ -1237,17 +1237,17 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
               {sectorMetrics.map((s, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-lg border border-brass/25 p-6 shadow-xs flex flex-col justify-between hover:-translate-y-1.5 hover:border-brass hover:shadow-lg transition-all duration-300"
+                  className="bg-chalk rounded-lg border border-stone-border p-6 flex flex-col justify-between hover:-translate-y-1 hover:border-bronze transition-all duration-300"
                 >
                   <div>
-                    <span className="inline-block bg-brass/12 text-brass px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase mb-3.5">
+                    <span className="inline-block bg-bronze/10 text-bronze px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase mb-3.5">
                       {s.badge}
                     </span>
                     <div className="font-serif text-4xl leading-none font-medium text-obsidian mb-1.5">
                       {s.metric}
                     </div>
-                    <h3 className="text-base font-semibold text-brass mb-2.5">{s.label}</h3>
-                    <p className="text-[13.5px] leading-relaxed text-black/75 m-0">{s.desc}</p>
+                    <h3 className="text-base font-semibold text-bronze mb-2.5">{s.label}</h3>
+                    <p className="text-[13.5px] leading-relaxed text-ink m-0">{s.desc}</p>
                   </div>
                 </div>
               ))}
@@ -1258,32 +1258,32 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
         {/* Architectural Section Divider */}
         <div
           className="relative px-4"
-          style={{ background: 'linear-gradient(180deg, #F5F3ED 50%, #ffffff 50%)' }}
+          style={{ background: 'linear-gradient(180deg, #F6F4EF 50%, #FCFBF9 50%)' }}
         >
           <div className="container-pia flex items-center justify-center">
-            <span className="flex-1 h-px bg-gradient-to-r from-transparent to-brass/60" />
+            <span className="flex-1 h-px bg-gradient-to-r from-transparent to-stone-border" />
             <span
-              className="w-9 h-9 rounded-full bg-obsidian border-[1.5px] border-brass text-brass inline-flex items-center justify-center text-xs mx-4 shadow-md shrink-0"
+              className="w-9 h-9 rounded-full bg-obsidian border border-brass text-brass inline-flex items-center justify-center text-xs mx-4 shrink-0"
               aria-hidden="true"
             >
               ◆
             </span>
-            <span className="flex-1 h-px bg-gradient-to-l from-transparent to-brass/60" />
+            <span className="flex-1 h-px bg-gradient-to-l from-transparent to-stone-border" />
           </div>
         </div>
 
         {/* About */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-chalk">
           <div className="container-pia">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
               <div className="lg:col-span-5">
-                <div className="relative rounded-lg overflow-hidden shadow-xl">
+                <div className="relative rounded-lg overflow-hidden border border-stone-border">
                   <img
                     src="/images/resources/about-image.jpg"
                     alt="Plastid Interior & Architecture Founder"
                     className="w-full h-auto block"
                   />
-                  <div className="bg-obsidian/95 border-t-2 border-brass px-6 py-4">
+                  <div className="bg-charcoal border-t-2 border-brass px-6 py-4">
                     <p className="font-serif italic text-alabaster text-base mb-1">
                       Where Vision Meets Reality
                     </p>
@@ -1297,13 +1297,13 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
 
               <div className="lg:col-span-7">
                 <div className="mb-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
                     About Company
                   </p>
                   <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian leading-tight m-0">
                     A premier interior
                     <br />
-                    architecture <span className="text-brass">&amp; design studio</span>
+                    architecture <span className="text-bronze">&amp; design studio</span>
                   </h2>
                 </div>
                 <p className="text-[15px] text-ink leading-relaxed mb-4">
@@ -1354,7 +1354,7 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
               {workingAreas.map((w, i) => (
                 <div
                   key={i}
-                  className="group bg-obsidian/90 border border-brass/30 rounded-lg overflow-hidden shadow-xl hover:-translate-y-1.5 hover:border-brass transition-all duration-300 flex flex-col"
+                  className="group bg-charcoal border border-brass/30 rounded-lg overflow-hidden hover:-translate-y-1 hover:border-brass transition-all duration-300 flex flex-col"
                 >
                   <div className="relative h-56 overflow-hidden">
                     <img
@@ -1385,11 +1385,11 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
         <section className="py-20 bg-alabaster">
           <div className="container-pia">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
                 To Do Good Design
               </p>
               <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-                Our Working <span className="text-brass">Process</span>
+                Our Working <span className="text-bronze">Process</span>
               </h2>
             </div>
 
@@ -1397,7 +1397,7 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
               {workingProcess.map((p, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-lg border border-brass/25 p-7 text-center shadow-xs hover:-translate-y-1.5 hover:border-brass hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                  className="bg-chalk rounded-lg border border-stone-border p-7 text-center hover:-translate-y-1 hover:border-bronze transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>
                     <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-obsidian text-brass border border-brass font-serif text-lg font-semibold mb-4">
@@ -1408,14 +1408,14 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
                     </h3>
                     <div className="min-h-[22px] mb-2">
                       {p.duration && (
-                        <span className="text-xs font-semibold text-ochre-dark uppercase tracking-wider">
+                        <span className="text-xs font-semibold text-bronze uppercase tracking-wider">
                           ({p.duration})
                         </span>
                       )}
                     </div>
                     <p className="text-sm text-ink leading-relaxed mb-5">{p.text}</p>
                   </div>
-                  <div className="text-3xl text-brass pt-3 border-t border-brass/15">
+                  <div className="text-3xl text-bronze pt-3 border-t border-stone-border">
                     <span className={p.icon} />
                   </div>
                 </div>
@@ -1423,7 +1423,7 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
             </div>
 
             {/* 50% Refund Policy Highlight Banner */}
-            <div className="bg-obsidian rounded-lg border-[1.5px] border-brass p-7 sm:p-8 shadow-xl">
+            <div className="bg-charcoal rounded-lg border border-brass/50 p-7 sm:p-8">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                 <div className="md:col-span-8 lg:col-span-9">
                   <div className="flex items-center gap-3 mb-2">
@@ -1464,7 +1464,7 @@ export default function Home({ initialProjects = [], initialTestimonials = [] })
                     Ready to Transform <span className="text-brass">Your Space?</span>
                   </h2>
                 </div>
-                <div className="relative rounded-xl overflow-hidden border border-brass/35 bg-obsidian/85 p-6 shadow-xl">
+                <div className="relative rounded-xl overflow-hidden border border-brass/35 bg-charcoal/95 p-6">
                   <img
                     src="/images/resources/map.png"
                     alt="Dhaka Studio Map"

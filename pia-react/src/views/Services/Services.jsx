@@ -59,13 +59,13 @@ export default function Services() {
           <div className="container-pia">
             {/* Editorial Section Header */}
             <div className="text-center max-w-3xl mx-auto mb-11">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brass mb-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-bronze mb-2">
                 Architecture &bull; Interior &bull; Bespoke Execution
               </p>
               <h2 className="font-serif text-3xl sm:text-5xl font-semibold leading-tight text-obsidian mb-4">
-                Explore Our Services <span className="text-brass italic">by Your Space</span>
+                Explore Our Services <span className="text-bronze italic">by Your Space</span>
               </h2>
-              <p className="text-[#4A4A4A] text-[15.5px] leading-relaxed m-0">
+              <p className="text-ink text-[15.5px] leading-relaxed m-0">
                 From newly handed-over residential apartments and multi-level villas to fast-track
                 corporate headquarters, retail showrooms, and building facades—every Plastid project
                 is engineered with photorealistic 3D clarity and itemized turnkey precision.
@@ -77,7 +77,7 @@ export default function Services() {
               {commercialPillars.map((pillar, idx) => (
                 <div
                   key={idx}
-                  className="bg-obsidian rounded-lg border border-brass/40 p-5 shadow-md flex flex-col justify-between"
+                  className="bg-charcoal rounded-lg border border-brass/35 p-5 flex flex-col justify-between"
                 >
                   <div>
                     <span className="inline-block text-[10px] font-semibold uppercase tracking-[0.14em] text-brass bg-brass/15 border border-brass/30 px-2.5 py-0.5 rounded-full mb-3">
@@ -105,7 +105,7 @@ export default function Services() {
                 return (
                   <article
                     key={branch.slug}
-                    className="flex flex-col justify-between bg-white rounded-xl border border-brass/30 overflow-hidden shadow-md hover:-translate-y-1.5 hover:border-brass hover:shadow-xl transition-all duration-300"
+                    className="flex flex-col justify-between bg-chalk rounded-xl border border-stone-border overflow-hidden hover:-translate-y-1 hover:border-bronze transition-all duration-300"
                   >
                     <div>
                       {/* Editorial Image Header */}
@@ -221,10 +221,10 @@ export default function Services() {
             </div>
 
             {/* Complete 15-Service Directory */}
-            <div className="mt-10 p-6 sm:p-8 bg-white rounded-xl border border-brass/35 shadow-xs">
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-3.5 border-b border-brass/20">
+            <div className="mt-10 p-6 sm:p-8 bg-chalk rounded-xl border border-stone-border">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-3.5 border-b border-stone-border">
                 <div>
-                  <span className="block text-[11px] font-bold uppercase tracking-[0.14em] text-brass mb-1">
+                  <span className="block text-[11px] font-bold uppercase tracking-[0.14em] text-bronze mb-1">
                     Complete Service Index
                   </span>
                   <h3 className="font-serif text-2xl sm:text-[26px] font-semibold text-obsidian m-0">
@@ -233,7 +233,7 @@ export default function Services() {
                 </div>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-1 text-[13px] font-semibold text-ochre-dark hover:text-obsidian no-underline transition-colors"
+                  className="inline-flex items-center gap-1 text-[13px] font-semibold text-bronze hover:text-obsidian no-underline transition-colors"
                 >
                   Need help choosing? Speak with an Architect <ChevronRight size={14} />
                 </Link>
@@ -244,15 +244,15 @@ export default function Services() {
                   <Link
                     key={svc.slug}
                     href={`/services/${svc.slug}`}
-                    className="flex items-center justify-between px-3.5 py-2.5 rounded-md bg-cream border border-brass/25 text-neutral-900 text-[13.5px] font-medium no-underline hover:bg-obsidian hover:text-alabaster hover:border-brass transition-colors"
+                    className="flex items-center justify-between px-3.5 py-2.5 rounded-md bg-alabaster border border-stone-border text-obsidian text-[13.5px] font-medium no-underline hover:bg-obsidian hover:text-alabaster hover:border-brass transition-colors"
                   >
                     <span className="flex items-center gap-2.5">
-                      <span className="text-[11px] font-bold text-brass min-w-[20px]">
+                      <span className="text-[11px] font-bold text-bronze min-w-[20px]">
                         {String(i + 1).padStart(2, '0')}.
                       </span>
                       <span>{svc.heroTitle}</span>
                     </span>
-                    <ChevronRight className="text-brass shrink-0" size={14} />
+                    <ChevronRight className="text-bronze shrink-0" size={14} />
                   </Link>
                 ))}
               </div>

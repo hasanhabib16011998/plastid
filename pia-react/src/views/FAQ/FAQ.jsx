@@ -37,8 +37,8 @@ export default function FAQ() {
                 return (
                   <div
                     key={i}
-                    className={`rounded-lg bg-white border transition-colors overflow-hidden shadow-xs ${
-                      isOpen ? 'border-brass' : 'border-brass/25'
+                    className={`rounded-lg bg-chalk border transition-colors overflow-hidden ${
+                      isOpen ? 'border-bronze' : 'border-stone-border'
                     }`}
                   >
                     <button
@@ -53,8 +53,8 @@ export default function FAQ() {
                       <span
                         className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
                           isOpen
-                            ? 'bg-brass text-obsidian rotate-180'
-                            : 'bg-brass/15 text-brass rotate-0'
+                            ? 'bg-obsidian text-brass rotate-180'
+                            : 'bg-bronze/12 text-bronze rotate-0'
                         }`}
                       >
                         <ChevronDown size={15} />
@@ -66,7 +66,7 @@ export default function FAQ() {
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <p className="px-6 pb-6 pt-0 text-sm sm:text-[15px] text-ink leading-relaxed m-0 border-t border-brass/15 pt-4">
+                        <p className="px-6 pb-6 pt-4 text-sm sm:text-[15px] text-ink leading-relaxed m-0 border-t border-stone-border">
                           {item.answer}
                         </p>
                       </div>

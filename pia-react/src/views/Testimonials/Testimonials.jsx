@@ -31,14 +31,14 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
         />
 
         {/* Testimonials Grid Section */}
-        <section className="py-20 bg-[#F9F8F3]">
+        <section className="py-20 bg-alabaster">
           <div className="container-pia">
             <div className="text-center max-w-2xl mx-auto mb-14">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-2">
                 Real Experiences &amp; Feedback
               </p>
               <h2 className="font-serif text-4xl sm:text-5xl font-semibold text-obsidian mb-4">
-                Client <span className="text-brass">Reviews</span>
+                Client <span className="text-bronze">Reviews</span>
               </h2>
               <p className="text-sm sm:text-base text-ink leading-relaxed m-0">
                 Discover how we&apos;ve helped homeowners, business owners, and developers transform
@@ -47,7 +47,7 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
             </div>
 
             {error || testimonials.length === 0 ? (
-              <div className="text-center py-12 px-5 bg-white rounded-lg border border-[#EAE6DF] text-ink text-base max-w-xl mx-auto mb-10">
+              <div className="text-center py-12 px-5 bg-chalk rounded-lg border border-stone-border text-ink text-base max-w-xl mx-auto mb-10">
                 {error
                   ? 'Something went wrong fetching the testimonials.'
                   : 'No testimonials published yet.'}
@@ -57,18 +57,18 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
                 {testimonials.map((t, i) => (
                   <div
                     key={t.id || i}
-                    className={`relative bg-white px-7 py-10 rounded-lg shadow-sm flex flex-col justify-between text-center ${
-                      t.isFeatured ? 'border-2 border-brass' : 'border border-[#EAE6DF]'
+                    className={`relative bg-chalk px-7 py-10 rounded-lg flex flex-col justify-between text-center ${
+                      t.isFeatured ? 'border-2 border-bronze' : 'border border-stone-border'
                     }`}
                   >
                     {t.isFeatured && (
-                      <span className="absolute top-4 right-4 bg-brass text-obsidian text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                      <span className="absolute top-4 right-4 bg-obsidian text-brass text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                         Featured
                       </span>
                     )}
 
                     <div>
-                      <div className="flex justify-center mb-5 text-brass">
+                      <div className="flex justify-center mb-5 text-bronze">
                         <Quote size={32} />
                       </div>
 
@@ -80,7 +80,7 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
                             e.currentTarget.onerror = null
                             e.currentTarget.src = '/images/testimonial/user-placeholder.png'
                           }}
-                          className="w-22 h-22 object-cover rounded-full border-[3px] border-brass block"
+                          className="w-22 h-22 object-cover rounded-full border-2 border-bronze block"
                         />
                       </div>
 
@@ -89,9 +89,9 @@ export default function TestimonialsView({ initialTestimonials = [] }) {
                       </p>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-dashed border-neutral-200">
+                    <div className="mt-6 pt-4 border-t border-dashed border-stone-border">
                       <h3 className="text-lg font-bold text-obsidian mb-1">{t.name}</h3>
-                      <span className="text-[13px] text-brass font-medium">{t.location}</span>
+                      <span className="text-[13px] text-bronze font-medium">{t.location}</span>
                     </div>
                   </div>
                 ))}

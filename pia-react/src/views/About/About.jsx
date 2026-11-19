@@ -102,9 +102,9 @@ function CompanyTimeline() {
       </div>
 
       {/* Active Milestone Details Card */}
-      <div className="bg-white rounded-lg border border-brass/30 shadow-md overflow-hidden p-6 sm:p-10">
+      <div className="bg-chalk rounded-lg border border-stone-border overflow-hidden p-6 sm:p-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div className="relative rounded-md overflow-hidden max-h-[360px] shadow-md">
+          <div className="relative rounded-md overflow-hidden max-h-[360px]">
             <img
               src={item.img}
               alt={item.title}
@@ -116,7 +116,7 @@ function CompanyTimeline() {
           </div>
 
           <div className="lg:pl-4">
-            <div className="font-serif text-5xl sm:text-6xl leading-none font-light text-brass mb-2.5 tracking-tight">
+            <div className="font-serif text-5xl sm:text-6xl leading-none font-light text-bronze mb-2.5 tracking-tight">
               {item.year}
             </div>
             <h3 className="font-serif text-2xl sm:text-[28px] leading-snug text-obsidian mb-4 whitespace-pre-line font-medium">
@@ -193,20 +193,20 @@ export default function About({ initialTeam = [] }) {
 
               <div className="lg:col-span-7 lg:pl-6">
                 <div className="mb-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
                     About Company
                   </p>
                   <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
-                    Crafting Bespoke <span className="text-brass">Architectural Realities</span>
+                    Crafting Bespoke <span className="text-bronze">Architectural Realities</span>
                   </h2>
                 </div>
-                <p className="text-[15.5px] leading-[1.82] text-black/85 mb-5">
+                <p className="text-[15.5px] leading-[1.82] text-obsidian/85 mb-5">
                   Plastid Interior and Architecture is a premier full-service interior design and
                   architectural execution firm based in Dhaka, Bangladesh. With a passion for
                   structural innovation and a commitment to precision, we craft bespoke living and
                   working environments across Bangladesh.
                 </p>
-                <p className="text-[15px] leading-[1.8] text-black/75 mb-7">
+                <p className="text-[15px] leading-[1.8] text-ink mb-7">
                   From 3D concept merchandising to full turnkey site engineering, our
                   multi-disciplinary team collaborates closely with clients to deliver timeless
                   spaces. Our signature design-fee credit policy ensures complete financial
@@ -218,12 +218,12 @@ export default function About({ initialTeam = [] }) {
                   {companyPillars.map((p, i) => (
                     <div
                       key={i}
-                      className="bg-white border border-brass/25 rounded-md p-4 h-full"
+                      className="bg-chalk border border-stone-border rounded-md p-4 h-full"
                     >
                       <h3 className="font-serif text-lg text-obsidian mb-2 font-medium">
                         {p.title}
                       </h3>
-                      <p className="text-xs leading-relaxed text-black/70 m-0">{p.text}</p>
+                      <p className="text-xs leading-relaxed text-ink m-0">{p.text}</p>
                     </div>
                   ))}
                 </div>
@@ -233,14 +233,14 @@ export default function About({ initialTeam = [] }) {
         </section>
 
         {/* Interactive Timeline Section */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-chalk border-y border-stone-border">
           <div className="container-pia">
             <div className="text-center max-w-2xl mx-auto mb-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
                 Our Journey
               </p>
               <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-                Company Timeline &amp; <span className="text-brass">Milestones</span>
+                Company Timeline &amp; <span className="text-bronze">Milestones</span>
               </h2>
             </div>
             <CompanyTimeline />
@@ -251,11 +251,11 @@ export default function About({ initialTeam = [] }) {
         <section ref={teamRef} className="py-20 bg-alabaster">
           <div className="container-pia">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
                 Behind Our Success
               </p>
               <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-obsidian m-0">
-                Expert &amp; Dedicated <span className="text-brass">Team</span>
+                Expert &amp; Dedicated <span className="text-bronze">Team</span>
               </h2>
             </div>
 
@@ -268,7 +268,7 @@ export default function About({ initialTeam = [] }) {
                 {teamList.map((m, i) => (
                   <div
                     key={i}
-                    className="single-team-member flex flex-col justify-between bg-white rounded-md overflow-hidden border border-brass/25 shadow-xs hover:-translate-y-1.5 hover:border-brass hover:shadow-lg transition-all duration-300"
+                    className="single-team-member flex flex-col justify-between bg-chalk rounded-md overflow-hidden border border-stone-border hover:-translate-y-1 hover:border-bronze transition-all duration-300"
                   >
                     <div className="overflow-hidden h-[240px] sm:h-[260px] shrink-0">
                       <img
@@ -278,7 +278,7 @@ export default function About({ initialTeam = [] }) {
                       />
                     </div>
                     <div className="text-center px-4 py-5 flex-1 flex flex-col justify-center items-center">
-                      <span className="text-brass text-[11px] font-semibold tracking-[0.15em] uppercase mb-1.5">
+                      <span className="text-bronze text-[11px] font-semibold tracking-[0.15em] uppercase mb-1.5">
                         {m.role}
                       </span>
                       <h3 className="font-serif text-lg sm:text-xl text-obsidian font-medium m-0">

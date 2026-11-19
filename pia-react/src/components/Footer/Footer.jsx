@@ -92,7 +92,7 @@ export default function Footer() {
 
             {/* Brochure Column */}
             <div className="md:col-span-2 lg:col-span-1">
-              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start sm:items-center lg:items-start xl:items-center gap-6 p-6 rounded-lg bg-white/[0.03] border border-brass/25">
+              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start sm:items-center lg:items-start xl:items-center gap-6 p-6 rounded-lg bg-charcoal border border-brass/25">
                 <div className="w-28 shrink-0 overflow-hidden rounded border border-brass/30">
                   <img
                     src="/images/footer/brochures-1.jpg"
@@ -120,7 +120,7 @@ export default function Footer() {
       </footer>
 
       {/* Footer Bottom Bar */}
-      <section className="bg-[#0a0a0a] border-t border-brass/20 py-5">
+      <section className="bg-[#100F0E] border-t border-brass/20 py-5">
         <div className="container-pia">
           <p className="text-center text-xs text-alabaster/70 m-0">
             Copyright &copy; {currentYear}{' '}

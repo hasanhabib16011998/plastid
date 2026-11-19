@@ -100,15 +100,15 @@ export default function Contact() {
         />
 
         {/* Contact Info Cards */}
-        <section className="py-16 sm:py-20 bg-[#f9f9f9]">
+        <section className="py-16 sm:py-20 bg-alabaster">
           <div className="container-pia">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
               {contactInfo.map(({ Icon, title, lines }, i) => (
                 <div
                   key={i}
-                  className="bg-white px-7 py-9 rounded border border-brass/20 text-center shadow-sm hover:-translate-y-1.5 transition-transform duration-300"
+                  className="bg-chalk px-7 py-9 rounded border border-stone-border text-center hover:-translate-y-1 transition-transform duration-300"
                 >
-                  <div className="w-17 h-17 rounded-full bg-brass/15 flex items-center justify-center mx-auto mb-5 text-brass">
+                  <div className="w-17 h-17 rounded-full bg-bronze/12 flex items-center justify-center mx-auto mb-5 text-bronze">
                     <Icon size={28} />
                   </div>
                   <h2 className="font-serif text-2xl font-semibold text-obsidian mb-3">{title}</h2>
@@ -124,17 +124,17 @@ export default function Contact() {
         </section>
 
         {/* Contact Form + Map */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-chalk border-t border-stone-border">
           <div className="container-pia">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
               {/* Contact Form */}
               <div className="lg:col-span-7">
                 <div className="mb-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
                     Get In Touch
                   </p>
                   <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
-                    Send Us a <span className="text-brass">Message</span>
+                    Send Us a <span className="text-bronze">Message</span>
                   </h2>
                 </div>
 
@@ -220,15 +220,15 @@ export default function Contact() {
               {/* Map & Social */}
               <div className="lg:col-span-5">
                 <div className="mb-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre-dark mb-1.5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bronze mb-1.5">
                     Our Location
                   </p>
                   <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-obsidian m-0">
-                    Find Us On <span className="text-brass">Map</span>
+                    Find Us On <span className="text-bronze">Map</span>
                   </h2>
                 </div>
 
-                <div className="rounded-md overflow-hidden mb-6 h-[340px] shadow-md border border-black/10">
+                <div className="rounded-md overflow-hidden mb-6 h-[340px] border border-stone-border">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.4941539302285!2d90.43558017587414!3d23.76541148819882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70021dd78f7%3A0x8ac0dd7367642152!2sPlastid%20Interior%20%26%20Architecture!5e0!3m2!1sen!2sbd!4v1792351987658!5m2!1sen!2sbd"
                     width="100%"

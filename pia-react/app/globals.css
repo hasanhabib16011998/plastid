@@ -1,14 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #000000;
-  --color-brass: #C49B5D;
-  --color-ochre: #9F814D;
-  --color-ochre-dark: #9F7838;
-  --color-alabaster: #F5F3ED;
-  --color-cream: #FAF8F4;
+  --color-obsidian: #141312;
+  --color-charcoal: #1E1C1A;
+  --color-brass: #C5A46D;
+  --color-bronze: #9A7B4F;
+  --color-ochre: #9A7B4F;
+  --color-ochre-dark: #9A7B4F;
+  --color-alabaster: #F6F4EF;
+  --color-chalk: #FCFBF9;
+  --color-cream: #FCFBF9;
+  --color-stone-border: #E2DDD5;
   --color-taupe: #AF9F8A;
-  --color-ink: #6B5E4E;
+  --color-ink: #5A534A;
 
   --font-sans: var(--font-primary, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   --font-serif: var(--font-serif-google, "Cormorant Garamond", Georgia, serif);
@@ -21,8 +25,8 @@
 
   body {
     min-height: 100vh;
-    background-color: #F5F3ED;
-    color: #6B5E4E;
+    background-color: #F6F4EF;
+    color: #5A534A;
   }
 }
 
@@ -78,48 +82,51 @@
     transform: translateX(0);
   }
 
+  /* Primary Button on dark or light */
   .btn-one {
-    background: #000000;
-    color: #C49B5D;
-    border: 1px solid #C49B5D;
+    background: #141312;
+    color: #C5A46D;
+    border: 1px solid #C5A46D;
   }
 
   .btn-one::before {
-    background: #C49B5D;
+    background: #C5A46D;
   }
 
   .btn-one:hover {
-    color: #000000;
-    border-color: #C49B5D;
+    color: #141312;
+    border-color: #C5A46D;
   }
 
+  /* Outline Button on light surfaces */
   .btn-two {
     background: transparent;
-    color: #000000;
-    border: 1px solid #000000;
+    color: #141312;
+    border: 1px solid #141312;
   }
 
   .btn-two::before {
-    background: #000000;
+    background: #141312;
   }
 
   .btn-two:hover {
-    color: #C49B5D;
-    border-color: #000000;
+    color: #C5A46D;
+    border-color: #141312;
   }
 
+  /* Brushed Brass Accent Button */
   .btn-three {
-    background: #C49B5D;
-    color: #000000;
-    border: 1px solid #C49B5D;
+    background: #C5A46D;
+    color: #141312;
+    border: 1px solid #C5A46D;
   }
 
   .btn-three::before {
-    background: #000000;
+    background: #141312;
   }
 
   .btn-three:hover {
-    color: #C49B5D;
-    border-color: #C49B5D;
+    color: #C5A46D;
+    border-color: #C5A46D;
   }
 }

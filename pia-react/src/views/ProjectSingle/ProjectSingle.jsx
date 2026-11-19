@@ -105,7 +105,7 @@ export default function ProjectSingle({ project }) {
           ]}
         />
 
-        <section className="py-12 sm:py-16 bg-white">
+        <section className="py-12 sm:py-16 bg-alabaster">
           <div className="container-pia">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               {/* Main Content */}
@@ -135,7 +135,7 @@ export default function ProjectSingle({ project }) {
                     }`}
                   >
                     {project.challenge && (
-                      <div className="bg-[#f9f9f9] p-6 rounded-lg border-l-4 border-obsidian h-full">
+                      <div className="bg-chalk p-6 rounded-lg border border-stone-border border-l-4 border-l-obsidian h-full">
                         <h3 className="font-serif text-xl text-obsidian font-semibold mb-2.5">
                           The Challenge
                         </h3>
@@ -145,7 +145,7 @@ export default function ProjectSingle({ project }) {
                       </div>
                     )}
                     {project.solution && (
-                      <div className="bg-obsidian p-6 rounded-lg border-l-4 border-brass h-full">
+                      <div className="bg-charcoal p-6 rounded-lg border-l-4 border-brass h-full">
                         <h3 className="font-serif text-xl text-brass font-semibold mb-2.5">
                           Our Solution
                         </h3>
@@ -161,11 +161,11 @@ export default function ProjectSingle({ project }) {
               {/* Sidebar */}
               <aside className="lg:col-span-4 space-y-6">
                 {/* Project Info */}
-                <div className="bg-[#f9f9f9] p-6 rounded-lg border border-brass/20">
-                  <h3 className="font-serif text-xl text-obsidian font-semibold mb-4 pb-2.5 border-b-2 border-brass">
+                <div className="bg-chalk p-6 rounded-lg border border-stone-border">
+                  <h3 className="font-serif text-xl text-obsidian font-semibold mb-4 pb-2.5 border-b-2 border-bronze">
                     Project Information
                   </h3>
-                  <div className="divide-y divide-neutral-200">
+                  <div className="divide-y divide-stone-border">
                     {[
                       { label: 'Category', value: project.category },
                       { label: 'Client', value: project.client },
@@ -185,7 +185,7 @@ export default function ProjectSingle({ project }) {
                 </div>
 
                 {/* CTA */}
-                <div className="bg-obsidian border border-brass p-7 rounded-lg text-center">
+                <div className="bg-charcoal border border-brass/50 p-7 rounded-lg text-center">
                   <h3 className="font-serif text-2xl text-brass font-semibold mb-2.5">
                     Start Your Project
                   </h3>
