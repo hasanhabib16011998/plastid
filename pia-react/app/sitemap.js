@@ -1,6 +1,8 @@
 import { SITE_URL, allServicesList } from '../src/data/servicesData'
 import { getPIAProjects } from '../src/lib/payload'
 
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap() {
   const now = new Date()
 

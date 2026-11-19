@@ -464,17 +464,27 @@ export default function ApartmentStory() {
         <div className="apt-story__narrative">
           <div className="apt-story__chapter">
             <span className="apt-story__chapter-line" />
-            <span className="apt-story__chapter-label" ref={chapterLabelRef} />
+            <span className="apt-story__chapter-label" ref={chapterLabelRef}>
+              {STAGES[0].chapter}
+            </span>
             <span className="apt-story__chapter-sep">—</span>
-            <span className="apt-story__chapter-sub" ref={chapterSubRef} />
+            <span className="apt-story__chapter-sub" ref={chapterSubRef}>
+              {STAGES[0].chapterSub}
+            </span>
           </div>
 
           <div className="apt-story__title-wrap">
-            <h1 className="apt-story__title" ref={titleRef} />
-            <em className="apt-story__title-em" ref={titleEmRef} />
+            <h1 className="apt-story__title" ref={titleRef}>
+              {STAGES[0].title}
+            </h1>
+            <em className="apt-story__title-em" ref={titleEmRef}>
+              {STAGES[0].titleEm}
+            </em>
           </div>
 
-          <p className="apt-story__desc" ref={descRef} />
+          <p className="apt-story__desc" ref={descRef}>
+            {STAGES[0].desc}
+          </p>
         </div>
 
         <div className="apt-story__action-card" ref={ctaGroupRef}>
